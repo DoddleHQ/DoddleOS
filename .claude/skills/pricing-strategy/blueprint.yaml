@@ -1,0 +1,23 @@
+id: doddle.marketing.pricing-strategy
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: Design SaaS pricing, packaging, and monetization strategy
+inputs:
+  - {name: context, type: string, required: true, description: "Product type, current pricing, target market, GTM motion"}
+  - {name: goal, type: string, required: false, description: "Primary goal (growth, revenue, profitability, upmarket move)"}
+outputs:
+  - {name: strategy, type: markdown, description: "Pricing strategy with value metric and tier structure"}
+  - {name: action_plan, type: json, description: "Pricing tasks with owner, effort, impact"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [assessment]}
+  - {id: strategy, type: agent, ref: sales-enabler, needs: [assess], produces: [strategy]}
+  - {id: plan, type: agent, ref: project-manager, needs: [strategy], produces: [action_plan]}
+  - {id: validate, type: agent, ref: brand-voice-guardian, needs: [plan], produces: [validated_plan]}
+on_fail: {retry: 1, fallback: manual_review}

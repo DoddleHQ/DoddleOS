@@ -1,0 +1,26 @@
+id: doddle.realty.openhouse
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Promote open house events into RSVPs, turnout, and 24h followup
+inputs:
+  - {name: listing_address, type: string, required: true, description: "Property street address for open house"}
+  - {name: event_date, type: string, required: true, description: "Open house date/time, ex 2026-09-20 12:00"}
+  - {name: market, type: string, required: false, description: "Farm area / city served"}
+outputs:
+  - {name: promo_plan, type: markdown, description: "7-day promo calendar across portal/social/signage/neighbors"}
+  - {name: rsvp_flow, type: json, description: "RSVP capture + reminders + digital sign-in flow"}
+  - {name: followup_sequence, type: markdown, description: "24h followup for attendees/no-shows/neighbor circle"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.meta-ads.adsInsights, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - meta-ads
+nodes:
+  - {id: assess, type: agent, ref: planner, needs: [inputs], produces: [event_assessment]}
+  - {id: ads_check, type: tool, ref: doddle.tool.v1.meta-ads.adsInsights, needs: [assess], produces: [audience_data]}
+  - {id: promo, type: agent, ref: copywriter, needs: [assess, ads_check], produces: [promo_plan]}
+  - {id: rsvp, type: tool, ref: doddle.tool.v1.hubspot.contacts, needs: [promo], produces: [rsvp_flow]}
+  - {id: followup, type: agent, ref: email-wizard, needs: [rsvp], produces: [followup_sequence]}
+on_fail: {retry: 1, fallback: manual_review}

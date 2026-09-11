@@ -1,0 +1,23 @@
+id: doddle.marketing.product-led-growth
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: Implement product-led growth across acquisition, activation, conversion
+inputs:
+  - {name: context, type: string, required: true, description: "Business model, product maturity, activation metric, aha moment"}
+  - {name: goal, type: string, required: false, description: "Primary goal (activation, free-to-paid, expansion, virality)"}
+outputs:
+  - {name: strategy, type: markdown, description: "PLG strategy with activation and conversion frameworks"}
+  - {name: action_plan, type: json, description: "PLG tasks with owner, effort, impact"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [assessment]}
+  - {id: strategy, type: agent, ref: conversion-optimizer, needs: [assess], produces: [strategy]}
+  - {id: plan, type: agent, ref: project-manager, needs: [strategy], produces: [action_plan]}
+  - {id: validate, type: agent, ref: brand-voice-guardian, needs: [plan], produces: [validated_plan]}
+on_fail: {retry: 1, fallback: manual_review}

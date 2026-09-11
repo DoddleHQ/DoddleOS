@@ -1,0 +1,25 @@
+id: doddle.creator.monetization
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn creator audience into diversified revenue with offers, sponsors, and digital products
+inputs:
+  - {name: audience_size, type: string, required: true, description: "Followers/subs + avg views per platform"}
+  - {name: niche, type: string, required: true, description: "Creator niche + target audience"}
+  - {name: revenue, type: string, required: false, description: "Current revenue streams + monthly revenue"}
+outputs:
+  - {name: revenue_audit, type: markdown, description: "Current revenue audit + diversification gaps"}
+  - {name: offer_stack, type: json, description: "Offer stack across ads, sponsors, affiliates, products"}
+  - {name: media_kit_brief, type: markdown, description: "Rate card + media kit brief with CPM benchmarks"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [revenue_audit]}
+  - {id: stack, type: agent, ref: copywriter, needs: [assess], produces: [offer_stack]}
+  - {id: sponsor, type: agent, ref: copywriter, needs: [stack], produces: [media_kit_brief]}
+  - {id: product, type: agent, ref: copywriter, needs: [sponsor], produces: [offer_stack, media_kit_brief]}
+on_fail: {retry: 1, fallback: manual_review}

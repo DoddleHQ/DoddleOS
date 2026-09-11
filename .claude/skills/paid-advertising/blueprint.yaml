@@ -1,0 +1,24 @@
+id: doddle.marketing.paid-advertising
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: "Paid media strategy and optimization across platforms. Use when planning paid campaigns, optimizing ad performance, managing budgets, or setting up tracking for paid channels."
+inputs:
+  - {name: brief, type: string, required: true, description: "Campaign brief: goal, audience, offer; ask if missing"}
+  - {name: channel, type: string, required: false, description: "Ad platform(s); recommend from brief if missing"}
+  - {name: budget, type: string, required: false, description: "Total/monthly ad budget; ask if missing"}
+outputs:
+  - {name: plan, type: markdown, description: "Media plan: objectives, targeting, budgets, creative briefs, KPIs"}
+  - {name: assets, type: json, description: "Machine-readable ad assets: copy variants, creatives, targeting, pacing"}
+tools:
+  - {id: doddle.tool.v1.meta-ads.adsInsights, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - meta-ads
+  - google-analytics
+nodes:
+  - {id: brief, type: agent, ref: planner, needs: [inputs], produces: [brief_doc]}
+  - {id: create, type: agent, ref: copywriter, needs: [brief], produces: [plan, assets]}
+  - {id: distribute, type: tool, ref: doddle.tool.v1.meta-ads.adsInsights, needs: [create], produces: [distribution_receipt]}
+  - {id: measure, type: agent, ref: conversion-optimizer, needs: [distribute], produces: [plan, assets]}
+on_fail: {retry: 1, fallback: manual_review}

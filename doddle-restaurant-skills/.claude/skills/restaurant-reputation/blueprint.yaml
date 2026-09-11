@@ -1,0 +1,24 @@
+id: doddle.restaurant.reputation
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn reviews into bookings with ask flows, response playbooks, and rating rescue for restaurants
+inputs:
+  - {name: venue, type: string, required: true, description: "Restaurant name + cuisine"}
+  - {name: location, type: string, required: true, description: "Address or market / service area"}
+  - {name: platform, type: string, required: false, description: "Focus platform: google, yelp, tripadvisor, doordash, uber-eats, or all"}
+outputs:
+  - {name: reputation_audit, type: markdown, description: "Rating + velocity + platform coverage audit"}
+  - {name: response_playbook, type: markdown, description: "Response templates for food, service, delivery issues + disputes"}
+  - {name: ask_flow, type: json, description: "Review ask flow triggers and messages"}
+tools:
+  - {id: doddle.tool.v1.gbp.listReviews, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.gbp.getInsights, required: false, fallback: manual_review}
+integrations:
+  - google-business-profile
+nodes:
+  - {id: assess, type: agent, ref: conversion-optimizer, needs: [inputs], produces: [reputation_assessment]}
+  - {id: reviews_check, type: tool, ref: doddle.tool.v1.gbp.listReviews, needs: [assess], produces: [reviews_data]}
+  - {id: responses, type: agent, ref: brand-voice-guardian, needs: [reviews_check], produces: [reputation_audit, response_playbook]}
+  - {id: askflow, type: agent, ref: continuity-specialist, needs: [responses], produces: [ask_flow]}
+on_fail: {retry: 1, fallback: manual_review}

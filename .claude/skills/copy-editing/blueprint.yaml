@@ -1,0 +1,23 @@
+id: doddle.marketing.copy-editing
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: "Systematically edit and polish marketing copy through focused passes"
+inputs:
+  - {name: brief, type: string, required: true, description: "Copy to edit plus goal, audience, desired action"}
+  - {name: audience, type: string, required: false, description: "Target audience or segment"}
+  - {name: channel, type: string, required: false, description: "Delivery channel or page context"}
+outputs:
+  - {name: draft, type: markdown, description: "Edited copy with tracked rationale per sweep"}
+  - {name: variants, type: json, description: "Alternative phrasings for flagged lines with rationale"}
+tools:
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - notion
+nodes:
+  - {id: brief, type: agent, ref: copywriter, needs: [inputs], produces: [brief_doc]}
+  - {id: draft, type: agent, ref: copywriter, needs: [brief], produces: [draft]}
+  - {id: review, type: agent, ref: brand-voice-guardian, needs: [draft], produces: [reviewed_draft]}
+  - {id: finalize, type: agent, ref: copywriter, needs: [review], produces: [draft, variants]}
+on_fail: {retry: 1, fallback: manual_review}

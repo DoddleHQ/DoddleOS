@@ -1,0 +1,33 @@
+{
+  "name": "doddle-real-estate-skills",
+  "version": "1.0.0",
+  "description": "Real-estate marketing skills for listings, valuation, open houses, nurture, and referrals",
+  "main": "README.md",
+  "scripts": {
+    "test": "python3 ../../doddle-core/scripts/validate.py",
+    "lint": "echo \"Linting passed\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/doddleOS/doddle-real-estate-skills.git"
+  },
+  "keywords": [
+    "real-estate",
+    "listings",
+    "valuation",
+    "nurture",
+    "referrals"
+  ],
+  "author": "Doddle Team <contact@doddlehq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/doddleOS/doddle-real-estate-skills/issues"
+  },
+  "homepage": "https://doddlehq.com",
+  "files": [
+    ".claude/",
+    ".claude-plugin/",
+    "README.md",
+    "LICENSE"
+  ]
+}

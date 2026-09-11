@@ -1,0 +1,23 @@
+id: doddle.creator.scripting
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn a topic into a retention script with hooks variants and retention map
+inputs:
+  - {name: topic, type: string, required: true, description: "Video topic + target viewer + payoff"}
+  - {name: format, type: string, required: true, description: "Short (Shorts/Reels/TikTok) or long (YouTube 8-15 min)"}
+  - {name: length, type: string, required: false, description: "Target length, ex 60s or 10 min"}
+outputs:
+  - {name: script, type: markdown, description: "Full retention script with hook, beats, CTA"}
+  - {name: hooks_variants, type: json, description: "5+ hook variants with type and hold prediction"}
+  - {name: retention_map, type: markdown, description: "Beat-by-beat retention map with open loops and re-hooks"}
+tools:
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+integrations:
+  - notion
+nodes:
+  - {id: assess, type: agent, ref: copywriter, needs: [inputs], produces: [angle_assessment]}
+  - {id: structure, type: agent, ref: copywriter, needs: [assess], produces: [outline]}
+  - {id: draft, type: agent, ref: copywriter, needs: [structure], produces: [script, hooks_variants]}
+  - {id: polish, type: agent, ref: copywriter, needs: [draft], produces: [script, retention_map]}
+on_fail: {retry: 1, fallback: manual_review}

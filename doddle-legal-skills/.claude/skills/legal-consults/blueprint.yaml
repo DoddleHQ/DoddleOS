@@ -1,0 +1,25 @@
+id: doddle.legal.consults
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn booked consults into signed matters with prep sequences, show-rate plays, fee transparency, and 24h followup
+inputs:
+  - {name: firm, type: string, required: true, description: "Firm name + market"}
+  - {name: practice_area, type: string, required: true, description: "PI, family, criminal, estate, etc."}
+  - {name: booking_url, type: string, required: false, description: "Online booking / scheduler link"}
+outputs:
+  - {name: funnel_audit, type: markdown, description: "Booked-to-signed funnel audit with scores"}
+  - {name: prep_sequence, type: markdown, description: "What-to-bring + what-happens + fees prep sequence"}
+  - {name: followup_playbook, type: markdown, description: "24h summary + next-step + deadline followup playbook"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - google-analytics
+nodes:
+  - {id: assess, type: agent, ref: lead-qualifier, needs: [inputs], produces: [consult_assessment]}
+  - {id: funnel, type: tool, ref: doddle.tool.v1.ga4.getReport, needs: [assess], produces: [funnel_data]}
+  - {id: prep, type: agent, ref: copywriter, needs: [funnel], produces: [funnel_audit, prep_sequence]}
+  - {id: followup, type: agent, ref: continuity-specialist, needs: [prep], produces: [followup_playbook]}
+on_fail: {retry: 1, fallback: manual_review}

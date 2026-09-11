@@ -1,0 +1,40 @@
+{
+  "name": "doddleOS-marketing",
+  "owner": {
+    "name": "Doddle Team",
+    "email": "contact@doddlehq.com"
+  },
+  "metadata": {
+    "description": "Enterprise-grade AI marketing automation framework for Claude Code"
+  },
+  "plugins": [
+    {
+      "name": "doddleOS-marketing",
+      "source": "./",
+      "description": "Full marketing automation suite with 20 agents, 99 commands, 49 skills (DoddleOS v2 blueprints)",
+      "author": {
+        "name": "Doddle Team"
+      },
+      "homepage": "https://doddlehq.com",
+      "repository": "https://github.com/doddleOS/doddleOS-marketing",
+      "license": "MIT",
+      "keywords": [
+        "marketing",
+        "ai-agents",
+        "content",
+        "seo",
+        "cro",
+        "email",
+        "campaigns"
+      ],
+      "category": "marketing",
+      "tags": [
+        "marketing",
+        "content",
+        "seo",
+        "cro",
+        "automation"
+      ]
+    }
+  ]
+}

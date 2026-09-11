@@ -1,0 +1,24 @@
+id: doddle.marketing.email-sequence
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: "Design email nurture, welcome, and lifecycle sequences"
+inputs:
+  - {name: brief, type: string, required: true, description: "Sequence type, trigger, goal, number of emails"}
+  - {name: audience, type: string, required: false, description: "Target audience or segment"}
+  - {name: channel, type: string, required: false, description: "Delivery channel or page context"}
+outputs:
+  - {name: draft, type: markdown, description: "Full sequence with subjects, body, CTAs, timing"}
+  - {name: variants, type: json, description: "Alternative subject lines and CTAs with rationale"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - notion
+nodes:
+  - {id: brief, type: agent, ref: email-wizard, needs: [inputs], produces: [brief_doc]}
+  - {id: draft, type: agent, ref: email-wizard, needs: [brief], produces: [draft]}
+  - {id: review, type: agent, ref: brand-voice-guardian, needs: [draft], produces: [reviewed_draft]}
+  - {id: finalize, type: agent, ref: email-wizard, needs: [review], produces: [draft, variants]}
+on_fail: {retry: 1, fallback: manual_review}

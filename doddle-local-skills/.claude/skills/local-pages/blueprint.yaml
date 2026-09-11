@@ -1,0 +1,28 @@
+id: doddle.local.pages
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Build location and service-area pages that rank locally and convert calls and bookings
+inputs:
+  - {name: business_name, type: string, required: true, description: "Business name as listed"}
+  - {name: locations, type: string, required: true, description: "Target cities / service areas, comma-separated"}
+  - {name: services, type: string, required: true, description: "Core services to build pages for, comma-separated"}
+  - {name: locale, type: string, required: false, description: "Market locale, ex en-US"}
+outputs:
+  - {name: page_template, type: markdown, description: "Reusable location/service page template with copy blocks"}
+  - {name: rollout_plan, type: json, description: "Prioritized page rollout queue with URLs and effort"}
+  - {name: schema_snippet, type: json, description: "LocalBusiness JSON-LD snippet per page type"}
+tools:
+  - {id: doddle.tool.v1.gsc.getSearchAnalytics, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.semrush.keywordResearch, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - google-search-console
+  - semrush
+  - google-analytics
+nodes:
+  - {id: assess, type: agent, ref: seo-specialist, needs: [inputs], produces: [location_assessment]}
+  - {id: keyword_research, type: tool, ref: doddle.tool.v1.semrush.keywordResearch, needs: [assess], produces: [keyword_data]}
+  - {id: template, type: agent, ref: copywriter, needs: [keyword_research], produces: [page_template, schema_snippet]}
+  - {id: rollout, type: agent, ref: planner, needs: [template], produces: [rollout_plan]}
+on_fail: {retry: 1, fallback: manual_review}

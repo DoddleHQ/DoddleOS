@@ -1,0 +1,26 @@
+id: doddle.marketing.programmatic-seo
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: "Create SEO-driven pages at scale using templates and data"
+inputs:
+  - {name: topic_or_url, type: string, required: true, description: "Seed topic or site URL for programmatic pattern; ask if missing"}
+  - {name: keyword, type: string, required: false, description: "Keyword pattern or example query; infer if missing"}
+  - {name: locale, type: string, required: false, description: "Locale for language/market context; default en-US"}
+outputs:
+  - {name: report, type: markdown, description: "Opportunity analysis with template structure and implementation plan"}
+  - {name: action_list, type: json, description: "Prioritized page patterns and launch steps"}
+tools:
+  - {id: doddle.tool.v1.semrush.keywordResearch, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.dataforseo.serpGoogle, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.gsc.getSearchAnalytics, required: false, fallback: manual_review}
+integrations:
+  - semrush
+  - dataforseo
+  - google-search-console
+nodes:
+  - {id: assess, type: agent, ref: seo-specialist, needs: [inputs], produces: [assessment]}
+  - {id: research, type: tool, ref: doddle.tool.v1.semrush.keywordResearch, needs: [assess], produces: [research_data]}
+  - {id: recommend, type: agent, ref: copywriter, needs: [research], produces: [report]}
+  - {id: plan, type: agent, ref: planner, needs: [recommend], produces: [action_list]}
+on_fail: {retry: 1, fallback: manual_review}

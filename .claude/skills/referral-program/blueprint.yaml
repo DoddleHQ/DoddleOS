@@ -1,0 +1,23 @@
+id: doddle.marketing.referral-program
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: Design referral and affiliate programs for viral growth
+inputs:
+  - {name: context, type: string, required: true, description: "Program type, customer LTV, current CAC, existing program state"}
+  - {name: goal, type: string, required: false, description: "Primary goal (acquisition volume, CAC reduction, virality)"}
+outputs:
+  - {name: strategy, type: markdown, description: "Referral program strategy with incentive structure"}
+  - {name: action_plan, type: json, description: "Program tasks with owner, effort, impact"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [assessment]}
+  - {id: strategy, type: agent, ref: planner, needs: [assess], produces: [strategy]}
+  - {id: plan, type: agent, ref: project-manager, needs: [strategy], produces: [action_plan]}
+  - {id: validate, type: agent, ref: brand-voice-guardian, needs: [plan], produces: [validated_plan]}
+on_fail: {retry: 1, fallback: manual_review}

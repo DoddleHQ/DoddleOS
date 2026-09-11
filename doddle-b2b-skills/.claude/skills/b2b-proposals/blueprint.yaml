@@ -1,0 +1,25 @@
+id: doddle.b2b.proposals
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn qualified deals into signed proposals with scoped SoW and followup
+inputs:
+  - {name: deal_context, type: string, required: true, description: "Discovery notes, pain, stakeholders, success criteria"}
+  - {name: deal_size, type: string, required: false, description: "ACV range or seat count"}
+  - {name: competitor, type: string, required: false, description: "Incumbent or competing vendor"}
+outputs:
+  - {name: proposal_audit, type: markdown, description: "Discovery coverage and deal risk audit"}
+  - {name: proposal_pack, type: json, description: "Tiered pricing, SoW blocks, terms"}
+  - {name: followup_sequence, type: markdown, description: "Followup cadence with objection handling"}
+tools:
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - notion
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [deal_assessment]}
+  - {id: scope, type: agent, ref: sales-enabler, needs: [assess], produces: [proposal_audit]}
+  - {id: package, type: agent, ref: copywriter, needs: [scope], produces: [proposal_pack]}
+  - {id: followup, type: agent, ref: email-wizard, needs: [package], produces: [followup_sequence]}
+on_fail: {retry: 1, fallback: manual_review}

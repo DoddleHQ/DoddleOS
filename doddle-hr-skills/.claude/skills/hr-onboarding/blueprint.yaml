@@ -1,0 +1,27 @@
+id: doddle.hr.onboarding
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Ramp new hires fast with preboarding, 30/60/90 plans, buddy coverage, and written reviews
+inputs:
+  - {name: role, type: string, required: true, description: "Role title + level for new hire"}
+  - {name: start_date, type: string, required: true, description: "Start date, ex 2026-09-01"}
+  - {name: manager, type: string, required: false, description: "Hiring manager name"}
+outputs:
+  - {name: onboarding_plan, type: markdown, description: "30/60/90 plan with one win per phase"}
+  - {name: checklist, type: json, description: "Preboarding + week-1 checklist with owners"}
+  - {name: review_templates, type: markdown, description: "30/60/90 written review templates"}
+tools:
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.asana.tasks, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.slack.messages, required: false, fallback: manual_review}
+integrations:
+  - notion
+  - asana
+  - slack
+nodes:
+  - {id: assess, type: agent, ref: planner, needs: [inputs], produces: [role_assessment]}
+  - {id: preboard, type: tool, ref: doddle.tool.v1.asana.tasks, needs: [assess], produces: [preboard_data]}
+  - {id: plan, type: agent, ref: copywriter, needs: [preboard], produces: [onboarding_plan, checklist]}
+  - {id: reviews, type: agent, ref: planner, needs: [plan], produces: [review_templates]}
+on_fail: {retry: 1, fallback: manual_review}

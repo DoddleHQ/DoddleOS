@@ -1,0 +1,25 @@
+id: doddle.marketing.churn-prevention
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: "Churn analysis, retention and payment recovery plans"
+inputs:
+  - {name: context, type: string, required: true, description: "Churn rates, types, reasons, and lifecycle context"}
+  - {name: goal, type: string, required: false, description: "Retention goal, ex save flow, dunning, win-back"}
+outputs:
+  - {name: report, type: markdown, description: "Churn diagnosis with retention and recovery plan"}
+  - {name: recommendations, type: json, description: "Prioritized retention actions with expected save rate"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - hubspot
+  - notion
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [assessment]}
+  - {id: analyze, type: tool, ref: doddle.tool.v1.ga4.getReport, needs: [assess], produces: [analytics_data]}
+  - {id: recommend, type: agent, ref: continuity-specialist, needs: [analyze], produces: [report, recommendations]}
+  - {id: plan, type: agent, ref: planner, needs: [recommend], produces: [action_plan]}
+on_fail: {retry: 1, fallback: manual_review}

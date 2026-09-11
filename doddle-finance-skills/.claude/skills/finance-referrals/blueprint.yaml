@@ -1,0 +1,25 @@
+id: doddle.finance.referrals
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn COIs and happy clients into introductions with reciprocity plays, post-win asks, and event engines
+inputs:
+  - {name: firm, type: string, required: true, description: "Firm/advisory name + market"}
+  - {name: network, type: string, required: true, description: "Existing COI network / target partners"}
+  - {name: clients, type: string, required: false, description: "Client base for introduction asks"}
+outputs:
+  - {name: referral_audit, type: markdown, description: "COI + client referral audit with scores"}
+  - {name: coi_program, type: json, description: "COI tiers, reciprocity plays, and outreach sequence"}
+  - {name: touch_plan, type: markdown, description: "Ask moments + event + thank-you cadence"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.slack.messages, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - slack
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [referral_assessment]}
+  - {id: coi, type: agent, ref: planner, needs: [assess], produces: [coi_program]}
+  - {id: asks, type: agent, ref: sales-enabler, needs: [coi], produces: [referral_audit]}
+  - {id: events, type: agent, ref: continuity-specialist, needs: [asks], produces: [touch_plan]}
+on_fail: {retry: 1, fallback: manual_review}

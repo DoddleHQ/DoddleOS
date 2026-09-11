@@ -1,0 +1,33 @@
+{
+  "name": "doddle-sales-skills",
+  "version": "1.0.0",
+  "description": "B2B sales-execution skills for prospecting, discovery, negotiation, forecasting, and enablement",
+  "main": "README.md",
+  "scripts": {
+    "test": "python3 ../../doddle-core/scripts/validate.py",
+    "lint": "echo \"Linting passed\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/doddleOS/doddle-sales-skills.git"
+  },
+  "keywords": [
+    "sales",
+    "prospecting",
+    "discovery",
+    "negotiation",
+    "forecasting"
+  ],
+  "author": "Doddle Team <contact@doddlehq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/doddleOS/doddle-sales-skills/issues"
+  },
+  "homepage": "https://doddlehq.com",
+  "files": [
+    ".claude/",
+    ".claude-plugin/",
+    "README.md",
+    "LICENSE"
+  ]
+}

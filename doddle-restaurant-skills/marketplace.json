@@ -1,0 +1,39 @@
+{
+  "name": "doddle-restaurant-skills",
+  "owner": {
+    "name": "Doddle Team",
+    "email": "contact@doddlehq.com",
+    "url": "https://doddlehq.com"
+  },
+  "metadata": {
+    "description": "Restaurant marketing skills for reservations, ordering, loyalty, events, and reputation",
+    "version": "1.0.0",
+    "updatedAt": "2026-09-11"
+  },
+  "plugins": [
+    {
+      "name": "doddle-restaurant-skills",
+      "source": "./",
+      "description": "5 restaurant skills: reservations, ordering, loyalty, events, and reputation",
+      "author": {
+        "name": "Doddle Team"
+      },
+      "homepage": "https://doddlehq.com",
+      "repository": "https://github.com/doddleOS/doddle-restaurant-skills",
+      "documentation": "https://docs.doddlehq.com",
+      "license": "MIT",
+      "keywords": [
+        "restaurant",
+        "reservations",
+        "ordering",
+        "loyalty",
+        "events",
+        "reputation"
+      ],
+      "category": "restaurant-marketing",
+      "tags": ["restaurant", "local", "loyalty", "reputation"],
+      "featured": true,
+      "verified": true
+    }
+  ]
+}

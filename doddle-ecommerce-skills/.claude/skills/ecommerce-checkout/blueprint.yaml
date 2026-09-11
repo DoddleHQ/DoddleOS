@@ -1,0 +1,26 @@
+id: doddle.ecommerce.checkout
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: Optimize cart and checkout experience for eCommerce, reduce abandonment
+inputs:
+  - {name: checkout_url, type: string, required: true, description: "Checkout/cart URL to audit"}
+  - {name: cart_type, type: string, required: false, description: "Cart type: page, drawer, single-page, multi-step"}
+  - {name: locale, type: string, required: false, description: "Market locale, ex en-US"}
+outputs:
+  - {name: audit_report, type: markdown, description: "Scored audit across cart, flow, shipping, payment, trust"}
+  - {name: patch_list, type: json, description: "Prioritized fixes with impact/effort"}
+  - {name: recovery_plan, type: markdown, description: "Cart abandonment recovery sequence"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getRealtime, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: conversion-optimizer, needs: [inputs], produces: [ux_assessment]}
+  - {id: funnel_check, type: tool, ref: doddle.tool.v1.ga4.getReport, needs: [assess], produces: [funnel_data]}
+  - {id: recovery_design, type: agent, ref: email-wizard, needs: [funnel_check], produces: [recovery_draft]}
+  - {id: recommend, type: agent, ref: conversion-optimizer, needs: [funnel_check, recovery_design], produces: [audit_report, patch_list, recovery_plan]}
+on_fail: {retry: 1, fallback: manual_review}

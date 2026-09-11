@@ -1,0 +1,26 @@
+id: doddle.restaurant.reservations
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn browsers into seated guests with booking UX, waitlist, and no-show recovery
+inputs:
+  - {name: venue, type: string, required: true, description: "Restaurant name + cuisine"}
+  - {name: covers, type: string, required: true, description: "Seats per service / week"}
+  - {name: booking_url, type: string, required: false, description: "Reservation URL to audit"}
+  - {name: locale, type: string, required: false, description: "Market locale, ex en-US"}
+outputs:
+  - {name: funnel_audit, type: markdown, description: "Browse-to-seated audit with scores"}
+  - {name: waitlist_flow, type: json, description: "Waitlist + quote-time triggers"}
+  - {name: noshow_plan, type: markdown, description: "Reminders + recovery + deposit policy"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: conversion-optimizer, needs: [inputs], produces: [funnel_assessment]}
+  - {id: funnel_check, type: tool, ref: doddle.tool.v1.ga4.getReport, needs: [assess], produces: [funnel_data]}
+  - {id: booking_flow, type: agent, ref: copywriter, needs: [funnel_check], produces: [funnel_audit, waitlist_flow]}
+  - {id: recovery, type: agent, ref: continuity-specialist, needs: [booking_flow], produces: [noshow_plan]}
+on_fail: {retry: 1, fallback: manual_review}

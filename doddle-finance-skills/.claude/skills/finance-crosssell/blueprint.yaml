@@ -1,0 +1,24 @@
+id: doddle.finance.crosssell
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Grow share of wallet with annual reviews, life-event triggers, and next-best-product plays
+inputs:
+  - {name: firm, type: string, required: true, description: "Firm/advisory name + market"}
+  - {name: book_size, type: string, required: true, description: "Book size: households, AUM, product penetration"}
+  - {name: products, type: string, required: false, description: "Current product shelf: planning, insurance, mortgage, tax, etc."}
+outputs:
+  - {name: wallet_audit, type: markdown, description: "Share-of-wallet audit with product penetration scores"}
+  - {name: trigger_matrix, type: json, description: "Life-event trigger matrix + next-best-product mapping"}
+  - {name: review_program, type: markdown, description: "Annual review cross-sell program with advisor tasks"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [wallet_assessment]}
+  - {id: triggers, type: tool, ref: doddle.tool.v1.hubspot.contacts, needs: [assess], produces: [trigger_data]}
+  - {id: matrix, type: agent, ref: upsell-maximizer, needs: [triggers], produces: [wallet_audit, trigger_matrix]}
+  - {id: reviews, type: agent, ref: continuity-specialist, needs: [matrix], produces: [review_program]}
+on_fail: {retry: 1, fallback: manual_review}

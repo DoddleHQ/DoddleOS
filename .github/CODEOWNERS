@@ -1,0 +1,39 @@
+# Doddle Marketing OS - Code Owners
+# These owners will be requested for review when someone opens a PR
+# Learn more: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owners for everything
+* @doddleOS/core
+
+# Core plugin configuration
+/.claude-plugin/ @doddleOS/core
+/CLAUDE.md @doddleOS/core
+/plugin.json @doddleOS/core
+/marketplace.json @doddleOS/core
+
+# Agents
+/.claude/agents/ @doddleOS/core
+
+# Commands
+/.claude/commands/ @doddleOS/core
+
+# Skills
+/.claude/skills/ @doddleOS/core
+
+# Workflows
+/.claude/workflows/ @doddleOS/core
+
+# Training content
+/training/ @doddleOS/core
+
+# Documentation
+/docs/ @doddleOS/core
+/README.md @doddleOS/core
+/CONTRIBUTING.md @doddleOS/core
+
+# CI/CD and GitHub configuration
+/.github/ @doddleOS/core
+
+# Package configuration
+/package.json @doddleOS/core
+/.releaserc @doddleOS/core

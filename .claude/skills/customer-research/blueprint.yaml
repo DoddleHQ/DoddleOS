@@ -1,0 +1,25 @@
+id: doddle.marketing.customer-research
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: "Customer research, personas and journey insights"
+inputs:
+  - {name: context, type: string, required: true, description: "Research question, audience, and existing data sources"}
+  - {name: goal, type: string, required: false, description: "Decision to inform, ex personas, messaging, churn cause"}
+outputs:
+  - {name: report, type: markdown, description: "Research plan, findings, personas and journey map"}
+  - {name: recommendations, type: json, description: "Prioritized actions based on research insights"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - hubspot
+  - notion
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [assessment]}
+  - {id: analyze, type: tool, ref: doddle.tool.v1.ga4.getReport, needs: [assess], produces: [analytics_data]}
+  - {id: recommend, type: agent, ref: researcher, needs: [analyze], produces: [report, recommendations]}
+  - {id: plan, type: agent, ref: planner, needs: [recommend], produces: [action_plan]}
+on_fail: {retry: 1, fallback: manual_review}

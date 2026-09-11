@@ -1,0 +1,25 @@
+id: doddle.health.ads
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: When the user wants dental implants ads, lower patient acquisition cost, procedure marketing, or clinic ads
+inputs:
+  - {name: practice_name, type: string, required: true, description: "Clinic/practice name"}
+  - {name: procedures, type: string, required: true, description: "High-value procedures to promote (implants, ortho, LASIK, aesthetics)"}
+  - {name: monthly_budget, type: number, required: false, description: "Monthly ad budget to split across campaigns"}
+outputs:
+  - {name: account_audit, type: markdown, description: "Ad account audit with policy + tracking scores"}
+  - {name: budget_split, type: json, description: "Budget allocation by procedure and campaign"}
+  - {name: test_plan, type: markdown, description: "Creative + audience test plan with KPIs"}
+tools:
+  - {id: doddle.tool.v1.meta-ads.adsInsights, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - meta-ads
+  - google-analytics
+nodes:
+  - {id: assess, type: agent, ref: attraction-specialist, needs: [inputs], produces: [procedure_assessment]}
+  - {id: account_check, type: tool, ref: doddle.tool.v1.meta-ads.adsInsights, needs: [assess], produces: [account_data]}
+  - {id: budget, type: agent, ref: conversion-optimizer, needs: [account_check], produces: [account_audit, budget_split]}
+  - {id: creative, type: agent, ref: copywriter, needs: [budget], produces: [test_plan]}
+on_fail: {retry: 1, fallback: manual_review}

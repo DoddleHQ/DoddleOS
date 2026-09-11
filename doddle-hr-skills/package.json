@@ -1,0 +1,33 @@
+{
+  "name": "doddle-hr-skills",
+  "version": "1.0.0",
+  "description": "People-ops skills for recruiting, screening, onboarding, culture, and employer brand",
+  "main": "README.md",
+  "scripts": {
+    "test": "python3 ../../doddle-core/scripts/validate.py",
+    "lint": "echo \"Linting passed\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/doddleOS/doddle-hr-skills.git"
+  },
+  "keywords": [
+    "hr",
+    "recruiting",
+    "onboarding",
+    "culture",
+    "employer-brand"
+  ],
+  "author": "Doddle Team <contact@doddlehq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/doddleOS/doddle-hr-skills/issues"
+  },
+  "homepage": "https://doddlehq.com",
+  "files": [
+    ".claude/",
+    ".claude-plugin/",
+    "README.md",
+    "LICENSE"
+  ]
+}

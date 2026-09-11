@@ -1,0 +1,25 @@
+id: doddle.b2b.retainers
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn services into productized retainers with QBRs that retain and expand MRR
+inputs:
+  - {name: service, type: string, required: true, description: "Core service to productize into retainer (scope, deliverables)"}
+  - {name: arpa, type: string, required: false, description: "Current average revenue per account / MRR baseline"}
+  - {name: churn, type: string, required: false, description: "Current logo or revenue churn rate"}
+outputs:
+  - {name: retainer_audit, type: markdown, description: "Scope, utilization, churn-risk audit"}
+  - {name: tier_model, type: json, description: "Productized tiers, limits, pricing, downgrade paths"}
+  - {name: qbr_template, type: markdown, description: "QBR format: wins, metrics, roadmap, upsell"}
+tools:
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.stripe.getSubscriptions, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - stripe
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [retainer_assessment]}
+  - {id: package, type: agent, ref: planner, needs: [assess], produces: [retainer_audit, tier_model]}
+  - {id: qbr, type: agent, ref: copywriter, needs: [package], produces: [qbr_template]}
+  - {id: defend, type: agent, ref: continuity-specialist, needs: [qbr], produces: [retainer_audit, tier_model, qbr_template]}
+on_fail: {retry: 1, fallback: manual_review}

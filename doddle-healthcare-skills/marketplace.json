@@ -1,0 +1,39 @@
+{
+  "name": "doddle-healthcare-skills",
+  "owner": {
+    "name": "Doddle Team",
+    "email": "contact@doddlehq.com",
+    "url": "https://doddlehq.com"
+  },
+  "metadata": {
+    "description": "Clinic marketing skills for booking, recall, intake, reputation, and procedure ads",
+    "version": "1.0.0",
+    "updatedAt": "2026-09-11"
+  },
+  "plugins": [
+    {
+      "name": "doddle-healthcare-skills",
+      "source": "./",
+      "description": "5 healthcare skills: booking, recall, intake, reputation, and ads",
+      "author": {
+        "name": "Doddle Team"
+      },
+      "homepage": "https://doddlehq.com",
+      "repository": "https://github.com/doddleOS/doddle-healthcare-skills",
+      "documentation": "https://docs.doddlehq.com",
+      "license": "MIT",
+      "keywords": [
+        "healthcare",
+        "clinic",
+        "booking",
+        "recall",
+        "reputation",
+        "patient-acquisition"
+      ],
+      "category": "healthcare-marketing",
+      "tags": ["healthcare", "local", "reputation", "conversion"],
+      "featured": true,
+      "verified": true
+    }
+  ]
+}

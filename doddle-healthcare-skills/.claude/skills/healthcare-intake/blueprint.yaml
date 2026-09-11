@@ -1,0 +1,23 @@
+id: doddle.health.intake
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn new-patient intake into pre-visit completion with clean insurance verification and consent
+inputs:
+  - {name: practice_name, type: string, required: true, description: "Clinic/practice name"}
+  - {name: specialty, type: string, required: true, description: "Dental, physio, derm, etc."}
+  - {name: form_url, type: string, required: false, description: "Current intake/new-patient form URL to audit"}
+outputs:
+  - {name: form_audit, type: markdown, description: "Intake form audit with field/friction scores"}
+  - {name: intake_template, type: markdown, description: "Minimum-field new-patient + consent template"}
+  - {name: verification_checklist, type: markdown, description: "Eligibility/benefits/auth + denial-prevention checklist"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: conversion-optimizer, needs: [inputs], produces: [intake_assessment]}
+  - {id: form_check, type: tool, ref: doddle.tool.v1.hubspot.contacts, needs: [assess], produces: [contact_data]}
+  - {id: template, type: agent, ref: copywriter, needs: [form_check], produces: [form_audit, intake_template]}
+  - {id: verification, type: agent, ref: continuity-specialist, needs: [template], produces: [verification_checklist]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -1,0 +1,26 @@
+id: doddle.restaurant.ordering
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Shift aggregator orders to profitable direct ordering with first-party pages, QR upsell, and catering
+inputs:
+  - {name: venue, type: string, required: true, description: "Restaurant name + cuisine"}
+  - {name: order_mix, type: string, required: true, description: "Direct vs aggregator share + platforms used"}
+  - {name: avg_ticket, type: string, required: false, description: "Average order value"}
+  - {name: locale, type: string, required: false, description: "Market locale, ex en-US"}
+outputs:
+  - {name: margin_audit, type: markdown, description: "Direct-vs-aggregator margin audit with commission math"}
+  - {name: direct_playbook, type: markdown, description: "First-party ordering + QR upsell playbook"}
+  - {name: catering_kit, type: json, description: "Catering menu, minimums, lead times + triggers"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.meta-ads.adsInsights, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - meta-ads
+nodes:
+  - {id: assess, type: agent, ref: conversion-optimizer, needs: [inputs], produces: [order_assessment]}
+  - {id: margin, type: tool, ref: doddle.tool.v1.ga4.getReport, needs: [assess], produces: [margin_data]}
+  - {id: direct, type: agent, ref: copywriter, needs: [margin], produces: [margin_audit, direct_playbook]}
+  - {id: catering, type: agent, ref: continuity-specialist, needs: [direct], produces: [catering_kit]}
+on_fail: {retry: 1, fallback: manual_review}

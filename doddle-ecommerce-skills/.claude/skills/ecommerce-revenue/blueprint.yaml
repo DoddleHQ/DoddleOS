@@ -1,0 +1,28 @@
+id: doddle.ecommerce.revenue
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: Identify revenue leakage, increase AOV, optimize eCommerce profitability
+inputs:
+  - {name: store_url, type: string, required: true, description: "Store URL to audit"}
+  - {name: aov_current, type: number, required: false, description: "Current average order value"}
+  - {name: currency, type: string, required: false, description: "Currency code, ex USD"}
+outputs:
+  - {name: leakage_report, type: markdown, description: "Revenue leakage findings across 4 areas"}
+  - {name: uplift_plan, type: json, description: "Prioritized AOV uplift actions with impact"}
+  - {name: test_plan, type: markdown, description: "A/B test hypotheses for revenue uplift"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.meta-ads.adsInsights, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - hubspot
+  - meta-ads
+nodes:
+  - {id: assess, type: agent, ref: conversion-optimizer, needs: [inputs], produces: [leakage_assessment]}
+  - {id: revenue_check, type: tool, ref: doddle.tool.v1.ga4.getReport, needs: [assess], produces: [revenue_data]}
+  - {id: crm_check, type: tool, ref: doddle.tool.v1.hubspot.deals, needs: [revenue_check], produces: [deal_data]}
+  - {id: recommend, type: agent, ref: upsell-maximizer, needs: [revenue_check, crm_check], produces: [leakage_report, uplift_plan]}
+  - {id: test_design, type: agent, ref: conversion-optimizer, needs: [recommend], produces: [test_plan]}
+on_fail: {retry: 1, fallback: manual_review}

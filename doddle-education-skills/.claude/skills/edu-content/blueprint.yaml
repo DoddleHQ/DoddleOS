@@ -1,0 +1,27 @@
+id: doddle.edu.content
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn program pages, parent queries, and local intent into admissions content that ranks and converts to applications
+inputs:
+  - {name: programs, type: string, required: true, description: "Programs/courses to build content for"}
+  - {name: market, type: string, required: true, description: "Target market or locale, ex city/region"}
+  - {name: url, type: string, required: false, description: "Site URL for content audit"}
+outputs:
+  - {name: content_audit, type: markdown, description: "Program content audit with gaps and quick wins"}
+  - {name: topic_map, type: json, description: "Hub-and-spoke topic map for programs and parent queries"}
+  - {name: page_template, type: markdown, description: "Program page template with application CTA blocks"}
+tools:
+  - {id: doddle.tool.v1.gsc.getSearchAnalytics, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.semrush.keywordResearch, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - google-search-console
+  - semrush
+  - google-analytics
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [content_assessment]}
+  - {id: keyword, type: tool, ref: doddle.tool.v1.semrush.keywordResearch, needs: [assess], produces: [keyword_data]}
+  - {id: template, type: agent, ref: copywriter, needs: [keyword], produces: [content_audit, topic_map]}
+  - {id: cta, type: agent, ref: conversion-optimizer, needs: [template], produces: [page_template]}
+on_fail: {retry: 1, fallback: manual_review}

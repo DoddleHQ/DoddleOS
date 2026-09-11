@@ -1,0 +1,40 @@
+{
+  "name": "doddle-local-skills",
+  "owner": {
+    "name": "Doddle Team",
+    "email": "contact@doddlehq.com",
+    "url": "https://doddlehq.com"
+  },
+  "metadata": {
+    "description": "Local-services marketing skills for GBP, reviews, location pages, booking, and local ads",
+    "version": "1.0.0",
+    "updatedAt": "2026-09-11"
+  },
+  "plugins": [
+    {
+      "name": "doddle-local-skills",
+      "source": "./",
+      "description": "5 local skills: GBP, reviews, location pages, booking, and local ads",
+      "author": {
+        "name": "Doddle Team"
+      },
+      "homepage": "https://doddlehq.com",
+      "repository": "https://github.com/doddleOS/doddle-local-skills",
+      "documentation": "https://docs.doddlehq.com",
+      "license": "MIT",
+      "keywords": [
+        "local",
+        "gbp",
+        "reviews",
+        "location-pages",
+        "booking",
+        "local-ads",
+        "conversion"
+      ],
+      "category": "local-marketing",
+      "tags": ["local", "seo", "reputation", "conversion"],
+      "featured": true,
+      "verified": true
+    }
+  ]
+}

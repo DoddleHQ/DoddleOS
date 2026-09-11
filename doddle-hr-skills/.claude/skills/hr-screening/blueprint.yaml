@@ -1,0 +1,25 @@
+id: doddle.hr.screening
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Screen applicants fast with knockout questions, weighted scorecards, and paid assessments
+inputs:
+  - {name: role, type: string, required: true, description: "Role title + level to screen for"}
+  - {name: applicants, type: string, required: true, description: "Applicant pool / resumes to triage"}
+  - {name: must_haves, type: string, required: false, description: "Non-negotiables, visa/location/comp filters"}
+outputs:
+  - {name: triage_audit, type: markdown, description: "Applicant triage audit with SLA status"}
+  - {name: scorecard, type: json, description: "Weighted scorecard per shortlisted candidate"}
+  - {name: knockout_set, type: markdown, description: "Knockout questions + assessment task"}
+tools:
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.asana.tasks, required: false, fallback: manual_review}
+integrations:
+  - notion
+  - asana
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [role_assessment]}
+  - {id: knockout, type: agent, ref: planner, needs: [assess], produces: [knockout_set]}
+  - {id: score, type: tool, ref: doddle.tool.v1.notion.pages, needs: [knockout], produces: [triage_audit, scorecard]}
+  - {id: assess_task, type: tool, ref: doddle.tool.v1.asana.tasks, needs: [score], produces: [assessment_dispatch]}
+on_fail: {retry: 1, fallback: manual_review}

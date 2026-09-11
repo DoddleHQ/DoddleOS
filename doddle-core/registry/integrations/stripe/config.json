@@ -1,0 +1,24 @@
+{
+  "name": "stripe",
+  "description": "Stripe billing data access: subscriptions, invoices, churn, MRR",
+  "type": "npm",
+  "command": "npx",
+  "args": ["-y", "stripe-mcp-server"],
+  "env": {
+    "STRIPE_SECRET_KEY": "${STRIPE_SECRET_KEY}"
+  },
+  "setup": {
+    "requirements": [
+      "Node.js 18+",
+      "Stripe restricted key with read access"
+    ],
+    "status": "stub - MCP server pending, skills fall back to manual_review"
+  },
+  "capabilities": {
+    "tools": 4,
+    "categories": ["subscriptions", "invoices", "customers", "metrics"]
+  },
+  "source": {
+    "official": "https://stripe.com/docs/api"
+  }
+}

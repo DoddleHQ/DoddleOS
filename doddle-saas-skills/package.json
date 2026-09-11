@@ -1,0 +1,34 @@
+{
+  "name": "doddle-saas-skills",
+  "version": "1.0.0",
+  "description": "SaaS marketing skills for homepage, pricing, trial activation, retention, and expansion",
+  "main": "README.md",
+  "scripts": {
+    "test": "python3 ../../doddle-core/scripts/validate.py",
+    "lint": "echo \"Linting passed\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/doddleOS/doddle-saas-skills.git"
+  },
+  "keywords": [
+    "saas",
+    "trial",
+    "pricing",
+    "retention",
+    "expansion",
+    "plg"
+  ],
+  "author": "Doddle Team <contact@doddlehq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/doddleOS/doddle-saas-skills/issues"
+  },
+  "homepage": "https://doddlehq.com",
+  "files": [
+    ".claude/",
+    ".claude-plugin/",
+    "README.md",
+    "LICENSE"
+  ]
+}

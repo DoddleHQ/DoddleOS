@@ -1,0 +1,25 @@
+id: doddle.sales.enablement
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn rep guesswork into used collateral with gap audits, multi-cut assets, demo libraries, and rep certification
+inputs:
+  - {name: product, type: string, required: true, description: "Product, positioning, pricing tiers"}
+  - {name: audience, type: string, required: true, description: "Buyer personas, segments, deal sizes"}
+  - {name: gaps, type: string, required: false, description: "Known asset gaps or rep complaints"}
+outputs:
+  - {name: asset_gap_audit, type: markdown, description: "What-reps-send audit + gap priorities"}
+  - {name: asset_pack, type: json, description: "Multi-cut assets + demo library spec"}
+  - {name: rep_onboarding, type: markdown, description: "Certification + shadow + first-deals plan"}
+tools:
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+integrations:
+  - notion
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: sales-enabler, needs: [inputs], produces: [usage_assessment]}
+  - {id: gap, type: agent, ref: sales-enabler, needs: [assess], produces: [asset_gap_audit]}
+  - {id: produce, type: agent, ref: copywriter, needs: [gap], produces: [asset_pack]}
+  - {id: onboard, type: agent, ref: sales-enabler, needs: [produce], produces: [rep_onboarding]}
+on_fail: {retry: 1, fallback: manual_review}

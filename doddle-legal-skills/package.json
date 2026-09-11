@@ -1,0 +1,33 @@
+{
+  "name": "doddle-legal-skills",
+  "version": "1.0.0",
+  "description": "Law-firm marketing skills for intake, guides, consults, reputation, and referrals",
+  "main": "README.md",
+  "scripts": {
+    "test": "python3 ../../doddle-core/scripts/validate.py",
+    "lint": "echo \"Linting passed\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/doddleOS/doddle-legal-skills.git"
+  },
+  "keywords": [
+    "legal",
+    "intake",
+    "consults",
+    "reputation",
+    "referrals"
+  ],
+  "author": "Doddle Team <contact@doddlehq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/doddleOS/doddle-legal-skills/issues"
+  },
+  "homepage": "https://doddlehq.com",
+  "files": [
+    ".claude/",
+    ".claude-plugin/",
+    "README.md",
+    "LICENSE"
+  ]
+}

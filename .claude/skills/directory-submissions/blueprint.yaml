@@ -1,0 +1,26 @@
+id: doddle.marketing.directory-submissions
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: "Submit product to startup, SaaS, AI, and review directories for backlinks and visibility"
+inputs:
+  - {name: topic_or_url, type: string, required: true, description: "Product name or URL to list; ask if missing"}
+  - {name: keyword, type: string, required: false, description: "Product category keyword; infer if missing"}
+  - {name: locale, type: string, required: false, description: "Locale for language/market context; default en-US"}
+outputs:
+  - {name: report, type: markdown, description: "Prioritized directory strategy with profile content and submission plan"}
+  - {name: action_list, type: json, description: "Prioritized directories with effort and value scores"}
+tools:
+  - {id: doddle.tool.v1.semrush.keywordResearch, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.gsc.getSearchAnalytics, required: false, fallback: manual_review}
+integrations:
+  - semrush
+  - google-analytics
+  - google-search-console
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [assessment]}
+  - {id: research, type: tool, ref: doddle.tool.v1.semrush.keywordResearch, needs: [assess], produces: [research_data]}
+  - {id: recommend, type: agent, ref: seo-specialist, needs: [research], produces: [report]}
+  - {id: plan, type: agent, ref: planner, needs: [recommend], produces: [action_list]}
+on_fail: {retry: 1, fallback: manual_review}

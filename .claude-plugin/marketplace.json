@@ -1,0 +1,102 @@
+{
+  "name": "doddleOS-marketing",
+  "owner": {
+    "name": "Doddle Team",
+    "email": "contact@doddlehq.com",
+    "url": "https://doddlehq.com"
+  },
+  "metadata": {
+    "description": "Enterprise-grade AI marketing automation framework for Claude Code",
+    "longDescription": "Complete marketing automation suite with 18 specialized agents, 90+ slash commands, 28 marketing skills, and interactive training. Covers campaigns, content, SEO, CRO, email, sales enablement, and analytics.",
+    "version": "2.0.0",
+    "updatedAt": "2025-01-24"
+  },
+  "plugins": [
+    {
+      "name": "doddleOS-marketing",
+      "source": "./",
+      "description": "Full marketing automation suite - agents, commands, skills, workflows, and training",
+      "author": {
+        "name": "Doddle Team"
+      },
+      "homepage": "https://doddlehq.com",
+      "repository": "https://github.com/doddleOS/doddleOS-marketing",
+      "documentation": "https://docs.doddlehq.com",
+      "license": "MIT",
+      "keywords": [
+        "marketing",
+        "ai-agents",
+        "content",
+        "seo",
+        "cro",
+        "email",
+        "campaigns",
+        "automation",
+        "sales",
+        "copywriting"
+      ],
+      "category": "marketing",
+      "tags": [
+        "marketing",
+        "content",
+        "seo",
+        "cro",
+        "email",
+        "sales",
+        "campaigns",
+        "automation"
+      ],
+      "featured": true,
+      "verified": true
+    },
+    {
+      "name": "doddleOS-marketing-skills",
+      "source": "./.claude/skills",
+      "description": "28 marketing skills including CRO, SEO, copywriting, psychology, and growth",
+      "author": {
+        "name": "Doddle Team"
+      },
+      "license": "MIT",
+      "keywords": [
+        "marketing-skills",
+        "cro",
+        "seo",
+        "copywriting",
+        "psychology"
+      ],
+      "category": "skills",
+      "tags": ["skills", "marketing"]
+    },
+    {
+      "name": "doddleOS-marketing-agents",
+      "source": "./.claude/agents",
+      "description": "18 specialized marketing agents for campaigns, content, and optimization",
+      "author": {
+        "name": "Doddle Team"
+      },
+      "license": "MIT",
+      "keywords": [
+        "marketing-agents",
+        "ai-agents",
+        "automation"
+      ],
+      "category": "agents",
+      "tags": ["agents", "marketing"]
+    },
+    {
+      "name": "doddleOS-marketing-commands",
+      "source": "./.claude/commands",
+      "description": "90+ marketing slash commands for campaigns, content, SEO, CRO, and analytics",
+      "author": {
+        "name": "Doddle Team"
+      },
+      "license": "MIT",
+      "keywords": [
+        "marketing-commands",
+        "slash-commands"
+      ],
+      "category": "commands",
+      "tags": ["commands", "marketing"]
+    }
+  ]
+}

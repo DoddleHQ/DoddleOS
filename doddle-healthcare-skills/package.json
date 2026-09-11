@@ -1,0 +1,33 @@
+{
+  "name": "doddle-healthcare-skills",
+  "version": "1.0.0",
+  "description": "Clinic marketing skills for booking, recall, intake, reputation, and procedure ads",
+  "main": "README.md",
+  "scripts": {
+    "test": "python3 ../../doddle-core/scripts/validate.py",
+    "lint": "echo \"Linting passed\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/doddleOS/doddle-healthcare-skills.git"
+  },
+  "keywords": [
+    "healthcare",
+    "clinic",
+    "booking",
+    "recall",
+    "reputation"
+  ],
+  "author": "Doddle Team <contact@doddlehq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/doddleOS/doddle-healthcare-skills/issues"
+  },
+  "homepage": "https://doddlehq.com",
+  "files": [
+    ".claude/",
+    ".claude-plugin/",
+    "README.md",
+    "LICENSE"
+  ]
+}

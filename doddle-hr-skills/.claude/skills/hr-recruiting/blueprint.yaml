@@ -1,0 +1,26 @@
+id: doddle.hr.recruiting
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Fill roles fast with sharp job posts, sourcing mix, tight loops, and high offer acceptance
+inputs:
+  - {name: role, type: string, required: true, description: "Role title + level to hire"}
+  - {name: company, type: string, required: true, description: "Company + pitch in one line"}
+  - {name: comp, type: string, required: false, description: "Comp band + location policy"}
+  - {name: locale, type: string, required: false, description: "Market locale, ex en-US"}
+outputs:
+  - {name: hiring_audit, type: markdown, description: "Funnel audit req-to-offer with scores"}
+  - {name: job_post, type: markdown, description: "Outcome-led post with pay range"}
+  - {name: sourcing_plan, type: json, description: "Channel mix + loop design + owners"}
+tools:
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.asana.tasks, required: false, fallback: manual_review}
+integrations:
+  - notion
+  - asana
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [role_assessment]}
+  - {id: pipeline_check, type: tool, ref: doddle.tool.v1.asana.tasks, needs: [assess], produces: [pipeline_data]}
+  - {id: post, type: agent, ref: copywriter, needs: [pipeline_check], produces: [hiring_audit, job_post]}
+  - {id: source, type: agent, ref: planner, needs: [post], produces: [sourcing_plan]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -1,0 +1,40 @@
+{
+  "name": "doddle-ecommerce-skills",
+  "owner": {
+    "name": "Doddle Team",
+    "email": "contact@doddlehq.com",
+    "url": "https://doddlehq.com"
+  },
+  "metadata": {
+    "description": "eCommerce-specific marketing skills for PLP, PDP, checkout, search, and revenue optimisation",
+    "version": "1.0.0",
+    "updatedAt": "2026-09-10"
+  },
+  "plugins": [
+    {
+      "name": "doddle-ecommerce-skills",
+      "source": "./",
+      "description": "5 eCommerce skills: PLP, PDP, checkout, search, and revenue optimisation",
+      "author": {
+        "name": "Doddle Team"
+      },
+      "homepage": "https://doddlehq.com",
+      "repository": "https://github.com/doddleOS/doddle-ecommerce-skills",
+      "documentation": "https://docs.doddlehq.com",
+      "license": "MIT",
+      "keywords": [
+        "ecommerce",
+        "plp",
+        "pdp",
+        "checkout",
+        "search",
+        "revenue",
+        "conversion"
+      ],
+      "category": "ecommerce",
+      "tags": ["ecommerce", "cro", "conversion"],
+      "featured": true,
+      "verified": true
+    }
+  ]
+}

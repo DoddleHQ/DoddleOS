@@ -1,0 +1,24 @@
+id: doddle.realty.nurture
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Long-term buyer and seller nurture with drip campaigns, listing alerts, and market updates
+inputs:
+  - {name: segment, type: string, required: true, description: "Audience segment to nurture (buyers, sellers, past clients, sphere)"}
+  - {name: database_size, type: number, required: false, description: "Approximate CRM database size for cadence planning"}
+  - {name: crm, type: string, required: false, description: "CRM platform in use, ex HubSpot"}
+outputs:
+  - {name: nurture_map, type: markdown, description: "Segment map with cadence and channel plan"}
+  - {name: sequences, type: json, description: "Drip sequences with triggers and timing"}
+  - {name: task_prompts, type: markdown, description: "Agent call-task prompts on hot behavior"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: lead-qualifier, needs: [inputs], produces: [nurture_assessment]}
+  - {id: segment, type: tool, ref: doddle.tool.v1.hubspot.contacts, needs: [assess], produces: [segment_data]}
+  - {id: sequences, type: agent, ref: email-wizard, needs: [segment], produces: [nurture_map, sequences]}
+  - {id: tasks, type: agent, ref: sales-enabler, needs: [sequences], produces: [task_prompts]}
+on_fail: {retry: 1, fallback: manual_review}

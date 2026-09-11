@@ -1,0 +1,25 @@
+id: doddle.edu.alumni
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn graduates and parents into ambassadors, outcome stories, and sibling-priority referrals for a school or course
+inputs:
+  - {name: institution, type: string, required: true, description: "School/college/course brand + market"}
+  - {name: alumni_base, type: string, required: true, description: "Alumni + parent volunteer base size and segments"}
+  - {name: goal, type: string, required: false, description: "Referral, story, or engagement goal, ex sibling admissions"}
+outputs:
+  - {name: referral_audit, type: markdown, description: "Alumni referral audit with sibling-priority analysis"}
+  - {name: ambassador_program, type: json, description: "Ambassador tiers, roles, incentives, and story pipeline"}
+  - {name: touch_plan, type: markdown, description: "Reunion + engagement-first touch calendar with referral asks"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.slack.messages, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - slack
+nodes:
+  - {id: assess, type: agent, ref: continuity-specialist, needs: [inputs], produces: [alumni_assessment]}
+  - {id: ambassadors, type: agent, ref: copywriter, needs: [assess], produces: [ambassador_program]}
+  - {id: stories, type: agent, ref: brand-voice-guardian, needs: [ambassadors], produces: [story_inventory]}
+  - {id: referrals, type: agent, ref: upsell-maximizer, needs: [stories], produces: [referral_audit, touch_plan]}
+on_fail: {retry: 1, fallback: manual_review}

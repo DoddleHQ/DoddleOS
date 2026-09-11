@@ -1,0 +1,25 @@
+id: doddle.b2b.outbound
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn ICP and triggers into booked meetings with deliverable outbound
+inputs:
+  - {name: icp, type: string, required: true, description: "Ideal customer profile (title, size, industry)"}
+  - {name: offer, type: string, required: true, description: "Offer + proof in one line"}
+  - {name: volume, type: string, required: false, description: "Daily send volume per inbox"}
+  - {name: locale, type: string, required: false, description: "Market locale, ex en-US"}
+outputs:
+  - {name: outbound_audit, type: markdown, description: "List, deliverability, copy audit"}
+  - {name: sequence_pack, type: json, description: "Email + LinkedIn steps with copy angles"}
+  - {name: deliverability_checklist, type: markdown, description: "DNS, warmup, volume, monitoring"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [icp_assessment]}
+  - {id: list_check, type: tool, ref: doddle.tool.v1.hubspot.contacts, needs: [assess], produces: [list_data]}
+  - {id: sequence, type: agent, ref: copywriter, needs: [list_check], produces: [outbound_audit, sequence_pack]}
+  - {id: deliverability, type: agent, ref: email-wizard, needs: [sequence], produces: [deliverability_checklist]}
+on_fail: {retry: 1, fallback: manual_review}

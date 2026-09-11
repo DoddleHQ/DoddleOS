@@ -1,0 +1,25 @@
+id: doddle.creator.publishing
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn finished content into a publishing cadence with cross-post calendar, repurpose map, and review ritual
+inputs:
+  - {name: channels, type: string, required: true, description: "Target channels (YT, Shorts, Reels, TikTok, X, newsletter)"}
+  - {name: cadence, type: string, required: true, description: "Weekly posting capacity + primary channel"}
+  - {name: backlog, type: string, required: false, description: "Existing long-form backlog to repurpose"}
+outputs:
+  - {name: calendar, type: markdown, description: "Cross-post content calendar with cadence per channel"}
+  - {name: repurpose_map, type: json, description: "Long-form to clips/carousels/threads mapping"}
+  - {name: sop, type: markdown, description: "Repurpose SOP + analytics review ritual"}
+tools:
+  - {id: doddle.tool.v1.crosspost.publish, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+integrations:
+  - crosspost
+  - notion
+nodes:
+  - {id: assess, type: agent, ref: planner, needs: [inputs], produces: [capacity_assessment]}
+  - {id: calendar, type: agent, ref: planner, needs: [assess], produces: [calendar]}
+  - {id: repurpose, type: tool, ref: doddle.tool.v1.crosspost.publish, needs: [calendar], produces: [repurpose_map]}
+  - {id: ritual, type: agent, ref: project-manager, needs: [repurpose], produces: [calendar, repurpose_map, sop]}
+on_fail: {retry: 1, fallback: manual_review}

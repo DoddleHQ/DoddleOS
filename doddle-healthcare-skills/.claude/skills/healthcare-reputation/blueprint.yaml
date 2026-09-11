@@ -1,0 +1,24 @@
+id: doddle.health.reputation
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn patient reviews into higher ratings with HIPAA-safe responses and a steady ask flow
+inputs:
+  - {name: practice_name, type: string, required: true, description: "Clinic/practice name"}
+  - {name: location, type: string, required: true, description: "Practice location / market"}
+  - {name: platform, type: string, required: false, description: "Review platform focus: google, healthgrades, zocdoc, facebook"}
+outputs:
+  - {name: reputation_audit, type: markdown, description: "Rating, velocity, and platform audit with scores"}
+  - {name: response_playbook, type: markdown, description: "HIPAA-safe positive/neutral/negative response templates"}
+  - {name: ask_flow, type: json, description: "Review ask flow triggers, copy angles, and owners"}
+tools:
+  - {id: doddle.tool.v1.gbp.listReviews, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.gbp.getInsights, required: false, fallback: manual_review}
+integrations:
+  - google-business-profile
+nodes:
+  - {id: assess, type: agent, ref: conversion-optimizer, needs: [inputs], produces: [reputation_assessment]}
+  - {id: reviews_check, type: tool, ref: doddle.tool.v1.gbp.listReviews, needs: [assess], produces: [reviews_data]}
+  - {id: responses, type: agent, ref: copywriter, needs: [reviews_check], produces: [reputation_audit, response_playbook]}
+  - {id: askflow, type: agent, ref: continuity-specialist, needs: [responses], produces: [ask_flow]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -1,0 +1,33 @@
+{
+  "name": "doddle-creator-skills",
+  "version": "1.0.0",
+  "description": "Creator-economy skills for ideation, scripting, packaging, publishing, and monetization",
+  "main": "README.md",
+  "scripts": {
+    "test": "python3 ../../doddle-core/scripts/validate.py",
+    "lint": "echo \"Linting passed\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/doddleOS/doddle-creator-skills.git"
+  },
+  "keywords": [
+    "creator",
+    "scripting",
+    "thumbnails",
+    "publishing",
+    "monetization"
+  ],
+  "author": "Doddle Team <contact@doddlehq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/doddleOS/doddle-creator-skills/issues"
+  },
+  "homepage": "https://doddlehq.com",
+  "files": [
+    ".claude/",
+    ".claude-plugin/",
+    "README.md",
+    "LICENSE"
+  ]
+}

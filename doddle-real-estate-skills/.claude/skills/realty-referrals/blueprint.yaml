@@ -1,0 +1,26 @@
+id: doddle.realty.referrals
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn past clients and sphere into referrals with closing-day asks, anniversary touches, and agent-to-agent network
+inputs:
+  - {name: brokerage, type: string, required: true, description: "Team/brokerage name"}
+  - {name: past_clients, type: string, required: false, description: "Past client list or CRM export reference"}
+  - {name: market, type: string, required: false, description: "Farm area / city served"}
+outputs:
+  - {name: referral_audit, type: markdown, description: "Sphere + past-client referral audit"}
+  - {name: referral_program, type: json, description: "Referral program rules, tiers, and scripts"}
+  - {name: touch_plan, type: markdown, description: "12-month touch + agent network plan"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: continuity-specialist, needs: [inputs], produces: [referral_assessment]}
+  - {id: contacts_check, type: tool, ref: doddle.tool.v1.hubspot.contacts, needs: [assess], produces: [contact_data]}
+  - {id: deals_check, type: tool, ref: doddle.tool.v1.hubspot.deals, needs: [assess], produces: [deal_data]}
+  - {id: program, type: agent, ref: copywriter, needs: [contacts_check, deals_check], produces: [referral_audit, referral_program]}
+  - {id: touches, type: agent, ref: continuity-specialist, needs: [program], produces: [touch_plan]}
+  - {id: network, type: agent, ref: planner, needs: [touches], produces: [touch_plan]}
+on_fail: {retry: 1, fallback: manual_review}

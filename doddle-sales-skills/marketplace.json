@@ -1,0 +1,39 @@
+{
+  "name": "doddle-sales-skills",
+  "owner": {
+    "name": "Doddle Team",
+    "email": "contact@doddlehq.com",
+    "url": "https://doddlehq.com"
+  },
+  "metadata": {
+    "description": "B2B sales-execution skills for prospecting, discovery, negotiation, forecasting, and enablement",
+    "version": "1.0.0",
+    "updatedAt": "2026-09-11"
+  },
+  "plugins": [
+    {
+      "name": "doddle-sales-skills",
+      "source": "./",
+      "description": "5 sales skills: prospecting, discovery, negotiation, forecasting, and enablement",
+      "author": {
+        "name": "Doddle Team"
+      },
+      "homepage": "https://doddlehq.com",
+      "repository": "https://github.com/doddleOS/doddle-sales-skills",
+      "documentation": "https://docs.doddlehq.com",
+      "license": "MIT",
+      "keywords": [
+        "sales",
+        "prospecting",
+        "discovery",
+        "negotiation",
+        "forecasting",
+        "enablement"
+      ],
+      "category": "sales-execution",
+      "tags": ["sales", "pipeline", "negotiation", "forecast"],
+      "featured": true,
+      "verified": true
+    }
+  ]
+}

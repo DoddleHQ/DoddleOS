@@ -1,0 +1,26 @@
+id: doddle.creator.ideation
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn a broad niche into an ownable position with pillars, demand proof, and hooks bank
+inputs:
+  - {name: niche, type: string, required: true, description: "Topic area + target viewer"}
+  - {name: platform, type: string, required: true, description: "Primary platform (YT, TikTok, X, newsletter)"}
+  - {name: proof, type: string, required: false, description: "Existing outliers or credentials"}
+  - {name: locale, type: string, required: false, description: "Market locale, ex en-US"}
+outputs:
+  - {name: positioning_brief, type: markdown, description: "Niche angle + differentiation audit"}
+  - {name: pillars_map, type: json, description: "3-5 pillars with demand evidence"}
+  - {name: hooks_bank, type: markdown, description: "100-angle hooks bank per pillar"}
+tools:
+  - {id: doddle.tool.v1.tiktok.trending, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.semrush.keywordResearch, required: false, fallback: manual_review}
+integrations:
+  - tiktok
+  - semrush
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [niche_assessment]}
+  - {id: trend_check, type: tool, ref: doddle.tool.v1.tiktok.trending, needs: [assess], produces: [trend_data]}
+  - {id: demand_check, type: tool, ref: doddle.tool.v1.semrush.keywordResearch, needs: [assess], produces: [demand_data]}
+  - {id: position, type: agent, ref: copywriter, needs: [trend_check, demand_check], produces: [positioning_brief, pillars_map, hooks_bank]}
+on_fail: {retry: 1, fallback: manual_review}

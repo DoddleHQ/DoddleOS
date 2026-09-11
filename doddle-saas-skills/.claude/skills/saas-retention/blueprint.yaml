@@ -1,0 +1,26 @@
+id: doddle.saas.retention
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Reduce SaaS churn with dunning, cancellation saves, and winback for failed payments and voluntary cancels
+inputs:
+  - {name: product, type: string, required: true, description: "Product or billing URL to audit"}
+  - {name: churn_rate, type: string, required: false, description: "Current logo or MRR churn rate"}
+  - {name: dunning, type: string, required: false, description: "Existing dunning setup, ex none, stripe-smart-retries"}
+outputs:
+  - {name: churn_audit, type: markdown, description: "Churn taxonomy audit with involuntary vs voluntary split"}
+  - {name: dunning_plan, type: markdown, description: "Day 0/3/7/14 dunning calendar plus in-app recovery"}
+  - {name: save_flow, type: json, description: "Cancel-save flow reasons-to-offers plus winback triggers"}
+tools:
+  - {id: doddle.tool.v1.stripe.listInvoices, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.stripe.getSubscriptions, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+integrations:
+  - stripe
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: continuity-specialist, needs: [inputs], produces: [churn_assessment]}
+  - {id: invoice_check, type: tool, ref: doddle.tool.v1.stripe.listInvoices, needs: [assess], produces: [invoice_data]}
+  - {id: save_design, type: agent, ref: copywriter, needs: [invoice_check], produces: [churn_audit, dunning_plan]}
+  - {id: winback, type: agent, ref: email-wizard, needs: [save_design], produces: [save_flow]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -1,0 +1,24 @@
+id: doddle.marketing.image
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: "When the user wants to create, generate, edit, or optimize images for marketing — blog heroes, social graphics, product screenshots, thumbnails, or ad creatives."
+inputs:
+  - {name: brief, type: string, required: true, description: "Image brief: type, message, dimensions; ask if missing"}
+  - {name: channel, type: string, required: false, description: "Placement channel; determines specs if missing infer from brief"}
+  - {name: budget, type: string, required: false, description: "Design/AI-generation budget if any; free tools if missing"}
+outputs:
+  - {name: plan, type: markdown, description: "Visual plan: style, prompt framework, specs, SEO checklist, variants"}
+  - {name: assets, type: json, description: "Machine-readable assets: prompts, dimensions, alt text, filenames, variants"}
+tools:
+  - {id: doddle.tool.v1.crosspost.publish, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - crosspost
+  - google-analytics
+nodes:
+  - {id: brief, type: agent, ref: copywriter, needs: [inputs], produces: [brief_doc]}
+  - {id: create, type: agent, ref: copywriter, needs: [brief], produces: [plan, assets]}
+  - {id: distribute, type: tool, ref: doddle.tool.v1.crosspost.publish, needs: [create], produces: [distribution_receipt]}
+  - {id: measure, type: agent, ref: conversion-optimizer, needs: [distribute], produces: [plan, assets]}
+on_fail: {retry: 1, fallback: manual_review}

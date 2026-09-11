@@ -1,0 +1,25 @@
+id: doddle.marketing.form-cro
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: "When the user wants to optimize any form that is NOT signup/registration — including lead capture forms, contact forms, demo request forms, application forms, survey forms, or checkout forms. Also use when the user mentions form optimization, lead form conversions, form friction, form fields, form completion rate, or contact form."
+inputs:
+  - {name: page_url, type: url, required: true, description: "URL of the page containing the form to audit; ask if missing"}
+  - {name: goal, type: string, required: false, description: "Primary conversion goal of the form; infer from form type if missing"}
+  - {name: locale, type: string, required: false, description: "Locale for language/market context; default en-US"}
+outputs:
+  - {name: audit_report, type: markdown, description: "Prioritized form audit: per-issue impact, fix, and priority"}
+  - {name: patch_list, type: json, description: "Machine-readable list of recommended form patches with priority"}
+  - {name: test_plan, type: markdown, description: "A/B test hypotheses with expected outcomes"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: conversion-optimizer, needs: [page_url, goal, locale], produces: [assessment]}
+  - {id: data, type: tool, ref: doddle.tool.v1.ga4.getReport, needs: [assess], produces: [funnel_data]}
+  - {id: recommend, type: agent, ref: conversion-optimizer, needs: [data], produces: [audit_report, patch_list]}
+  - {id: test, type: agent, ref: conversion-optimizer, needs: [recommend], produces: [test_plan]}
+on_fail: {retry: 1, fallback: manual_review}

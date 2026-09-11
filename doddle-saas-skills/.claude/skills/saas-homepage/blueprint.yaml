@@ -1,0 +1,25 @@
+id: doddle.saas.homepage
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn SaaS homepage visitors into trials and demos with hero, proof, and objection handling
+inputs:
+  - {name: page_url, type: string, required: true, description: "Homepage URL to audit"}
+  - {name: audience, type: string, required: true, description: "Primary ICP / audience segment"}
+  - {name: cta, type: string, required: false, description: "Primary CTA, ex free-trial or demo"}
+outputs:
+  - {name: page_audit, type: markdown, description: "Scored homepage audit with fixes"}
+  - {name: hero_variants, type: json, description: "Hero headline / subhead / CTA variants"}
+  - {name: proof_plan, type: markdown, description: "Social proof and objection-handling plan"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.gsc.getSearchAnalytics, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - google-search-console
+nodes:
+  - {id: assess, type: agent, ref: conversion-optimizer, needs: [inputs], produces: [page_assessment]}
+  - {id: data, type: tool, ref: doddle.tool.v1.ga4.getReport, needs: [assess], produces: [behavior_data]}
+  - {id: copy, type: agent, ref: copywriter, needs: [data], produces: [hero_variants, page_audit]}
+  - {id: validate, type: agent, ref: brand-voice-guardian, needs: [copy], produces: [page_audit, hero_variants, proof_plan]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -1,0 +1,25 @@
+id: doddle.edu.openhouse
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Fill open days and campus tours with promo, RSVP capture, and 48h application followup
+inputs:
+  - {name: institution, type: string, required: true, description: "School/college/course brand + market"}
+  - {name: event_date, type: string, required: true, description: "Open day / tour / webinar date"}
+  - {name: audience, type: string, required: false, description: "Parents, students, or feeder schools"}
+outputs:
+  - {name: promo_plan, type: markdown, description: "Open-day promo calendar across portal, schools, social, signage"}
+  - {name: rsvp_flow, type: json, description: "RSVP capture + family reminder flow"}
+  - {name: followup_sequence, type: markdown, description: "48h recap + application nudge sequence"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.meta-ads.adsInsights, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - meta-ads
+nodes:
+  - {id: assess, type: agent, ref: lead-qualifier, needs: [inputs], produces: [event_assessment]}
+  - {id: promo, type: agent, ref: copywriter, needs: [assess], produces: [promo_plan]}
+  - {id: rsvp, type: tool, ref: doddle.tool.v1.hubspot.contacts, needs: [promo], produces: [rsvp_flow]}
+  - {id: followup, type: agent, ref: continuity-specialist, needs: [rsvp], produces: [followup_sequence]}
+on_fail: {retry: 1, fallback: manual_review}

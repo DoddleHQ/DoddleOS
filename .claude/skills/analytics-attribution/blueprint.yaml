@@ -1,0 +1,25 @@
+id: doddle.marketing.analytics-attribution
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: "Analytics measurement, attribution and ROI reporting"
+inputs:
+  - {name: context, type: string, required: true, description: "Channels, campaigns, and tracking setup to analyze"}
+  - {name: goal, type: string, required: false, description: "Measurement goal, ex ROI, attribution, funnel diagnosis"}
+outputs:
+  - {name: report, type: markdown, description: "Performance analysis with attribution and ROI findings"}
+  - {name: recommendations, type: json, description: "Prioritized measurement and budget actions"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - hubspot
+  - notion
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [assessment]}
+  - {id: analyze, type: tool, ref: doddle.tool.v1.ga4.getReport, needs: [assess], produces: [analytics_data]}
+  - {id: recommend, type: agent, ref: researcher, needs: [analyze], produces: [report, recommendations]}
+  - {id: plan, type: agent, ref: planner, needs: [recommend], produces: [action_plan]}
+on_fail: {retry: 1, fallback: manual_review}

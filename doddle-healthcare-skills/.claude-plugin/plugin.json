@@ -1,0 +1,29 @@
+{
+  "name": "doddle-healthcare-skills",
+  "version": "1.0.0",
+  "description": "Clinic marketing skills for booking, recall, intake, reputation, ads (DoddleOS v2 blueprints) - 5 skills",
+  "author": {
+    "name": "Doddle Team",
+    "url": "https://doddlehq.com"
+  },
+  "homepage": "https://doddlehq.com",
+  "repository": "https://github.com/doddleOS/doddle-healthcare-skills",
+  "documentation": "https://docs.doddlehq.com",
+  "license": "MIT",
+  "keywords": ["healthcare", "clinic", "booking", "recall", "reputation"],
+  "category": "healthcare-marketing",
+  "tags": ["healthcare", "local", "reputation", "conversion"],
+  "skills": "./.claude/skills",
+  "main": "README.md",
+  "components": {
+    "skills": {
+      "path": "./.claude/skills",
+      "count": 5,
+      "list": ["healthcare-booking", "healthcare-recall", "healthcare-intake", "healthcare-reputation", "healthcare-ads"]
+    }
+  },
+  "requirements": {
+    "doddleOS": ">=1.0",
+    "core": "doddleOS-marketing>=1.5.1"
+  }
+}

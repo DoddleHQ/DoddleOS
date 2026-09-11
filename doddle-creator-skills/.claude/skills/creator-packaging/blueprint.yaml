@@ -1,0 +1,23 @@
+id: doddle.creator.packaging
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn a video topic into click-winning packaging with thumbnail briefs, titles, and CTR tests
+inputs:
+  - {name: video_topic, type: string, required: true, description: "Video topic or draft title"}
+  - {name: niche, type: string, required: true, description: "Niche + target viewer"}
+  - {name: ctr, type: string, required: false, description: "Current CTR baseline if known"}
+outputs:
+  - {name: packaging_audit, type: markdown, description: "Outlier audit + packaging diagnosis"}
+  - {name: thumbnail_briefs, type: json, description: "2-3 thumbnail concepts with layout specs"}
+  - {name: title_bank, type: markdown, description: "Title bank with test priority"}
+tools:
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+integrations:
+  - notion
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [packaging_audit]}
+  - {id: thumb, type: agent, ref: copywriter, needs: [assess], produces: [thumbnail_briefs]}
+  - {id: title, type: agent, ref: copywriter, needs: [assess], produces: [title_bank]}
+  - {id: test, type: agent, ref: brainstormer, needs: [thumb, title], produces: [packaging_audit, thumbnail_briefs, title_bank]}
+on_fail: {retry: 1, fallback: manual_review}

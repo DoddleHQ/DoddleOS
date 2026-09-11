@@ -1,0 +1,23 @@
+id: doddle.marketing.cold-email
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: "Write B2B cold outreach emails and follow-ups that get replies"
+inputs:
+  - {name: brief, type: string, required: true, description: "Offer, value prop, conversion goal, sequence length"}
+  - {name: audience, type: string, required: false, description: "Target audience or segment"}
+  - {name: channel, type: string, required: false, description: "Delivery channel or page context"}
+outputs:
+  - {name: draft, type: markdown, description: "Cold email sequence with personalization and CTAs"}
+  - {name: variants, type: json, description: "Alternative openers and CTAs with rationale"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - notion
+nodes:
+  - {id: brief, type: agent, ref: email-wizard, needs: [inputs], produces: [brief_doc]}
+  - {id: draft, type: agent, ref: email-wizard, needs: [brief], produces: [draft]}
+  - {id: review, type: agent, ref: sales-enabler, needs: [draft], produces: [reviewed_draft]}
+  - {id: finalize, type: agent, ref: email-wizard, needs: [review], produces: [draft, variants]}
+on_fail: {retry: 1, fallback: manual_review}

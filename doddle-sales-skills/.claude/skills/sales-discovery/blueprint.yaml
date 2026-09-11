@@ -1,0 +1,25 @@
+id: doddle.sales.discovery
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn first meetings into qualified opps with MEDDIC-lite, call plans, and stakeholder maps
+inputs:
+  - {name: deal_context, type: string, required: true, description: "Account, contacts, prior notes, meeting context"}
+  - {name: stage, type: string, required: true, description: "Deal stage: first-call, technical-win, business-win"}
+  - {name: acv, type: string, required: false, description: "Annual contract value band for rigor level"}
+outputs:
+  - {name: discovery_audit, type: markdown, description: "MEDDIC-lite gaps + qualification verdict"}
+  - {name: call_plan, type: markdown, description: "Objectives, questions, landmines per meeting"}
+  - {name: qualification_score, type: json, description: "Scored MEDDIC + stakeholder + no-go signals"}
+tools:
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - notion
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [deal_assessment]}
+  - {id: qualify, type: agent, ref: lead-qualifier, needs: [assess], produces: [discovery_audit, qualification_score]}
+  - {id: plan, type: agent, ref: planner, needs: [qualify], produces: [call_plan]}
+  - {id: map, type: agent, ref: sales-enabler, needs: [plan], produces: [stakeholder_map]}
+on_fail: {retry: 1, fallback: manual_review}

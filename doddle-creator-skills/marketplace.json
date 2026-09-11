@@ -1,0 +1,38 @@
+{
+  "name": "doddle-creator-skills",
+  "owner": {
+    "name": "Doddle Team",
+    "email": "contact@doddlehq.com",
+    "url": "https://doddlehq.com"
+  },
+  "metadata": {
+    "description": "Creator-economy skills for ideation, scripting, packaging, publishing, and monetization",
+    "version": "1.0.0",
+    "updatedAt": "2026-09-11"
+  },
+  "plugins": [
+    {
+      "name": "doddle-creator-skills",
+      "source": "./",
+      "description": "5 creator skills: ideation, scripting, packaging, publishing, and monetization",
+      "author": {
+        "name": "Doddle Team"
+      },
+      "homepage": "https://doddlehq.com",
+      "repository": "https://github.com/doddleOS/doddle-creator-skills",
+      "documentation": "https://docs.doddlehq.com",
+      "license": "MIT",
+      "keywords": [
+        "creator",
+        "youtube",
+        "scripting",
+        "thumbnails",
+        "monetization"
+      ],
+      "category": "creator-economy",
+      "tags": ["creator", "video", "content", "revenue"],
+      "featured": true,
+      "verified": true
+    }
+  ]
+}

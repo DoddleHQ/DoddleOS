@@ -1,0 +1,25 @@
+id: doddle.marketing.page-cro
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: "When the user wants to optimize, improve, or increase conversions on any marketing page — including homepage, landing pages, pricing pages, feature pages, or blog posts. Also use when the user says CRO, conversion rate optimization, this page isn't converting, improve conversions, or why isn't this page working."
+inputs:
+  - {name: page_url, type: url, required: true, description: "URL of the marketing page to audit; ask if missing"}
+  - {name: goal, type: string, required: false, description: "Primary conversion goal; infer from page type if missing"}
+  - {name: locale, type: string, required: false, description: "Locale for language/market context; default en-US"}
+outputs:
+  - {name: audit_report, type: markdown, description: "Prioritized CRO findings: quick wins, high-impact changes, copy alternatives"}
+  - {name: patch_list, type: json, description: "Machine-readable list of recommended patches with priority"}
+  - {name: test_plan, type: markdown, description: "A/B test hypotheses with success metrics"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.gsc.getSearchAnalytics, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - google-search-console
+nodes:
+  - {id: assess, type: agent, ref: conversion-optimizer, needs: [page_url, goal, locale], produces: [assessment]}
+  - {id: data, type: tool, ref: doddle.tool.v1.ga4.getReport, needs: [assess], produces: [behavior_data]}
+  - {id: recommend, type: agent, ref: conversion-optimizer, needs: [data], produces: [audit_report, patch_list]}
+  - {id: test, type: agent, ref: conversion-optimizer, needs: [recommend], produces: [test_plan]}
+on_fail: {retry: 1, fallback: manual_review}

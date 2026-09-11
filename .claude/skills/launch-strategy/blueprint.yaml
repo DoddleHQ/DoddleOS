@@ -1,0 +1,23 @@
+id: doddle.marketing.launch-strategy
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: Plan product launches, feature announcements, and release strategies
+inputs:
+  - {name: context, type: string, required: true, description: "What is being launched, audience size, owned channels, timeline"}
+  - {name: goal, type: string, required: false, description: "Primary launch goal (awareness, signups, revenue)"}
+outputs:
+  - {name: strategy, type: markdown, description: "Phased launch strategy across owned, rented, borrowed channels"}
+  - {name: action_plan, type: json, description: "Launch tasks with phase, owner, effort, impact"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [assessment]}
+  - {id: strategy, type: agent, ref: planner, needs: [assess], produces: [strategy]}
+  - {id: plan, type: agent, ref: project-manager, needs: [strategy], produces: [action_plan]}
+  - {id: validate, type: agent, ref: brand-voice-guardian, needs: [plan], produces: [validated_plan]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -1,0 +1,26 @@
+id: doddle.restaurant.loyalty
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn first-time guests into regulars with visit-based rewards, birthday clubs, and lapsed-guest winback
+inputs:
+  - {name: venue, type: string, required: true, description: "Restaurant name + cuisine"}
+  - {name: covers, type: string, required: true, description: "Seats per service / week"}
+  - {name: pos, type: string, required: false, description: "POS / loyalty platform, ex Square, Toast"}
+  - {name: locale, type: string, required: false, description: "Market locale, ex en-US"}
+outputs:
+  - {name: loyalty_audit, type: markdown, description: "Repeat-visit audit with scores"}
+  - {name: program_design, type: json, description: "Visit tiers, perks, birthday club, enrollment triggers"}
+  - {name: winback_sequence, type: markdown, description: "45/90-day lapsed-guest winback sequence"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - google-analytics
+nodes:
+  - {id: assess, type: agent, ref: continuity-specialist, needs: [inputs], produces: [loyalty_assessment]}
+  - {id: program, type: agent, ref: planner, needs: [assess], produces: [loyalty_audit, program_design]}
+  - {id: enroll, type: agent, ref: copywriter, needs: [program], produces: [enrollment_kit]}
+  - {id: winback, type: agent, ref: email-wizard, needs: [enroll], produces: [winback_sequence]}
+on_fail: {retry: 1, fallback: manual_review}

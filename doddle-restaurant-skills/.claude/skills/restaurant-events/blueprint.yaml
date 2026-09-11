@@ -1,0 +1,25 @@
+id: doddle.restaurant.events
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn private dining and event inquiries into booked buyouts with packages, prospecting, and tasting closes
+inputs:
+  - {name: venue, type: string, required: true, description: "Restaurant name + cuisine + private spaces"}
+  - {name: capacity, type: string, required: true, description: "Private dining / buyout capacity + minimums"}
+  - {name: season, type: string, required: false, description: "Target season, ex holiday / wedding / corporate Q4"}
+outputs:
+  - {name: events_audit, type: markdown, description: "Event readiness audit with scores"}
+  - {name: package_kit, type: json, description: "Private dining packages + minimums + add-ons"}
+  - {name: prospecting_plan, type: markdown, description: "Corporate/holiday prospecting + SLA + close plan"}
+tools:
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.meta-ads.adsInsights, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - meta-ads
+nodes:
+  - {id: assess, type: agent, ref: sales-enabler, needs: [inputs], produces: [events_assessment]}
+  - {id: package, type: agent, ref: copywriter, needs: [assess], produces: [events_audit, package_kit]}
+  - {id: prospect, type: tool, ref: doddle.tool.v1.hubspot.deals, needs: [package], produces: [prospect_data]}
+  - {id: close, type: agent, ref: continuity-specialist, needs: [prospect], produces: [prospecting_plan]}
+on_fail: {retry: 1, fallback: manual_review}

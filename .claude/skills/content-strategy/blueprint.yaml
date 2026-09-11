@@ -1,0 +1,24 @@
+id: doddle.marketing.content-strategy
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: "Plan content pillars, calendars, and distribution strategy"
+inputs:
+  - {name: brief, type: string, required: true, description: "Goals, pillars or topics, resources, timeframe"}
+  - {name: audience, type: string, required: false, description: "Target audience or segment"}
+  - {name: channel, type: string, required: false, description: "Delivery channel or page context"}
+outputs:
+  - {name: draft, type: markdown, description: "Content plan with pillars, calendar, distribution"}
+  - {name: variants, type: json, description: "Alternative angles and repurposing options with rationale"}
+tools:
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - notion
+nodes:
+  - {id: brief, type: agent, ref: planner, needs: [inputs], produces: [brief_doc]}
+  - {id: draft, type: agent, ref: copywriter, needs: [brief], produces: [draft]}
+  - {id: review, type: agent, ref: brand-voice-guardian, needs: [draft], produces: [reviewed_draft]}
+  - {id: finalize, type: agent, ref: planner, needs: [review], produces: [draft, variants]}
+on_fail: {retry: 1, fallback: manual_review}

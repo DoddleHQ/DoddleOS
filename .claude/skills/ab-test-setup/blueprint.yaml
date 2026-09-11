@@ -1,0 +1,21 @@
+id: doddle.marketing.ab-test-setup
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: When the user wants to plan, design, or implement an A/B test or experiment with hypothesis, variants, and metrics
+inputs:
+  - {name: hypothesis, type: string, required: true, description: "Hypothesis statement for the test"}
+  - {name: page_url, type: string, required: false, description: "Page URL under test"}
+outputs:
+  - {name: test_plan, type: markdown, description: "Test design with duration, sample size, metrics"}
+  - {name: variants, type: json, description: "Control and variant definitions"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+nodes:
+  - {id: assess, type: agent, ref: conversion-optimizer, needs: [inputs], produces: [hypothesis_assessment]}
+  - {id: analytics_check, type: tool, ref: doddle.tool.v1.ga4.getReport, needs: [assess], produces: [baseline_data]}
+  - {id: recommend, type: agent, ref: conversion-optimizer, needs: [analytics_check], produces: [variants]}
+  - {id: test_design, type: agent, ref: copywriter, needs: [recommend], produces: [test_plan]}
+on_fail: {retry: 1, fallback: manual_review}

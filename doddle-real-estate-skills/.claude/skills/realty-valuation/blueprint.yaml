@@ -1,0 +1,26 @@
+id: doddle.realty.valuation
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn home valuation curiosity into seller appointments with instant estimates, CMA upgrades, and speed-to-lead follow-up
+inputs:
+  - {name: market, type: string, required: true, description: "Farm area / city served"}
+  - {name: brokerage, type: string, required: false, description: "Team/brokerage name"}
+  - {name: landing_url, type: string, required: false, description: "Existing valuation landing page URL to audit"}
+outputs:
+  - {name: funnel_audit, type: markdown, description: "Valuation funnel audit with scores"}
+  - {name: valuation_flow, type: json, description: "Instant-estimate flow steps + CMA upgrade logic"}
+  - {name: followup_sequence, type: markdown, description: "Speed-to-lead call/text + nurture sequence"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - google-analytics
+nodes:
+  - {id: assess, type: agent, ref: lead-qualifier, needs: [inputs], produces: [funnel_assessment]}
+  - {id: ga_check, type: tool, ref: doddle.tool.v1.ga4.getReport, needs: [assess], produces: [funnel_data]}
+  - {id: flow, type: agent, ref: copywriter, needs: [assess, ga_check], produces: [funnel_audit, valuation_flow]}
+  - {id: speed, type: tool, ref: doddle.tool.v1.hubspot.contacts, needs: [flow], produces: [contact_data]}
+  - {id: nurture, type: agent, ref: email-wizard, needs: [speed], produces: [followup_sequence]}
+on_fail: {retry: 1, fallback: manual_review}

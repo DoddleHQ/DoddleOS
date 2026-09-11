@@ -1,0 +1,25 @@
+id: doddle.b2b.partnerships
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Build B2B partner pipeline with outreach, enablement, and co-marketing
+inputs:
+  - {name: partner_type, type: string, required: true, description: "Partner type: referral, co-sell, co-market, tech"}
+  - {name: goal, type: string, required: true, description: "Partnership goal + target in one line"}
+  - {name: market, type: string, required: false, description: "Market locale, ex en-US"}
+outputs:
+  - {name: partner_audit, type: markdown, description: "Partner fit, tiers, prioritized target list"}
+  - {name: outreach_pack, type: json, description: "Outreach sequences + enablement kit specs"}
+  - {name: comarketing_plan, type: markdown, description: "Co-marketing plays, calendar, attribution"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.slack.messages, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - slack
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [partner_assessment]}
+  - {id: outreach, type: tool, ref: doddle.tool.v1.hubspot.contacts, needs: [assess], produces: [prospect_data]}
+  - {id: enable, type: agent, ref: sales-enabler, needs: [outreach], produces: [partner_audit, outreach_pack]}
+  - {id: comarket, type: agent, ref: planner, needs: [enable], produces: [comarketing_plan]}
+on_fail: {retry: 1, fallback: manual_review}

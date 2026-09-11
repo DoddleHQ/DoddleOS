@@ -1,0 +1,30 @@
+id: doddle.local.gbp
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Optimize Google Business Profile and local pack ranking for service businesses
+inputs:
+  - {name: business_name, type: string, required: true, description: "Business name as listed"}
+  - {name: location, type: string, required: true, description: "City / service area"}
+  - {name: category, type: string, required: false, description: "Primary GBP category"}
+  - {name: locale, type: string, required: false, description: "Market locale, ex en-US"}
+outputs:
+  - {name: gbp_audit, type: markdown, description: "Profile completeness + local pack audit"}
+  - {name: action_list, type: json, description: "Prioritized fixes with impact/effort"}
+  - {name: post_plan, type: markdown, description: "30-day GBP posts + photo plan"}
+tools:
+  - {id: doddle.tool.v1.gbp.getBusinessProfile, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.gbp.listReviews, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.gbp.getInsights, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - google-business-profile
+  - google-analytics
+nodes:
+  - {id: assess, type: agent, ref: seo-specialist, needs: [inputs], produces: [profile_assessment]}
+  - {id: profile_check, type: tool, ref: doddle.tool.v1.gbp.getBusinessProfile, needs: [assess], produces: [profile_data]}
+  - {id: reviews_check, type: tool, ref: doddle.tool.v1.gbp.listReviews, needs: [assess], produces: [review_data]}
+  - {id: insights_check, type: tool, ref: doddle.tool.v1.gbp.getInsights, needs: [profile_check], produces: [insights_data]}
+  - {id: recommend, type: agent, ref: copywriter, needs: [reviews_check, insights_check], produces: [gbp_audit, action_list]}
+  - {id: content_plan, type: agent, ref: planner, needs: [recommend], produces: [post_plan]}
+on_fail: {retry: 1, fallback: manual_review}

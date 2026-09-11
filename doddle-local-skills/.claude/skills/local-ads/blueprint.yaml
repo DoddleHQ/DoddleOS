@@ -1,0 +1,25 @@
+id: doddle.local.ads
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Run local paid ads for service businesses across LSA, search, and retargeting to drive booked jobs
+inputs:
+  - {name: business_name, type: string, required: true, description: "Business name as listed"}
+  - {name: service_area, type: string, required: true, description: "City / service area to target"}
+  - {name: monthly_budget, type: number, required: false, description: "Monthly ad budget in local currency"}
+outputs:
+  - {name: account_audit, type: markdown, description: "LSA + search + social account audit with gaps"}
+  - {name: budget_split, type: json, description: "Budget allocation across LSA/search/retargeting"}
+  - {name: test_plan, type: markdown, description: "Creative + geo test plan with hypotheses"}
+tools:
+  - {id: doddle.tool.v1.meta-ads.adsInsights, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - meta-ads
+  - google-analytics
+nodes:
+  - {id: assess, type: agent, ref: paid-advertising-specialist, needs: [inputs], produces: [brief_assessment]}
+  - {id: account_check, type: tool, ref: doddle.tool.v1.meta-ads.adsInsights, needs: [assess], produces: [account_data]}
+  - {id: budget, type: agent, ref: paid-advertising-specialist, needs: [account_check], produces: [account_audit, budget_split]}
+  - {id: creative_test, type: agent, ref: copywriter, needs: [budget], produces: [test_plan]}
+on_fail: {retry: 1, fallback: manual_review}

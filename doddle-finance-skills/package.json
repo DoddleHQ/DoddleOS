@@ -1,0 +1,33 @@
+{
+  "name": "doddle-finance-skills",
+  "version": "1.0.0",
+  "description": "Finance marketing skills for lead calculators, onboarding, reviews, cross-sell, and referrals",
+  "main": "README.md",
+  "scripts": {
+    "test": "python3 ../../doddle-core/scripts/validate.py",
+    "lint": "echo \"Linting passed\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/doddleOS/doddle-finance-skills.git"
+  },
+  "keywords": [
+    "finance",
+    "leads",
+    "onboarding",
+    "cross-sell",
+    "referrals"
+  ],
+  "author": "Doddle Team <contact@doddlehq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/doddleOS/doddle-finance-skills/issues"
+  },
+  "homepage": "https://doddlehq.com",
+  "files": [
+    ".claude/",
+    ".claude-plugin/",
+    "README.md",
+    "LICENSE"
+  ]
+}

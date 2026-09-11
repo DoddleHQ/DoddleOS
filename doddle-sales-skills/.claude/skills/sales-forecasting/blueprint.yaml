@@ -1,0 +1,25 @@
+id: doddle.sales.forecasting
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn messy pipeline into accurate forecast with stage hygiene, commit discipline, and weekly inspection
+inputs:
+  - {name: team_size, type: string, required: true, description: "Reps + roles contributing to forecast"}
+  - {name: quota, type: string, required: true, description: "Team / rep quota for period"}
+  - {name: crm, type: string, required: false, description: "CRM source, ex HubSpot pipeline export"}
+outputs:
+  - {name: forecast_audit, type: markdown, description: "Accuracy, hygiene, slippage audit"}
+  - {name: stage_definitions, type: json, description: "Stages with exit criteria + probabilities"}
+  - {name: inspection_cadence, type: markdown, description: "Weekly deal-review format + cadence"}
+tools:
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.slack.messages, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - slack
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [forecast_assessment]}
+  - {id: hygiene, type: tool, ref: doddle.tool.v1.hubspot.deals, needs: [assess], produces: [pipeline_data]}
+  - {id: stages, type: agent, ref: lead-qualifier, needs: [hygiene], produces: [forecast_audit, stage_definitions]}
+  - {id: inspect, type: agent, ref: copywriter, needs: [stages], produces: [inspection_cadence]}
+on_fail: {retry: 1, fallback: manual_review}

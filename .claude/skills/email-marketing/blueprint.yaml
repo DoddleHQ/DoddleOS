@@ -1,0 +1,24 @@
+id: doddle.marketing.email-marketing
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: "Plan email campaigns, automation, and deliverability"
+inputs:
+  - {name: brief, type: string, required: true, description: "Campaign goal, list or segment, offer, timeline"}
+  - {name: audience, type: string, required: false, description: "Target audience or segment"}
+  - {name: channel, type: string, required: false, description: "Delivery channel or page context"}
+outputs:
+  - {name: draft, type: markdown, description: "Campaign plan with copy, segmentation, schedule"}
+  - {name: variants, type: json, description: "Alternative subjects and angles with rationale"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - notion
+nodes:
+  - {id: brief, type: agent, ref: email-wizard, needs: [inputs], produces: [brief_doc]}
+  - {id: draft, type: agent, ref: email-wizard, needs: [brief], produces: [draft]}
+  - {id: review, type: agent, ref: brand-voice-guardian, needs: [draft], produces: [reviewed_draft]}
+  - {id: finalize, type: agent, ref: email-wizard, needs: [review], produces: [draft, variants]}
+on_fail: {retry: 1, fallback: manual_review}

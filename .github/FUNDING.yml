@@ -1,0 +1,24 @@
+# Funding platforms for Doddle Marketing OS
+# Learn more: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/displaying-a-sponsor-button-in-your-repository
+
+# GitHub Sponsors (personal account - easier to set up)
+# Change to [doddleOS] once org Sponsors is approved
+github: [doddleOS]
+
+# Ko-fi
+ko_fi: doddleOS
+
+# Buy Me a Coffee (via custom)
+# Patreon (if you have one)
+# patreon: doddleOS
+
+# Open Collective (if you have one)
+# open_collective: doddleOS
+
+# Polar (if you have one)
+# polar: doddleOS
+
+# Custom links
+custom:
+  - https://buymeacoffee.com/doddleOS
+  - https://doddleOS.net/sponsor

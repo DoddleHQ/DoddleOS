@@ -1,0 +1,26 @@
+id: doddle.finance.leads
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn searches into appointments with calculators, honest quote flows, and 5-minute speed-to-lead
+inputs:
+  - {name: firm, type: string, required: true, description: "Firm/advisory name + market"}
+  - {name: niche, type: string, required: true, description: "RIA, mortgage, insurance, tax, etc."}
+  - {name: volume, type: string, required: false, description: "Monthly inquiry volume"}
+  - {name: locale, type: string, required: false, description: "Market locale, ex en-US"}
+outputs:
+  - {name: funnel_audit, type: markdown, description: "Click-to-appointment audit with scores"}
+  - {name: calculator_brief, type: json, description: "Calculator spec + results-page CTA design"}
+  - {name: followup_sequence, type: markdown, description: "Speed + nurture cadence"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - google-analytics
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [funnel_assessment]}
+  - {id: funnel_check, type: tool, ref: doddle.tool.v1.ga4.getReport, needs: [assess], produces: [funnel_data]}
+  - {id: magnet, type: agent, ref: copywriter, needs: [funnel_check], produces: [funnel_audit, calculator_brief]}
+  - {id: speed, type: agent, ref: continuity-specialist, needs: [magnet], produces: [followup_sequence]}
+on_fail: {retry: 1, fallback: manual_review}

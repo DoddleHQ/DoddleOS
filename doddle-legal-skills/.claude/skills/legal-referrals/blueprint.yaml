@@ -1,0 +1,24 @@
+id: doddle.legal.referrals
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Grow attorney referrals and past-client repeat business with compliant referral programs and touch plans
+inputs:
+  - {name: firm, type: string, required: true, description: "Firm name + market"}
+  - {name: network, type: string, required: true, description: "Current referral sources + attorney network"}
+  - {name: database, type: string, required: false, description: "Past-client database size / CRM state"}
+outputs:
+  - {name: referral_audit, type: markdown, description: "Referral source audit with scores"}
+  - {name: referral_program, type: json, description: "Referral program rules + partner tiers"}
+  - {name: touch_plan, type: markdown, description: "Past-client + network touch cadence"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: upsell-maximizer, needs: [inputs], produces: [referral_assessment]}
+  - {id: program, type: tool, ref: doddle.tool.v1.hubspot.deals, needs: [assess], produces: [deal_data]}
+  - {id: touches, type: agent, ref: continuity-specialist, needs: [program], produces: [referral_audit, referral_program]}
+  - {id: network, type: agent, ref: copywriter, needs: [touches], produces: [touch_plan]}
+on_fail: {retry: 1, fallback: manual_review}

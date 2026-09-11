@@ -1,0 +1,24 @@
+id: doddle.marketing.community-building
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: "When the user wants to build, grow, or manage an online community. Also use when the user mentions community-led growth, community engagement, or brand community."
+inputs:
+  - {name: brief, type: string, required: true, description: "Community brief: type, goals, audience; ask if missing"}
+  - {name: channel, type: string, required: false, description: "Community platform; recommend from audience if missing"}
+  - {name: budget, type: string, required: false, description: "Community budget if any; volunteer-led if missing"}
+outputs:
+  - {name: plan, type: markdown, description: "Community plan: positioning, launch, engagement programs, moderation, ROI"}
+  - {name: assets, type: json, description: "Machine-readable assets: content calendar, rituals, roles, health metrics"}
+tools:
+  - {id: doddle.tool.v1.crosspost.publish, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - crosspost
+  - google-analytics
+nodes:
+  - {id: brief, type: agent, ref: planner, needs: [inputs], produces: [brief_doc]}
+  - {id: create, type: agent, ref: copywriter, needs: [brief], produces: [plan, assets]}
+  - {id: distribute, type: tool, ref: doddle.tool.v1.crosspost.publish, needs: [create], produces: [distribution_receipt]}
+  - {id: measure, type: agent, ref: conversion-optimizer, needs: [distribute], produces: [plan, assets]}
+on_fail: {retry: 1, fallback: manual_review}

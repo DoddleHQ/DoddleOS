@@ -1,0 +1,25 @@
+id: doddle.hr.culture
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Build strong culture with pulse surveys, values rituals, peer recognition, and retention drivers
+inputs:
+  - {name: company_size, type: string, required: true, description: "Headcount + stage (ex 50, Series A)"}
+  - {name: issue, type: string, required: true, description: "Culture issue or goal (ex low eNPS, silent retros)"}
+  - {name: cadence, type: string, required: false, description: "Pulse cadence, ex quarterly"}
+outputs:
+  - {name: culture_audit, type: markdown, description: "Culture audit with eNPS + driver scores"}
+  - {name: rituals_playbook, type: markdown, description: "Values rituals + recognition system"}
+  - {name: pulse_plan, type: json, description: "Pulse questions + cadence + owners"}
+tools:
+  - {id: doddle.tool.v1.slack.messages, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+integrations:
+  - slack
+  - notion
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [culture_assessment]}
+  - {id: pulse, type: tool, ref: doddle.tool.v1.slack.messages, needs: [assess], produces: [pulse_data]}
+  - {id: rituals, type: agent, ref: planner, needs: [pulse], produces: [culture_audit, rituals_playbook]}
+  - {id: retain, type: agent, ref: copywriter, needs: [rituals], produces: [pulse_plan]}
+on_fail: {retry: 1, fallback: manual_review}

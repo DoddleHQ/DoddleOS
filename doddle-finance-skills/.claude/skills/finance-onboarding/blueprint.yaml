@@ -1,0 +1,25 @@
+id: doddle.finance.onboarding
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn signed applications into funded accounts with document checklists, KYC-friendly status, and stalled-application rescue
+inputs:
+  - {name: firm, type: string, required: true, description: "Firm/advisory name + market"}
+  - {name: product, type: string, required: true, description: "Account/product type: RIA, brokerage, mortgage, insurance, annuity, etc."}
+  - {name: drop_off, type: string, required: false, description: "Known drop-off stage or rate, ex application-started-not-funded"}
+outputs:
+  - {name: onboarding_audit, type: markdown, description: "Signed-to-funded audit with scores"}
+  - {name: checklist, type: json, description: "Document checklist spec + status model"}
+  - {name: rescue_sequence, type: markdown, description: "Stalled-application rescue + first-90-day touch plan"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - notion
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [onboarding_assessment]}
+  - {id: checklist, type: tool, ref: doddle.tool.v1.hubspot.contacts, needs: [assess], produces: [checklist_data]}
+  - {id: funding, type: tool, ref: doddle.tool.v1.notion.pages, needs: [checklist], produces: [onboarding_audit, checklist]}
+  - {id: rescue, type: agent, ref: continuity-specialist, needs: [funding], produces: [rescue_sequence]}
+on_fail: {retry: 1, fallback: manual_review}

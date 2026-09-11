@@ -1,0 +1,25 @@
+id: doddle.marketing.problem-solving
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: "Systematic marketing problem-solving and unblocking"
+inputs:
+  - {name: context, type: string, required: true, description: "Problem type, stalled campaign, and constraints"}
+  - {name: goal, type: string, required: false, description: "Outcome to unblock, ex simplify, breakthrough, scale decision"}
+outputs:
+  - {name: report, type: markdown, description: "Diagnosis with technique application and action plan"}
+  - {name: recommendations, type: json, description: "Prioritized next steps with smallest testable action"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - hubspot
+  - notion
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [assessment]}
+  - {id: analyze, type: tool, ref: doddle.tool.v1.ga4.getReport, needs: [assess], produces: [analytics_data]}
+  - {id: recommend, type: agent, ref: brainstormer, needs: [analyze], produces: [report, recommendations]}
+  - {id: plan, type: agent, ref: planner, needs: [recommend], produces: [action_plan]}
+on_fail: {retry: 1, fallback: manual_review}

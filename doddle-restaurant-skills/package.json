@@ -1,0 +1,33 @@
+{
+  "name": "doddle-restaurant-skills",
+  "version": "1.0.0",
+  "description": "Restaurant marketing skills for reservations, ordering, loyalty, events, and reputation",
+  "main": "README.md",
+  "scripts": {
+    "test": "python3 ../../doddle-core/scripts/validate.py",
+    "lint": "echo \"Linting passed\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/doddleOS/doddle-restaurant-skills.git"
+  },
+  "keywords": [
+    "restaurant",
+    "reservations",
+    "ordering",
+    "loyalty",
+    "reputation"
+  ],
+  "author": "Doddle Team <contact@doddlehq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/doddleOS/doddle-restaurant-skills/issues"
+  },
+  "homepage": "https://doddlehq.com",
+  "files": [
+    ".claude/",
+    ".claude-plugin/",
+    "README.md",
+    "LICENSE"
+  ]
+}

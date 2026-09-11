@@ -1,0 +1,26 @@
+{
+  "name": "google-business-profile",
+  "description": "Google Business Profile data access: listings, reviews, posts, insights",
+  "type": "custom",
+  "command": "npx",
+  "args": ["-y", "gbp-mcp-server"],
+  "env": {
+    "GBP_ACCESS_TOKEN": "${GBP_ACCESS_TOKEN}",
+    "GBP_ACCOUNT_ID": "${GBP_ACCOUNT_ID}"
+  },
+  "setup": {
+    "requirements": [
+      "Node.js 18+",
+      "Google Cloud Project with Business Profile APIs enabled",
+      "OAuth credentials with business.manage scope"
+    ],
+    "status": "stub - MCP server pending, skills fall back to manual_review"
+  },
+  "capabilities": {
+    "tools": 4,
+    "categories": ["profile", "reviews", "posts", "insights"]
+  },
+  "source": {
+    "official": "https://developers.google.com/my-business"
+  }
+}

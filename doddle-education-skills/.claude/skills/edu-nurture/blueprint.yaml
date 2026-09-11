@@ -1,0 +1,24 @@
+id: doddle.edu.nurture
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Nurture inquiries and admits to enrollment with segmented drips, deadline reminders, yield plays, and melt rescue
+inputs:
+  - {name: segment, type: string, required: true, description: "Audience segment, ex parent/student/grade/term"}
+  - {name: cycle, type: string, required: true, description: "Admission cycle, ex early/regular/clearing or term intake"}
+  - {name: crm, type: string, required: false, description: "CRM source for lifecycle state, ex HubSpot"}
+outputs:
+  - {name: nurture_map, type: markdown, description: "Segment tracks + drip map by cycle stage"}
+  - {name: sequences, type: json, description: "Deadline drip + re-engagement sequences with timing and channels"}
+  - {name: yield_plan, type: markdown, description: "Admitted to deposited to arrived yield + melt prevention plan"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: lead-qualifier, needs: [inputs], produces: [nurture_assessment]}
+  - {id: segment, type: agent, ref: copywriter, needs: [assess], produces: [nurture_map]}
+  - {id: sequences, type: agent, ref: email-wizard, needs: [segment], produces: [sequences]}
+  - {id: yield, type: agent, ref: continuity-specialist, needs: [sequences], produces: [yield_plan]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -1,0 +1,25 @@
+id: doddle.local.booking
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Audit booking funnel and speed-to-lead for local service businesses to lift booking and show rates
+inputs:
+  - {name: business_name, type: string, required: true, description: "Business name as listed"}
+  - {name: service, type: string, required: true, description: "Core service, ex plumbing, dental, HVAC"}
+  - {name: channel, type: string, required: false, description: "Booking channel focus, ex calls, forms, SMS"}
+outputs:
+  - {name: funnel_audit, type: markdown, description: "Booking funnel audit with friction points"}
+  - {name: patch_list, type: json, description: "Prioritized funnel fixes with impact/effort"}
+  - {name: followup_sequence, type: markdown, description: "Estimate followup + no-show recovery sequence"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: lead-qualifier, needs: [inputs], produces: [booking_assessment]}
+  - {id: funnel_check, type: tool, ref: doddle.tool.v1.ga4.getReport, needs: [assess], produces: [funnel_data]}
+  - {id: speed_to_lead, type: tool, ref: doddle.tool.v1.hubspot.contacts, needs: [funnel_check], produces: [response_data]}
+  - {id: followup, type: agent, ref: email-wizard, needs: [speed_to_lead], produces: [funnel_audit, patch_list, followup_sequence]}
+on_fail: {retry: 1, fallback: manual_review}

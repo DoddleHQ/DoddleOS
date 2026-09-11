@@ -1,0 +1,25 @@
+id: doddle.marketing.revops
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: "Revenue operations, lead lifecycle and handoff design"
+inputs:
+  - {name: context, type: string, required: true, description: "CRM, lead flow, scoring, and handoff current state"}
+  - {name: goal, type: string, required: false, description: "RevOps goal, ex scoring, handoff SLA, pipeline visibility"}
+outputs:
+  - {name: report, type: markdown, description: "Lifecycle, scoring, handoff and dashboard design"}
+  - {name: recommendations, type: json, description: "Prioritized RevOps fixes with owners"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - hubspot
+  - notion
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [assessment]}
+  - {id: analyze, type: tool, ref: doddle.tool.v1.ga4.getReport, needs: [assess], produces: [analytics_data]}
+  - {id: recommend, type: agent, ref: researcher, needs: [analyze], produces: [report, recommendations]}
+  - {id: plan, type: agent, ref: planner, needs: [recommend], produces: [action_plan]}
+on_fail: {retry: 1, fallback: manual_review}

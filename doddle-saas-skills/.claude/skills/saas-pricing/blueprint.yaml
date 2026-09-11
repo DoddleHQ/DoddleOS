@@ -1,0 +1,27 @@
+id: doddle.saas.pricing
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Audit and redesign SaaS pricing tiers, packaging, and annual framing to lift ARPA and conversion
+inputs:
+  - {name: pricing_url, type: string, required: true, description: "Pricing page URL to audit"}
+  - {name: arpa, type: number, required: false, description: "Current ARPA, ex 99"}
+  - {name: churn, type: string, required: false, description: "Logo or revenue churn rate, ex 5%"}
+outputs:
+  - {name: pricing_audit, type: markdown, description: "Scored pricing audit with tier and framing fixes"}
+  - {name: tier_model, type: json, description: "Tier structure, value metric, gates, and guardrails"}
+  - {name: test_plan, type: markdown, description: "Pricing A/B test plan with hypotheses and success metrics"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.stripe.getSubscriptions, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - hubspot
+  - stripe
+nodes:
+  - {id: assess, type: agent, ref: conversion-optimizer, needs: [inputs], produces: [pricing_assessment]}
+  - {id: plan_check, type: tool, ref: doddle.tool.v1.stripe.getSubscriptions, needs: [assess], produces: [plan_data]}
+  - {id: tier_design, type: agent, ref: copywriter, needs: [assess, plan_check], produces: [pricing_audit, tier_model]}
+  - {id: validate, type: agent, ref: conversion-optimizer, needs: [tier_design], produces: [test_plan]}
+on_fail: {retry: 1, fallback: manual_review}

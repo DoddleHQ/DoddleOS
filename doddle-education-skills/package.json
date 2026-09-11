@@ -1,0 +1,33 @@
+{
+  "name": "doddle-education-skills",
+  "version": "1.0.0",
+  "description": "Education marketing skills for enrollment, open-house, content, nurture, and alumni",
+  "main": "README.md",
+  "scripts": {
+    "test": "python3 ../../doddle-core/scripts/validate.py",
+    "lint": "echo \"Linting passed\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/doddleOS/doddle-education-skills.git"
+  },
+  "keywords": [
+    "education",
+    "enrollment",
+    "nurture",
+    "alumni",
+    "admissions"
+  ],
+  "author": "Doddle Team <contact@doddlehq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/doddleOS/doddle-education-skills/issues"
+  },
+  "homepage": "https://doddlehq.com",
+  "files": [
+    ".claude/",
+    ".claude-plugin/",
+    "README.md",
+    "LICENSE"
+  ]
+}

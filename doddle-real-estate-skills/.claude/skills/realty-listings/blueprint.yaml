@@ -1,0 +1,29 @@
+id: doddle.realty.listings
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn listing pages into tours with media, SEO, schema, and syndication hygiene
+inputs:
+  - {name: market, type: string, required: true, description: "Farm area / city served"}
+  - {name: listing_url, type: string, required: false, description: "Example listing URL to audit"}
+  - {name: brokerage, type: string, required: false, description: "Team/brokerage name"}
+  - {name: locale, type: string, required: false, description: "Market locale, ex en-US"}
+outputs:
+  - {name: listing_audit, type: markdown, description: "Listing page + area hub audit"}
+  - {name: page_template, type: markdown, description: "Listing + neighborhood page template"}
+  - {name: schema_snippet, type: json, description: "RealEstateListing JSON-LD + checks"}
+tools:
+  - {id: doddle.tool.v1.gsc.getSearchAnalytics, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.semrush.keywordResearch, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - google-search-console
+  - semrush
+  - google-analytics
+nodes:
+  - {id: assess, type: agent, ref: seo-specialist, needs: [inputs], produces: [listing_assessment]}
+  - {id: keyword_check, type: tool, ref: doddle.tool.v1.semrush.keywordResearch, needs: [assess], produces: [keyword_data]}
+  - {id: search_check, type: tool, ref: doddle.tool.v1.gsc.getSearchAnalytics, needs: [assess], produces: [search_data]}
+  - {id: template, type: agent, ref: copywriter, needs: [keyword_check, search_check], produces: [listing_audit, page_template]}
+  - {id: schema, type: agent, ref: seo-specialist, needs: [template], produces: [schema_snippet]}
+on_fail: {retry: 1, fallback: manual_review}

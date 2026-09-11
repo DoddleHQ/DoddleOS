@@ -1,0 +1,28 @@
+id: doddle.ecommerce.search
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: Optimize on-site search and product discovery for eCommerce
+inputs:
+  - {name: site_url, type: string, required: true, description: "Site URL to audit search on"}
+  - {name: search_query, type: string, required: false, description: "Sample search query to test"}
+  - {name: locale, type: string, required: false, description: "Market locale, ex en-US"}
+outputs:
+  - {name: audit_report, type: markdown, description: "Scored audit across search dimensions"}
+  - {name: patch_list, type: json, description: "Prioritized fixes with impact/effort"}
+  - {name: test_plan, type: markdown, description: "A/B test hypotheses"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.gsc.getSearchAnalytics, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.dataforseo.serpGoogle, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - google-search-console
+  - dataforseo
+nodes:
+  - {id: assess, type: agent, ref: conversion-optimizer, needs: [inputs], produces: [ux_assessment]}
+  - {id: analytics_check, type: tool, ref: doddle.tool.v1.ga4.getReport, needs: [assess], produces: [traffic_data]}
+  - {id: query_check, type: tool, ref: doddle.tool.v1.gsc.getSearchAnalytics, needs: [assess], produces: [search_data]}
+  - {id: recommend, type: agent, ref: seo-specialist, needs: [analytics_check, query_check], produces: [audit_report, patch_list]}
+  - {id: test_design, type: agent, ref: conversion-optimizer, needs: [recommend], produces: [test_plan]}
+on_fail: {retry: 1, fallback: manual_review}

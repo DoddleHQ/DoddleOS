@@ -1,0 +1,25 @@
+id: doddle.hr.brand
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Build employer brand that drives inbound applicants, careers conversion, and referral hires
+inputs:
+  - {name: company, type: string, required: true, description: "Company + pitch in one line"}
+  - {name: roles, type: string, required: true, description: "Priority roles / functions to brand for"}
+  - {name: platform, type: string, required: false, description: "Primary channel, ex LinkedIn / Glassdoor / AmbitionBox"}
+outputs:
+  - {name: brand_audit, type: markdown, description: "Employer brand audit with scores"}
+  - {name: careers_brief, type: markdown, description: "Careers page brief + review response drafts"}
+  - {name: advocacy_kit, type: json, description: "Advocacy + referral kit with cadence"}
+tools:
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.crosspost.publish, required: false, fallback: manual_review}
+integrations:
+  - notion
+  - crosspost
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [brand_assessment]}
+  - {id: careers, type: agent, ref: copywriter, needs: [assess], produces: [brand_audit, careers_brief]}
+  - {id: advocacy, type: agent, ref: planner, needs: [careers], produces: [advocacy_kit]}
+  - {id: respond, type: tool, ref: doddle.tool.v1.crosspost.publish, needs: [advocacy], produces: [advocacy_kit]}
+on_fail: {retry: 1, fallback: manual_review}

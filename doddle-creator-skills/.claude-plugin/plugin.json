@@ -1,0 +1,29 @@
+{
+  "name": "doddle-creator-skills",
+  "version": "1.0.0",
+  "description": "Creator economy for ideation, scripting, packaging, publishing, monetization (DoddleOS v2 blueprints) - 5 skills",
+  "author": {
+    "name": "Doddle Team",
+    "url": "https://doddlehq.com"
+  },
+  "homepage": "https://doddlehq.com",
+  "repository": "https://github.com/doddleOS/doddle-creator-skills",
+  "documentation": "https://docs.doddlehq.com",
+  "license": "MIT",
+  "keywords": ["creator", "scripting", "thumbnails", "publishing", "monetization"],
+  "category": "creator-economy",
+  "tags": ["creator", "video", "content", "revenue"],
+  "skills": "./.claude/skills",
+  "main": "README.md",
+  "components": {
+    "skills": {
+      "path": "./.claude/skills",
+      "count": 5,
+      "list": ["creator-ideation", "creator-scripting", "creator-packaging", "creator-publishing", "creator-monetization"]
+    }
+  },
+  "requirements": {
+    "doddleOS": ">=1.0",
+    "core": "doddleOS-marketing>=1.5.1"
+  }
+}

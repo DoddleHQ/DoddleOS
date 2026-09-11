@@ -1,0 +1,23 @@
+id: doddle.sales.negotiation
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Turn stalled deals into signed contracts with objection handling, disciplined concessions, and dated mutual close plans
+inputs:
+  - {name: deal_size, type: string, required: true, description: "ACV/TCV range + current discount asked"}
+  - {name: objection, type: string, required: true, description: "Primary blocker: price, timing, incumbent, status-quo"}
+  - {name: competitor, type: string, required: false, description: "Named incumbent/competitor for displacement play"}
+outputs:
+  - {name: negotiation_playbook, type: markdown, description: "Objection responses + give-get trades + talk tracks"}
+  - {name: concession_matrix, type: json, description: "Discount floor, approval tiers, give-get pairs"}
+  - {name: close_plan, type: markdown, description: "Dated mutual close plan with owners"}
+tools:
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [deal_assessment]}
+  - {id: objections, type: agent, ref: sales-enabler, needs: [assess], produces: [negotiation_playbook]}
+  - {id: concede, type: tool, ref: doddle.tool.v1.hubspot.deals, needs: [objections], produces: [concession_matrix]}
+  - {id: close, type: agent, ref: sales-enabler, needs: [concede], produces: [close_plan]}
+on_fail: {retry: 1, fallback: manual_review}

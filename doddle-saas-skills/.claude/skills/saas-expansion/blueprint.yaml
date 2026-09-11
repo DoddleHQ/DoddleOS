@@ -1,0 +1,27 @@
+id: doddle.saas.expansion
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: Grow SaaS NRR with seat expansion, usage-limit upgrades, annual prepay, add-on attach, and advocacy loops
+inputs:
+  - {name: product, type: string, required: true, description: "Product or pricing URL to audit"}
+  - {name: nrr, type: string, required: false, description: "Current NRR, ex 105%"}
+  - {name: motion, type: string, required: false, description: "sales-assisted, self-serve, or both"}
+outputs:
+  - {name: expansion_audit, type: markdown, description: "Seat, usage, and packaging audit with scores"}
+  - {name: plays_json, type: json, description: "Expansion triggers, offers, and admin nudge rules"}
+  - {name: advocacy_plan, type: markdown, description: "Advocacy-to-referral loop with ask timing"}
+tools:
+  - {id: doddle.tool.v1.stripe.getCustomers, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - stripe
+  - hubspot
+  - google-analytics
+nodes:
+  - {id: assess, type: agent, ref: upsell-maximizer, needs: [inputs], produces: [expansion_assessment]}
+  - {id: usage_check, type: tool, ref: doddle.tool.v1.stripe.getCustomers, needs: [assess], produces: [usage_data]}
+  - {id: plays, type: agent, ref: copywriter, needs: [usage_check], produces: [expansion_audit, plays_json]}
+  - {id: advocacy, type: agent, ref: continuity-specialist, needs: [plays], produces: [advocacy_plan]}
+on_fail: {retry: 1, fallback: manual_review}

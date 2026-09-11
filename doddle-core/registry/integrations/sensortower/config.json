@@ -1,0 +1,24 @@
+{
+  "name": "sensortower",
+  "description": "Sensor Tower app intelligence: metadata, rankings, keywords, competitors",
+  "type": "custom",
+  "command": "node",
+  "args": ["./mcp-servers/sensortower/index.js"],
+  "env": {
+    "SENSOR_TOWER_API_TOKEN": "${SENSOR_TOWER_API_TOKEN}"
+  },
+  "setup": {
+    "requirements": [
+      "Node.js 18+",
+      "Sensor Tower API token with app analytics scope"
+    ],
+    "status": "stub - custom MCP server pending, skills fall back to manual_review"
+  },
+  "capabilities": {
+    "tools": 29,
+    "categories": ["metadata", "rankings", "keywords", "competitors", "reviews"]
+  },
+  "source": {
+    "official": "https://developers.sensortower.com"
+  }
+}

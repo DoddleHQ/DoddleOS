@@ -1,0 +1,24 @@
+id: doddle.marketing.partnerships
+version: 1.5.1
+kind: skill
+engine: doddle-os>=1.0
+description: "When the user wants to create, manage, or optimize partnership programs including co-marketing, integration partners, affiliate partnerships, or channel partnerships."
+inputs:
+  - {name: brief, type: string, required: true, description: "Partnership brief: type, goals, resources; ask if missing"}
+  - {name: channel, type: string, required: false, description: "Partnership motion or co-marketing channel; infer if missing"}
+  - {name: budget, type: string, required: false, description: "Partner program budget if any; ask if missing"}
+outputs:
+  - {name: plan, type: markdown, description: "Partnership plan: targets, outreach, terms, co-marketing calendar, ROI model"}
+  - {name: assets, type: json, description: "Machine-readable assets: partner list, outreach sequences, terms, milestones"}
+tools:
+  - {id: doddle.tool.v1.crosspost.publish, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - crosspost
+  - google-analytics
+nodes:
+  - {id: brief, type: agent, ref: researcher, needs: [inputs], produces: [brief_doc]}
+  - {id: create, type: agent, ref: planner, needs: [brief], produces: [plan, assets]}
+  - {id: distribute, type: tool, ref: doddle.tool.v1.crosspost.publish, needs: [create], produces: [distribution_receipt]}
+  - {id: measure, type: agent, ref: conversion-optimizer, needs: [distribute], produces: [plan, assets]}
+on_fail: {retry: 1, fallback: manual_review}
