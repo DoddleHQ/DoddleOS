@@ -6,7 +6,7 @@
     "url": "https://doddlehq.com"
   },
   "metadata": {
-    "description": "Creator-economy skills for ideation, scripting, packaging, publishing, and monetization",
+    "description": "Doddle Creator OS \u2014 creator-economy skills for ideation, scripting, packaging, publishing, and monetization",
     "version": "1.0.0",
     "updatedAt": "2026-09-11"
   },
@@ -14,7 +14,7 @@
     {
       "name": "doddle-creator-skills",
       "source": "./",
-      "description": "5 creator skills: ideation, scripting, packaging, publishing, and monetization",
+      "description": "Doddle Creator OS: 5 creator skills: ideation, scripting, packaging, publishing, and monetization",
       "author": {
         "name": "Doddle Team"
       },
@@ -30,7 +30,12 @@
         "monetization"
       ],
       "category": "creator-economy",
-      "tags": ["creator", "video", "content", "revenue"],
+      "tags": [
+        "creator",
+        "video",
+        "content",
+        "revenue"
+      ],
       "featured": true,
       "verified": true
     }

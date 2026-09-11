@@ -1,10 +1,10 @@
-# Doddle Healthcare Skills
+# Doddle Health OS
 
 > Clinic marketing skills for appointment booking, recall, intake, reputation, and high-value procedure ads.
 
 ## Overview
 
-Add-on skill pack for [Doddle Marketing OS](https://github.com/doddleOS/doddleOS-marketing). 5 specialised healthcare skills covering new patient → booked visit → recall → review.
+Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 5 specialised healthcare skills covering new patient → booked visit → recall → review.
 
 ## Skills Included
 
@@ -71,7 +71,7 @@ Manual: `cp -r doddle-healthcare-skills/.claude/skills/* your-project/.claude/sk
 
 Healthcare marketing must respect patient privacy (HIPAA-style: no PHI in reviews/ads/retargeting) and ad-platform healthcare policies. Every skill includes a compliance checkpoint. Not legal advice.
 
-## Dependencies
+## Optional bindings (peer packs, no install dependency)
 
 Core + packs:
 - `local-booking`, `local-reviews`, `local-ads` (doddle-local-skills)
@@ -82,4 +82,4 @@ Core + packs:
 
 ## License
 
-MIT License - Same as Doddle Marketing OS core
+MIT License - Same as DoddleOS core

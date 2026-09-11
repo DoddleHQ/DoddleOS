@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="assets/logo.svg" alt="Doddle Marketing OS Logo" width="80" height="80">
+  <img src="assets/logo.svg" alt="DoddleOS Logo" width="80" height="80">
 </p>
 
-<h1 align="center">Doddle Marketing OS</h1>
+<h1 align="center">DoddleOS</h1>
 
 <p align="center">
   <a href="https://github.com/doddleOS/doddleOS-marketing/stargazers"><img src="https://img.shields.io/github/stars/doddleOS/doddleOS-marketing?style=flat" alt="Stars"></a>
@@ -15,11 +15,11 @@
 </p>
 
 <p align="center">
-  <strong>Enterprise-grade AI marketing automation for Claude Code, Cursor, GitHub Copilot, and any AI assistant supporting agents & skills.</strong>
+  <strong>Domain-neutral agentic execution engine for Claude Code, Cursor, GitHub Copilot, and any AI assistant supporting agents & skills.</strong>
 </p>
 
 <p align="center">
-  Production-ready marketing agents, skills, commands, and workflows built for SaaS founders, marketers, and growth teams. Campaign planning, content creation, SEO, CRO, email sequences, and analytics - all powered by specialized AI agents.
+  Validated graph blueprints (SKILL.md + blueprint.yaml) executed as agent/tool DAGs: 114 skills across 14 independent peer packs — marketing, ecom, local, SaaS, health, legal, finance, and more. Each pack installs and runs standalone; cross-pack binding via blueprint call nodes.
 </p>
 
 <p align="center">
@@ -63,14 +63,7 @@ doddleOS-marketing/
 |   |   |-- growth/      # /growth:launch, /growth:referral, /growth:free-tool
 |   |   |-- ...and more
 |   |
-|   |-- skills/          # 28 marketing skills
-|   |   |-- marketing-psychology/       # 70+ mental models
-|   |   |-- marketing-ideas/            # 140+ SaaS strategies
-|   |   |-- page-cro/                   # Landing page optimization
-|   |   |-- copywriting/                # Marketing copy
-|   |   |-- programmatic-seo/           # Scaled page generation
-|   |   |-- pricing-strategy/           # Pricing & packaging
-|   |   |-- ...and more
+|   |-- skills/          # moved → doddle-marketing-skills/ (independent peer pack, 49 skills)
 |   |
 |   |-- workflows/       # Core marketing workflows
 |       |-- primary-workflow.md         # Campaign lifecycle
@@ -233,23 +226,24 @@ cp -r doddleOS-marketing/.claude/workflows/* ~/.claude/workflows/
 | `referral-program` | Referral, affiliate | Viral growth |
 | `free-tool-strategy` | Engineering-as-marketing | Free tool planning |
 
-### Add-on Skill Packs (DoddleOS v2 blueprints)
+### Independent OS Packs (DoddleOS v2 blueprints, peers — no cross-pack install deps)
 
 | Pack | Skills | IDs | Commands |
 |------|--------|-----|----------|
-| `doddle-ecommerce-skills/` | PLP, PDP, checkout, search, revenue | `doddle.ecommerce.*` v1.5.1 | `/ecom:plp`, `/ecom:pdp`, `/ecom:checkout`, `/ecom:search`, `/ecom:revenue` |
-| `doddle-local-skills/` | GBP, reviews, location pages, booking, local ads | `doddle.local.*` v1.0.0 | `/local:gbp`, `/local:reviews`, `/local:pages`, `/local:booking`, `/local:ads` |
-| `doddle-saas-skills/` | homepage, pricing, trial, retention, expansion | `doddle.saas.*` v1.0.0 | `/saas:homepage`, `/saas:pricing`, `/saas:trial`, `/saas:retention`, `/saas:expansion` |
-| `doddle-healthcare-skills/` | booking, recall, intake, reputation, ads | `doddle.health.*` v1.0.0 | `/health:booking`, `/health:recall`, `/health:intake`, `/health:reputation`, `/health:ads` |
-| `doddle-real-estate-skills/` | listings, valuation, open-house, nurture, referrals | `doddle.realty.*` v1.0.0 | `/realty:listings`, `/realty:valuation`, `/realty:openhouse`, `/realty:nurture`, `/realty:referrals` |
-| `doddle-b2b-skills/` | outbound, proposals, cases, retainers, partnerships | `doddle.b2b.*` v1.0.0 | `/b2b:outbound`, `/b2b:proposals`, `/b2b:cases`, `/b2b:retainers`, `/b2b:partnerships` |
-| `doddle-restaurant-skills/` | reservations, ordering, loyalty, events, reputation | `doddle.restaurant.*` v1.0.0 | `/restaurant:reservations`, `/restaurant:ordering`, `/restaurant:loyalty`, `/restaurant:events`, `/restaurant:reputation` |
-| `doddle-hr-skills/` | recruiting, screening, onboarding, culture, employer-brand | `doddle.hr.*` v1.0.0 | `/hr:recruiting`, `/hr:screening`, `/hr:onboarding`, `/hr:culture`, `/hr:brand` |
-| `doddle-sales-skills/` | prospecting, discovery, negotiation, forecasting, enablement | `doddle.sales.*` v1.0.0 | `/sales:prospecting`, `/sales:discovery`, `/sales:negotiation`, `/sales:forecasting`, `/sales:enablement` |
-| `doddle-creator-skills/` | ideation, scripting, packaging, publishing, monetization | `doddle.creator.*` v1.0.0 | `/creator:ideation`, `/creator:scripting`, `/creator:packaging`, `/creator:publishing`, `/creator:monetization` |
-| `doddle-legal-skills/` | intake, guides, consults, reputation, referrals | `doddle.legal.*` v1.0.0 | `/legal:intake`, `/legal:guides`, `/legal:consults`, `/legal:reputation`, `/legal:referrals` |
-| `doddle-finance-skills/` | leads, onboarding, reviews, cross-sell, referrals | `doddle.finance.*` v1.0.0 | `/finance:leads`, `/finance:onboarding`, `/finance:reviews`, `/finance:crosssell`, `/finance:referrals` |
-| `doddle-education-skills/` | enrollment, open-house, content, nurture, alumni | `doddle.edu.*` v1.0.0 | `/edu:enrollment`, `/edu:openhouse`, `/edu:content`, `/edu:nurture`, `/edu:alumni` |
+| Doddle Marketing OS (`doddle-marketing-skills/`) | CRO, copy, SEO, growth, content, analytics (49) | `doddle.marketing.*` v1.5.1 | `/content:*`, `/seo:*`, `/cro:*`, `/growth:*`, `/marketing:*` |
+| Doddle Ecommerce OS (`doddle-ecommerce-skills/`) | PLP, PDP, checkout, search, revenue | `doddle.ecommerce.*` v1.5.1 | `/ecom:plp`, `/ecom:pdp`, `/ecom:checkout`, `/ecom:search`, `/ecom:revenue` |
+| Doddle Local OS (`doddle-local-skills/`) | GBP, reviews, location pages, booking, local ads | `doddle.local.*` v1.0.0 | `/local:gbp`, `/local:reviews`, `/local:pages`, `/local:booking`, `/local:ads` |
+| Doddle SaaS OS (`doddle-saas-skills/`) | homepage, pricing, trial, retention, expansion | `doddle.saas.*` v1.0.0 | `/saas:homepage`, `/saas:pricing`, `/saas:trial`, `/saas:retention`, `/saas:expansion` |
+| Doddle Health OS (`doddle-healthcare-skills/`) | booking, recall, intake, reputation, ads | `doddle.health.*` v1.0.0 | `/health:booking`, `/health:recall`, `/health:intake`, `/health:reputation`, `/health:ads` |
+| Doddle Real Estate OS (`doddle-real-estate-skills/`) | listings, valuation, open-house, nurture, referrals | `doddle.realty.*` v1.0.0 | `/realty:listings`, `/realty:valuation`, `/realty:openhouse`, `/realty:nurture`, `/realty:referrals` |
+| Doddle B2B OS (`doddle-b2b-skills/`) | outbound, proposals, cases, retainers, partnerships | `doddle.b2b.*` v1.0.0 | `/b2b:outbound`, `/b2b:proposals`, `/b2b:cases`, `/b2b:retainers`, `/b2b:partnerships` |
+| Doddle Restaurant OS (`doddle-restaurant-skills/`) | reservations, ordering, loyalty, events, reputation | `doddle.restaurant.*` v1.0.0 | `/restaurant:reservations`, `/restaurant:ordering`, `/restaurant:loyalty`, `/restaurant:events`, `/restaurant:reputation` |
+| Doddle HR OS (`doddle-hr-skills/`) | recruiting, screening, onboarding, culture, employer-brand | `doddle.hr.*` v1.0.0 | `/hr:recruiting`, `/hr:screening`, `/hr:onboarding`, `/hr:culture`, `/hr:brand` |
+| Doddle Sales OS (`doddle-sales-skills/`) | prospecting, discovery, negotiation, forecasting, enablement | `doddle.sales.*` v1.0.0 | `/sales:prospecting`, `/sales:discovery`, `/sales:negotiation`, `/sales:forecasting`, `/sales:enablement` |
+| Doddle Creator OS (`doddle-creator-skills/`) | ideation, scripting, packaging, publishing, monetization | `doddle.creator.*` v1.0.0 | `/creator:ideation`, `/creator:scripting`, `/creator:packaging`, `/creator:publishing`, `/creator:monetization` |
+| Doddle Legal OS (`doddle-legal-skills/`) | intake, guides, consults, reputation, referrals | `doddle.legal.*` v1.0.0 | `/legal:intake`, `/legal:guides`, `/legal:consults`, `/legal:reputation`, `/legal:referrals` |
+| Doddle Finance OS (`doddle-finance-skills/`) | leads, onboarding, reviews, cross-sell, referrals | `doddle.finance.*` v1.0.0 | `/finance:leads`, `/finance:onboarding`, `/finance:reviews`, `/finance:crosssell`, `/finance:referrals` |
+| Doddle Education OS (`doddle-education-skills/`) | enrollment, open-house, content, nurture, alumni | `doddle.edu.*` v1.0.0 | `/edu:enrollment`, `/edu:openhouse`, `/edu:content`, `/edu:nurture`, `/edu:alumni` |
 
 Validate all: `python3 doddle-core/scripts/validate.py` (0 errors target).
 

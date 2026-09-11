@@ -1,7 +1,7 @@
 {
   "name": "doddleOS-marketing",
   "version": "1.0.0",
-  "description": "Enterprise-grade AI marketing automation for Claude Code, Cursor, and GitHub Copilot. 20 agents, 109 commands, 49 skills for campaigns, content, SEO, CRO, and analytics.",
+  "description": "DoddleOS agentic execution engine for Claude Code, Cursor, and GitHub Copilot. 20 agents, 164 commands, 114 skills across 14 domain packs: validated graph blueprints for marketing, sales, HR, legal, finance, and more.",
   "main": "CLAUDE.md",
   "scripts": {
     "test": "echo \"Warning: no test specified\" && exit 0",

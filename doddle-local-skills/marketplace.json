@@ -6,7 +6,7 @@
     "url": "https://doddlehq.com"
   },
   "metadata": {
-    "description": "Local-services marketing skills for GBP, reviews, location pages, booking, and local ads",
+    "description": "Doddle Local OS \u2014 local-services marketing skills for GBP, reviews, location pages, booking, and local ads",
     "version": "1.0.0",
     "updatedAt": "2026-09-11"
   },
@@ -14,7 +14,7 @@
     {
       "name": "doddle-local-skills",
       "source": "./",
-      "description": "5 local skills: GBP, reviews, location pages, booking, and local ads",
+      "description": "Doddle Local OS: 5 local skills: GBP, reviews, location pages, booking, and local ads",
       "author": {
         "name": "Doddle Team"
       },
@@ -32,7 +32,12 @@
         "conversion"
       ],
       "category": "local-marketing",
-      "tags": ["local", "seo", "reputation", "conversion"],
+      "tags": [
+        "local",
+        "seo",
+        "reputation",
+        "conversion"
+      ],
       "featured": true,
       "verified": true
     }

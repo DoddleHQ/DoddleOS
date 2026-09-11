@@ -6,7 +6,7 @@
     "url": "https://doddlehq.com"
   },
   "metadata": {
-    "description": "Law-firm marketing skills for intake, guides, consults, reputation, and referrals",
+    "description": "Doddle Legal OS \u2014 law-firm marketing skills for intake, guides, consults, reputation, and referrals",
     "version": "1.0.0",
     "updatedAt": "2026-09-11"
   },
@@ -14,7 +14,7 @@
     {
       "name": "doddle-legal-skills",
       "source": "./",
-      "description": "5 legal skills: intake, guides, consults, reputation, and referrals",
+      "description": "Doddle Legal OS: 5 legal skills: intake, guides, consults, reputation, and referrals",
       "author": {
         "name": "Doddle Team"
       },
@@ -30,7 +30,12 @@
         "reputation"
       ],
       "category": "legal-marketing",
-      "tags": ["legal", "local", "lead-gen", "referral"],
+      "tags": [
+        "legal",
+        "local",
+        "lead-gen",
+        "referral"
+      ],
       "featured": true,
       "verified": true
     }

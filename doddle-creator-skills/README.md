@@ -1,10 +1,10 @@
-# Doddle Creator Skills
+# Doddle Creator OS
 
 > Creator-economy skills for ideation, scripting, packaging, publishing, and monetization.
 
 ## Overview
 
-Add-on skill pack for [Doddle Marketing OS](https://github.com/doddleOS/doddleOS-marketing). Turns posting into a system: position → script → package → publish → get paid.
+Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. Turns posting into a system: position → script → package → publish → get paid.
 
 Naming: pack dir `doddle-creator-skills`, skills `creator-*`, IDs `doddle.creator.*`, commands `/creator:*`.
 
@@ -69,7 +69,7 @@ Manual: `cp -r doddle-creator-skills/.claude/skills/* your-project/.claude/skill
 | Output volume + repurpose ratio | `creator-publishing` |
 | RPM + sponsor pipeline | `creator-monetization` |
 
-## Dependencies
+## Optional bindings (peer packs, no install dependency)
 
 Core skills (no new integration needed):
 - `video-marketing` - Video fundamentals
@@ -84,4 +84,4 @@ Core skills (no new integration needed):
 
 ## License
 
-MIT License - Same as Doddle Marketing OS core
+MIT License - Same as DoddleOS core

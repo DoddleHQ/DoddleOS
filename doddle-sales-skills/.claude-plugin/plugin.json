@@ -1,7 +1,7 @@
 {
   "name": "doddle-sales-skills",
   "version": "1.0.0",
-  "description": "Sales execution for prospecting, discovery, negotiation, forecasting, enablement (DoddleOS v2 blueprints) - 5 skills",
+  "description": "Doddle Sales OS \u2014 sales execution for prospecting, discovery, negotiation, forecasting, enablement (DoddleOS v2 blueprints) - 5 skills",
   "author": {
     "name": "Doddle Team",
     "url": "https://doddlehq.com"
@@ -10,20 +10,37 @@
   "repository": "https://github.com/doddleOS/doddle-sales-skills",
   "documentation": "https://docs.doddlehq.com",
   "license": "MIT",
-  "keywords": ["sales", "prospecting", "discovery", "negotiation", "forecasting"],
+  "keywords": [
+    "sales",
+    "prospecting",
+    "discovery",
+    "negotiation",
+    "forecasting"
+  ],
   "category": "sales-execution",
-  "tags": ["sales", "pipeline", "negotiation", "forecast"],
+  "tags": [
+    "sales",
+    "pipeline",
+    "negotiation",
+    "forecast"
+  ],
   "skills": "./.claude/skills",
+  "agents": "./.claude/agents",
   "main": "README.md",
   "components": {
     "skills": {
       "path": "./.claude/skills",
       "count": 5,
-      "list": ["sales-prospecting", "sales-discovery", "sales-negotiation", "sales-forecasting", "sales-enablement"]
+      "list": [
+        "sales-prospecting",
+        "sales-discovery",
+        "sales-negotiation",
+        "sales-forecasting",
+        "sales-enablement"
+      ]
     }
   },
   "requirements": {
-    "doddleOS": ">=1.0",
-    "core": "doddleOS-marketing>=1.5.1"
+    "doddleOS": ">=2.0"
   }
 }

@@ -1,0 +1,58 @@
+{
+  "name": "doddle-marketing-skills",
+  "version": "1.5.1",
+  "description": "Doddle Marketing OS — independent marketing OS pack: 49 skills (CRO, copy, SEO, growth) + bundled agents (DoddleOS v2 blueprints)",
+  "author": {
+    "name": "Doddle Team",
+    "url": "https://doddlehq.com"
+  },
+  "homepage": "https://doddlehq.com",
+  "repository": "https://github.com/doddleOS/doddleOS-marketing",
+  "documentation": "https://docs.doddlehq.com",
+  "license": "MIT",
+  "keywords": [
+    "marketing",
+    "cro",
+    "copywriting",
+    "seo",
+    "email",
+    "growth"
+  ],
+  "category": "marketing",
+  "tags": [
+    "marketing",
+    "cro",
+    "seo",
+    "content"
+  ],
+  "skills": "./.claude/skills",
+  "agents": "./.claude/agents",
+  "main": "README.md",
+  "components": {
+    "skills": {
+      "path": "./.claude/skills",
+      "count": 49,
+      "ids": "doddle.marketing.*"
+    },
+    "agents": {
+      "path": "./.claude/agents",
+      "count": 11,
+      "list": [
+        "brainstormer",
+        "brand-voice-guardian",
+        "continuity-specialist",
+        "conversion-optimizer",
+        "copywriter",
+        "email-wizard",
+        "planner",
+        "project-manager",
+        "researcher",
+        "sales-enabler",
+        "seo-specialist"
+      ]
+    }
+  },
+  "requirements": {
+    "doddleOS": ">=2.0"
+  }
+}

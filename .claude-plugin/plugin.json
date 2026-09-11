@@ -1,7 +1,7 @@
 {
   "name": "doddleOS-marketing",
   "version": "2.0.0",
-  "description": "Enterprise-grade AI marketing automation framework - 20 agents, 164 commands, 49 skills for campaigns, content, SEO, and conversion optimization (DoddleOS v2 blueprints)",
+  "description": "DoddleOS - domain-neutral agentic execution engine: validated graph blueprints, 20 agents, 164 commands, 114 skills across 14 independent peer packs (marketing + 13 verticals)",
   "author": {
     "name": "Doddle Team",
     "url": "https://doddlehq.com"
@@ -40,7 +40,7 @@
   ],
   "agents": "./.claude/agents",
   "commands": "./.claude/commands",
-  "skills": "./.claude/skills",
+  "skills": "./doddle-marketing-skills/.claude/skills",
   "workflows": "./.claude/workflows",
   "hooks": "./.claude/hooks",
   "main": "CLAUDE.md",
@@ -60,7 +60,7 @@
       "categories": ["campaign", "content", "seo", "cro", "ecom", "social", "sequence", "analytics", "report", "sales", "leads", "crm", "brand", "ops", "research", "competitor", "growth", "pricing", "marketing", "test", "audit", "game", "training", "local", "saas", "health", "realty", "b2b", "restaurant", "hr", "creator", "legal", "finance", "edu"]
     },
     "skills": {
-      "path": "./.claude/skills",
+      "path": "./doddle-marketing-skills/.claude/skills",
       "count": 49,
       "categories": {
         "core": ["marketing-fundamentals", "marketing-psychology", "marketing-ideas", "seo-mastery", "social-media", "email-marketing", "paid-advertising", "content-strategy", "analytics-attribution", "brand-building", "problem-solving"],

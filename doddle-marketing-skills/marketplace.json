@@ -1,0 +1,45 @@
+{
+  "name": "doddle-marketing-skills",
+  "owner": {
+    "name": "Doddle Team",
+    "email": "contact@doddlehq.com",
+    "url": "https://doddlehq.com"
+  },
+  "metadata": {
+    "description": "Doddle Marketing OS — independent marketing OS pack: 49 skills for CRO, copy, SEO, growth, content, analytics",
+    "version": "1.5.1",
+    "updatedAt": "2026-09-11"
+  },
+  "plugins": [
+    {
+      "name": "doddle-marketing-skills",
+      "source": "./",
+      "description": "Doddle Marketing OS: 49 independent marketing skills (CRO, copy, SEO, growth)",
+      "author": {
+        "name": "Doddle Team"
+      },
+      "homepage": "https://doddlehq.com",
+      "repository": "https://github.com/doddleOS/doddleOS-marketing",
+      "documentation": "https://docs.doddlehq.com",
+      "license": "MIT",
+      "keywords": [
+        "marketing",
+        "cro",
+        "copywriting",
+        "seo",
+        "email",
+        "growth",
+        "analytics"
+      ],
+      "category": "marketing",
+      "tags": [
+        "marketing",
+        "cro",
+        "seo",
+        "content"
+      ],
+      "featured": true,
+      "verified": true
+    }
+  ]
+}

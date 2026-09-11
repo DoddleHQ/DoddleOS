@@ -6,8 +6,8 @@
     "url": "https://doddlehq.com"
   },
   "metadata": {
-    "description": "Enterprise-grade AI marketing automation framework for Claude Code",
-    "longDescription": "Complete marketing automation suite with 18 specialized agents, 90+ slash commands, 28 marketing skills, and interactive training. Covers campaigns, content, SEO, CRO, email, sales enablement, and analytics.",
+    "description": "DoddleOS agentic execution engine for Claude Code - validated graph blueprints across 14 domain packs",
+    "longDescription": "DoddleOS execution engine with 20 agents, 164 slash commands, 114 validated skills across 14 domain packs (marketing flagship plus ecom, local, SaaS, health, legal, finance, and more), and interactive training.",
     "version": "2.0.0",
     "updatedAt": "2025-01-24"
   },
@@ -52,7 +52,7 @@
     {
       "name": "doddleOS-marketing-skills",
       "source": "./.claude/skills",
-      "description": "28 marketing skills including CRO, SEO, copywriting, psychology, and growth",
+      "description": "49 marketing skills including CRO, SEO, copywriting, psychology, and growth",
       "author": {
         "name": "Doddle Team"
       },
@@ -70,7 +70,7 @@
     {
       "name": "doddleOS-marketing-agents",
       "source": "./.claude/agents",
-      "description": "18 specialized marketing agents for campaigns, content, and optimization",
+      "description": "20 specialized agents for campaigns, content, and optimization",
       "author": {
         "name": "Doddle Team"
       },
@@ -86,7 +86,7 @@
     {
       "name": "doddleOS-marketing-commands",
       "source": "./.claude/commands",
-      "description": "90+ marketing slash commands for campaigns, content, SEO, CRO, and analytics",
+      "description": "164 slash commands for campaigns, content, SEO, CRO, analytics, and 13 domain packs",
       "author": {
         "name": "Doddle Team"
       },

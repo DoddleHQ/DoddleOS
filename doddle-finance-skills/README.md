@@ -1,10 +1,10 @@
-# Doddle Finance Skills
+# Doddle Finance OS
 
 > Advisor/finance marketing skills for lead-gen calculators, compliant onboarding, reviews, cross-sell, and COI referrals.
 
 ## Overview
 
-Add-on skill pack for [Doddle Marketing OS](https://github.com/doddleOS/doddleOS-marketing). Turns searches into AUM/premiums: capture with calculators, onboard cleanly, grow share-of-wallet.
+Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. Turns searches into AUM/premiums: capture with calculators, onboard cleanly, grow share-of-wallet.
 
 Naming: pack dir `doddle-finance-skills`, skills `finance-*`, IDs `doddle.finance.*`, commands `/finance:*`.
 
@@ -73,7 +73,7 @@ Manual: `cp -r doddle-finance-skills/.claude/skills/* your-project/.claude/skill
 
 Finance marketing is regulated: no guaranteed returns, risk disclosures where required, testimonial/endorsement disclosure rules, licensed-activity boundaries for unlicensed staff. Every skill includes a compliance checkpoint. Not legal advice — have counsel/compliance review.
 
-## Dependencies
+## Optional bindings (peer packs, no install dependency)
 
 Core + packs (no new integration needed):
 - `lead-magnets`, `form-cro` - Calculators + flows
@@ -85,4 +85,4 @@ Core + packs (no new integration needed):
 
 ## License
 
-MIT License - Same as Doddle Marketing OS core
+MIT License - Same as DoddleOS core

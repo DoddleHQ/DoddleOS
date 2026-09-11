@@ -6,7 +6,7 @@
     "url": "https://doddlehq.com"
   },
   "metadata": {
-    "description": "SaaS marketing skills for homepage, pricing, trial activation, retention, and expansion",
+    "description": "Doddle SaaS OS \u2014 saaS marketing skills for homepage, pricing, trial activation, retention, and expansion",
     "version": "1.0.0",
     "updatedAt": "2026-09-11"
   },
@@ -14,7 +14,7 @@
     {
       "name": "doddle-saas-skills",
       "source": "./",
-      "description": "5 SaaS skills: homepage, pricing, trial, retention, and expansion",
+      "description": "Doddle SaaS OS: 5 SaaS skills: homepage, pricing, trial, retention, and expansion",
       "author": {
         "name": "Doddle Team"
       },
@@ -32,7 +32,12 @@
         "conversion"
       ],
       "category": "saas-marketing",
-      "tags": ["saas", "plg", "pricing", "retention"],
+      "tags": [
+        "saas",
+        "plg",
+        "pricing",
+        "retention"
+      ],
       "featured": true,
       "verified": true
     }

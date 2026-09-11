@@ -1,10 +1,10 @@
-# Doddle SaaS Skills
+# Doddle SaaS OS
 
 > SaaS-specific marketing skills for homepage, pricing, trial activation, retention/dunning, and expansion.
 
 ## Overview
 
-Add-on skill pack for [Doddle Marketing OS](https://github.com/doddleOS/doddleOS-marketing). 5 specialised SaaS skills covering visitor → trial → paid → expansion.
+Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 5 specialised SaaS skills covering visitor → trial → paid → expansion.
 
 ## Skills Included
 
@@ -67,7 +67,7 @@ Manual: `cp -r doddle-saas-skills/.claude/skills/* your-project/.claude/skills/`
 | Logo/MRR churn + failed payments | `saas-retention` |
 | NRR + expansion attach | `saas-expansion` |
 
-## Dependencies
+## Optional bindings (peer packs, no install dependency)
 
 Core [Doddle Marketing OS](https://github.com/doddleOS/doddleOS-marketing) skills:
 - `page-cro` - Landing page CRO
@@ -82,4 +82,4 @@ Core [Doddle Marketing OS](https://github.com/doddleOS/doddleOS-marketing) skill
 
 ## License
 
-MIT License - Same as Doddle Marketing OS core
+MIT License - Same as DoddleOS core

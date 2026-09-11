@@ -6,7 +6,7 @@
     "url": "https://doddlehq.com"
   },
   "metadata": {
-    "description": "Clinic marketing skills for booking, recall, intake, reputation, and procedure ads",
+    "description": "Doddle Health OS \u2014 clinic marketing skills for booking, recall, intake, reputation, and procedure ads",
     "version": "1.0.0",
     "updatedAt": "2026-09-11"
   },
@@ -14,7 +14,7 @@
     {
       "name": "doddle-healthcare-skills",
       "source": "./",
-      "description": "5 healthcare skills: booking, recall, intake, reputation, and ads",
+      "description": "Doddle Health OS: 5 healthcare skills: booking, recall, intake, reputation, and ads",
       "author": {
         "name": "Doddle Team"
       },
@@ -31,7 +31,12 @@
         "patient-acquisition"
       ],
       "category": "healthcare-marketing",
-      "tags": ["healthcare", "local", "reputation", "conversion"],
+      "tags": [
+        "healthcare",
+        "local",
+        "reputation",
+        "conversion"
+      ],
       "featured": true,
       "verified": true
     }

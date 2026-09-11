@@ -1,7 +1,7 @@
 {
   "name": "doddle-restaurant-skills",
   "version": "1.0.0",
-  "description": "Restaurant skills for reservations, ordering, loyalty, events, reputation (DoddleOS v2 blueprints) - 5 skills",
+  "description": "Doddle Restaurant OS \u2014 restaurant skills for reservations, ordering, loyalty, events, reputation (DoddleOS v2 blueprints) - 5 skills",
   "author": {
     "name": "Doddle Team",
     "url": "https://doddlehq.com"
@@ -10,20 +10,37 @@
   "repository": "https://github.com/doddleOS/doddle-restaurant-skills",
   "documentation": "https://docs.doddlehq.com",
   "license": "MIT",
-  "keywords": ["restaurant", "reservations", "ordering", "loyalty", "events"],
+  "keywords": [
+    "restaurant",
+    "reservations",
+    "ordering",
+    "loyalty",
+    "events"
+  ],
   "category": "restaurant-marketing",
-  "tags": ["restaurant", "local", "loyalty", "reputation"],
+  "tags": [
+    "restaurant",
+    "local",
+    "loyalty",
+    "reputation"
+  ],
   "skills": "./.claude/skills",
+  "agents": "./.claude/agents",
   "main": "README.md",
   "components": {
     "skills": {
       "path": "./.claude/skills",
       "count": 5,
-      "list": ["restaurant-reservations", "restaurant-ordering", "restaurant-loyalty", "restaurant-events", "restaurant-reputation"]
+      "list": [
+        "restaurant-reservations",
+        "restaurant-ordering",
+        "restaurant-loyalty",
+        "restaurant-events",
+        "restaurant-reputation"
+      ]
     }
   },
   "requirements": {
-    "doddleOS": ">=1.0",
-    "core": "doddleOS-marketing>=1.5.1"
+    "doddleOS": ">=2.0"
   }
 }

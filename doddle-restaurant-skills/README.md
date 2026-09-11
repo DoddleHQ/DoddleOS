@@ -1,10 +1,10 @@
-# Doddle Restaurant Skills
+# Doddle Restaurant OS
 
 > Restaurant/F&B marketing skills for reservations, direct ordering, loyalty, events, and reputation.
 
 ## Overview
 
-Add-on skill pack for [Doddle Marketing OS](https://github.com/doddleOS/doddleOS-marketing). 5 specialised restaurant skills covering discovery → booked table → regular → catered event.
+Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 5 specialised restaurant skills covering discovery → booked table → regular → catered event.
 
 Naming: pack dir `doddle-restaurant-skills`, skills `restaurant-*`, IDs `doddle.restaurant.*`, commands `/restaurant:*`.
 
@@ -69,7 +69,7 @@ Manual: `cp -r doddle-restaurant-skills/.claude/skills/* your-project/.claude/sk
 | Event revenue share | `restaurant-events` |
 | Rating + response coverage | `restaurant-reputation` |
 
-## Dependencies
+## Optional bindings (peer packs, no install dependency)
 
 Core + packs:
 - `local-booking`, `local-reviews`, `local-gbp` (doddle-local-skills)
@@ -81,4 +81,4 @@ Core + packs:
 
 ## License
 
-MIT License - Same as Doddle Marketing OS core
+MIT License - Same as DoddleOS core

@@ -1,7 +1,7 @@
 {
   "name": "doddle-real-estate-skills",
   "version": "1.0.0",
-  "description": "Real-estate marketing skills for listings, valuation, open houses, nurture, referrals (DoddleOS v2 blueprints) - 5 skills",
+  "description": "Doddle Real Estate OS \u2014 real-estate marketing skills for listings, valuation, open houses, nurture, referrals (DoddleOS v2 blueprints) - 5 skills",
   "author": {
     "name": "Doddle Team",
     "url": "https://doddlehq.com"
@@ -10,20 +10,37 @@
   "repository": "https://github.com/doddleOS/doddle-real-estate-skills",
   "documentation": "https://docs.doddlehq.com",
   "license": "MIT",
-  "keywords": ["real-estate", "listings", "valuation", "nurture", "referrals"],
+  "keywords": [
+    "real-estate",
+    "listings",
+    "valuation",
+    "nurture",
+    "referrals"
+  ],
   "category": "real-estate-marketing",
-  "tags": ["real-estate", "seo", "lead-gen", "referral"],
+  "tags": [
+    "real-estate",
+    "seo",
+    "lead-gen",
+    "referral"
+  ],
   "skills": "./.claude/skills",
+  "agents": "./.claude/agents",
   "main": "README.md",
   "components": {
     "skills": {
       "path": "./.claude/skills",
       "count": 5,
-      "list": ["realty-listings", "realty-valuation", "realty-openhouse", "realty-nurture", "realty-referrals"]
+      "list": [
+        "realty-listings",
+        "realty-valuation",
+        "realty-openhouse",
+        "realty-nurture",
+        "realty-referrals"
+      ]
     }
   },
   "requirements": {
-    "doddleOS": ">=1.0",
-    "core": "doddleOS-marketing>=1.5.1"
+    "doddleOS": ">=2.0"
   }
 }

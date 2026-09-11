@@ -1,7 +1,7 @@
 {
   "name": "doddle-finance-skills",
   "version": "1.0.0",
-  "description": "Advisor skills for leads, onboarding, reviews, cross-sell, referrals (DoddleOS v2 blueprints) - 5 skills",
+  "description": "Doddle Finance OS \u2014 advisor skills for leads, onboarding, reviews, cross-sell, referrals (DoddleOS v2 blueprints) - 5 skills",
   "author": {
     "name": "Doddle Team",
     "url": "https://doddlehq.com"
@@ -10,20 +10,37 @@
   "repository": "https://github.com/doddleOS/doddle-finance-skills",
   "documentation": "https://docs.doddlehq.com",
   "license": "MIT",
-  "keywords": ["finance", "leads", "onboarding", "cross-sell", "referrals"],
+  "keywords": [
+    "finance",
+    "leads",
+    "onboarding",
+    "cross-sell",
+    "referrals"
+  ],
   "category": "finance-marketing",
-  "tags": ["finance", "lead-gen", "onboarding", "referral"],
+  "tags": [
+    "finance",
+    "lead-gen",
+    "onboarding",
+    "referral"
+  ],
   "skills": "./.claude/skills",
+  "agents": "./.claude/agents",
   "main": "README.md",
   "components": {
     "skills": {
       "path": "./.claude/skills",
       "count": 5,
-      "list": ["finance-leads", "finance-onboarding", "finance-reviews", "finance-crosssell", "finance-referrals"]
+      "list": [
+        "finance-leads",
+        "finance-onboarding",
+        "finance-reviews",
+        "finance-crosssell",
+        "finance-referrals"
+      ]
     }
   },
   "requirements": {
-    "doddleOS": ">=1.0",
-    "core": "doddleOS-marketing>=1.5.1"
+    "doddleOS": ">=2.0"
   }
 }

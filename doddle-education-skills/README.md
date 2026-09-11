@@ -1,10 +1,10 @@
-# Doddle Education Skills
+# Doddle Education OS
 
 > School/course marketing skills for enrollment, open-house events, program content, nurture, and alumni referrals.
 
 ## Overview
 
-Add-on skill pack for [Doddle Marketing OS](https://github.com/doddleOS/doddleOS-marketing). Turns inquiries into enrolled students: capture fast, nurture long cycles, yield admits, activate alumni.
+Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. Turns inquiries into enrolled students: capture fast, nurture long cycles, yield admits, activate alumni.
 
 Naming: pack dir `doddle-education-skills`, skills `edu-*`, IDs `doddle.edu.*`, commands `/edu:*`.
 
@@ -73,7 +73,7 @@ Manual: `cp -r doddle-education-skills/.claude/skills/* your-project/.claude/ski
 
 Education marketing must respect student privacy (no minor data in ads/retargeting without consent), honest outcome claims (no guaranteed placements/salaries), and platform education-ad policies. Every skill includes a checkpoint. Not legal advice.
 
-## Dependencies
+## Optional bindings (peer packs, no install dependency)
 
 Core + packs (no new integration needed):
 - `form-cro`, `lead-qualifier` - Inquiry + application
@@ -85,4 +85,4 @@ Core + packs (no new integration needed):
 
 ## License
 
-MIT License - Same as Doddle Marketing OS core
+MIT License - Same as DoddleOS core

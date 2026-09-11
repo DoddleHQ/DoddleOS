@@ -6,7 +6,7 @@
     "url": "https://doddlehq.com"
   },
   "metadata": {
-    "description": "Education marketing skills for enrollment, open-house, content, nurture, and alumni",
+    "description": "Doddle Education OS \u2014 education marketing skills for enrollment, open-house, content, nurture, and alumni",
     "version": "1.0.0",
     "updatedAt": "2026-09-11"
   },
@@ -14,7 +14,7 @@
     {
       "name": "doddle-education-skills",
       "source": "./",
-      "description": "5 education skills: enrollment, open-house, content, nurture, and alumni",
+      "description": "Doddle Education OS: 5 education skills: enrollment, open-house, content, nurture, and alumni",
       "author": {
         "name": "Doddle Team"
       },
@@ -30,7 +30,12 @@
         "alumni"
       ],
       "category": "education-marketing",
-      "tags": ["education", "enrollment", "events", "referral"],
+      "tags": [
+        "education",
+        "enrollment",
+        "events",
+        "referral"
+      ],
       "featured": true,
       "verified": true
     }

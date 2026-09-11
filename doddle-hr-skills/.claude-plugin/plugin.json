@@ -1,7 +1,7 @@
 {
   "name": "doddle-hr-skills",
   "version": "1.0.0",
-  "description": "People-ops skills for recruiting, screening, onboarding, culture, brand (DoddleOS v2 blueprints) - 5 skills",
+  "description": "Doddle HR OS \u2014 people-ops skills for recruiting, screening, onboarding, culture, brand (DoddleOS v2 blueprints) - 5 skills",
   "author": {
     "name": "Doddle Team",
     "url": "https://doddlehq.com"
@@ -10,20 +10,37 @@
   "repository": "https://github.com/doddleOS/doddle-hr-skills",
   "documentation": "https://docs.doddlehq.com",
   "license": "MIT",
-  "keywords": ["hr", "recruiting", "onboarding", "culture", "employer-brand"],
+  "keywords": [
+    "hr",
+    "recruiting",
+    "onboarding",
+    "culture",
+    "employer-brand"
+  ],
   "category": "hr-people-ops",
-  "tags": ["hr", "hiring", "onboarding", "culture"],
+  "tags": [
+    "hr",
+    "hiring",
+    "onboarding",
+    "culture"
+  ],
   "skills": "./.claude/skills",
+  "agents": "./.claude/agents",
   "main": "README.md",
   "components": {
     "skills": {
       "path": "./.claude/skills",
       "count": 5,
-      "list": ["hr-recruiting", "hr-screening", "hr-onboarding", "hr-culture", "hr-brand"]
+      "list": [
+        "hr-recruiting",
+        "hr-screening",
+        "hr-onboarding",
+        "hr-culture",
+        "hr-brand"
+      ]
     }
   },
   "requirements": {
-    "doddleOS": ">=1.0",
-    "core": "doddleOS-marketing>=1.5.1"
+    "doddleOS": ">=2.0"
   }
 }

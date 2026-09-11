@@ -1,7 +1,7 @@
 {
   "name": "doddle-ecommerce-skills",
   "version": "1.5.1",
-  "description": "eCommerce marketing skills for PLP, PDP, checkout, search, revenue (DoddleOS v2 blueprints) - 5 skills",
+  "description": "Doddle Ecommerce OS \u2014 eCommerce marketing skills for PLP, PDP, checkout, search, revenue (DoddleOS v2 blueprints) - 5 skills",
   "author": {
     "name": "Doddle Team",
     "url": "https://doddlehq.com"
@@ -10,20 +10,38 @@
   "repository": "https://github.com/doddleOS/doddle-ecommerce-skills",
   "documentation": "https://docs.doddlehq.com",
   "license": "MIT",
-  "keywords": ["ecommerce", "plp", "pdp", "checkout", "search", "revenue", "cro"],
+  "keywords": [
+    "ecommerce",
+    "plp",
+    "pdp",
+    "checkout",
+    "search",
+    "revenue",
+    "cro"
+  ],
   "category": "ecommerce",
-  "tags": ["ecommerce", "cro", "conversion"],
+  "tags": [
+    "ecommerce",
+    "cro",
+    "conversion"
+  ],
   "skills": "./.claude/skills",
+  "agents": "./.claude/agents",
   "main": "README.md",
   "components": {
     "skills": {
       "path": "./.claude/skills",
       "count": 5,
-      "list": ["ecommerce-plp", "ecommerce-pdp", "ecommerce-checkout", "ecommerce-search", "ecommerce-revenue"]
+      "list": [
+        "ecommerce-plp",
+        "ecommerce-pdp",
+        "ecommerce-checkout",
+        "ecommerce-search",
+        "ecommerce-revenue"
+      ]
     }
   },
   "requirements": {
-    "doddleOS": ">=1.0",
-    "core": "doddleOS-marketing>=1.5.1"
+    "doddleOS": ">=2.0"
   }
 }

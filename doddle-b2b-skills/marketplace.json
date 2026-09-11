@@ -6,7 +6,7 @@
     "url": "https://doddlehq.com"
   },
   "metadata": {
-    "description": "B2B agency marketing skills for outbound, proposals, cases, retainers, and partnerships",
+    "description": "Doddle B2B OS \u2014 b2B agency marketing skills for outbound, proposals, cases, retainers, and partnerships",
     "version": "1.0.0",
     "updatedAt": "2026-09-11"
   },
@@ -14,7 +14,7 @@
     {
       "name": "doddle-b2b-skills",
       "source": "./",
-      "description": "5 B2B skills: outbound, proposals, cases, retainers, and partnerships",
+      "description": "Doddle B2B OS: 5 B2B skills: outbound, proposals, cases, retainers, and partnerships",
       "author": {
         "name": "Doddle Team"
       },
@@ -31,7 +31,12 @@
         "partnerships"
       ],
       "category": "b2b-marketing",
-      "tags": ["b2b", "outbound", "sales", "retention"],
+      "tags": [
+        "b2b",
+        "outbound",
+        "sales",
+        "retention"
+      ],
       "featured": true,
       "verified": true
     }

@@ -1,10 +1,10 @@
-# Doddle Sales Skills
+# Doddle Sales OS
 
 > B2B sales-execution skills for prospecting, discovery, negotiation, forecasting, and enablement.
 
 ## Overview
 
-Add-on skill pack for [Doddle Marketing OS](https://github.com/doddleOS/doddleOS-marketing). Sits between marketing and revenue: turns pipeline into forecastable closes.
+Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. Sits between marketing and revenue: turns pipeline into forecastable closes.
 
 Naming: pack dir `doddle-sales-skills`, skills `sales-*`, IDs `doddle.sales.*`. Commands extend the EXISTING `/sales:*` category (outreach, pitch, battlecard, qualify already live) — no new namespace.
 
@@ -69,7 +69,7 @@ Manual: `cp -r doddle-sales-skills/.claude/skills/* your-project/.claude/skills/
 | Forecast accuracy + stage hygiene | `sales-forecasting` |
 | Asset usage + ramp time | `sales-enablement` |
 
-## Dependencies
+## Optional bindings (peer packs, no install dependency)
 
 Core + packs (no new integration needed):
 - `cold-email`, `customer-research` - Prospecting
@@ -82,4 +82,4 @@ Core + packs (no new integration needed):
 
 ## License
 
-MIT License - Same as Doddle Marketing OS core
+MIT License - Same as DoddleOS core

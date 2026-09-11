@@ -2,19 +2,117 @@
   "kernel": "doddle-core",
   "spec": "v2",
   "packs": [
-    {"name": "marketing", "source": "./.claude/skills", "ids": "doddle.marketing.*", "version": "1.5.1", "skills": 49, "peer": true, "note": "Historic location, logically a peer pack"},
-    {"name": "doddle-ecommerce-skills", "source": "./doddle-ecommerce-skills/.claude/skills", "ids": "doddle.ecommerce.*", "version": "1.5.1", "skills": 5},
-    {"name": "doddle-local-skills", "source": "./doddle-local-skills/.claude/skills", "ids": "doddle.local.*", "version": "1.0.0", "skills": 5},
-    {"name": "doddle-saas-skills", "source": "./doddle-saas-skills/.claude/skills", "ids": "doddle.saas.*", "version": "1.0.0", "skills": 5},
-    {"name": "doddle-healthcare-skills", "source": "./doddle-healthcare-skills/.claude/skills", "ids": "doddle.health.*", "version": "1.0.0", "skills": 5},
-    {"name": "doddle-real-estate-skills", "source": "./doddle-real-estate-skills/.claude/skills", "ids": "doddle.realty.*", "version": "1.0.0", "skills": 5},
-    {"name": "doddle-b2b-skills", "source": "./doddle-b2b-skills/.claude/skills", "ids": "doddle.b2b.*", "version": "1.0.0", "skills": 5},
-    {"name": "doddle-restaurant-skills", "source": "./doddle-restaurant-skills/.claude/skills", "ids": "doddle.restaurant.*", "version": "1.0.0", "skills": 5},
-    {"name": "doddle-hr-skills", "source": "./doddle-hr-skills/.claude/skills", "ids": "doddle.hr.*", "version": "1.0.0", "skills": 5},
-    {"name": "doddle-sales-skills", "source": "./doddle-sales-skills/.claude/skills", "ids": "doddle.sales.*", "version": "1.0.0", "skills": 5},
-    {"name": "doddle-creator-skills", "source": "./doddle-creator-skills/.claude/skills", "ids": "doddle.creator.*", "version": "1.0.0", "skills": 5},
-    {"name": "doddle-legal-skills", "source": "./doddle-legal-skills/.claude/skills", "ids": "doddle.legal.*", "version": "1.0.0", "skills": 5},
-    {"name": "doddle-finance-skills", "source": "./doddle-finance-skills/.claude/skills", "ids": "doddle.finance.*", "version": "1.0.0", "skills": 5},
-    {"name": "doddle-education-skills", "source": "./doddle-education-skills/.claude/skills", "ids": "doddle.edu.*", "version": "1.0.0", "skills": 5}
+    {
+      "name": "doddle-marketing-skills",
+      "source": "./doddle-marketing-skills/.claude/skills",
+      "ids": "doddle.marketing.*",
+      "version": "1.5.1",
+      "skills": 49,
+      "os": "Doddle Marketing OS"
+    },
+    {
+      "name": "doddle-ecommerce-skills",
+      "source": "./doddle-ecommerce-skills/.claude/skills",
+      "ids": "doddle.ecommerce.*",
+      "version": "1.5.1",
+      "skills": 5,
+      "os": "Doddle Ecommerce OS"
+    },
+    {
+      "name": "doddle-local-skills",
+      "source": "./doddle-local-skills/.claude/skills",
+      "ids": "doddle.local.*",
+      "version": "1.0.0",
+      "skills": 5,
+      "os": "Doddle Local OS"
+    },
+    {
+      "name": "doddle-saas-skills",
+      "source": "./doddle-saas-skills/.claude/skills",
+      "ids": "doddle.saas.*",
+      "version": "1.0.0",
+      "skills": 5,
+      "os": "Doddle SaaS OS"
+    },
+    {
+      "name": "doddle-healthcare-skills",
+      "source": "./doddle-healthcare-skills/.claude/skills",
+      "ids": "doddle.health.*",
+      "version": "1.0.0",
+      "skills": 5,
+      "os": "Doddle Health OS"
+    },
+    {
+      "name": "doddle-real-estate-skills",
+      "source": "./doddle-real-estate-skills/.claude/skills",
+      "ids": "doddle.realty.*",
+      "version": "1.0.0",
+      "skills": 5,
+      "os": "Doddle Real Estate OS"
+    },
+    {
+      "name": "doddle-b2b-skills",
+      "source": "./doddle-b2b-skills/.claude/skills",
+      "ids": "doddle.b2b.*",
+      "version": "1.0.0",
+      "skills": 5,
+      "os": "Doddle B2B OS"
+    },
+    {
+      "name": "doddle-restaurant-skills",
+      "source": "./doddle-restaurant-skills/.claude/skills",
+      "ids": "doddle.restaurant.*",
+      "version": "1.0.0",
+      "skills": 5,
+      "os": "Doddle Restaurant OS"
+    },
+    {
+      "name": "doddle-hr-skills",
+      "source": "./doddle-hr-skills/.claude/skills",
+      "ids": "doddle.hr.*",
+      "version": "1.0.0",
+      "skills": 5,
+      "os": "Doddle HR OS"
+    },
+    {
+      "name": "doddle-sales-skills",
+      "source": "./doddle-sales-skills/.claude/skills",
+      "ids": "doddle.sales.*",
+      "version": "1.0.0",
+      "skills": 5,
+      "os": "Doddle Sales OS"
+    },
+    {
+      "name": "doddle-creator-skills",
+      "source": "./doddle-creator-skills/.claude/skills",
+      "ids": "doddle.creator.*",
+      "version": "1.0.0",
+      "skills": 5,
+      "os": "Doddle Creator OS"
+    },
+    {
+      "name": "doddle-legal-skills",
+      "source": "./doddle-legal-skills/.claude/skills",
+      "ids": "doddle.legal.*",
+      "version": "1.0.0",
+      "skills": 5,
+      "os": "Doddle Legal OS"
+    },
+    {
+      "name": "doddle-finance-skills",
+      "source": "./doddle-finance-skills/.claude/skills",
+      "ids": "doddle.finance.*",
+      "version": "1.0.0",
+      "skills": 5,
+      "os": "Doddle Finance OS"
+    },
+    {
+      "name": "doddle-education-skills",
+      "source": "./doddle-education-skills/.claude/skills",
+      "ids": "doddle.edu.*",
+      "version": "1.0.0",
+      "skills": 5,
+      "os": "Doddle Education OS"
+    }
   ]
 }

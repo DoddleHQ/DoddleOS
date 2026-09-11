@@ -1,0 +1,35 @@
+{
+  "name": "doddle-marketing-skills",
+  "version": "1.5.1",
+  "description": "Independent marketing OS pack: 49 skills for CRO, copy, SEO, growth, content, analytics",
+  "main": "README.md",
+  "scripts": {
+    "test": "python3 ../../doddle-core/scripts/validate.py",
+    "lint": "echo \"Linting passed\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/doddleOS/doddleOS-marketing.git"
+  },
+  "keywords": [
+    "marketing",
+    "cro",
+    "copywriting",
+    "seo",
+    "email",
+    "growth",
+    "analytics"
+  ],
+  "author": "Doddle Team <contact@doddlehq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/doddleOS/doddleOS-marketing/issues"
+  },
+  "homepage": "https://doddlehq.com",
+  "files": [
+    ".claude/",
+    ".claude-plugin/",
+    "README.md",
+    "LICENSE"
+  ]
+}

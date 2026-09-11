@@ -1,10 +1,10 @@
-# Doddle Real Estate Skills
+# Doddle Real Estate OS
 
 > Agent/team marketing skills for listings, valuation lead-gen, open houses, long-cycle nurture, and referrals.
 
 ## Overview
 
-Add-on skill pack for [Doddle Marketing OS](https://github.com/doddleOS/doddleOS-marketing). 5 specialised real-estate skills covering click → listing → closing → repeat/referral.
+Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 5 specialised real-estate skills covering click → listing → closing → repeat/referral.
 
 Naming: pack dir `doddle-real-estate-skills`, skills `realty-*`, IDs `doddle.realty.*`, commands `/realty:*`.
 
@@ -73,7 +73,7 @@ Manual: `cp -r doddle-real-estate-skills/.claude/skills/* your-project/.claude/s
 
 Real-estate marketing must respect fair-housing rules (no discriminatory language/targeting) and local referral-fee regulations. Every skill includes a compliance checkpoint. Not legal advice.
 
-## Dependencies
+## Optional bindings (peer packs, no install dependency)
 
 Core + packs:
 - `programmatic-seo`, `schema-markup` - Listings + area pages
@@ -85,4 +85,4 @@ Core + packs:
 
 ## License
 
-MIT License - Same as Doddle Marketing OS core
+MIT License - Same as DoddleOS core

@@ -1,10 +1,10 @@
-# Doddle Legal Skills
+# Doddle Legal OS
 
 > Law-firm marketing skills for intake, guides SEO, consults, reputation, and referrals.
 
 ## Overview
 
-Add-on skill pack for [Doddle Marketing OS](https://github.com/doddleOS/doddleOS-marketing). Turns searches into signed matters: qualify fast, consult well, prove trust, earn referrals.
+Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. Turns searches into signed matters: qualify fast, consult well, prove trust, earn referrals.
 
 Naming: pack dir `doddle-legal-skills`, skills `legal-*`, IDs `doddle.legal.*`, commands `/legal:*`.
 
@@ -73,7 +73,7 @@ Manual: `cp -r doddle-legal-skills/.claude/skills/* your-project/.claude/skills/
 
 Law-firm marketing is regulated: no guaranteed outcomes, no "specialist/expert" claims unless certified, testimonial disclaimers where required, no misleading dramatizations. Every skill includes a bar-rules checkpoint. Not legal advice — have counsel review.
 
-## Dependencies
+## Optional bindings (peer packs, no install dependency)
 
 Core + packs (no new integration needed):
 - `form-cro`, `lead-qualifier` - Intake + triage
@@ -85,4 +85,4 @@ Core + packs (no new integration needed):
 
 ## License
 
-MIT License - Same as Doddle Marketing OS core
+MIT License - Same as DoddleOS core

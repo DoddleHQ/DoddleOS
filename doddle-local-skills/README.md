@@ -1,10 +1,10 @@
-# Doddle Local Business Skills
+# Doddle Local OS
 
 > Local-services marketing skills for Google Business Profile, reviews, location pages, booking/call flows, and local ads.
 
 ## Overview
 
-Add-on skill pack for [Doddle Marketing OS](https://github.com/doddleOS/doddleOS-marketing). 5 specialised local skills covering discovery → call/booking → review.
+Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 5 specialised local skills covering discovery → call/booking → review.
 
 ## Skills Included
 
@@ -67,7 +67,7 @@ Manual: `cp -r doddle-local-skills/.claude/skills/* your-project/.claude/skills/
 | Call/booking conversion | `local-booking` |
 | Paid local efficiency | `local-ads` |
 
-## Dependencies
+## Optional bindings (peer packs, no install dependency)
 
 Core [Doddle Marketing OS](https://github.com/doddleOS/doddleOS-marketing) skills:
 - `seo-mastery` - SEO fundamentals (+ `references/local-seo.md`)
@@ -80,4 +80,4 @@ Core [Doddle Marketing OS](https://github.com/doddleOS/doddleOS-marketing) skill
 
 ## License
 
-MIT License - Same as Doddle Marketing OS core
+MIT License - Same as DoddleOS core

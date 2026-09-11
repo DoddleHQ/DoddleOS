@@ -1,7 +1,7 @@
 {
   "name": "doddle-b2b-skills",
   "version": "1.0.0",
-  "description": "B2B agency skills for outbound, proposals, cases, retainers, partnerships (DoddleOS v2 blueprints) - 5 skills",
+  "description": "Doddle B2B OS \u2014 b2B agency skills for outbound, proposals, cases, retainers, partnerships (DoddleOS v2 blueprints) - 5 skills",
   "author": {
     "name": "Doddle Team",
     "url": "https://doddlehq.com"
@@ -10,20 +10,37 @@
   "repository": "https://github.com/doddleOS/doddle-b2b-skills",
   "documentation": "https://docs.doddlehq.com",
   "license": "MIT",
-  "keywords": ["b2b", "outbound", "proposals", "retainers", "partnerships"],
+  "keywords": [
+    "b2b",
+    "outbound",
+    "proposals",
+    "retainers",
+    "partnerships"
+  ],
   "category": "b2b-marketing",
-  "tags": ["b2b", "outbound", "sales", "retention"],
+  "tags": [
+    "b2b",
+    "outbound",
+    "sales",
+    "retention"
+  ],
   "skills": "./.claude/skills",
+  "agents": "./.claude/agents",
   "main": "README.md",
   "components": {
     "skills": {
       "path": "./.claude/skills",
       "count": 5,
-      "list": ["b2b-outbound", "b2b-proposals", "b2b-cases", "b2b-retainers", "b2b-partnerships"]
+      "list": [
+        "b2b-outbound",
+        "b2b-proposals",
+        "b2b-cases",
+        "b2b-retainers",
+        "b2b-partnerships"
+      ]
     }
   },
   "requirements": {
-    "doddleOS": ">=1.0",
-    "core": "doddleOS-marketing>=1.5.1"
+    "doddleOS": ">=2.0"
   }
 }

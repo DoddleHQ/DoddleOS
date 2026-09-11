@@ -24,7 +24,7 @@ Every skill = `SKILL.md` (human) + `blueprint.yaml` (machine). Full template: `s
 
 | `type` | `ref` points to | Extra required fields | Example |
 |--------|-----------------|----------------------|---------|
-| `agent` | Agent name (any pack) | — | `conversion-optimizer`, `copywriter` |
+| `agent` | Agent name, resolved pack-local first (`<pack>/.claude/agents/`) | — | `conversion-optimizer`, `copywriter` |
 | `tool` | `doddle.tool.v1.*` ID | — | `doddle.tool.v1.ga4.getReport` |
 | `call` | Skill id (sub-graph) | `inputs:` map; no self-call; depth ≤3 | `doddle.local.reviews` |
 | `gate` | — (human) | `approvers:`, `timeout_s` | approval before publish |
@@ -45,3 +45,6 @@ description: <triggers>
 
 * Node `type` ∈ {agent, tool, call, gate}; `call` refs and `fallback_for` entries MUST be known skill ids.
 * Every declared output MUST appear in ≥1 `produces` (output coverage).
+* Packs are independent: no cross-pack install deps. `call`/`fallback_for` refs
+  may target any peer pack's skill id; validator collects ids globally across
+  all `doddle-*/.claude/skills/` packs.

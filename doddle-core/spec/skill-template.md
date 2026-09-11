@@ -3,11 +3,12 @@
 Use this template when creating or refactoring skills.
 Each skill = human prompt (`SKILL.md`) + machine blueprint (`blueprint.yaml`).
 
-File layout per skill:
+File layout per skill (pack-relative; each `doddle-<domain>-skills/` pack is independent):
 ```
-.claude/skills/<skill-name>/
+doddle-<domain>-skills/.claude/skills/<skill-name>/
 ├── SKILL.md        # human guidance, light frontmatter with blueprint pointer
 └── blueprint.yaml  # DoddleOS graph blueprint: inputs, outputs, tools, nodes
+doddle-<domain>-skills/.claude/agents/   # bundled agents this pack's nodes ref (local-first)
 ```
 
 Tool namespace: `doddle.tool.v1.<server>.<tool>` (ex `doddle.tool.v1.gsc.getSearchAnalytics`).

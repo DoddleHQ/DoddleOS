@@ -1,10 +1,10 @@
-# Doddle eCommerce Skills
+# Doddle Ecommerce OS
 
 > eCommerce-specific marketing skills for product listing pages, product detail pages, checkout, search, and revenue optimisation.
 
 ## Overview
 
-This is an add-on skill pack for [Doddle Marketing OS](https://github.com/doddleOS/doddleOS-marketing). It provides 5 specialised eCommerce skills that cover the complete customer journey from product discovery to checkout completion.
+Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Provides 5 specialised eCommerce skills covering product discovery to checkout. Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted.
 
 ## Skills Included
 
@@ -95,7 +95,7 @@ These 5 skills fill the gaps identified in a comprehensive eCommerce audit:
 | Opportunities to increase AOV | `ecommerce-revenue` |
 | Scalability issues | `ecommerce-revenue` |
 
-## Dependencies
+## Optional bindings (peer packs, no install dependency)
 
 This skill pack works best with the core [Doddle Marketing OS](https://github.com/doddleOS/doddleOS-marketing) skills:
 
@@ -108,7 +108,7 @@ This skill pack works best with the core [Doddle Marketing OS](https://github.co
 
 ## License
 
-MIT License - Same as Doddle Marketing OS core
+MIT License - Same as DoddleOS core
 
 ## Support
 

@@ -1,10 +1,10 @@
-# Doddle HR Skills
+# Doddle HR OS
 
 > People-ops skills for recruiting, screening, onboarding, culture, and employer brand.
 
 ## Overview
 
-Add-on skill pack for [Doddle Marketing OS](https://github.com/doddleOS/doddleOS-marketing). First non-marketing pack: same DoddleOS v2 scaffold (SKILL.md + blueprint.yaml, validator-gated).
+Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. First non-marketing pack: same DoddleOS v2 scaffold (SKILL.md + blueprint.yaml, validator-gated).
 
 Naming: pack dir `doddle-hr-skills`, skills `hr-*`, IDs `doddle.hr.*`, commands `/hr:*`.
 
@@ -69,7 +69,7 @@ Manual: `cp -r doddle-hr-skills/.claude/skills/* your-project/.claude/skills/`
 | Engagement + regretted attrition | `hr-culture` |
 | Inbound applicant share | `hr-brand` |
 
-## Dependencies
+## Optional bindings (peer packs, no install dependency)
 
 Core skills (no new integration needed):
 - `copywriting` - Job posts + employer content
@@ -81,4 +81,4 @@ Core skills (no new integration needed):
 
 ## License
 
-MIT License - Same as Doddle Marketing OS core
+MIT License - Same as DoddleOS core

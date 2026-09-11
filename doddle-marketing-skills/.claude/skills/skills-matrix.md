@@ -74,7 +74,7 @@ MCP Tools: meta-ads, google-ads (if available)
 
 ### Add-on Pack Ecosystems (DoddleOS v2 blueprints)
 ```
-doddle-ecommerce-skills/ (doddle.ecommerce.* v1.5.1)
+Doddle Ecommerce OS — doddle-ecommerce-skills/ (doddle.ecommerce.* v1.5.1)
 ├── ecommerce-plp → page-cro, seo-mastery, schema-markup
 ├── ecommerce-pdp → page-cro, copywriting, schema-markup
 ├── ecommerce-checkout → form-cro, popup-cro, email-sequence
@@ -82,14 +82,14 @@ doddle-ecommerce-skills/ (doddle.ecommerce.* v1.5.1)
 └── ecommerce-revenue → pricing-strategy, paywall-upgrade-cro
 Commands: /ecom:plp, /ecom:pdp, /ecom:checkout, /ecom:search, /ecom:revenue
 ```
-doddle-ecommerce-skills/ (doddle.ecommerce.* v1.5.1)
+Doddle Ecommerce OS — doddle-ecommerce-skills/ (doddle.ecommerce.* v1.5.1)
 ├── ecommerce-plp → page-cro, seo-mastery, schema-markup
 ├── ecommerce-pdp → page-cro, copywriting, schema-markup
 ├── ecommerce-checkout → form-cro, popup-cro, email-sequence
 ├── ecommerce-search → seo-mastery, page-cro, analytics-attribution
 └── ecommerce-revenue → pricing-strategy, paywall-upgrade-cro
 
-doddle-local-skills/ (doddle.local.* v1.0.0)
+Doddle Local OS — doddle-local-skills/ (doddle.local.* v1.0.0)
 ├── local-gbp → seo-mastery (+references/local-seo.md)
 ├── local-reviews → email-sequence, sms
 ├── local-pages → programmatic-seo, schema-markup
@@ -97,7 +97,7 @@ doddle-local-skills/ (doddle.local.* v1.0.0)
 └── local-ads → paid-advertising, analytics-attribution
 New integration: google-business-profile (stub)
 
-doddle-saas-skills/ (doddle.saas.* v1.0.0)
+Doddle SaaS OS — doddle-saas-skills/ (doddle.saas.* v1.0.0)
 ├── saas-homepage → page-cro, copywriting
 ├── saas-pricing → pricing-strategy, paywall-upgrade-cro
 ├── saas-trial → signup-flow-cro, onboarding-cro, revops
@@ -105,7 +105,7 @@ doddle-saas-skills/ (doddle.saas.* v1.0.0)
 └── saas-expansion → referral-program, product-led-growth
 New integration: stripe (stub)
 
-doddle-healthcare-skills/ (doddle.health.* v1.0.0)
+Doddle Health OS — doddle-healthcare-skills/ (doddle.health.* v1.0.0)
 ├── healthcare-booking → local-booking, form-cro, sms
 ├── healthcare-recall → email-sequence, sms
 ├── healthcare-intake → form-cro
@@ -114,7 +114,7 @@ doddle-healthcare-skills/ (doddle.health.* v1.0.0)
 Compliance: HIPAA-style no-PHI checkpoint in every skill
 ```
 
-doddle-real-estate-skills/ (doddle.realty.* v1.0.0)
+Doddle Real Estate OS — doddle-real-estate-skills/ (doddle.realty.* v1.0.0)
 ├── realty-listings → programmatic-seo, schema-markup, copywriting
 ├── realty-valuation → lead-magnets, form-cro, email-sequence
 ├── realty-openhouse → events, email-sequence, sms
@@ -123,7 +123,7 @@ doddle-real-estate-skills/ (doddle.realty.* v1.0.0)
 Compliance: fair-housing checkpoint in every skill
 ```
 
-doddle-b2b-skills/ (doddle.b2b.* v1.0.0)
+Doddle B2B OS — doddle-b2b-skills/ (doddle.b2b.* v1.0.0)
 ├── b2b-outbound → cold-email, customer-research, revops
 ├── b2b-proposals → pricing-strategy, offers
 ├── b2b-cases → copywriting (sales-enabler agent)
@@ -132,7 +132,7 @@ doddle-b2b-skills/ (doddle.b2b.* v1.0.0)
 No new integration (hubspot/slack/notion/stripe exist)
 ```
 
-doddle-restaurant-skills/ (doddle.restaurant.* v1.0.0)
+Doddle Restaurant OS — doddle-restaurant-skills/ (doddle.restaurant.* v1.0.0)
 ├── restaurant-reservations → local-booking, form-cro, sms
 ├── restaurant-ordering → page-cro, offers
 ├── restaurant-loyalty → email-sequence, sms
@@ -140,7 +140,7 @@ doddle-restaurant-skills/ (doddle.restaurant.* v1.0.0)
 └── restaurant-reputation → local-reviews, local-gbp
 ```
 
-doddle-hr-skills/ (doddle.hr.* v1.0.0) — first people-ops pack
+Doddle HR OS — doddle-hr-skills/ (doddle.hr.* v1.0.0) — first people-ops pack
 ├── hr-recruiting → copywriting, customer-research
 ├── hr-screening → form-cro (knockout patterns)
 ├── hr-onboarding → onboarding-cro, email-sequence
@@ -149,7 +149,7 @@ doddle-hr-skills/ (doddle.hr.* v1.0.0) — first people-ops pack
 No new integration (notion/asana/slack/crosspost exist)
 ```
 
-doddle-sales-skills/ (doddle.sales.* v1.0.0) — extends existing /sales:* (no new namespace)
+Doddle Sales OS — doddle-sales-skills/ (doddle.sales.* v1.0.0) — extends existing /sales:* (no new namespace)
 ├── sales-prospecting → cold-email, customer-research, revops
 ├── sales-discovery → revops, lead-qualifier (skill)
 ├── sales-negotiation → pricing-strategy, offers
@@ -157,7 +157,7 @@ doddle-sales-skills/ (doddle.sales.* v1.0.0) — extends existing /sales:* (no n
 └── sales-enablement → product-marketing, copywriting
 ```
 
-doddle-creator-skills/ (doddle.creator.* v1.0.0)
+Doddle Creator OS — doddle-creator-skills/ (doddle.creator.* v1.0.0)
 ├── creator-ideation → marketing-ideas, customer-research
 ├── creator-scripting → video-marketing, conversion-copywriting
 ├── creator-packaging → image, copywriting, ab-test-setup
@@ -166,7 +166,7 @@ doddle-creator-skills/ (doddle.creator.* v1.0.0)
 No new integration (tiktok/crosspost/semrush/notion exist)
 ```
 
-doddle-legal-skills/ (doddle.legal.* v1.0.0)
+Doddle Legal OS — doddle-legal-skills/ (doddle.legal.* v1.0.0)
 ├── legal-intake → form-cro, lead-qualifier (skill)
 ├── legal-guides → seo-mastery, programmatic-seo, copywriting
 ├── legal-consults → local-booking, email-sequence, sms
@@ -175,7 +175,7 @@ doddle-legal-skills/ (doddle.legal.* v1.0.0)
 Compliance: bar-rules checkpoint in every skill
 ```
 
-doddle-finance-skills/ (doddle.finance.* v1.0.0)
+Doddle Finance OS — doddle-finance-skills/ (doddle.finance.* v1.0.0)
 ├── finance-leads → lead-magnets, form-cro, offers
 ├── finance-onboarding → signup-flow-cro, onboarding-cro, form-cro
 ├── finance-reviews → local-reviews, local-gbp
@@ -184,7 +184,7 @@ doddle-finance-skills/ (doddle.finance.* v1.0.0)
 Compliance: no-guaranteed-returns + disclosure checkpoint in every skill
 ```
 
-doddle-education-skills/ (doddle.edu.* v1.0.0)
+Doddle Education OS — doddle-education-skills/ (doddle.edu.* v1.0.0)
 ├── edu-enrollment → form-cro, lead-qualifier (skill)
 ├── edu-openhouse → events, email-sequence, sms
 ├── edu-content → seo-mastery, programmatic-seo, copywriting

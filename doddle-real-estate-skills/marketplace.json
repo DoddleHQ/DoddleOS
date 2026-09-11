@@ -6,7 +6,7 @@
     "url": "https://doddlehq.com"
   },
   "metadata": {
-    "description": "Real-estate marketing skills for listings, valuation, open houses, nurture, and referrals",
+    "description": "Doddle Real Estate OS \u2014 real-estate marketing skills for listings, valuation, open houses, nurture, and referrals",
     "version": "1.0.0",
     "updatedAt": "2026-09-11"
   },
@@ -14,7 +14,7 @@
     {
       "name": "doddle-real-estate-skills",
       "source": "./",
-      "description": "5 real-estate skills: listings, valuation, open houses, nurture, and referrals",
+      "description": "Doddle Real Estate OS: 5 real-estate skills: listings, valuation, open houses, nurture, and referrals",
       "author": {
         "name": "Doddle Team"
       },
@@ -31,7 +31,12 @@
         "referrals"
       ],
       "category": "real-estate-marketing",
-      "tags": ["real-estate", "seo", "lead-gen", "referral"],
+      "tags": [
+        "real-estate",
+        "seo",
+        "lead-gen",
+        "referral"
+      ],
       "featured": true,
       "verified": true
     }

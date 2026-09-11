@@ -6,7 +6,7 @@
     "url": "https://doddlehq.com"
   },
   "metadata": {
-    "description": "People-ops skills for recruiting, screening, onboarding, culture, and employer brand",
+    "description": "Doddle HR OS \u2014 people-ops skills for recruiting, screening, onboarding, culture, and employer brand",
     "version": "1.0.0",
     "updatedAt": "2026-09-11"
   },
@@ -14,7 +14,7 @@
     {
       "name": "doddle-hr-skills",
       "source": "./",
-      "description": "5 HR skills: recruiting, screening, onboarding, culture, and employer brand",
+      "description": "Doddle HR OS: 5 HR skills: recruiting, screening, onboarding, culture, and employer brand",
       "author": {
         "name": "Doddle Team"
       },
@@ -30,7 +30,12 @@
         "employer-brand"
       ],
       "category": "hr-people-ops",
-      "tags": ["hr", "hiring", "onboarding", "culture"],
+      "tags": [
+        "hr",
+        "hiring",
+        "onboarding",
+        "culture"
+      ],
       "featured": true,
       "verified": true
     }

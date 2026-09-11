@@ -6,7 +6,7 @@
     "url": "https://doddlehq.com"
   },
   "metadata": {
-    "description": "Finance marketing skills for lead calculators, onboarding, reviews, cross-sell, and referrals",
+    "description": "Doddle Finance OS \u2014 finance marketing skills for lead calculators, onboarding, reviews, cross-sell, and referrals",
     "version": "1.0.0",
     "updatedAt": "2026-09-11"
   },
@@ -14,7 +14,7 @@
     {
       "name": "doddle-finance-skills",
       "source": "./",
-      "description": "5 finance skills: leads, onboarding, reviews, cross-sell, and referrals",
+      "description": "Doddle Finance OS: 5 finance skills: leads, onboarding, reviews, cross-sell, and referrals",
       "author": {
         "name": "Doddle Team"
       },
@@ -30,7 +30,12 @@
         "referrals"
       ],
       "category": "finance-marketing",
-      "tags": ["finance", "lead-gen", "onboarding", "referral"],
+      "tags": [
+        "finance",
+        "lead-gen",
+        "onboarding",
+        "referral"
+      ],
       "featured": true,
       "verified": true
     }

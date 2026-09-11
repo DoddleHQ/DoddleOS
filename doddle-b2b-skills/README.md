@@ -1,10 +1,10 @@
-# Doddle B2B Skills
+# Doddle B2B OS
 
 > Agency/services marketing skills for outbound, proposals, case studies, retainers, and partnerships.
 
 ## Overview
 
-Add-on skill pack for [Doddle Marketing OS](https://github.com/doddleOS/doddleOS-marketing). 5 specialised B2B skills covering pipeline → proposal → proof → recurring revenue.
+Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 5 specialised B2B skills covering pipeline → proposal → proof → recurring revenue.
 
 Naming: pack dir `doddle-b2b-skills`, skills `b2b-*`, IDs `doddle.b2b.*`, commands `/b2b:*`.
 
@@ -70,7 +70,7 @@ Manual: `cp -r doddle-b2b-skills/.claude/skills/* your-project/.claude/skills/`
 | Retainer MRR + logo retention | `b2b-retainers` |
 | Partner-sourced pipeline share | `b2b-partnerships` |
 
-## Dependencies
+## Optional bindings (peer packs, no install dependency)
 
 Core skills (no new integration needed):
 - `cold-email` - Outbound fundamentals
@@ -83,4 +83,4 @@ Core skills (no new integration needed):
 
 ## License
 
-MIT License - Same as Doddle Marketing OS core
+MIT License - Same as DoddleOS core
