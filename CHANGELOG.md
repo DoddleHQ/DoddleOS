@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/DoddleHQ/DoddleOS/compare/v1.0.0...v1.0.1) (2026-09-12)
+
+
+### 🐞 Bug Fixes
+
+* reposition DoddleOS as agentic task execution OS, not marketing-only ([97e5c5d](https://github.com/DoddleHQ/DoddleOS/commit/97e5c5de126b71701761250a9e671151c90b8a8d))
+
 ## 1.0.0 (2026-09-12)
 
 
