@@ -1,3 +1,10 @@
+## [1.1.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.0.1...v1.1.0) (2026-09-12)
+
+
+### 🚀 Features
+
+* add doddle-travel-skills pack for leisure and corporate travel ([54d989d](https://github.com/DoddleHQ/DoddleOS/commit/54d989d5007264d3aa71bea0a1eff86f1a5dadca))
+
 ## [1.0.1](https://github.com/DoddleHQ/DoddleOS/compare/v1.0.0...v1.0.1) (2026-09-12)
 
 
