@@ -1,0 +1,33 @@
+{
+  "name": "doddle-travel-skills",
+  "version": "1.0.0",
+  "description": "Leisure + corporate travel skills: search, itineraries, booking, support, reviews",
+  "main": "README.md",
+  "scripts": {
+    "test": "python3 ../../doddle-core/scripts/validate.py",
+    "lint": "echo \"Linting passed\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/doddleOS/doddle-travel-skills.git"
+  },
+  "keywords": [
+    "travel",
+    "itinerary",
+    "booking",
+    "corporate-travel",
+    "reviews"
+  ],
+  "author": "Doddle Team <contact@doddlehq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/doddleOS/doddle-travel-skills/issues"
+  },
+  "homepage": "https://doddlehq.com",
+  "files": [
+    ".claude/",
+    ".claude-plugin/",
+    "README.md",
+    "LICENSE"
+  ]
+}

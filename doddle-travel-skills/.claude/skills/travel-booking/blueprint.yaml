@@ -1,0 +1,24 @@
+id: doddle.travel.booking
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Hold, confirm, change travel with accuracy gates and policy compliance"
+inputs:
+  - {name: itinerary_ref, type: string, required: true, description: "Approved plan or PNRs; ask if missing"}
+  - {name: travelers_docs, type: string, required: false, description: "Names, DOBs, passports; gate before ticket"}
+  - {name: motion, type: string, required: false, description: "leisure or corporate; default leisure"}
+  - {name: payment_policy, type: string, required: false, description: "Card, caps, approver"}
+outputs:
+  - {name: report, type: markdown, description: "Ticketing sequence with gates and fee table"}
+  - {name: action_list, type: json, description: "Holds, payments, approvals, tracking"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: planner, needs: [inputs], produces: [assessment]}
+  - {id: verify, type: tool, ref: doddle.tool.v1.hubspot.contacts, needs: [assess], produces: [traveler_data]}
+  - {id: recommend, type: agent, ref: planner, needs: [verify], produces: [report]}
+  - {id: confirm, type: agent, ref: email-wizard, needs: [recommend], produces: [action_list]}
+on_fail: {retry: 1, fallback: manual_review}

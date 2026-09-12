@@ -121,6 +121,14 @@
       "version": "1.0.0",
       "skills": 6,
       "os": "Doddle GTM OS"
+    },
+    {
+      "name": "doddle-travel-skills",
+      "source": "./doddle-travel-skills/.claude/skills",
+      "ids": "doddle.travel.*",
+      "version": "1.0.0",
+      "skills": 5,
+      "os": "Doddle Travel OS"
     }
   ]
 }

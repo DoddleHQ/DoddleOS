@@ -1,0 +1,23 @@
+id: doddle.travel.itinerary
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Build day plans and trip chains with routing, buffers, backups for leisure and corporate"
+inputs:
+  - {name: destination_dates, type: string, required: true, description: "Places and dates; ask if missing"}
+  - {name: party_style, type: string, required: false, description: "Party and pace; default 2 relaxed"}
+  - {name: motion, type: string, required: false, description: "leisure or corporate; default leisure"}
+  - {name: must_see, type: string, required: false, description: "Non-negotiable stops"}
+outputs:
+  - {name: report, type: markdown, description: "Day-by-day plan with routing and backups"}
+  - {name: action_list, type: json, description: "Bookings to make and docs to prep"}
+tools:
+  - {id: doddle.tool.v1.dataforseo.serpGoogle, required: false, fallback: manual_review}
+integrations:
+  - dataforseo
+nodes:
+  - {id: assess, type: agent, ref: planner, needs: [inputs], produces: [assessment]}
+  - {id: verify, type: tool, ref: doddle.tool.v1.dataforseo.serpGoogle, needs: [assess], produces: [hours_data]}
+  - {id: recommend, type: agent, ref: planner, needs: [verify], produces: [report]}
+  - {id: summarize, type: agent, ref: copywriter, needs: [recommend], produces: [action_list]}
+on_fail: {retry: 1, fallback: manual_review}

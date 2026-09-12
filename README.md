@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  Validated graph blueprints (SKILL.md + blueprint.yaml) executed as agent/tool DAGs: 123 skills across 15 independent peer packs — marketing, GTM, ecom, local, SaaS, health, legal, finance, and more. Each pack installs and runs standalone; cross-pack binding via blueprint call nodes.
+  Validated graph blueprints (SKILL.md + blueprint.yaml) executed as agent/tool DAGs: 128 skills across 16 independent peer packs — marketing, GTM, travel, ecom, local, SaaS, health, legal, finance, and more. Each pack installs and runs standalone; cross-pack binding via blueprint call nodes.
 </p>
 
 <p align="center">
@@ -232,6 +232,7 @@ cp -r doddleOS-marketing/.claude/workflows/* ~/.claude/workflows/
 |------|--------|-----|----------|
 | Doddle Marketing OS (`doddle-marketing-skills/`) | CRO, copy, SEO, growth, content, analytics (52) | `doddle.marketing.*` v1.5.1 | `/content:*`, `/seo:*`, `/cro:*`, `/growth:*`, `/marketing:*` |
 | Doddle GTM OS (`doddle-gtm-skills/`) | strategy, ABM, win-loss, playbook, channel, advocacy (6) | `doddle.gtm.*` v1.0.0 | `/gtm:strategy`, `/gtm:abm`, `/gtm:win-loss`, `/gtm:playbook`, `/gtm:channel`, `/gtm:advocacy` |
+| Doddle Travel OS (`doddle-travel-skills/`) | search, itinerary, booking, support, reviews (5) | `doddle.travel.*` v1.0.0 | `/travel:search`, `/travel:itinerary`, `/travel:booking`, `/travel:support`, `/travel:reviews` |
 | Doddle Ecommerce OS (`doddle-ecommerce-skills/`) | PLP, PDP, checkout, search, revenue | `doddle.ecommerce.*` v1.5.1 | `/ecom:plp`, `/ecom:pdp`, `/ecom:checkout`, `/ecom:search`, `/ecom:revenue` |
 | Doddle Local OS (`doddle-local-skills/`) | GBP, reviews, location pages, booking, local ads | `doddle.local.*` v1.0.0 | `/local:gbp`, `/local:reviews`, `/local:pages`, `/local:booking`, `/local:ads` |
 | Doddle SaaS OS (`doddle-saas-skills/`) | homepage, pricing, trial, retention, expansion | `doddle.saas.*` v1.0.0 | `/saas:homepage`, `/saas:pricing`, `/saas:trial`, `/saas:retention`, `/saas:expansion` |

@@ -1,0 +1,25 @@
+id: doddle.travel.support
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Handle disruption, visa and docs, expense capture for booked trips"
+inputs:
+  - {name: booking_ref, type: string, required: true, description: "PNRs or trip summary; ask if missing"}
+  - {name: issue, type: string, required: true, description: "Disruption, docs, or expense; ask if missing"}
+  - {name: motion, type: string, required: false, description: "leisure or corporate; default leisure"}
+  - {name: deadline, type: string, required: false, description: "Must-arrive-by time"}
+outputs:
+  - {name: report, type: markdown, description: "Ranked options and docs checklist"}
+  - {name: action_list, type: json, description: "Actions with owner and deadline"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.dataforseo.serpGoogle, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - dataforseo
+nodes:
+  - {id: assess, type: agent, ref: continuity-specialist, needs: [inputs], produces: [assessment]}
+  - {id: check, type: tool, ref: doddle.tool.v1.dataforseo.serpGoogle, needs: [assess], produces: [rules_data]}
+  - {id: recommend, type: agent, ref: continuity-specialist, needs: [check], produces: [report]}
+  - {id: plan, type: agent, ref: planner, needs: [recommend], produces: [action_list]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -1,0 +1,24 @@
+id: doddle.travel.reviews
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Capture post-trip reviews, referrals, loyalty for leisure and corporate"
+inputs:
+  - {name: trip_ref, type: string, required: true, description: "Completed trips; ask if missing"}
+  - {name: motion, type: string, required: false, description: "leisure or corporate; default leisure"}
+  - {name: platform, type: string, required: false, description: "Review target; infer if missing"}
+outputs:
+  - {name: report, type: markdown, description: "Review plan, referral offer, loyalty audit"}
+  - {name: action_list, type: json, description: "Asks with owner and timing"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.gsc.getSearchAnalytics, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - google-search-console
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [assessment]}
+  - {id: enrich, type: tool, ref: doddle.tool.v1.hubspot.contacts, needs: [assess], produces: [guest_data]}
+  - {id: recommend, type: agent, ref: email-wizard, needs: [enrich], produces: [report]}
+  - {id: plan, type: agent, ref: planner, needs: [recommend], produces: [action_list]}
+on_fail: {retry: 1, fallback: manual_review}

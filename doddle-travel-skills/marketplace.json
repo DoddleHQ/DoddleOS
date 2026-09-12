@@ -1,0 +1,43 @@
+{
+  "name": "doddle-travel-skills",
+  "owner": {
+    "name": "Doddle Team",
+    "email": "contact@doddlehq.com",
+    "url": "https://doddlehq.com"
+  },
+  "metadata": {
+    "description": "Doddle Travel OS — leisure + corporate travel: search, itineraries, booking, support, reviews",
+    "version": "1.0.0",
+    "updatedAt": "2026-09-12"
+  },
+  "plugins": [
+    {
+      "name": "doddle-travel-skills",
+      "source": "./",
+      "description": "Doddle Travel OS: 5 travel skills: search, itinerary, booking, support, reviews",
+      "author": {
+        "name": "Doddle Team"
+      },
+      "homepage": "https://doddlehq.com",
+      "repository": "https://github.com/doddleOS/doddle-travel-skills",
+      "documentation": "https://docs.doddlehq.com",
+      "license": "MIT",
+      "keywords": [
+        "travel",
+        "itinerary",
+        "booking",
+        "support",
+        "reviews"
+      ],
+      "category": "travel",
+      "tags": [
+        "travel",
+        "booking",
+        "itinerary",
+        "support"
+      ],
+      "featured": true,
+      "verified": true
+    }
+  ]
+}
