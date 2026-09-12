@@ -1,0 +1,24 @@
+id: doddle.gtm.win-loss
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Build battlecards, run loss interviews, code reasons into fixes"
+inputs:
+  - {name: competitor, type: string, required: true, description: "Rival name; ask if missing"}
+  - {name: product_offer, type: string, required: false, description: "Own offer and proof; infer if missing"}
+  - {name: locale, type: string, required: false, description: "Market; default en-US"}
+outputs:
+  - {name: report, type: markdown, description: "Battlecard, traps, proof, interview script"}
+  - {name: action_list, type: json, description: "Fixes with owner and effort"}
+tools:
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.semrush.domainOverview, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - semrush
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [assessment]}
+  - {id: enrich, type: tool, ref: doddle.tool.v1.hubspot.deals, needs: [assess], produces: [deal_data]}
+  - {id: recommend, type: agent, ref: sales-enabler, needs: [enrich], produces: [report]}
+  - {id: plan, type: agent, ref: planner, needs: [recommend], produces: [action_list]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -1,0 +1,25 @@
+id: doddle.gtm.abm
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Run account-based motion: select, personalize, orchestrate SDR/AE/ads"
+inputs:
+  - {name: icp, type: string, required: true, description: "Titles, size, industry; ask if missing"}
+  - {name: account_source, type: string, required: false, description: "List origin; infer if missing"}
+  - {name: acv, type: string, required: false, description: "Deal band for tiering"}
+  - {name: locale, type: string, required: false, description: "Market; default en-US"}
+outputs:
+  - {name: report, type: markdown, description: "Tiers, personalization, plays, cadence"}
+  - {name: action_list, type: json, description: "Account actions with owner and effort"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.semrush.domainOverview, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - semrush
+nodes:
+  - {id: assess, type: agent, ref: lead-qualifier, needs: [inputs], produces: [assessment]}
+  - {id: enrich, type: tool, ref: doddle.tool.v1.hubspot.contacts, needs: [assess], produces: [account_data]}
+  - {id: recommend, type: agent, ref: copywriter, needs: [enrich], produces: [report]}
+  - {id: plan, type: agent, ref: planner, needs: [recommend], produces: [action_list]}
+on_fail: {retry: 1, fallback: manual_review}

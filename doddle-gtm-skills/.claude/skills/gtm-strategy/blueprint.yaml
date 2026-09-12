@@ -1,0 +1,25 @@
+id: doddle.gtm.strategy
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Build go-to-market plan: ICP, TAM, message, channel mix, launch gates"
+inputs:
+  - {name: product_offer, type: string, required: true, description: "Product + offer + proof; ask if missing"}
+  - {name: icp_hint, type: string, required: false, description: "Titles, size, industry; infer if missing"}
+  - {name: acv, type: string, required: false, description: "Deal size band"}
+  - {name: locale, type: string, required: false, description: "Market; default en-US"}
+outputs:
+  - {name: report, type: markdown, description: "ICP, TAM tiers, message house, channel mix, gates"}
+  - {name: action_list, type: json, description: "Sequenced GTM actions with owner and effort"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.semrush.domainOverview, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - semrush
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [assessment]}
+  - {id: size, type: tool, ref: doddle.tool.v1.hubspot.contacts, needs: [assess], produces: [tam_data]}
+  - {id: recommend, type: agent, ref: lead-qualifier, needs: [size], produces: [report]}
+  - {id: plan, type: agent, ref: planner, needs: [recommend], produces: [action_list]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -1,0 +1,23 @@
+id: doddle.gtm.sales-playbook
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Codify sales motion: MEDDIC, demo script, RFP kit, discount matrix, ramp"
+inputs:
+  - {name: product_offer, type: string, required: true, description: "Offer and proof; ask if missing"}
+  - {name: acv, type: string, required: false, description: "Deal band; infer if missing"}
+  - {name: locale, type: string, required: false, description: "Market; default en-US"}
+outputs:
+  - {name: report, type: markdown, description: "Stages, MEDDIC, demo script, RFP kit, matrix"}
+  - {name: action_list, type: json, description: "Rollout actions with owner and effort"}
+tools:
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: sales-enabler, needs: [inputs], produces: [assessment]}
+  - {id: enrich, type: tool, ref: doddle.tool.v1.hubspot.deals, needs: [assess], produces: [pipeline_data]}
+  - {id: recommend, type: agent, ref: sales-enabler, needs: [enrich], produces: [report]}
+  - {id: plan, type: agent, ref: planner, needs: [recommend], produces: [action_list]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -113,6 +113,14 @@
       "version": "1.0.0",
       "skills": 5,
       "os": "Doddle Education OS"
+    },
+    {
+      "name": "doddle-gtm-skills",
+      "source": "./doddle-gtm-skills/.claude/skills",
+      "ids": "doddle.gtm.*",
+      "version": "1.0.0",
+      "skills": 6,
+      "os": "Doddle GTM OS"
     }
   ]
 }

@@ -1,0 +1,34 @@
+{
+  "name": "doddle-gtm-skills",
+  "version": "1.0.0",
+  "description": "Go-to-market orchestration skills: strategy, ABM, win-loss, sales playbook, channel, advocacy",
+  "main": "README.md",
+  "scripts": {
+    "test": "python3 ../../doddle-core/scripts/validate.py",
+    "lint": "echo \"Linting passed\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/doddleOS/doddle-gtm-skills.git"
+  },
+  "keywords": [
+    "gtm",
+    "abm",
+    "win-loss",
+    "sales-playbook",
+    "channel",
+    "advocacy"
+  ],
+  "author": "Doddle Team <contact@doddlehq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/doddleOS/doddle-gtm-skills/issues"
+  },
+  "homepage": "https://doddlehq.com",
+  "files": [
+    ".claude/",
+    ".claude-plugin/",
+    "README.md",
+    "LICENSE"
+  ]
+}

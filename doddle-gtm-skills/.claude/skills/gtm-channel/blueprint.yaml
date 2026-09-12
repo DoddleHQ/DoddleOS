@@ -1,0 +1,23 @@
+id: doddle.gtm.channel
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Design partner motion: tiers, enablement, deal reg, co-sell plays"
+inputs:
+  - {name: product_offer, type: string, required: true, description: "Offer and margin; ask if missing"}
+  - {name: partner_hint, type: string, required: false, description: "Candidate types; infer if missing"}
+  - {name: locale, type: string, required: false, description: "Market; default en-US"}
+outputs:
+  - {name: report, type: markdown, description: "Tiers, kit, reg rules, co-sell plays"}
+  - {name: action_list, type: json, description: "Partner actions with owner and effort"}
+tools:
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [assessment]}
+  - {id: enrich, type: tool, ref: doddle.tool.v1.hubspot.deals, needs: [assess], produces: [partner_data]}
+  - {id: recommend, type: agent, ref: sales-enabler, needs: [enrich], produces: [report]}
+  - {id: plan, type: agent, ref: planner, needs: [recommend], produces: [action_list]}
+on_fail: {retry: 1, fallback: manual_review}

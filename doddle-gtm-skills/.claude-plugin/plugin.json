@@ -1,0 +1,48 @@
+{
+  "name": "doddle-gtm-skills",
+  "version": "1.0.0",
+  "description": "Doddle GTM OS — go-to-market orchestration: strategy, ABM, win-loss, sales playbook, channel, advocacy (DoddleOS v2 blueprints) - 6 skills",
+  "author": {
+    "name": "Doddle Team",
+    "url": "https://doddlehq.com"
+  },
+  "homepage": "https://doddlehq.com",
+  "repository": "https://github.com/doddleOS/doddle-gtm-skills",
+  "documentation": "https://docs.doddlehq.com",
+  "license": "MIT",
+  "keywords": [
+    "gtm",
+    "go-to-market",
+    "abm",
+    "win-loss",
+    "sales-playbook",
+    "channel"
+  ],
+  "category": "gtm",
+  "tags": [
+    "gtm",
+    "abm",
+    "sales",
+    "channel"
+  ],
+  "skills": "./.claude/skills",
+  "agents": "./.claude/agents",
+  "main": "README.md",
+  "components": {
+    "skills": {
+      "path": "./.claude/skills",
+      "count": 6,
+      "list": [
+        "gtm-strategy",
+        "gtm-abm",
+        "gtm-win-loss",
+        "gtm-sales-playbook",
+        "gtm-channel",
+        "gtm-advocacy"
+      ]
+    }
+  },
+  "requirements": {
+    "doddleOS": ">=2.0"
+  }
+}

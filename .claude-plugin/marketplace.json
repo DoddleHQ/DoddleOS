@@ -6,8 +6,8 @@
     "url": "https://doddlehq.com"
   },
   "metadata": {
-    "description": "DoddleOS agentic execution engine for Claude Code - validated graph blueprints across 14 domain packs",
-    "longDescription": "DoddleOS execution engine with 20 agents, 164 slash commands, 117 validated skills across 14 domain packs (marketing flagship plus ecom, local, SaaS, health, legal, finance, and more), and interactive training.",
+    "description": "DoddleOS agentic execution engine for Claude Code - validated graph blueprints across 15 domain packs",
+    "longDescription": "DoddleOS execution engine with 20 agents, 164 slash commands, 123 validated skills across 15 domain packs (marketing + GTM flagship plus ecom, local, SaaS, health, legal, finance, and more), and interactive training.",
     "version": "2.0.0",
     "updatedAt": "2025-01-24"
   },
