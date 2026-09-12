@@ -1,0 +1,26 @@
+id: doddle.marketing.digital-pr
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Earn authority via digital PR, outreach, linkable assets, journalist pitches, coverage tracking"
+inputs:
+  - {name: domain_or_topic, type: string, required: true, description: "Site or campaign topic; ask if missing"}
+  - {name: asset, type: string, required: false, description: "Existing linkable asset; propose if missing"}
+  - {name: competitor, type: string, required: false, description: "Competitor domain for backlink gap"}
+outputs:
+  - {name: report, type: markdown, description: "Prospect list, angles, pitch drafts, outreach plan"}
+  - {name: action_list, type: json, description: "Prioritized outreach actions with impact and effort"}
+tools:
+  - {id: doddle.tool.v1.semrush.keywordResearch, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.dataforseo.serpGoogle, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.gsc.getSearchAnalytics, required: false, fallback: manual_review}
+integrations:
+  - semrush
+  - dataforseo
+  - google-search-console
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [assessment]}
+  - {id: prospect, type: tool, ref: doddle.tool.v1.semrush.keywordResearch, needs: [assess], produces: [prospect_data]}
+  - {id: recommend, type: agent, ref: copywriter, needs: [prospect], produces: [report]}
+  - {id: plan, type: agent, ref: planner, needs: [recommend], produces: [action_list]}
+on_fail: {retry: 1, fallback: manual_review}

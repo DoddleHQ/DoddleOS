@@ -7,7 +7,7 @@
       "source": "./doddle-marketing-skills/.claude/skills",
       "ids": "doddle.marketing.*",
       "version": "1.5.1",
-      "skills": 49,
+      "skills": 52,
       "os": "Doddle Marketing OS"
     },
     {

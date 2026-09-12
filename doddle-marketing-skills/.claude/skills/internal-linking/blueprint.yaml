@@ -1,0 +1,26 @@
+id: doddle.marketing.internal-linking
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Design internal link architecture, hub-spoke clusters, anchor strategy for crawl and equity flow"
+inputs:
+  - {name: site_or_sitemap, type: string, required: true, description: "Domain, URL, or sitemap to map; ask if missing"}
+  - {name: priority_pages, type: string, required: false, description: "Revenue pages to elevate; infer if missing"}
+  - {name: locale, type: string, required: false, description: "Market context; default en-US"}
+outputs:
+  - {name: report, type: markdown, description: "Hub map, link gaps, anchor plan, taxonomy fixes"}
+  - {name: action_list, type: json, description: "Prioritized link actions with impact and effort"}
+tools:
+  - {id: doddle.tool.v1.gsc.getSearchAnalytics, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.semrush.keywordResearch, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.dataforseo.serpGoogle, required: false, fallback: manual_review}
+integrations:
+  - google-search-console
+  - semrush
+  - dataforseo
+nodes:
+  - {id: assess, type: agent, ref: seo-specialist, needs: [inputs], produces: [assessment]}
+  - {id: map, type: tool, ref: doddle.tool.v1.gsc.getSearchAnalytics, needs: [assess], produces: [crawl_data]}
+  - {id: recommend, type: agent, ref: seo-specialist, needs: [map], produces: [report]}
+  - {id: plan, type: agent, ref: planner, needs: [recommend], produces: [action_list]}
+on_fail: {retry: 1, fallback: manual_review}

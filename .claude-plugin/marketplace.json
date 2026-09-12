@@ -7,7 +7,7 @@
   },
   "metadata": {
     "description": "DoddleOS agentic execution engine for Claude Code - validated graph blueprints across 14 domain packs",
-    "longDescription": "DoddleOS execution engine with 20 agents, 164 slash commands, 114 validated skills across 14 domain packs (marketing flagship plus ecom, local, SaaS, health, legal, finance, and more), and interactive training.",
+    "longDescription": "DoddleOS execution engine with 20 agents, 164 slash commands, 117 validated skills across 14 domain packs (marketing flagship plus ecom, local, SaaS, health, legal, finance, and more), and interactive training.",
     "version": "2.0.0",
     "updatedAt": "2025-01-24"
   },
@@ -51,8 +51,8 @@
     },
     {
       "name": "doddleOS-marketing-skills",
-      "source": "./.claude/skills",
-      "description": "49 marketing skills including CRO, SEO, copywriting, psychology, and growth",
+      "source": "./doddle-marketing-skills/.claude/skills",
+      "description": "52 marketing skills including CRO, SEO, copywriting, psychology, and growth",
       "author": {
         "name": "Doddle Team"
       },

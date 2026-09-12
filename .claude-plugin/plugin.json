@@ -1,7 +1,7 @@
 {
   "name": "doddleOS-marketing",
   "version": "2.0.0",
-  "description": "DoddleOS - domain-neutral agentic execution engine: validated graph blueprints, 20 agents, 164 commands, 114 skills across 14 independent peer packs (marketing + 13 verticals)",
+  "description": "DoddleOS - domain-neutral agentic execution engine: validated graph blueprints, 20 agents, 164 commands, 117 skills across 14 independent peer packs (marketing + 13 verticals)",
   "author": {
     "name": "Doddle Team",
     "url": "https://doddlehq.com"
@@ -61,7 +61,7 @@
     },
     "skills": {
       "path": "./doddle-marketing-skills/.claude/skills",
-      "count": 49,
+      "count": 52,
       "categories": {
         "core": ["marketing-fundamentals", "marketing-psychology", "marketing-ideas", "seo-mastery", "social-media", "email-marketing", "paid-advertising", "content-strategy", "analytics-attribution", "brand-building", "problem-solving"],
         "cro": ["page-cro", "form-cro", "popup-cro", "signup-flow-cro", "onboarding-cro", "paywall-upgrade-cro", "ab-test-setup"],

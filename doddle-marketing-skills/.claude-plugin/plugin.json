@@ -1,7 +1,7 @@
 {
   "name": "doddle-marketing-skills",
   "version": "1.5.1",
-  "description": "Doddle Marketing OS — independent marketing OS pack: 49 skills (CRO, copy, SEO, growth) + bundled agents (DoddleOS v2 blueprints)",
+  "description": "Doddle Marketing OS — independent marketing OS pack: 52 skills (CRO, copy, SEO, growth) + bundled agents (DoddleOS v2 blueprints)",
   "author": {
     "name": "Doddle Team",
     "url": "https://doddlehq.com"
@@ -31,7 +31,7 @@
   "components": {
     "skills": {
       "path": "./.claude/skills",
-      "count": 49,
+      "count": 52,
       "ids": "doddle.marketing.*"
     },
     "agents": {

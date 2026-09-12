@@ -11,7 +11,7 @@
   <br>
   <img src="https://img.shields.io/badge/Agents-20-green" alt="Agents">
   <img src="https://img.shields.io/badge/Commands-164-orange" alt="Commands">
-  <img src="https://img.shields.io/badge/Skills-49-blue" alt="Skills">
+  <img src="https://img.shields.io/badge/Skills-52-blue" alt="Skills">
 </p>
 
 <p align="center">
@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  Validated graph blueprints (SKILL.md + blueprint.yaml) executed as agent/tool DAGs: 114 skills across 14 independent peer packs — marketing, ecom, local, SaaS, health, legal, finance, and more. Each pack installs and runs standalone; cross-pack binding via blueprint call nodes.
+  Validated graph blueprints (SKILL.md + blueprint.yaml) executed as agent/tool DAGs: 117 skills across 14 independent peer packs — marketing, ecom, local, SaaS, health, legal, finance, and more. Each pack installs and runs standalone; cross-pack binding via blueprint call nodes.
 </p>
 
 <p align="center">
@@ -63,7 +63,7 @@ doddleOS-marketing/
 |   |   |-- growth/      # /growth:launch, /growth:referral, /growth:free-tool
 |   |   |-- ...and more
 |   |
-|   |-- skills/          # moved → doddle-marketing-skills/ (independent peer pack, 49 skills)
+|   |-- skills/          # moved → doddle-marketing-skills/ (independent peer pack, 52 skills)
 |   |
 |   |-- workflows/       # Core marketing workflows
 |       |-- primary-workflow.md         # Campaign lifecycle
@@ -230,7 +230,7 @@ cp -r doddleOS-marketing/.claude/workflows/* ~/.claude/workflows/
 
 | Pack | Skills | IDs | Commands |
 |------|--------|-----|----------|
-| Doddle Marketing OS (`doddle-marketing-skills/`) | CRO, copy, SEO, growth, content, analytics (49) | `doddle.marketing.*` v1.5.1 | `/content:*`, `/seo:*`, `/cro:*`, `/growth:*`, `/marketing:*` |
+| Doddle Marketing OS (`doddle-marketing-skills/`) | CRO, copy, SEO, growth, content, analytics (52) | `doddle.marketing.*` v1.5.1 | `/content:*`, `/seo:*`, `/cro:*`, `/growth:*`, `/marketing:*` |
 | Doddle Ecommerce OS (`doddle-ecommerce-skills/`) | PLP, PDP, checkout, search, revenue | `doddle.ecommerce.*` v1.5.1 | `/ecom:plp`, `/ecom:pdp`, `/ecom:checkout`, `/ecom:search`, `/ecom:revenue` |
 | Doddle Local OS (`doddle-local-skills/`) | GBP, reviews, location pages, booking, local ads | `doddle.local.*` v1.0.0 | `/local:gbp`, `/local:reviews`, `/local:pages`, `/local:booking`, `/local:ads` |
 | Doddle SaaS OS (`doddle-saas-skills/`) | homepage, pricing, trial, retention, expansion | `doddle.saas.*` v1.0.0 | `/saas:homepage`, `/saas:pricing`, `/saas:trial`, `/saas:retention`, `/saas:expansion` |
