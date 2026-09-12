@@ -5,18 +5,18 @@
     "email": "contact@doddlehq.com"
   },
   "metadata": {
-    "description": "DoddleOS agentic execution engine for Claude Code - validated graph blueprints across 14 domain packs"
+    "description": "DoddleOS agentic task execution operating system for Claude Code - validated graph blueprints across 15 domain packs"
   },
   "plugins": [
     {
       "name": "doddleOS-marketing",
       "source": "./",
-      "description": "Full marketing automation suite with 20 agents, 99 commands, 49 skills (DoddleOS v2 blueprints)",
+      "description": "DoddleOS core — 20 agents, 164 commands, 123 skills across 15 domain packs (DoddleOS v2 blueprints)",
       "author": {
         "name": "Doddle Team"
       },
       "homepage": "https://doddlehq.com",
-      "repository": "https://github.com/doddleOS/doddleOS-marketing",
+      "repository": "https://github.com/DoddleHQ/DoddleOS",
       "license": "MIT",
       "keywords": [
         "marketing",

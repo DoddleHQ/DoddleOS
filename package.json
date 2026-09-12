@@ -1,7 +1,7 @@
 {
   "name": "DoddleOS",
   "version": "1.0.0",
-  "description": "DoddleOS agentic execution engine for Claude Code, Cursor, and GitHub Copilot. 20 agents, 164 commands, 123 skills across 15 domain packs: validated graph blueprints for marketing, GTM, sales, HR, legal, finance, and more.",
+  "description": "DoddleOS — agentic task execution operating system for Claude Code, Cursor, and GitHub Copilot. 20 agents, 164 commands, 123 skills across 15 domain packs: validated graph blueprints executed as agent/tool DAGs.",
   "main": "CLAUDE.md",
   "scripts": {
     "test": "echo \"Warning: no test specified\" && exit 0",

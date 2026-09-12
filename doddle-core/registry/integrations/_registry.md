@@ -1,6 +1,6 @@
 # MCP Integrations Registry
 
-> Central catalog of all MCP server integrations for marketing automation
+> Central catalog of all MCP server integrations for agentic task execution
 
 ## Quick Reference
 

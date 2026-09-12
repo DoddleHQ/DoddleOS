@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <strong>Domain-neutral agentic execution engine for Claude Code, Cursor, GitHub Copilot, and any AI assistant supporting agents & skills.</strong>
+  <strong>Agentic task execution operating system for Claude Code, Cursor, GitHub Copilot, and any AI assistant supporting agents & skills.</strong>
 </p>
 
 <p align="center">
