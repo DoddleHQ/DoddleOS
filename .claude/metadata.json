@@ -1,11 +1,11 @@
 {
   "version": "1.0.0",
-  "name": "doddleOS-marketing",
-  "description": "AI-powered marketing automation kit with specialized funnel-stage agents for lead generation, email campaigns, sales enablement, customer retention, and revenue optimization.",
-  "buildDate": "2025-12-03T00:00:00.000Z",
+  "name": "DoddleOS",
+  "description": "DoddleOS agentic execution engine for Claude Code, Cursor, and GitHub Copilot. 20 agents, 164 commands, 123 skills across 15 domain packs: validated graph blueprints for marketing, GTM, sales, HR, legal, finance, and more.",
+  "buildDate": "2026-09-12T11:48:19.425Z",
   "repository": {
     "type": "git",
-    "url": "https://github.com/doddleOS/doddleOS-marketing.git"
+    "url": "https://github.com/DoddleHQ/DoddleOS.git"
   },
   "download": {
     "lastDownloadedAt": null,
