@@ -1,3 +1,16 @@
+## [1.2.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.1.0...v1.2.0) (2026-09-14)
+
+
+### 🚀 Features
+
+* add doddle-devops-skills pack with 10 Linux sysadmin skills from Cobbaut's Linux System Administration ([9bcd601](https://github.com/DoddleHQ/DoddleOS/commit/9bcd60122de2f1fade4aba7295464f82b2f78a1e))
+
+
+### 📚 Documentation
+
+* add doddle-devops-skills pack design spec ([c850462](https://github.com/DoddleHQ/DoddleOS/commit/c850462a1fc4accf768c744d60542452656b2523))
+* remove devops skills design spec after critical review ([bf1e2a8](https://github.com/DoddleHQ/DoddleOS/commit/bf1e2a85fb347d877972283187217e39e8f204f1))
+
 ## [1.1.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.0.1...v1.1.0) (2026-09-12)
 
 
