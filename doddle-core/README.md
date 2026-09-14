@@ -7,12 +7,13 @@ Domain-neutral execution substrate for DoddleOS graph blueprints. No marketing c
 ```
 doddle-core/            Layer 0 — kernel (this pack)
 ├── spec/               Blueprint schema, skill template, tool namespace
-├── registry/           Integrations + pack index (16 peer packs)
+├── registry/           Integrations + pack index (17 peer packs)
 └── scripts/            Discovery-based validator (no hardcoded packs)
 
-doddle-*/               16 independent OS packs, incl. doddle-marketing-skills/
+doddle-*/               17 independent OS packs, incl. doddle-marketing-skills/
                         (52 skills, doddle.marketing.*) + doddle-gtm-skills/
-                        (6 skills, doddle.gtm.*) + 13 vertical packs ×5.
+                        (6 skills, doddle.gtm.*) + doddle-devops-skills
+                        (10 skills, doddle.devops.*) + 14 vertical packs ×5.
                         Each pack ships own skills + bundled agents. No
                         cross-pack install deps; binding via blueprint `call`.
 ```
@@ -22,7 +23,7 @@ doddle-*/               16 independent OS packs, incl. doddle-marketing-skills/
 1. Kernel never imports domain packs. Packs bind kernel tool IDs.
 2. New pack = new `doddle-*/` dir. No validator/spec edit needed (discovery).
 3. Shared mechanics graduate to kernel `spec/` only if ≥2 domains use them.
-4. All 15 packs are peers. Agents resolve pack-local first (`<pack>/.claude/agents/`).
+4. All 17 packs are peers. Agents resolve pack-local first (`<pack>/.claude/agents/`).
    Cross-pack skill binding only via blueprint `call` nodes (`type: call`,
    `ref: doddle.<domain>.<skill>`); `call` refs must be known skill ids.
 

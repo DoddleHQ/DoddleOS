@@ -1,0 +1,44 @@
+{
+  "name": "doddle-devops-skills",
+  "owner": {
+    "name": "Doddle Team",
+    "email": "contact@doddlehq.com",
+    "url": "https://doddlehq.com"
+  },
+  "metadata": {
+    "description": "Doddle DevOps OS — Linux server administration: processes, storage, LVM/RAID, boot/systemd, cron/logging, monitoring, packages, networking/SSH, kernel modules, backup",
+    "version": "1.0.0",
+    "updatedAt": "2026-09-14"
+  },
+  "plugins": [
+    {
+      "name": "doddle-devops-skills",
+      "source": "./",
+      "description": "Doddle DevOps OS: 10 Linux sysadmin skills covering processes, storage, LVM/RAID, boot/systemd, cron/logging, monitoring, packages, networking/SSH, kernel modules, and backup",
+      "author": {
+        "name": "Doddle Team"
+      },
+      "homepage": "https://doddlehq.com",
+      "repository": "https://github.com/doddleOS/doddle-devops-skills",
+      "documentation": "https://docs.doddlehq.com",
+      "license": "MIT",
+      "keywords": [
+        "devops",
+        "linux",
+        "sysadmin",
+        "systemd",
+        "lvm",
+        "backup"
+      ],
+      "category": "devops",
+      "tags": [
+        "devops",
+        "linux",
+        "server",
+        "automation"
+      ],
+      "featured": true,
+      "verified": true
+    }
+  ]
+}

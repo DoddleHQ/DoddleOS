@@ -1,0 +1,17 @@
+id: doddle.devops.monitoring
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Monitor CPU, memory, I/O, and network; attribute bottlenecks to processes; manage swap; lsof/fuser forensics"
+inputs:
+  - {name: symptom, type: string, required: true, description: "Slow server, OOM suspicion, busy file/mount, or baseline request"}
+  - {name: scope, type: string, required: false, description: "Process, device, or file to focus on"}
+outputs:
+  - {name: report, type: markdown, description: "Resource findings with sampled evidence and bottleneck verdict"}
+  - {name: baseline, type: json, description: "CPU/mem/io/net reference values for future comparison"}
+tools: []
+integrations: []
+nodes:
+  - {id: survey, type: agent, ref: devops-surveyor, needs: [inputs], produces: [resource_evidence]}
+  - {id: analyze, type: agent, ref: devops-analyst, needs: [survey], produces: [report, baseline]}
+on_fail: {retry: 1, fallback: manual_review}

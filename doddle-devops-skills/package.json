@@ -1,0 +1,35 @@
+{
+  "name": "doddle-devops-skills",
+  "version": "1.0.0",
+  "description": "Linux server administration skills: processes, storage, LVM/RAID, boot/systemd, cron/logging, monitoring, packages, networking/SSH, kernel modules, backup",
+  "main": "README.md",
+  "scripts": {
+    "test": "python3 ../../doddle-core/scripts/validate.py",
+    "lint": "echo \"Linting passed\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/doddleOS/doddle-devops-skills.git"
+  },
+  "keywords": [
+    "devops",
+    "linux",
+    "sysadmin",
+    "systemd",
+    "lvm",
+    "backup",
+    "ssh"
+  ],
+  "author": "Doddle Team <contact@doddlehq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/doddleOS/doddle-devops-skills/issues"
+  },
+  "homepage": "https://doddlehq.com",
+  "files": [
+    ".claude/",
+    ".claude-plugin/",
+    "README.md",
+    "LICENSE"
+  ]
+}

@@ -1,0 +1,21 @@
+id: doddle.devops.packages
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Install, search, upgrade, remove, and verify software on Debian (dpkg/apt) and Red Hat (rpm/yum) families; build from source"
+inputs:
+  - {name: task, type: string, required: true, description: "Install, remove, upgrade, verify, or build — name the software"}
+  - {name: package, type: string, required: false, description: "Package name; search if unknown"}
+  - {name: source, type: string, required: false, description: "Repo, local file, or source tarball; default repositories"}
+outputs:
+  - {name: report, type: markdown, description: "Package state before/after, commands, verification"}
+  - {name: change_record, type: json, description: "Installed/removed/upgraded packages with versions"}
+tools: []
+integrations: []
+nodes:
+  - {id: survey, type: agent, ref: devops-surveyor, needs: [inputs], produces: [package_evidence]}
+  - {id: analyze, type: agent, ref: devops-analyst, needs: [survey], produces: [package_plan]}
+  - {id: approve_change, type: gate, needs: [analyze], produces: [decision], approvers: [owner], timeout_s: 3600, on_approve: proceed, on_reject: revise}
+  - {id: apply, type: agent, ref: devops-operator, needs: [approve_change], produces: [change_record]}
+  - {id: verify, type: agent, ref: devops-operator, needs: [apply], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

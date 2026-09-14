@@ -1,0 +1,20 @@
+id: doddle.devops.kernel
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Inspect kernel and boot parameters, manage loadable modules and dependencies, trace libraries and syscalls"
+inputs:
+  - {name: symptom, type: string, required: true, description: "Module issue, missing library, or tracing request"}
+  - {name: target, type: string, required: false, description: "Module name or binary path; discover if missing"}
+outputs:
+  - {name: report, type: markdown, description: "Kernel/module/library findings, actions, verification"}
+  - {name: trace_findings, type: json, description: "ldd/strace/ltrace evidence summary"}
+tools: []
+integrations: []
+nodes:
+  - {id: survey, type: agent, ref: devops-surveyor, needs: [inputs], produces: [kernel_evidence]}
+  - {id: analyze, type: agent, ref: devops-analyst, needs: [survey], produces: [kernel_diagnosis]}
+  - {id: approve_action, type: gate, needs: [analyze], produces: [decision], approvers: [owner], timeout_s: 3600, on_approve: proceed, on_reject: revise}
+  - {id: apply, type: agent, ref: devops-operator, needs: [approve_action], produces: [trace_findings]}
+  - {id: verify, type: agent, ref: devops-operator, needs: [apply], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

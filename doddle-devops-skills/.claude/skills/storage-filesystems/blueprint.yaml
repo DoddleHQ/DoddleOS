@@ -1,0 +1,21 @@
+id: doddle.devops.storage
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Discover, partition, format, mount, and secure local storage; fix disk space incidents"
+inputs:
+  - {name: task, type: string, required: true, description: "Provision, fix, or harden storage; describe the goal"}
+  - {name: device, type: string, required: false, description: "Disk or partition; discover via lsblk/fdisk -l if missing"}
+  - {name: mount_point, type: string, required: false, description: "Target mount directory"}
+outputs:
+  - {name: report, type: markdown, description: "Storage layout before/after, commands run, verification"}
+  - {name: fstab_change, type: json, description: "fstab lines added or changed, with UUIDs"}
+tools: []
+integrations: []
+nodes:
+  - {id: survey, type: agent, ref: devops-surveyor, needs: [inputs], produces: [storage_evidence]}
+  - {id: analyze, type: agent, ref: devops-analyst, needs: [survey], produces: [storage_plan]}
+  - {id: approve_change, type: gate, needs: [analyze], produces: [decision], approvers: [owner], timeout_s: 3600, on_approve: proceed, on_reject: revise}
+  - {id: apply, type: agent, ref: devops-operator, needs: [approve_change], produces: [fstab_change]}
+  - {id: verify, type: agent, ref: devops-operator, needs: [apply], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

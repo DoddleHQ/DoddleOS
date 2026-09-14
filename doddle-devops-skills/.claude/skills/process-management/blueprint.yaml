@@ -1,0 +1,20 @@
+id: doddle.devops.process
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Diagnose, signal, renice, and control Linux processes"
+inputs:
+  - {name: symptom, type: string, required: true, description: "Process problem: runaway, hung, zombie, kill or renice request"}
+  - {name: target, type: string, required: false, description: "Process name or PID; discover via ps/pgrep if missing"}
+outputs:
+  - {name: report, type: markdown, description: "Process findings, actions taken, verification evidence"}
+  - {name: action_list, type: json, description: "Signals sent, renices applied, jobs moved, with results"}
+tools: []
+integrations: []
+nodes:
+  - {id: survey, type: agent, ref: devops-surveyor, needs: [inputs], produces: [process_evidence]}
+  - {id: analyze, type: agent, ref: devops-analyst, needs: [survey], produces: [diagnosis]}
+  - {id: approve_action, type: gate, needs: [analyze], produces: [decision], approvers: [owner], timeout_s: 3600, on_approve: proceed, on_reject: abort}
+  - {id: apply, type: agent, ref: devops-operator, needs: [approve_action], produces: [action_list]}
+  - {id: verify, type: agent, ref: devops-operator, needs: [apply], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -1,0 +1,21 @@
+id: doddle.devops.backup
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Back up and restore files, file systems, and devices: tar levels, dump/restore, cpio, dd images, split, ssh transport"
+inputs:
+  - {name: task, type: string, required: true, description: "Backup or restore; describe source and destination"}
+  - {name: source, type: string, required: true, description: "Directory, partition, or device"}
+  - {name: destination, type: string, required: false, description: "Archive path or remote host:dir; propose if missing"}
+outputs:
+  - {name: report, type: markdown, description: "Backup/restore actions, sizes, integrity verification"}
+  - {name: restore_plan, type: json, description: "Archive inventory and tested restore steps"}
+tools: []
+integrations: []
+nodes:
+  - {id: survey, type: agent, ref: devops-surveyor, needs: [inputs], produces: [backup_evidence]}
+  - {id: analyze, type: agent, ref: devops-analyst, needs: [survey], produces: [backup_plan]}
+  - {id: approve_action, type: gate, needs: [analyze], produces: [decision], approvers: [owner], timeout_s: 3600, on_approve: proceed, on_reject: revise}
+  - {id: apply, type: agent, ref: devops-operator, needs: [approve_action], produces: [restore_plan]}
+  - {id: verify, type: agent, ref: devops-operator, needs: [apply], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

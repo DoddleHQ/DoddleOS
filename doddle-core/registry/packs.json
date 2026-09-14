@@ -129,6 +129,14 @@
       "version": "1.0.0",
       "skills": 5,
       "os": "Doddle Travel OS"
+    },
+    {
+      "name": "doddle-devops-skills",
+      "source": "./doddle-devops-skills/.claude/skills",
+      "ids": "doddle.devops.*",
+      "version": "1.0.0",
+      "skills": 10,
+      "os": "Doddle DevOps OS"
     }
   ]
 }

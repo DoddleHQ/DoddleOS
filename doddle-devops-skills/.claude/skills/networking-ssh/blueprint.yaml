@@ -1,0 +1,20 @@
+id: doddle.devops.networking
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Configure interfaces, routing, bonding; manage ssh access and keys; sniff packets; share NFS storage; check iptables"
+inputs:
+  - {name: task, type: string, required: true, description: "Fix connectivity, configure IP, ssh setup, bonding, NFS, sniff, or firewall check"}
+  - {name: host_or_iface, type: string, required: false, description: "Host, IP, or interface in question"}
+outputs:
+  - {name: report, type: markdown, description: "Layer findings, config changes, verification"}
+  - {name: config_change, type: json, description: "Files edited with rollback notes"}
+tools: []
+integrations: []
+nodes:
+  - {id: survey, type: agent, ref: devops-surveyor, needs: [inputs], produces: [network_evidence]}
+  - {id: analyze, type: agent, ref: devops-analyst, needs: [survey], produces: [network_diagnosis]}
+  - {id: approve_change, type: gate, needs: [analyze], produces: [decision], approvers: [owner], timeout_s: 3600, on_approve: proceed, on_reject: revise}
+  - {id: apply, type: agent, ref: devops-operator, needs: [approve_change], produces: [config_change]}
+  - {id: verify, type: agent, ref: devops-operator, needs: [apply], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -1,0 +1,21 @@
+id: doddle.devops.lvm
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Manage LVM volumes (extend, mirror, snapshot, migrate) and mdadm software RAID health"
+inputs:
+  - {name: task, type: string, required: true, description: "Extend volume, create LV/VG, snapshot, mirror, pvmove, or RAID repair"}
+  - {name: volume, type: string, required: false, description: "VG/LV path or md device; discover via lvs and /proc/mdstat"}
+  - {name: size, type: string, required: false, description: "Amount to add or absolute size; ask if missing"}
+outputs:
+  - {name: report, type: markdown, description: "Volume/RAID layout before/after, commands, verification"}
+  - {name: capacity_plan, type: json, description: "Free/used extents, growth steps, rollback notes"}
+tools: []
+integrations: []
+nodes:
+  - {id: survey, type: agent, ref: devops-surveyor, needs: [inputs], produces: [volume_evidence]}
+  - {id: analyze, type: agent, ref: devops-analyst, needs: [survey], produces: [volume_plan]}
+  - {id: approve_change, type: gate, needs: [analyze], produces: [decision], approvers: [owner], timeout_s: 3600, on_approve: proceed, on_reject: revise}
+  - {id: apply, type: agent, ref: devops-operator, needs: [approve_change], produces: [capacity_plan]}
+  - {id: verify, type: agent, ref: devops-operator, needs: [apply], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

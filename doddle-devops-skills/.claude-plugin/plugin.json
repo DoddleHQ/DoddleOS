@@ -1,0 +1,63 @@
+{
+  "name": "doddle-devops-skills",
+  "version": "1.0.0",
+  "description": "Doddle DevOps OS — Linux server administration: processes, storage, LVM/RAID, boot/systemd, cron/logging, monitoring, packages, networking/SSH, kernel modules, backup (DoddleOS v2 blueprints) - 10 skills",
+  "author": {
+    "name": "Doddle Team",
+    "url": "https://doddlehq.com"
+  },
+  "homepage": "https://doddlehq.com",
+  "repository": "https://github.com/doddleOS/doddle-devops-skills",
+  "documentation": "https://docs.doddlehq.com",
+  "license": "MIT",
+  "keywords": [
+    "devops",
+    "linux",
+    "sysadmin",
+    "systemd",
+    "lvm",
+    "monitoring",
+    "backup",
+    "ssh"
+  ],
+  "category": "devops",
+  "tags": [
+    "devops",
+    "linux",
+    "sysadmin",
+    "server"
+  ],
+  "skills": "./.claude/skills",
+  "agents": "./.claude/agents",
+  "main": "README.md",
+  "components": {
+    "skills": {
+      "path": "./.claude/skills",
+      "count": 10,
+      "list": [
+        "process-management",
+        "storage-filesystems",
+        "lvm-raid",
+        "boot-and-services",
+        "scheduling-and-logging",
+        "resource-monitoring",
+        "package-management",
+        "networking-ssh",
+        "kernel-modules",
+        "backup-restore"
+      ]
+    },
+    "agents": {
+      "path": "./.claude/agents",
+      "count": 3,
+      "list": [
+        "devops-surveyor",
+        "devops-analyst",
+        "devops-operator"
+      ]
+    }
+  },
+  "requirements": {
+    "doddleOS": ">=2.0"
+  }
+}
