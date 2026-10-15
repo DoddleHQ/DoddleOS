@@ -20,7 +20,7 @@ We take security seriously at Doddle. If you discover a security vulnerability, 
 Instead, please report them via one of these methods:
 
 1. **Email:** Send details to [security@doddlehq.com](mailto:security@doddlehq.com)
-2. **GitHub Security Advisories:** [Report a vulnerability](https://github.com/doddleOS/doddleOS-marketing/security/advisories/new)
+2. **GitHub Security Advisories:** [Report a vulnerability](https://github.com/DoddleHQ/DoddleOS/security/advisories/new)
 
 ### What to Include
 

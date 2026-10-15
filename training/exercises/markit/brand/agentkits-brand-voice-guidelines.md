@@ -198,7 +198,7 @@ Shipped: /marketing:psychology now includes 70+ mental models for pricing, persu
 
 Try it on your next landing page.
 
-github.com/doddleOS/doddleOS-marketing
+github.com/DoddleHQ/DoddleOS
 ```
 
 ### LinkedIn

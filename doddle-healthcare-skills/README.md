@@ -4,7 +4,7 @@
 
 ## Overview
 
-Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 5 specialised healthcare skills covering new patient → booked visit → recall → review.
+Independent OS pack for [DoddleOS](https://github.com/DoddleHQ/DoddleOS). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 5 specialised healthcare skills covering new patient → booked visit → recall → review.
 
 ## Skills Included
 

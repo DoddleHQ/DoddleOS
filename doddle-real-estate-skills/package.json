@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/doddleOS/doddle-real-estate-skills.git"
+    "url": "https://github.com/DoddleHQ/DoddleOS.git"
   },
   "keywords": [
     "real-estate",
@@ -21,7 +21,7 @@
   "author": "Doddle Team <contact@doddlehq.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/doddleOS/doddle-real-estate-skills/issues"
+    "url": "https://github.com/DoddleHQ/DoddleOS/issues"
   },
   "homepage": "https://doddlehq.com",
   "files": [

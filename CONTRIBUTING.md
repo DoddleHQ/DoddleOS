@@ -166,7 +166,7 @@ model: sonnet
 
 ## Questions?
 
-- Open an [Issue](https://github.com/doddleOS/doddleOS-marketing/issues)
-- Start a [Discussion](https://github.com/doddleOS/doddleOS-marketing/discussions)
+- Open an [Issue](https://github.com/DoddleHQ/DoddleOS/issues)
+- Start a [Discussion](https://github.com/DoddleHQ/DoddleOS/discussions)
 
 Thank you for contributing!

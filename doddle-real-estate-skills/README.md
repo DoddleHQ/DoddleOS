@@ -4,7 +4,7 @@
 
 ## Overview
 
-Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 5 specialised real-estate skills covering click → listing → closing → repeat/referral.
+Independent OS pack for [DoddleOS](https://github.com/DoddleHQ/DoddleOS). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 5 specialised real-estate skills covering click → listing → closing → repeat/referral.
 
 Naming: pack dir `doddle-real-estate-skills`, skills `realty-*`, IDs `doddle.realty.*`, commands `/realty:*`.
 

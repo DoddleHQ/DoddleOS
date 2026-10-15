@@ -4,7 +4,7 @@
 
 ## Overview
 
-Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. Turns posting into a system: position → script → package → publish → get paid.
+Independent OS pack for [DoddleOS](https://github.com/DoddleHQ/DoddleOS). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. Turns posting into a system: position → script → package → publish → get paid.
 
 Naming: pack dir `doddle-creator-skills`, skills `creator-*`, IDs `doddle.creator.*`, commands `/creator:*`.
 

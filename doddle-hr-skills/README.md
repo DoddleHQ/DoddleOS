@@ -4,7 +4,7 @@
 
 ## Overview
 
-Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. First non-marketing pack: same DoddleOS v2 scaffold (SKILL.md + blueprint.yaml, validator-gated).
+Independent OS pack for [DoddleOS](https://github.com/DoddleHQ/DoddleOS). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. First non-marketing pack: same DoddleOS v2 scaffold (SKILL.md + blueprint.yaml, validator-gated).
 
 Naming: pack dir `doddle-hr-skills`, skills `hr-*`, IDs `doddle.hr.*`, commands `/hr:*`.
 

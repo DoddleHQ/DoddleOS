@@ -21,7 +21,7 @@ Naming: pack dir `doddle-affiliate-skills`, skills `affiliate-*`, IDs `doddle.af
 ## Installation
 
 ```bash
-/plugin marketplace add doddleOS/doddleOS-marketing
+/plugin marketplace add DoddleHQ/DoddleOS
 /plugin install doddle-affiliate-skills@doddleOS-marketing
 ```
 

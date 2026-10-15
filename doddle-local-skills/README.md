@@ -4,7 +4,7 @@
 
 ## Overview
 
-Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 5 specialised local skills covering discovery → call/booking → review.
+Independent OS pack for [DoddleOS](https://github.com/DoddleHQ/DoddleOS). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 5 specialised local skills covering discovery → call/booking → review.
 
 ## Skills Included
 
@@ -69,7 +69,7 @@ Manual: `cp -r doddle-local-skills/.claude/skills/* your-project/.claude/skills/
 
 ## Optional bindings (peer packs, no install dependency)
 
-Core [Doddle Marketing OS](https://github.com/doddleOS/doddleOS-marketing) skills:
+Core [Doddle Marketing OS](https://github.com/DoddleHQ/DoddleOS) skills:
 - `seo-mastery` - SEO fundamentals (+ `references/local-seo.md`)
 - `programmatic-seo` - Location pages at scale
 - `schema-markup` - LocalBusiness structured data

@@ -4,7 +4,7 @@
 
 ## Overview
 
-Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 14 specialised SaaS skills covering visitor → trial → paid → expansion.
+Independent OS pack for [DoddleOS](https://github.com/DoddleHQ/DoddleOS). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 14 specialised SaaS skills covering visitor → trial → paid → expansion.
 
 ## Skills Included
 
@@ -78,7 +78,7 @@ Manual: `cp -r doddle-saas-skills/.claude/skills/* your-project/.claude/skills/`
 
 ## Optional bindings (peer packs, no install dependency)
 
-Core [Doddle Marketing OS](https://github.com/doddleOS/doddleOS-marketing) skills:
+Core [Doddle Marketing OS](https://github.com/DoddleHQ/DoddleOS) skills:
 - `page-cro` - Landing page CRO
 - `pricing-strategy` - Pricing fundamentals
 - `signup-flow-cro`, `onboarding-cro` - Trial UX

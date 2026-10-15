@@ -4,7 +4,7 @@
 
 ## Overview
 
-Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. Orchestration layer over marketing, sales, and vertical packs.
+Independent OS pack for [DoddleOS](https://github.com/DoddleHQ/DoddleOS). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. Orchestration layer over marketing, sales, and vertical packs.
 
 Naming: pack dir `doddle-gtm-skills`, skills `gtm-*`, IDs `doddle.gtm.*`, commands `/gtm:*`.
 

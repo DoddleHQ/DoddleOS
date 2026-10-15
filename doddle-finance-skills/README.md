@@ -4,7 +4,7 @@
 
 ## Overview
 
-Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. Turns searches into AUM/premiums: capture with calculators, onboard cleanly, grow share-of-wallet.
+Independent OS pack for [DoddleOS](https://github.com/DoddleHQ/DoddleOS). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. Turns searches into AUM/premiums: capture with calculators, onboard cleanly, grow share-of-wallet.
 
 Naming: pack dir `doddle-finance-skills`, skills `finance-*`, IDs `doddle.finance.*`, commands `/finance:*`.
 

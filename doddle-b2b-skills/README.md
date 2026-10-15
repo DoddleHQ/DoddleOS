@@ -4,7 +4,7 @@
 
 ## Overview
 
-Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 16 specialised B2B skills covering list → pipeline → proposal → proof → recurring revenue.
+Independent OS pack for [DoddleOS](https://github.com/DoddleHQ/DoddleOS). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 16 specialised B2B skills covering list → pipeline → proposal → proof → recurring revenue.
 
 Naming: pack dir `doddle-b2b-skills`, skills `b2b-*`, IDs `doddle.b2b.*`, commands `/b2b:*`.
 

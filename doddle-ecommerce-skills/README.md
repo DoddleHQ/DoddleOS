@@ -4,7 +4,7 @@
 
 ## Overview
 
-Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Provides 5 specialised eCommerce skills covering product discovery to checkout. Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted.
+Independent OS pack for [DoddleOS](https://github.com/DoddleHQ/DoddleOS). Provides 5 specialised eCommerce skills covering product discovery to checkout. Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted.
 
 ## Skills Included
 
@@ -32,7 +32,7 @@ Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketin
 
 ```bash
 # Clone the repo
-git clone https://github.com/doddleOS/doddle-ecommerce-skills.git
+git clone https://github.com/DoddleHQ/DoddleOS.git
 
 # Copy skills to your project
 cp -r doddle-ecommerce-skills/.claude/skills/* your-project/.claude/skills/
@@ -97,7 +97,7 @@ These 5 skills fill the gaps identified in a comprehensive eCommerce audit:
 
 ## Optional bindings (peer packs, no install dependency)
 
-This skill pack works best with the core [Doddle Marketing OS](https://github.com/doddleOS/doddleOS-marketing) skills:
+This skill pack works best with the core [Doddle Marketing OS](https://github.com/DoddleHQ/DoddleOS) skills:
 
 - `page-cro` - General landing page CRO
 - `form-cro` - Form optimisation fundamentals
@@ -112,5 +112,5 @@ MIT License - Same as DoddleOS core
 
 ## Support
 
-- **Issues:** [GitHub Issues](https://github.com/doddleOS/doddle-ecommerce-skills/issues)
-- **Community:** [GitHub Discussions](https://github.com/doddleOS/doddle-ecommerce-skills/discussions)
+- **Issues:** [GitHub Issues](https://github.com/DoddleHQ/DoddleOS/issues)
+- **Community:** [GitHub Discussions](https://github.com/DoddleHQ/DoddleOS/discussions)

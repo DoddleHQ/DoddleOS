@@ -4,7 +4,7 @@
 
 ## Overview
 
-Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. Turns inquiries into enrolled students: capture fast, nurture long cycles, yield admits, activate alumni.
+Independent OS pack for [DoddleOS](https://github.com/DoddleHQ/DoddleOS). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. Turns inquiries into enrolled students: capture fast, nurture long cycles, yield admits, activate alumni.
 
 Naming: pack dir `doddle-education-skills`, skills `edu-*`, IDs `doddle.edu.*`, commands `/edu:*`.
 

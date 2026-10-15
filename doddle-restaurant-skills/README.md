@@ -4,7 +4,7 @@
 
 ## Overview
 
-Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 5 specialised restaurant skills covering discovery → booked table → regular → catered event.
+Independent OS pack for [DoddleOS](https://github.com/DoddleHQ/DoddleOS). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 5 specialised restaurant skills covering discovery → booked table → regular → catered event.
 
 Naming: pack dir `doddle-restaurant-skills`, skills `restaurant-*`, IDs `doddle.restaurant.*`, commands `/restaurant:*`.
 

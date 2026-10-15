@@ -5,7 +5,7 @@
 <h1 align="center">DoddleOS</h1>
 
 <p align="center">
-  <a href="https://github.com/doddleOS/doddleOS-marketing/stargazers"><img src="https://img.shields.io/github/stars/doddleOS/doddleOS-marketing?style=flat" alt="Stars"></a>
+  <a href="https://github.com/DoddleHQ/DoddleOS/stargazers"><img src="https://img.shields.io/github/stars/DoddleHQ/DoddleOS?style=flat" alt="Stars"></a>
   <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License">
   <img src="https://img.shields.io/badge/Claude_Code%20|%20Cursor%20|%20Copilot-Compatible-blueviolet" alt="AI Assistants">
   <br>
@@ -85,7 +85,7 @@ Install directly via Claude Code's plugin system:
 
 ```bash
 # Add this repo as a marketplace
-/plugin marketplace add doddleOS/doddleOS-marketing
+/plugin marketplace add DoddleHQ/DoddleOS
 
 # Install the plugin
 /plugin install doddleOS-marketing@doddleOS-marketing
@@ -99,7 +99,7 @@ Or add directly to your `~/.claude/settings.json`:
     "doddleOS-marketing": {
       "source": {
         "source": "github",
-        "repo": "doddleOS/doddleOS-marketing"
+        "repo": "DoddleHQ/DoddleOS"
       }
     }
   },
@@ -118,7 +118,7 @@ This gives you instant access to all commands, agents, skills, and workflows.
 Clone the repository and work within it:
 
 ```bash
-git clone https://github.com/doddleOS/doddleOS-marketing.git
+git clone https://github.com/DoddleHQ/DoddleOS.git
 cd doddleOS-marketing
 claude
 ```
@@ -131,7 +131,7 @@ Copy individual components to your Claude config:
 
 ```bash
 # Clone the repo
-git clone https://github.com/doddleOS/doddleOS-marketing.git
+git clone https://github.com/DoddleHQ/DoddleOS.git
 
 # Copy agents
 cp doddleOS-marketing/.claude/agents/*.md ~/.claude/agents/
@@ -587,18 +587,18 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 - [Model Context Protocol](https://modelcontextprotocol.io)
 
 ### Community
-- [GitHub Issues](https://github.com/doddleOS/doddleOS-marketing/issues)
-- [GitHub Discussions](https://github.com/doddleOS/doddleOS-marketing/discussions)
+- [GitHub Issues](https://github.com/DoddleHQ/DoddleOS/issues)
+- [GitHub Discussions](https://github.com/DoddleHQ/DoddleOS/discussions)
 
 ---
 
 ## Star History
 
-<a href="https://star-history.com/#doddleOS/doddleOS-marketing&Date">
+<a href="https://star-history.com/#DoddleHQ/DoddleOS&Date">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=doddleOS/doddleOS-marketing&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=doddleOS/doddleOS-marketing&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=doddleOS/doddleOS-marketing&type=Date" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=DoddleHQ/DoddleOS&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=DoddleHQ/DoddleOS&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=DoddleHQ/DoddleOS&type=Date" />
  </picture>
 </a>
 
