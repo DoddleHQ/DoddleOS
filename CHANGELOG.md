@@ -1,3 +1,10 @@
+## [1.6.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.5.1...v1.6.0) (2026-10-15)
+
+
+### 🚀 Features
+
+* bundle affiliate agents, add new-packs training lesson ([3ec3359](https://github.com/DoddleHQ/DoddleOS/commit/3ec3359ac2f6003794d0b8e823b1fde81b1a1813))
+
 ## [1.5.1](https://github.com/DoddleHQ/DoddleOS/compare/v1.5.0...v1.5.1) (2026-10-15)
 
 
