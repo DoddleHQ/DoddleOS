@@ -21,9 +21,10 @@ Naming: pack dir `doddle-hr-skills`, skills `hr-*`, IDs `doddle.hr.*`, commands 
 ## Installation
 
 ```bash
-/plugin marketplace add doddleOS/doddle-hr-skills
-/plugin install doddle-hr-skills@doddle-hr-skills
+/plugin marketplace add DoddleHQ/DoddleOS
 ```
+
+> Per-pack plugin install is planned; install single packs via manual copy below.
 
 Manual: `cp -r doddle-hr-skills/.claude/skills/* your-project/.claude/skills/`
 

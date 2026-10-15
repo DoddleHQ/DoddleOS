@@ -21,9 +21,10 @@ Naming: pack dir `doddle-real-estate-skills`, skills `realty-*`, IDs `doddle.rea
 ## Installation
 
 ```bash
-/plugin marketplace add doddleOS/doddle-real-estate-skills
-/plugin install doddle-real-estate-skills@doddle-real-estate-skills
+/plugin marketplace add DoddleHQ/DoddleOS
 ```
+
+> Per-pack plugin install is planned; install single packs via manual copy below.
 
 Manual: `cp -r doddle-real-estate-skills/.claude/skills/* your-project/.claude/skills/`
 

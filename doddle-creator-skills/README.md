@@ -21,9 +21,10 @@ Naming: pack dir `doddle-creator-skills`, skills `creator-*`, IDs `doddle.creato
 ## Installation
 
 ```bash
-/plugin marketplace add doddleOS/doddle-creator-skills
-/plugin install doddle-creator-skills@doddle-creator-skills
+/plugin marketplace add DoddleHQ/DoddleOS
 ```
+
+> Per-pack plugin install is planned; install single packs via manual copy below.
 
 Manual: `cp -r doddle-creator-skills/.claude/skills/* your-project/.claude/skills/`
 

@@ -21,12 +21,11 @@ Independent OS pack for [DoddleOS](https://github.com/DoddleHQ/DoddleOS). Provid
 ### Option 1: Install as Plugin (Recommended)
 
 ```bash
-# Add this repo as a marketplace
-/plugin marketplace add doddleOS/doddle-ecommerce-skills
-
-# Install the plugin
-/plugin install doddle-ecommerce-skills@doddle-ecommerce-skills
+# Add the monorepo as a marketplace
+/plugin marketplace add DoddleHQ/DoddleOS
 ```
+
+> Per-pack plugin install is planned; install single packs via manual copy below (Option 2).
 
 ### Option 2: Manual Installation
 

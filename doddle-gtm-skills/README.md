@@ -30,9 +30,10 @@ Naming: pack dir `doddle-gtm-skills`, skills `gtm-*`, IDs `doddle.gtm.*`, comman
 ## Installation
 
 ```bash
-/plugin marketplace add doddleOS/doddle-gtm-skills
-/plugin install doddle-gtm-skills@doddle-gtm-skills
+/plugin marketplace add DoddleHQ/DoddleOS
 ```
+
+> Per-pack plugin install is planned; install single packs via manual copy below.
 
 Manual: `cp -r doddle-gtm-skills/.claude/skills/* your-project/.claude/skills/`
 

@@ -19,9 +19,10 @@ Independent OS pack for [DoddleOS](https://github.com/DoddleHQ/DoddleOS). Instal
 ## Installation
 
 ```bash
-/plugin marketplace add doddleOS/doddle-local-skills
-/plugin install doddle-local-skills@doddle-local-skills
+/plugin marketplace add DoddleHQ/DoddleOS
 ```
+
+> Per-pack plugin install is planned; install single packs via manual copy below.
 
 Manual: `cp -r doddle-local-skills/.claude/skills/* your-project/.claude/skills/`
 

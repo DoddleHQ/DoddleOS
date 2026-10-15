@@ -20,8 +20,9 @@ Independent OS pack for [DoddleOS](https://github.com/DoddleHQ/DoddleOS). Instal
 
 ```bash
 /plugin marketplace add DoddleHQ/DoddleOS
-/plugin install doddle-marketing-skills@doddleOS-marketing
 ```
+
+> Per-pack plugin install is planned; install single packs via manual copy below.
 
 Manual: `cp -r doddle-marketing-skills/.claude/skills/* your-project/.claude/skills/`
 Agents (bundled, isolated): `cp -r doddle-marketing-skills/.claude/agents/* your-project/.claude/agents/`

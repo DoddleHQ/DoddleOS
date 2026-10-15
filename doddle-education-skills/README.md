@@ -21,9 +21,10 @@ Naming: pack dir `doddle-education-skills`, skills `edu-*`, IDs `doddle.edu.*`, 
 ## Installation
 
 ```bash
-/plugin marketplace add doddleOS/doddle-education-skills
-/plugin install doddle-education-skills@doddle-education-skills
+/plugin marketplace add DoddleHQ/DoddleOS
 ```
+
+> Per-pack plugin install is planned; install single packs via manual copy below.
 
 Manual: `cp -r doddle-education-skills/.claude/skills/* your-project/.claude/skills/`
 

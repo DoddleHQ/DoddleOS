@@ -21,9 +21,10 @@ Naming: pack dir `doddle-legal-skills`, skills `legal-*`, IDs `doddle.legal.*`, 
 ## Installation
 
 ```bash
-/plugin marketplace add doddleOS/doddle-legal-skills
-/plugin install doddle-legal-skills@doddle-legal-skills
+/plugin marketplace add DoddleHQ/DoddleOS
 ```
+
+> Per-pack plugin install is planned; install single packs via manual copy below.
 
 Manual: `cp -r doddle-legal-skills/.claude/skills/* your-project/.claude/skills/`
 

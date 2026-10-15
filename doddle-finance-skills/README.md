@@ -21,9 +21,10 @@ Naming: pack dir `doddle-finance-skills`, skills `finance-*`, IDs `doddle.financ
 ## Installation
 
 ```bash
-/plugin marketplace add doddleOS/doddle-finance-skills
-/plugin install doddle-finance-skills@doddle-finance-skills
+/plugin marketplace add DoddleHQ/DoddleOS
 ```
+
+> Per-pack plugin install is planned; install single packs via manual copy below.
 
 Manual: `cp -r doddle-finance-skills/.claude/skills/* your-project/.claude/skills/`
 

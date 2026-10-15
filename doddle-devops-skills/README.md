@@ -6,6 +6,16 @@ server: processes, storage, LVM/RAID, boot and services, scheduling and
 logging, resource monitoring, package management, networking/SSH, kernel
 modules, and backup/restore.
 
+## Installation
+
+```bash
+/plugin marketplace add DoddleHQ/DoddleOS
+```
+
+> Per-pack plugin install is planned; install single packs via manual copy below.
+
+Manual: `cp -r doddle-devops-skills/.claude/skills/* your-project/.claude/skills/`
+
 ## Skills
 
 | Skill | ID | Covers |

@@ -22,8 +22,9 @@ Naming: pack dir `doddle-affiliate-skills`, skills `affiliate-*`, IDs `doddle.af
 
 ```bash
 /plugin marketplace add DoddleHQ/DoddleOS
-/plugin install doddle-affiliate-skills@doddleOS-marketing
 ```
+
+> Per-pack plugin install is planned; install single packs via manual copy below.
 
 Manual: `cp -r doddle-affiliate-skills/.claude/skills/* your-project/.claude/skills/`
 Agents (bundled, isolated): `cp -r doddle-affiliate-skills/.claude/agents/* your-project/.claude/agents/`

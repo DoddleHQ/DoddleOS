@@ -21,9 +21,10 @@ Naming: pack dir `doddle-restaurant-skills`, skills `restaurant-*`, IDs `doddle.
 ## Installation
 
 ```bash
-/plugin marketplace add doddleOS/doddle-restaurant-skills
-/plugin install doddle-restaurant-skills@doddle-restaurant-skills
+/plugin marketplace add DoddleHQ/DoddleOS
 ```
+
+> Per-pack plugin install is planned; install single packs via manual copy below.
 
 Manual: `cp -r doddle-restaurant-skills/.claude/skills/* your-project/.claude/skills/`
 

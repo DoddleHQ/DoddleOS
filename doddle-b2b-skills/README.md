@@ -32,9 +32,10 @@ Naming: pack dir `doddle-b2b-skills`, skills `b2b-*`, IDs `doddle.b2b.*`, comman
 ## Installation
 
 ```bash
-/plugin marketplace add doddleOS/doddle-b2b-skills
-/plugin install doddle-b2b-skills@doddle-b2b-skills
+/plugin marketplace add DoddleHQ/DoddleOS
 ```
+
+> Per-pack plugin install is planned; install single packs via manual copy below.
 
 Manual: `cp -r doddle-b2b-skills/.claude/skills/* your-project/.claude/skills/`
 

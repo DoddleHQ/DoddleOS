@@ -21,9 +21,10 @@ Naming: pack dir `doddle-sales-skills`, skills `sales-*`, IDs `doddle.sales.*`. 
 ## Installation
 
 ```bash
-/plugin marketplace add doddleOS/doddle-sales-skills
-/plugin install doddle-sales-skills@doddle-sales-skills
+/plugin marketplace add DoddleHQ/DoddleOS
 ```
+
+> Per-pack plugin install is planned; install single packs via manual copy below.
 
 Manual: `cp -r doddle-sales-skills/.claude/skills/* your-project/.claude/skills/`
 

@@ -22,9 +22,10 @@ Naming: pack dir `doddle-travel-skills`, skills `travel-*`, IDs `doddle.travel.*
 ## Installation
 
 ```bash
-/plugin marketplace add doddleOS/doddle-travel-skills
-/plugin install doddle-travel-skills@doddle-travel-skills
+/plugin marketplace add DoddleHQ/DoddleOS
 ```
+
+> Per-pack plugin install is planned; install single packs via manual copy below.
 
 Manual: `cp -r doddle-travel-skills/.claude/skills/* your-project/.claude/skills/`
 
