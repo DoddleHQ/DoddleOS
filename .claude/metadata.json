@@ -1,8 +1,8 @@
 {
-  "version": "1.5.0",
+  "version": "1.5.1",
   "name": "DoddleOS",
   "description": "DoddleOS skills distribution — validated graph blueprints (SKILL.md + blueprint.yaml) + specs for Claude Code, Cursor, and GitHub Copilot. 20 agents, 198 commands, 172 skills across 18 domain packs. Harness spec is draft in doddle-core/spec/; no runner ships in this repo.",
-  "buildDate": "2026-10-15T03:45:47.922Z",
+  "buildDate": "2026-10-15T03:55:14.057Z",
   "repository": {
     "type": "git",
     "url": "https://github.com/DoddleHQ/DoddleOS.git"

@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/DoddleHQ/DoddleOS/compare/v1.5.0...v1.5.1) (2026-10-15)
+
+
+### ♻️ Code Refactoring
+
+* differentiate sales velocity vs b2b enterprise positioning ([b42ea4e](https://github.com/DoddleHQ/DoddleOS/commit/b42ea4ece6bb9a342fb4d376447b45ce416f4bcd))
+
 ## [1.5.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.4.0...v1.5.0) (2026-10-15)
 
 
