@@ -1,8 +1,8 @@
 {
-  "version": "1.2.0",
+  "version": "1.3.0",
   "name": "DoddleOS",
   "description": "DoddleOS — agentic task execution operating system for Claude Code, Cursor, and GitHub Copilot. 20 agents, 164 commands, 138 skills across 17 domain packs: validated graph blueprints executed as agent/tool DAGs.",
-  "buildDate": "2026-09-14T12:44:09.802Z",
+  "buildDate": "2026-10-15T03:09:19.693Z",
   "repository": {
     "type": "git",
     "url": "https://github.com/DoddleHQ/DoddleOS.git"

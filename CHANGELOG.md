@@ -1,3 +1,10 @@
+## [1.3.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.2.0...v1.3.0) (2026-10-15)
+
+
+### 🚀 Features
+
+* expand SaaS, B2B, GTM packs, add affiliate OS and travel-growth composition ([e2b92cb](https://github.com/DoddleHQ/DoddleOS/commit/e2b92cbc497d874bacfd712b39c965d24a00941a))
+
 ## [1.2.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.1.0...v1.2.0) (2026-09-14)
 
 
