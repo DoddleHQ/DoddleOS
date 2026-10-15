@@ -1,7 +1,7 @@
 {
   "name": "DoddleOS",
   "version": "1.4.0",
-  "description": "DoddleOS — agentic task execution operating system for Claude Code, Cursor, and GitHub Copilot. 20 agents, 164 commands, 138 skills across 17 domain packs: validated graph blueprints executed as agent/tool DAGs.",
+  "description": "DoddleOS skills distribution — validated graph blueprints (SKILL.md + blueprint.yaml) + specs for Claude Code, Cursor, and GitHub Copilot. 20 agents, 198 commands, 172 skills across 18 domain packs. Harness spec is draft in doddle-core/spec/; no runner ships in this repo.",
   "main": "CLAUDE.md",
   "scripts": {
     "test": "echo \"Warning: no test specified\" && exit 0",

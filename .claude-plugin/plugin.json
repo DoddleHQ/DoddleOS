@@ -1,7 +1,7 @@
 {
   "name": "doddleOS-marketing",
   "version": "2.0.0",
-  "description": "DoddleOS — agentic task execution operating system: validated graph blueprints executed as agent/tool DAGs. 20 agents, 164 commands, 138 skills across 17 independent peer packs (marketing, GTM, travel, devops + 13 verticals)",
+  "description": "DoddleOS skills distribution: validated graph blueprints + specs (harness draft; no runner ships here). 20 agents, 198 commands, 172 skills across 18 independent peer packs (marketing, GTM, travel, devops, affiliate + 13 verticals)",
   "author": {
     "name": "Doddle Team",
     "url": "https://doddlehq.com"

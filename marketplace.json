@@ -5,13 +5,13 @@
     "email": "contact@doddlehq.com"
   },
   "metadata": {
-    "description": "DoddleOS agentic task execution operating system for Claude Code - validated graph blueprints across 17 domain packs"
+    "description": "DoddleOS skills distribution for Claude Code - validated graph blueprints + specs across 18 domain packs (harness draft; runner separate)"
   },
   "plugins": [
     {
       "name": "doddleOS-marketing",
       "source": "./",
-      "description": "DoddleOS core — 20 agents, 164 commands, 138 skills across 17 domain packs (DoddleOS v2 blueprints)",
+      "description": "DoddleOS skills distribution — 20 agents, 198 commands, 172 skills across 18 domain packs (DoddleOS v2 blueprints + draft harness spec; no runner ships here)",
       "author": {
         "name": "Doddle Team"
       },

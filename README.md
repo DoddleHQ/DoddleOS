@@ -15,11 +15,11 @@
 </p>
 
 <p align="center">
-  <strong>Agentic task execution operating system for Claude Code, Cursor, GitHub Copilot, and any AI assistant supporting agents & skills.</strong>
+  <strong>Skills distribution for the DoddleOS execution model — validated graph blueprints for Claude Code, Cursor, GitHub Copilot, and any AI assistant supporting agents & skills.</strong>
 </p>
 
 <p align="center">
-  Validated graph blueprints (SKILL.md + blueprint.yaml) executed as agent/tool DAGs: 138 skills across 17 independent peer packs — marketing, GTM, travel, devops, ecom, local, SaaS, health, legal, finance, and more. Each pack installs and runs standalone; cross-pack binding via blueprint call nodes.
+  Validated graph blueprints (SKILL.md + blueprint.yaml) executed as agent/tool DAGs: 172 skills across 18 independent peer packs — marketing, GTM, travel, devops, affiliate, ecom, local, SaaS, health, legal, finance, and more. Each pack installs and runs standalone; cross-pack binding via blueprint call nodes. The harness spec in <code>doddle-core/spec/</code> is draft — no runner ships in this repo; execution lives in the host assistant or a future runtime.
 </p>
 
 <p align="center">
