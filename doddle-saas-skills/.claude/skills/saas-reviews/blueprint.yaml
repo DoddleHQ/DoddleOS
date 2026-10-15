@@ -1,0 +1,23 @@
+id: doddle.saas.reviews
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "G2 and Capterra flywheel: ask flows, response playbooks, rating recovery"
+inputs:
+  - {name: product_name, type: string, required: true, description: "Product name; ask if missing"}
+  - {name: review_site, type: string, required: false, description: "Primary site, ex G2"}
+outputs:
+  - {name: review_audit, type: markdown, description: "Rating, velocity, response gaps"}
+  - {name: ask_flow, type: json, description: "In-app + email ask sequences"}
+  - {name: response_playbook, type: markdown, description: "Positive/neutral/negative templates"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - google-analytics
+nodes:
+  - {id: assess, type: agent, ref: copywriter, needs: [inputs], produces: [review_assessment]}
+  - {id: base_check, type: tool, ref: doddle.tool.v1.hubspot.contacts, needs: [assess], produces: [advocate_data]}
+  - {id: recommend, type: agent, ref: copywriter, needs: [base_check], produces: [review_audit, ask_flow, response_playbook]}
+on_fail: {retry: 1, fallback: manual_review}

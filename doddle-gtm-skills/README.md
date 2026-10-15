@@ -23,6 +23,9 @@ Naming: pack dir `doddle-gtm-skills`, skills `gtm-*`, IDs `doddle.gtm.*`, comman
 | `gtm-pricing` | Tiers + fences for launch (calls pricing-strategy) | `/gtm:pricing` |
 | `gtm-launch` | Phased launch + gates (calls launch-strategy) | `/gtm:launch` |
 | `gtm-enablement` | Deck/1-pager/battlecard + ramp (calls b2b-demo) | `/gtm:enablement` |
+| `gtm-plg` | PLG vs SLG loops + triggers (calls revops) | `/gtm:plg` |
+| `gtm-intl` | Locale ranking + min pack | `/gtm:intl` |
+| `gtm-compete` | Intel → traps (calls win-loss) | `/gtm:compete` |
 
 ## Installation
 

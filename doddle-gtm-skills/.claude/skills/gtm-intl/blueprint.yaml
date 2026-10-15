@@ -1,0 +1,23 @@
+id: doddle.gtm.intl
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Prioritize locales and ship minimum viable localization"
+inputs:
+  - {name: context, type: string, required: true, description: "Markets, traction, constraints; ask if missing"}
+  - {name: goal, type: string, required: false, description: "Expansion goal"}
+outputs:
+  - {name: market_rank, type: markdown, description: "Ranked locales with demand proof"}
+  - {name: locale_pack, type: json, description: "Min pack: pages, payments, support per locale"}
+  - {name: rollout_plan, type: markdown, description: "Sequence with gates"}
+tools:
+  - {id: doddle.tool.v1.dataforseo.serpGoogle, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.semrush.keywordResearch, required: false, fallback: manual_review}
+integrations:
+  - dataforseo
+  - semrush
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [market_assessment]}
+  - {id: demand_check, type: tool, ref: doddle.tool.v1.dataforseo.serpGoogle, needs: [assess], produces: [demand_data]}
+  - {id: recommend, type: agent, ref: planner, needs: [demand_check], produces: [market_rank, locale_pack, rollout_plan]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -4,7 +4,7 @@
 
 ## Overview
 
-Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 13 specialised B2B skills covering list → pipeline → proposal → proof → recurring revenue.
+Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 16 specialised B2B skills covering list → pipeline → proposal → proof → recurring revenue.
 
 Naming: pack dir `doddle-b2b-skills`, skills `b2b-*`, IDs `doddle.b2b.*`, commands `/b2b:*`.
 
@@ -25,6 +25,9 @@ Naming: pack dir `doddle-b2b-skills`, skills `b2b-*`, IDs `doddle.b2b.*`, comman
 | `b2b-demo` | Click-path + talk track (calls product-marketing) | `/b2b:demo` |
 | `b2b-rfp` | Bid/no-bid + response kit + redlines | `/b2b:rfp` |
 | `b2b-negotiation` | Guardrails + give-gets (calls pricing-strategy, offers) | `/b2b:negotiation` |
+| `b2b-onboarding` | SOW → value in 30d (calls email-sequence) | `/b2b:onboarding` |
+| `b2b-qbr` | Health + deck + expansion (calls revops) | `/b2b:qbr` |
+| `b2b-referrals` | Proof + ask engine (calls b2b-cases) | `/b2b:referrals` |
 
 ## Installation
 

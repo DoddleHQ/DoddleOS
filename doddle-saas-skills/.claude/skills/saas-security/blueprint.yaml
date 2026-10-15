@@ -1,0 +1,21 @@
+id: doddle.saas.security
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Trust center that unblocks enterprise: SOC2 pages, DPA flow, questionnaire kit"
+inputs:
+  - {name: context, type: string, required: true, description: "Stack, certs, gaps; ask if missing"}
+  - {name: goal, type: string, required: false, description: "Trust goal, ex enterprise close"}
+outputs:
+  - {name: trust_audit, type: markdown, description: "Gaps vs enterprise bar"}
+  - {name: page_pack, type: markdown, description: "Trust page structure + proof"}
+  - {name: questionnaire_kit, type: json, description: "CAIQ-style answers + owners"}
+tools:
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+integrations:
+  - notion
+nodes:
+  - {id: assess, type: agent, ref: copywriter, needs: [inputs], produces: [trust_assessment]}
+  - {id: docs_check, type: tool, ref: doddle.tool.v1.notion.pages, needs: [assess], produces: [policy_data]}
+  - {id: recommend, type: agent, ref: copywriter, needs: [docs_check], produces: [trust_audit, page_pack, questionnaire_kit]}
+on_fail: {retry: 1, fallback: manual_review}

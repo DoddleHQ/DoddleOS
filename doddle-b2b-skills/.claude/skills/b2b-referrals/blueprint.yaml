@@ -1,0 +1,21 @@
+id: doddle.b2b.referrals
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Turn wins into intros: proof asset plus referral ask engine"
+inputs:
+  - {name: client_name, type: string, required: true, description: "Customer name; ask if missing"}
+  - {name: metric, type: string, required: true, description: "Headline result + timeframe; ask if missing"}
+  - {name: industry, type: string, required: false, description: "Client industry"}
+outputs:
+  - {name: proof_pack, type: markdown, description: "Case-derived proof one-pager"}
+  - {name: referral_engine, type: json, description: "Ask moments, scripts, incentives"}
+  - {name: ask_sequences, type: markdown, description: "Email + call asks with timing"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+nodes:
+  - {id: proof, type: call, ref: doddle.b2b.cases, needs: [inputs], produces: [case_data], inputs: {client_name: $client_name, metric: $metric}}
+  - {id: synthesize, type: agent, ref: sales-enabler, needs: [proof], produces: [proof_pack, referral_engine, ask_sequences]}
+on_fail: {retry: 1, fallback: manual_review}

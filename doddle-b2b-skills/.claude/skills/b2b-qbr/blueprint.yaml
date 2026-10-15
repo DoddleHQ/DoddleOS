@@ -1,0 +1,21 @@
+id: doddle.b2b.qbr
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "QBRs that retain and expand: health audit, deck, expansion triggers"
+inputs:
+  - {name: context, type: string, required: true, description: "Account, usage, tickets, revenue; ask if missing"}
+  - {name: goal, type: string, required: false, description: "QBR goal, ex renewal, expansion"}
+outputs:
+  - {name: health_audit, type: markdown, description: "Usage, value delivered, risks"}
+  - {name: qbr_deck, type: json, description: "Slides with proof and roadmap"}
+  - {name: expansion_playbook, type: markdown, description: "Triggers + offers + next steps"}
+tools:
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+nodes:
+  - {id: lifecycle, type: call, ref: doddle.marketing.revops, needs: [inputs], produces: [lifecycle_data], inputs: {context: $context}}
+  - {id: synthesize, type: agent, ref: continuity-specialist, needs: [lifecycle], produces: [health_audit, qbr_deck, expansion_playbook]}
+on_fail: {retry: 1, fallback: manual_review}

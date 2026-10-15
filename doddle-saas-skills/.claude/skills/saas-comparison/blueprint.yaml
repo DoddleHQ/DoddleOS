@@ -1,0 +1,22 @@
+id: doddle.saas.comparison
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Vs and alternative pages that rank and convert evaluation traffic"
+inputs:
+  - {name: topic_or_url, type: string, required: true, description: "Product or competitor URL/topic; ask if missing"}
+  - {name: keyword, type: string, required: false, description: "Vs or alternative query"}
+outputs:
+  - {name: comparison_audit, type: markdown, description: "Gap vs rivals with angle"}
+  - {name: page_pack, type: markdown, description: "Page structure, copy outline, tables"}
+  - {name: schema_notes, type: json, description: "Schema + internal link specs"}
+tools:
+  - {id: doddle.tool.v1.semrush.keywordResearch, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.gsc.getSearchAnalytics, required: false, fallback: manual_review}
+integrations:
+  - semrush
+  - google-search-console
+nodes:
+  - {id: compare, type: call, ref: doddle.marketing.competitor-alternatives, needs: [inputs], produces: [compare_data], inputs: {topic_or_url: $topic_or_url}}
+  - {id: synthesize, type: agent, ref: copywriter, needs: [compare], produces: [comparison_audit, page_pack, schema_notes]}
+on_fail: {retry: 1, fallback: manual_review}

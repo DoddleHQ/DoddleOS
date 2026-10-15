@@ -1,0 +1,22 @@
+id: doddle.gtm.compete
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Intel loop to traps: battlecard refresh from win-loss learning"
+inputs:
+  - {name: competitor, type: string, required: true, description: "Rival name; ask if missing"}
+  - {name: product_offer, type: string, required: false, description: "Own offer and proof"}
+outputs:
+  - {name: intel_brief, type: markdown, description: "Moves, pricing, messaging shifts"}
+  - {name: trap_map, type: json, description: "Landmines with proof per trap"}
+  - {name: battlecard_refresh, type: markdown, description: "Updated card + talk tracks"}
+tools:
+  - {id: doddle.tool.v1.semrush.domainOverview, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+integrations:
+  - semrush
+  - notion
+nodes:
+  - {id: loss_learn, type: call, ref: doddle.gtm.win-loss, needs: [inputs], produces: [loss_data], inputs: {competitor: $competitor}}
+  - {id: synthesize, type: agent, ref: sales-enabler, needs: [loss_learn], produces: [intel_brief, trap_map, battlecard_refresh]}
+on_fail: {retry: 1, fallback: manual_review}

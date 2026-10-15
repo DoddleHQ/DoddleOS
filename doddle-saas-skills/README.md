@@ -4,7 +4,7 @@
 
 ## Overview
 
-Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 10 specialised SaaS skills covering visitor → trial → paid → expansion.
+Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 14 specialised SaaS skills covering visitor → trial → paid → expansion.
 
 ## Skills Included
 
@@ -20,6 +20,10 @@ Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketin
 | `saas-emails` | Lifecycle drip: trial/activation/dunning/winback (calls email-sequence) | `/saas:emails` |
 | `saas-analytics` | PQL scoring, TTV, funnel diagnosis (calls analytics-attribution) | `/saas:analytics` |
 | `saas-dunning` | Failed-payment recovery + save/winback (calls churn-prevention, stripe stub) | `/saas:dunning` |
+| `saas-comparison` | Vs/alternatives pages (calls competitor-alternatives) | `/saas:comparison` |
+| `saas-reviews` | G2/Capterra flywheel | `/saas:reviews` |
+| `saas-security` | Trust center + questionnaire kit | `/saas:security` |
+| `saas-docs` | Help-center SEO (calls onboarding-cro) | `/saas:docs` |
 
 ## Installation
 

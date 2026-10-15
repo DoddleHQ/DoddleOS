@@ -1,0 +1,22 @@
+id: doddle.b2b.onboarding
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "SOW to value in 30 days: kickoff, success plan, risk flags"
+inputs:
+  - {name: client_name, type: string, required: true, description: "Client name; ask if missing"}
+  - {name: brief, type: string, required: true, description: "Scope, goals, timeline, comms cadence; ask if missing"}
+outputs:
+  - {name: kickoff_pack, type: markdown, description: "Agenda, roles, success criteria, comms plan"}
+  - {name: value_plan, type: json, description: "30-day milestones with owners and dates"}
+  - {name: risk_register, type: markdown, description: "Risks with mitigations and owners"}
+tools:
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - notion
+nodes:
+  - {id: comms, type: call, ref: doddle.marketing.email-sequence, needs: [inputs], produces: [comms_data], inputs: {brief: $brief}}
+  - {id: synthesize, type: agent, ref: continuity-specialist, needs: [comms], produces: [kickoff_pack, value_plan, risk_register]}
+on_fail: {retry: 1, fallback: manual_review}

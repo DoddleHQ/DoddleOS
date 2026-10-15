@@ -1,0 +1,22 @@
+id: doddle.gtm.plg
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Choose PLG vs SLG motion with loops, PQLs, and sales triggers"
+inputs:
+  - {name: context, type: string, required: true, description: "Product, funnel, CRM state; ask if missing"}
+  - {name: goal, type: string, required: false, description: "Motion goal"}
+outputs:
+  - {name: motion_audit, type: markdown, description: "PLG readiness with gaps"}
+  - {name: plg_loops, type: json, description: "Invite, usage, content loops"}
+  - {name: slg_triggers, type: markdown, description: "PQL thresholds + handoff rules"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - hubspot
+nodes:
+  - {id: ops, type: call, ref: doddle.marketing.revops, needs: [inputs], produces: [ops_data], inputs: {context: $context}}
+  - {id: synthesize, type: agent, ref: planner, needs: [ops], produces: [motion_audit, plg_loops, slg_triggers]}
+on_fail: {retry: 1, fallback: manual_review}

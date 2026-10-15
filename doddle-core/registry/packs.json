@@ -30,8 +30,8 @@
       "name": "doddle-saas-skills",
       "source": "./doddle-saas-skills/.claude/skills",
       "ids": "doddle.saas.*",
-      "version": "1.1.0",
-      "skills": 10,
+      "version": "1.2.0",
+      "skills": 14,
       "os": "Doddle SaaS OS"
     },
     {
@@ -54,8 +54,8 @@
       "name": "doddle-b2b-skills",
       "source": "./doddle-b2b-skills/.claude/skills",
       "ids": "doddle.b2b.*",
-      "version": "1.1.0",
-      "skills": 13,
+      "version": "1.2.0",
+      "skills": 16,
       "os": "Doddle B2B OS"
     },
     {
@@ -118,8 +118,8 @@
       "name": "doddle-gtm-skills",
       "source": "./doddle-gtm-skills/.claude/skills",
       "ids": "doddle.gtm.*",
-      "version": "1.1.0",
-      "skills": 11,
+      "version": "1.2.0",
+      "skills": 14,
       "os": "Doddle GTM OS"
     },
     {
