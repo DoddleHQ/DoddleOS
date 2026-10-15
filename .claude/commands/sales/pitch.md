@@ -9,7 +9,7 @@ argument-hint: [prospect-company] [use-case]
 
 **Standards**: Token efficiency, sacrifice grammar for concision, list unresolved questions at end.
 
-**Skills**: Activate `marketing-fundamentals`, `copywriting` skills.
+**Skills**: Activate `sales-enablement` (id `doddle.sales.enablement`), `copywriting` skills.
 
 **Components**: Reference `./.claude/components/interactive-questions.md`
 

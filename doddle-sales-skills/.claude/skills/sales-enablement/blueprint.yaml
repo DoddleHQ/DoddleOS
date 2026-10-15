@@ -2,6 +2,7 @@ id: doddle.sales.enablement
 version: 1.0.0
 kind: skill
 engine: doddle-os>=1.0
+domains: [velocity, smb]
 description: Turn rep guesswork into used collateral with gap audits, multi-cut assets, demo libraries, and rep certification
 inputs:
   - {name: product, type: string, required: true, description: "Product, positioning, pricing tiers"}

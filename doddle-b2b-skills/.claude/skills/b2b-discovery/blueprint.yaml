@@ -2,6 +2,7 @@ id: doddle.b2b.discovery
 version: 1.0.0
 kind: skill
 engine: doddle-os>=1.0
+domains: [enterprise, agency]
 description: "Run MEDDIC-lite discovery: stakeholder map, metrics, no-go discipline"
 inputs:
   - {name: context, type: string, required: true, description: "Deal, stakeholders, notes; ask if missing"}

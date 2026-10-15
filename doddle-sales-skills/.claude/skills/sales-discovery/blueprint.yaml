@@ -2,6 +2,7 @@ id: doddle.sales.discovery
 version: 1.0.0
 kind: skill
 engine: doddle-os>=1.0
+domains: [velocity, smb]
 description: Turn first meetings into qualified opps with MEDDIC-lite, call plans, and stakeholder maps
 inputs:
   - {name: deal_context, type: string, required: true, description: "Account, contacts, prior notes, meeting context"}

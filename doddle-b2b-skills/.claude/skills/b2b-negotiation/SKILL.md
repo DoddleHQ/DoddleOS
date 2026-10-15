@@ -3,7 +3,7 @@ name: b2b-negotiation
 id: doddle.b2b.negotiation
 version: 1.0.0
 blueprint: ./blueprint.yaml
-description: Win without leaking margin via guardrails and give-gets. Use for discount pressure and procurement.
+description: Enterprise/agency negotiation without leaking margin via guardrails and give-gets. Use for discount pressure and procurement. For short-cycle velocity closes, see sales-negotiation.
 ---
 
 # B2B Negotiation
@@ -143,6 +143,7 @@ Fallback: if tool unavailable, state data as NOT AVAILABLE per `data-reliability
 
 - **b2b-proposals**: Proposal input
 - **b2b-discovery**: Leverage context
+- **sales-negotiation**: Velocity short-cycle closes
 
 ---
 

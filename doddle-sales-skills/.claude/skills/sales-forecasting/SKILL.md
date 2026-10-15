@@ -3,7 +3,7 @@ name: sales-forecasting
 id: doddle.sales.forecasting
 version: 1.0.0
 blueprint: ./blueprint.yaml
-description: When the user wants accurate revenue forecast, disciplined pipeline review, stage hygiene, commit calls, or slippage analysis. Also use when the user mentions "forecasting," "pipeline review," "commit," "stage hygiene," "slippage," "forecast accuracy," or "deal inspection."
+description: Volume-pipeline forecasting — accuracy, stage hygiene, commit calls, slippage analysis. When the user wants accurate revenue forecast, disciplined pipeline review, stage hygiene, commit calls, or slippage analysis. Also use when the user mentions "forecasting," "pipeline review," "commit," "stage hygiene," "slippage," "forecast accuracy," or "deal inspection." The only pipeline-hygiene skill in the OS; for account-level expansion reviews, see b2b-qbr.
 ---
 
 # Sales Forecasting
@@ -169,6 +169,7 @@ If tool unavailable, show ⚠️ NOT AVAILABLE per data-reliability rules. Never
 ## Related Skills
 
 - `sales-discovery` - Stage 1 qualification rigor
+- `b2b-qbr` - Account-level expansion review sibling
 - `revops` - Pipeline ops + CRM hygiene
 - `analytics-attribution` - Forecast vs actual measurement
 

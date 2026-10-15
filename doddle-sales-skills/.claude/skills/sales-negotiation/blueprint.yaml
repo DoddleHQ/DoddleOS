@@ -2,6 +2,7 @@ id: doddle.sales.negotiation
 version: 1.0.0
 kind: skill
 engine: doddle-os>=1.0
+domains: [velocity, smb]
 description: Turn stalled deals into signed contracts with objection handling, disciplined concessions, and dated mutual close plans
 inputs:
   - {name: deal_size, type: string, required: true, description: "ACV/TCV range + current discount asked"}

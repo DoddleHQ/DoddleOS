@@ -2,6 +2,7 @@ id: doddle.b2b.negotiation
 version: 1.0.0
 kind: skill
 engine: doddle-os>=1.0
+domains: [enterprise, agency]
 description: "Win without leaking margin: guardrails, give-gets, procurement plays"
 inputs:
   - {name: context, type: string, required: true, description: "Deal size, pricing, procurement; ask if missing"}

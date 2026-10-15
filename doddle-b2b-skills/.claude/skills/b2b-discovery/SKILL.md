@@ -3,7 +3,7 @@ name: b2b-discovery
 id: doddle.b2b.discovery
 version: 1.0.0
 blueprint: ./blueprint.yaml
-description: MEDDIC-lite discovery with stakeholder map and no-go discipline. Use for qualification and deal review.
+description: Enterprise/agency MEDDIC-lite discovery with stakeholder map and no-go discipline. Use for multi-threaded qualification and deal review. For short-cycle velocity qualification, see sales-discovery.
 ---
 
 # B2B Discovery
@@ -143,6 +143,7 @@ Fallback: if tool unavailable, state data as NOT AVAILABLE per `data-reliability
 
 - **b2b-demo**: Qualified handoff
 - **b2b-list**: Account context
+- **sales-discovery**: Velocity one-call qualification
 
 ---
 

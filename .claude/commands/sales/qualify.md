@@ -9,7 +9,7 @@ argument-hint: [lead-info-or-company]
 
 **Standards**: Token efficiency, sacrifice grammar for concision, list unresolved questions at end.
 
-**Skills**: Activate `marketing-fundamentals` skills.
+**Skills**: Activate `sales-discovery` (id `doddle.sales.discovery`) skills.
 
 **Components**: Reference `./.claude/components/interactive-questions.md`
 

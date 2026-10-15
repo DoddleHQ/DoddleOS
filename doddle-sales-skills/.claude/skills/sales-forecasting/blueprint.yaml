@@ -2,6 +2,7 @@ id: doddle.sales.forecasting
 version: 1.0.0
 kind: skill
 engine: doddle-os>=1.0
+domains: [velocity, smb]
 description: Turn messy pipeline into accurate forecast with stage hygiene, commit discipline, and weekly inspection
 inputs:
   - {name: team_size, type: string, required: true, description: "Reps + roles contributing to forecast"}

@@ -9,7 +9,7 @@ argument-hint: [competitor-name-or-url]
 
 **Standards**: Token efficiency, sacrifice grammar for concision, list unresolved questions at end.
 
-**Skills**: Activate `marketing-fundamentals`, `competitor-alternatives` skills.
+**Skills**: Activate `sales-enablement` (id `doddle.sales.enablement`), `competitor-alternatives` skills.
 
 **Components**: Reference `./.claude/components/interactive-questions.md`
 

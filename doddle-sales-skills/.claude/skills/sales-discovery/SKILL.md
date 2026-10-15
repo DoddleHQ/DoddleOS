@@ -3,7 +3,7 @@ name: sales-discovery
 id: doddle.sales.discovery
 version: 1.0.0
 blueprint: ./blueprint.yaml
-description: When the user wants discovery calls that qualify, stakeholder maps, or clean no-go decisions. Also use when the user mentions "discovery," "qualification," "MEDDIC," "stakeholder mapping," "call plan," "champion," or "disqualify."
+description: Velocity discovery — qualify or kill in one call with stakeholder maps and clean no-go decisions. When the user wants discovery calls that qualify, stakeholder maps, or clean no-go decisions. Also use when the user mentions "discovery," "qualification," "MEDDIC," "stakeholder mapping," "call plan," "champion," or "disqualify." For enterprise multi-threaded qualification, see b2b-discovery.
 ---
 
 # Sales Discovery
@@ -166,6 +166,7 @@ If tool unavailable, show ⚠️ NOT AVAILABLE per data-reliability rules. Never
 ## Related Skills
 
 - `sales-prospecting` - Meeting to discovery handoff
+- `b2b-discovery` - Enterprise multi-threaded qualification
 - `revops` - Routing + stage + SLA ops
 - `lead-qualifier` - Scoring fundamentals
 

@@ -3,7 +3,7 @@ name: sales-prospecting
 id: doddle.sales.prospecting
 version: 1.0.0
 blueprint: ./blueprint.yaml
-description: When the user wants outbound pipeline coverage, better prospect lists, trigger-based outreach, or cleaner SDR-to-AE handoff. Also use when the user mentions "prospecting," "account tiers," "buying triggers," "TAM coverage," "sequence," "meeting quality," or "SDR handoff."
+description: Velocity prospecting for short-cycle closes — pipeline coverage, lists, triggers, SDR-to-AE handoff in one motion. When the user wants outbound pipeline coverage, better prospect lists, trigger-based outreach, or cleaner SDR-to-AE handoff. Also use when the user mentions "prospecting," "account tiers," "buying triggers," "TAM coverage," "sequence," "meeting quality," or "SDR handoff." For enterprise/agency motions with separate list and sequence depth, see b2b-list and b2b-outbound.
 ---
 
 # Sales Prospecting
@@ -168,6 +168,7 @@ If tool unavailable, show ⚠️ NOT AVAILABLE per data-reliability rules. Never
 ## Related Skills
 
 - `sales-discovery` - Meeting to qualified opp
+- `b2b-list` - Enterprise TAM tiering depth
 - `b2b-outbound` - Agency-flavored outbound sibling
 - `cold-email` - Copy fundamentals
 - `revops` - Routing + SLA ops

@@ -3,7 +3,7 @@ name: sales-enablement
 id: doddle.sales.enablement
 version: 1.0.0
 blueprint: ./blueprint.yaml
-description: When the user wants sales collateral reps actually use, deal-ready decks, battlecards, or faster rep ramp. Also use when the user mentions "enablement," "sales deck," "battlecard," "one-pager," "demo assets," "rep onboarding," or "sales collateral."
+description: Velocity enablement kit — collateral reps actually use, deal-ready decks, battlecards, fast rep ramp. When the user wants sales collateral reps actually use, deal-ready decks, battlecards, or faster rep ramp. Also use when the user mentions "enablement," "sales deck," "battlecard," "one-pager," "demo assets," "rep onboarding," or "sales collateral." For enterprise demo depth and launch-grade kits, see b2b-demo and gtm-enablement.
 ---
 
 # Sales Enablement
@@ -167,6 +167,8 @@ If tool unavailable, show ⚠️ NOT AVAILABLE per data-reliability rules. Never
 ## Related Skills
 
 - `sales-discovery` - Discovery inputs that shape assets
+- `gtm-enablement` - Launch-grade kit and ramp depth
+- `b2b-demo` - Enterprise demo click-path depth
 - `product-marketing` - Positioning source of truth
 - `copywriting` - Asset copy fundamentals
 - `sales-prospecting` - Upstream pipeline sibling

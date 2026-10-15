@@ -1,10 +1,10 @@
 # Doddle Sales OS
 
-> B2B sales-execution skills for prospecting, discovery, negotiation, forecasting, and enablement.
+> Velocity sales-execution skills for short-cycle closes: prospecting, discovery, negotiation, forecasting, and enablement. For enterprise/agency motions with RFPs, procurement, QBRs, and retainers, see Doddle B2B OS.
 
 ## Overview
 
-Independent OS pack for [DoddleOS](https://github.com/DoddleHQ/DoddleOS). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. Sits between marketing and revenue: turns pipeline into forecastable closes.
+Independent OS pack for [DoddleOS](https://github.com/DoddleHQ/DoddleOS). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. Sits between marketing and revenue: turns pipeline into forecastable closes at velocity. Enterprise/agency sibling: [Doddle B2B OS](../doddle-b2b-skills/README.md).
 
 Naming: pack dir `doddle-sales-skills`, skills `sales-*`, IDs `doddle.sales.*`. Commands extend the EXISTING `/sales:*` category (outreach, pitch, battlecard, qualify already live) — no new namespace.
 

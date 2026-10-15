@@ -3,7 +3,7 @@ name: sales-negotiation
 id: doddle.sales.negotiation
 version: 1.0.0
 blueprint: ./blueprint.yaml
-description: When the user wants to close stalled deals, handle objections, defend price, or build a mutual close plan. Also use when the user mentions "negotiation," "objection handling," "discount," "give and get," "close plan," or "incumbent displacement."
+description: Velocity close for short-cycle deals — stall rescue, objection handling, price defense, mutual close plans. When the user wants to close stalled deals, handle objections, defend price, or build a mutual close plan. Also use when the user mentions "negotiation," "objection handling," "discount," "give and get," "close plan," or "incumbent displacement." For enterprise procurement and RFP deals with guardrails, see b2b-negotiation.
 ---
 
 # Sales Negotiation
@@ -174,6 +174,7 @@ If tool unavailable, show ⚠️ NOT AVAILABLE per data-reliability rules. Never
 ## Related Skills
 
 - `sales-discovery` - Deal qualification before negotiate
+- `b2b-negotiation` - Enterprise procurement and guardrails
 - `pricing-strategy` - Floors, tiers, packaging logic
 - `offers` - Give-get construction, guarantees
 - `revops` - Approval routing + forecast hygiene

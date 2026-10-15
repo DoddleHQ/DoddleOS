@@ -2,6 +2,7 @@ id: doddle.sales.prospecting
 version: 1.0.0
 kind: skill
 engine: doddle-os>=1.0
+domains: [velocity, smb]
 description: Turn TAM into worked A-accounts with triggers, sequencing, and clean AE handoff
 inputs:
   - {name: icp, type: string, required: true, description: "Titles, size, industry, geo"}

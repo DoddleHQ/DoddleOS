@@ -9,7 +9,7 @@ argument-hint: [prospect-info] [sequence-type]
 
 **Standards**: Token efficiency, sacrifice grammar for concision, list unresolved questions at end.
 
-**Skills**: Activate `email-marketing`, `copywriting` skills.
+**Skills**: Activate `sales-prospecting` (id `doddle.sales.prospecting`), `cold-email` skills.
 
 **Components**: Reference `./.claude/components/interactive-questions.md`
 
