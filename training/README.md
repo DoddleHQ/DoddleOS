@@ -212,6 +212,7 @@ Unlock advanced frameworks after completing core modules:
 **Commands:**
 - `/training:bonus-secret` - The 10x Marketer Framework
 - `/training:bonus-patterns` - Pattern library templates
+- `/training:bonus-new-packs` - Affiliate, DevOps, travel-growth, P0/P1 orientation
 - `/training:help` - Show all available training commands
 
 ---

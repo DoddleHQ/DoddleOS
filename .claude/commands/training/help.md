@@ -63,6 +63,7 @@ Display all available commands and course navigation help.
 |---------|-------------|
 | `/training:bonus-patterns` | Pattern library templates |
 | `/training:bonus-secret` | The 10x Marketer Framework |
+| `/training:bonus-new-packs` | Affiliate, DevOps, travel-growth, P0/P1 orientation |
 
 ---
 

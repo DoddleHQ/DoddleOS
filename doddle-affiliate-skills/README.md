@@ -26,6 +26,11 @@ Naming: pack dir `doddle-affiliate-skills`, skills `affiliate-*`, IDs `doddle.af
 ```
 
 Manual: `cp -r doddle-affiliate-skills/.claude/skills/* your-project/.claude/skills/`
+Agents (bundled, isolated): `cp -r doddle-affiliate-skills/.claude/agents/* your-project/.claude/agents/`
+
+## Agents (bundled)
+
+Self-contained copies. No cross-pack agent refs: `seo-specialist`, `copywriter`, `planner`, `researcher`, `conversion-optimizer`, `brand-voice-guardian`.
 
 ## What Each Skill Covers
 

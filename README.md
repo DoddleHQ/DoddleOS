@@ -10,7 +10,7 @@
   <img src="https://img.shields.io/badge/Claude_Code%20|%20Cursor%20|%20Copilot-Compatible-blueviolet" alt="AI Assistants">
   <br>
   <img src="https://img.shields.io/badge/Agents-20-green" alt="Agents">
-  <img src="https://img.shields.io/badge/Commands-219-orange" alt="Commands">
+  <img src="https://img.shields.io/badge/Commands-220-orange" alt="Commands">
   <img src="https://img.shields.io/badge/Skills-172-blue" alt="Skills">
 </p>
 
@@ -317,7 +317,7 @@ Validate all: `python3 doddle-core/scripts/validate.py` (0 errors target).
 | Affiliate | 5 | `/affiliate:niche`, `/affiliate:keywords`, `/affiliate:content`, `/affiliate:revenue` |
 | Travel | 6 | `/travel:search`, `/travel:itinerary`, `/travel:booking`, `/travel:growth` |
 | DevOps | 10 | `/devops:backup`, `/devops:process`, `/devops:networking`, `/devops:monitoring` |
-| ...more | Audit, Brand, Checklist, Competitor, CRM, Leads, Ops, Pricing, Report, Social, Training + root | See `.claude/commands/` for the full reference (219 total) |
+| ...more | Audit, Brand, Checklist, Competitor, CRM, Leads, Ops, Pricing, Report, Social, Training + root | See `.claude/commands/` for the full reference (220 total) |
 
 ---
 
@@ -478,6 +478,7 @@ Free User → Paywall CRO → Paid Customer
 |---------|-------------|
 | `/training:bonus-patterns` | Pattern library for headlines, emails, social, ads, CRO |
 | `/training:bonus-secret` | The 10x Marketer Framework |
+| `/training:bonus-new-packs` | Affiliate, DevOps, travel-growth, P0/P1 orientation |
 | `/training:help` | Show all available training commands |
 
 ---
