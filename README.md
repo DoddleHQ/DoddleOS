@@ -10,7 +10,7 @@
   <img src="https://img.shields.io/badge/Claude_Code%20|%20Cursor%20|%20Copilot-Compatible-blueviolet" alt="AI Assistants">
   <br>
   <img src="https://img.shields.io/badge/Agents-20-green" alt="Agents">
-  <img src="https://img.shields.io/badge/Commands-198-orange" alt="Commands">
+  <img src="https://img.shields.io/badge/Commands-219-orange" alt="Commands">
   <img src="https://img.shields.io/badge/Skills-172-blue" alt="Skills">
 </p>
 
@@ -313,11 +313,11 @@ Validate all: `python3 doddle-core/scripts/validate.py` (0 errors target).
 | Legal | 5 | `/legal:intake`, `/legal:guides`, `/legal:consults` |
 | Finance | 5 | `/finance:leads`, `/finance:onboarding`, `/finance:reviews` |
 | Education | 5 | `/edu:enrollment`, `/edu:openhouse`, `/edu:nurture` |
-| GTM | 8 | `/gtm:icp`, `/gtm:messaging`, `/gtm:launch`, `/gtm:compete` |
+| GTM | 14 | `/gtm:strategy`, `/gtm:abm`, `/gtm:icp`, `/gtm:launch`, `/gtm:compete` |
 | Affiliate | 5 | `/affiliate:niche`, `/affiliate:keywords`, `/affiliate:content`, `/affiliate:revenue` |
-| Travel | 1 | `/travel:growth` |
-| DevOps | 0 | Commands planned — skills-first pack |
-| ...more | Audit, Brand, Checklist, Competitor, CRM, Leads, Ops, Pricing, Report, Social, Training + root | See `.claude/commands/` for the full reference (198 total) |
+| Travel | 6 | `/travel:search`, `/travel:itinerary`, `/travel:booking`, `/travel:growth` |
+| DevOps | 10 | `/devops:backup`, `/devops:process`, `/devops:networking`, `/devops:monitoring` |
+| ...more | Audit, Brand, Checklist, Competitor, CRM, Leads, Ops, Pricing, Report, Social, Training + root | See `.claude/commands/` for the full reference (219 total) |
 
 ---
 
