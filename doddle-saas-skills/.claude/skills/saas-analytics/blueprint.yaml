@@ -1,0 +1,22 @@
+id: doddle.saas.analytics
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "PQL scoring, TTV, and funnel diagnosis from GA4 + CRM"
+inputs:
+  - {name: context, type: string, required: true, description: "Channels, tracking setup, funnel to analyze; ask if missing"}
+  - {name: goal, type: string, required: false, description: "Measurement goal, ex PQL, TTV, attribution"}
+outputs:
+  - {name: measurement_audit, type: markdown, description: "Tracking gaps + attribution findings"}
+  - {name: pql_dashboard, type: json, description: "PQL thresholds, TTV, and stage definitions"}
+  - {name: action_list, type: markdown, description: "Prioritized measurement and funnel fixes"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - hubspot
+nodes:
+  - {id: measure, type: call, ref: doddle.marketing.analytics-attribution, needs: [inputs], produces: [attribution_data], inputs: {context: $context}}
+  - {id: synthesize, type: agent, ref: conversion-optimizer, needs: [measure], produces: [measurement_audit, pql_dashboard, action_list]}
+on_fail: {retry: 1, fallback: manual_review}

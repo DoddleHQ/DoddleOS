@@ -1,0 +1,43 @@
+{
+  "name": "doddle-affiliate-skills",
+  "owner": {
+    "name": "Doddle Team",
+    "email": "contact@doddlehq.com",
+    "url": "https://doddlehq.com"
+  },
+  "metadata": {
+    "description": "Doddle Affiliate OS — niche, keywords, content, links, revenue",
+    "version": "1.0.0",
+    "updatedAt": "2026-10-15"
+  },
+  "plugins": [
+    {
+      "name": "doddle-affiliate-skills",
+      "source": "./",
+      "description": "Doddle Affiliate OS: 5 affiliate skills: niche, keywords, content, links, revenue",
+      "author": {
+        "name": "Doddle Team"
+      },
+      "homepage": "https://doddlehq.com",
+      "repository": "https://github.com/doddleOS/doddle-affiliate-skills",
+      "documentation": "https://docs.doddlehq.com",
+      "license": "MIT",
+      "keywords": [
+        "affiliate",
+        "seo",
+        "content",
+        "link-building",
+        "cro"
+      ],
+      "category": "marketing",
+      "tags": [
+        "affiliate",
+        "seo",
+        "content",
+        "revenue"
+      ],
+      "featured": true,
+      "verified": true
+    }
+  ]
+}

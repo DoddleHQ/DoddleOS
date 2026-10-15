@@ -1,0 +1,21 @@
+id: doddle.b2b.negotiation
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Win without leaking margin: guardrails, give-gets, procurement plays"
+inputs:
+  - {name: context, type: string, required: true, description: "Deal size, pricing, procurement; ask if missing"}
+  - {name: goal, type: string, required: false, description: "Negotiation goal"}
+outputs:
+  - {name: negotiation_audit, type: markdown, description: "Leverage + leakage diagnosis"}
+  - {name: guardrail_matrix, type: json, description: "Floor, approvals, fences per tier"}
+  - {name: giveget_playbook, type: markdown, description: "Concessions paired with gets + close plan"}
+tools:
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+nodes:
+  - {id: price, type: call, ref: doddle.marketing.pricing-strategy, needs: [inputs], produces: [pricing_data], inputs: {context: $context}}
+  - {id: offer, type: call, ref: doddle.marketing.offers, needs: [price], produces: [offer_data], inputs: {context: $context}}
+  - {id: synthesize, type: agent, ref: sales-enabler, needs: [price, offer], produces: [negotiation_audit, guardrail_matrix, giveget_playbook]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -1,0 +1,20 @@
+id: doddle.affiliate.content
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Produce affiliate reviews, vs, and best-X briefs with E-E-A-T and disclosure"
+inputs:
+  - {name: keyword_cluster, type: string, required: true, description: "Cluster or URL pattern; ask if missing"}
+  - {name: brand_voice, type: string, required: false, description: "Voice constraints"}
+outputs:
+  - {name: brief_pack, type: markdown, description: "Briefs with outline, entities, FAQ, schema"}
+  - {name: draft_checklist, type: json, description: "E-E-A-T + disclosure + CRO checks"}
+tools:
+  - {id: doddle.tool.v1.gsc.getSearchAnalytics, required: false, fallback: manual_review}
+integrations:
+  - google-search-console
+nodes:
+  - {id: assess, type: agent, ref: seo-specialist, needs: [inputs], produces: [assessment]}
+  - {id: brief, type: agent, ref: copywriter, needs: [assess], produces: [brief_pack]}
+  - {id: qa, type: agent, ref: brand-voice-guardian, needs: [brief], produces: [draft_checklist]}
+on_fail: {retry: 1, fallback: manual_review}

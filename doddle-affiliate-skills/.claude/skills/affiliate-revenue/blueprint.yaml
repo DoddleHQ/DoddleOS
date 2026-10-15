@@ -1,0 +1,22 @@
+id: doddle.affiliate.revenue
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Lift affiliate EPC via CRO, placement, speed, and network mix"
+inputs:
+  - {name: site_url, type: string, required: true, description: "Site or page URL; ask if missing"}
+  - {name: networks, type: string, required: false, description: "Networks in use"}
+outputs:
+  - {name: revenue_audit, type: markdown, description: "Leakage points + EPC drivers"}
+  - {name: cro_plan, type: json, description: "Tests and placement fixes ordered by impact"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.gsc.getSearchAnalytics, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - google-search-console
+nodes:
+  - {id: assess, type: agent, ref: conversion-optimizer, needs: [inputs], produces: [assessment]}
+  - {id: measure, type: tool, ref: doddle.tool.v1.ga4.getReport, needs: [assess], produces: [funnel_data]}
+  - {id: recommend, type: agent, ref: conversion-optimizer, needs: [measure], produces: [revenue_audit, cro_plan]}
+on_fail: {retry: 1, fallback: manual_review}

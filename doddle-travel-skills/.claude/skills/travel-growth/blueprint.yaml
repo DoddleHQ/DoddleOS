@@ -1,0 +1,29 @@
+id: doddle.travel.growth
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Grow a travel business: GBP + reviews + itineraries + programmatic SEO into one plan"
+inputs:
+  - {name: business_name, type: string, required: true, description: "Agency name as listed; ask if missing"}
+  - {name: location, type: string, required: true, description: "City / service area; ask if missing"}
+  - {name: destination_dates, type: string, required: true, description: "Hero destination + dates for itinerary pull; ask if missing"}
+  - {name: seed_topic, type: string, required: true, description: "Seed topic or URL for destination pages; ask if missing"}
+outputs:
+  - {name: growth_audit, type: markdown, description: "GBP + reputation + itinerary synthesis with priorities"}
+  - {name: destination_pack, type: markdown, description: "Programmatic destination page plan from itinerary"}
+  - {name: review_engine, type: json, description: "Review ask flows + response playbook refs"}
+tools:
+  - {id: doddle.tool.v1.dataforseo.serpGoogle, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.gbp.listReviews, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+integrations:
+  - dataforseo
+  - google-business-profile
+  - hubspot
+nodes:
+  - {id: gbp_check, type: call, ref: doddle.local.gbp, needs: [inputs], produces: [profile_data], inputs: {business_name: $business_name, location: $location}}
+  - {id: rep_check, type: call, ref: doddle.local.reviews, needs: [gbp_check], produces: [review_engine], inputs: {business_name: $business_name, location: $location}}
+  - {id: dest_pull, type: call, ref: doddle.travel.itinerary, needs: [inputs], produces: [itinerary_data], inputs: {destination_dates: $destination_dates}}
+  - {id: rank_pages, type: call, ref: doddle.marketing.programmatic-seo, needs: [dest_pull], produces: [destination_pack], inputs: {topic_or_url: $seed_topic}}
+  - {id: synthesize, type: agent, ref: planner, needs: [gbp_check, rep_check, rank_pages], produces: [growth_audit]}
+on_fail: {retry: 1, fallback: manual_review}

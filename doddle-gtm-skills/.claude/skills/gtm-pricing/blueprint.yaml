@@ -1,0 +1,20 @@
+id: doddle.gtm.pricing
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Packaging and guardrails for launch: value metric, tiers, fences"
+inputs:
+  - {name: context, type: string, required: true, description: "Product, pricing, market, motion; ask if missing"}
+  - {name: goal, type: string, required: false, description: "Pricing goal"}
+outputs:
+  - {name: pricing_audit, type: markdown, description: "Value metric + tier diagnosis"}
+  - {name: tier_model, type: json, description: "Tiers with fences and annual framing"}
+  - {name: guardrail_notes, type: markdown, description: "Discount floors + approval matrix"}
+tools:
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+nodes:
+  - {id: price, type: call, ref: doddle.marketing.pricing-strategy, needs: [inputs], produces: [pricing_data], inputs: {context: $context}}
+  - {id: synthesize, type: agent, ref: planner, needs: [price], produces: [pricing_audit, tier_model, guardrail_notes]}
+on_fail: {retry: 1, fallback: manual_review}

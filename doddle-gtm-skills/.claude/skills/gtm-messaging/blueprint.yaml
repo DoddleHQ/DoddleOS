@@ -1,0 +1,20 @@
+id: doddle.gtm.messaging
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Positioning to message house with proof and objection handling"
+inputs:
+  - {name: context, type: string, required: true, description: "Product, audience, value prop, competitors; ask if missing"}
+  - {name: goal, type: string, required: false, description: "Messaging goal"}
+outputs:
+  - {name: message_house, type: markdown, description: "Pillars, proof, voice"}
+  - {name: proof_bank, type: json, description: "Claims with proof refs"}
+  - {name: objection_map, type: markdown, description: "Objections with reframes"}
+tools:
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+integrations:
+  - notion
+nodes:
+  - {id: position, type: call, ref: doddle.marketing.product-marketing, needs: [inputs], produces: [position_data], inputs: {context: $context}}
+  - {id: synthesize, type: agent, ref: copywriter, needs: [position], produces: [message_house, proof_bank, objection_map]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -17,6 +17,7 @@ Naming: pack dir `doddle-travel-skills`, skills `travel-*`, IDs `doddle.travel.*
 | `travel-booking` | Holds, confirmations, changes, group + policy compliance | `/travel:booking` |
 | `travel-support` | Disruption rebook, visa/docs, expense capture | `/travel:support` |
 | `travel-reviews` | Post-trip UGC flywheel, referrals, loyalty capture | `/travel:reviews` |
+| `travel-growth` | Agency growth via GBP + reviews + itineraries + SEO (calls local + marketing) | `/travel:growth` |
 
 ## Installation
 

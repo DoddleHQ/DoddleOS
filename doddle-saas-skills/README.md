@@ -4,7 +4,7 @@
 
 ## Overview
 
-Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 5 specialised SaaS skills covering visitor → trial → paid → expansion.
+Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 10 specialised SaaS skills covering visitor → trial → paid → expansion.
 
 ## Skills Included
 
@@ -15,6 +15,11 @@ Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketin
 | `saas-trial` | Signup → activation → PQL → sales handoff | `/saas:trial` |
 | `saas-retention` | Dunning, save flow, winback | `/saas:retention` |
 | `saas-expansion` | Seat/usage upsell, advocacy, referral | `/saas:expansion` |
+| `saas-onboarding` | Signup + onboarding CRO + aha instrumentation (calls signup-flow-cro, onboarding-cro) | `/saas:onboarding` |
+| `saas-paywall` | Paywall + upgrade-moment CRO (calls paywall-upgrade-cro) | `/saas:paywall` |
+| `saas-emails` | Lifecycle drip: trial/activation/dunning/winback (calls email-sequence) | `/saas:emails` |
+| `saas-analytics` | PQL scoring, TTV, funnel diagnosis (calls analytics-attribution) | `/saas:analytics` |
+| `saas-dunning` | Failed-payment recovery + save/winback (calls churn-prevention, stripe stub) | `/saas:dunning` |
 
 ## Installation
 

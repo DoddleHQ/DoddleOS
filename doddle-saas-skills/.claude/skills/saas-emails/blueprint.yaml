@@ -1,0 +1,20 @@
+id: doddle.saas.emails
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Trial, activation, dunning, and winback emails as one lifecycle drip"
+inputs:
+  - {name: brief, type: string, required: true, description: "Sequence type, trigger, goal, count; ask if missing"}
+  - {name: audience, type: string, required: false, description: "Segment, ex trial-day-3, past-due"}
+outputs:
+  - {name: drip_pack, type: markdown, description: "Full lifecycle sequences with timing and CTAs"}
+  - {name: variant_pack, type: json, description: "Subject and CTA variants with rationale"}
+  - {name: send_checklist, type: markdown, description: "Triggers, suppression, and QA checks"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+nodes:
+  - {id: drip, type: call, ref: doddle.marketing.email-sequence, needs: [inputs], produces: [sequence_data], inputs: {brief: $brief}}
+  - {id: synthesize, type: agent, ref: email-wizard, needs: [drip], produces: [drip_pack, variant_pack, send_checklist]}
+on_fail: {retry: 1, fallback: manual_review}

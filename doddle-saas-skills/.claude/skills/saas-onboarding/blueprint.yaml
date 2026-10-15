@@ -1,0 +1,23 @@
+id: doddle.saas.onboarding
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Turn signups into activated users via signup + onboarding CRO and aha instrumentation"
+inputs:
+  - {name: signup_url, type: string, required: true, description: "Signup or onboarding entry URL; ask if missing"}
+  - {name: activation_goal, type: string, required: false, description: "Aha moment definition"}
+outputs:
+  - {name: onboarding_audit, type: markdown, description: "Signup-to-aha audit with scores"}
+  - {name: activation_playbook, type: markdown, description: "Checklist, empty states, sample data, events"}
+  - {name: aha_checklist, type: json, description: "Aha instrumentation + test hypotheses"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - hubspot
+nodes:
+  - {id: signup_check, type: call, ref: doddle.marketing.signup-flow-cro, needs: [inputs], produces: [signup_data], inputs: {page_url: $signup_url}}
+  - {id: onboard_check, type: call, ref: doddle.marketing.onboarding-cro, needs: [signup_check], produces: [onboard_data], inputs: {page_url: $signup_url}}
+  - {id: synthesize, type: agent, ref: conversion-optimizer, needs: [signup_check, onboard_check], produces: [onboarding_audit, activation_playbook, aha_checklist]}
+on_fail: {retry: 1, fallback: manual_review}

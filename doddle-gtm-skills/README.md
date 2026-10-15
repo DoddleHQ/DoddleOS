@@ -18,6 +18,11 @@ Naming: pack dir `doddle-gtm-skills`, skills `gtm-*`, IDs `doddle.gtm.*`, comman
 | `gtm-sales-playbook` | MEDDIC, demo, RFP, discount guardrails | `/gtm:playbook` |
 | `gtm-channel` | Reseller, co-sell, affiliate design + ops | `/gtm:channel` |
 | `gtm-advocacy` | References, reviews flywheel, community proof | `/gtm:advocacy` |
+| `gtm-icp` | ICP fences + TAM tiers + triggers (calls b2b-list) | `/gtm:icp` |
+| `gtm-messaging` | Message house + proof bank (calls product-marketing) | `/gtm:messaging` |
+| `gtm-pricing` | Tiers + fences for launch (calls pricing-strategy) | `/gtm:pricing` |
+| `gtm-launch` | Phased launch + gates (calls launch-strategy) | `/gtm:launch` |
+| `gtm-enablement` | Deck/1-pager/battlecard + ramp (calls b2b-demo) | `/gtm:enablement` |
 
 ## Installation
 

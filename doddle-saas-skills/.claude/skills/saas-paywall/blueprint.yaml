@@ -1,0 +1,20 @@
+id: doddle.saas.paywall
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Lift free-to-paid via paywall and upgrade-moment CRO"
+inputs:
+  - {name: paywall_url, type: string, required: true, description: "Paywall or upgrade screen URL; ask if missing"}
+  - {name: plan, type: string, required: false, description: "Target plan or tier"}
+outputs:
+  - {name: paywall_audit, type: markdown, description: "Scored paywall audit with copy and design notes"}
+  - {name: upgrade_playbook, type: markdown, description: "Trigger moments + offer framing"}
+  - {name: test_plan, type: json, description: "A/B hypotheses ordered by impact"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+nodes:
+  - {id: wall_check, type: call, ref: doddle.marketing.paywall-upgrade-cro, needs: [inputs], produces: [wall_data], inputs: {paywall_url: $paywall_url}}
+  - {id: synthesize, type: agent, ref: conversion-optimizer, needs: [wall_check], produces: [paywall_audit, upgrade_playbook, test_plan]}
+on_fail: {retry: 1, fallback: manual_review}

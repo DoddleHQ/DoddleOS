@@ -92,7 +92,13 @@ def check_skill(d, errors, warnings, known_ids):
         errors.append(f"{bp_path}: nodes must declare needs:")
     own = fm.get("id", "")
     nodes_sec = section(bp, "nodes")
-    for lit in re.findall(r"\{[^{}]*\}", nodes_sec):
+    # Node lines start with '-'; inner inputs maps ({a: $b}) never do.
+    # Line-based (not brace-based) so call nodes with nested inputs: {...} parse as one node.
+    node_lines = [ln.strip() for ln in nodes_sec.splitlines() if ln.strip().startswith("-")]
+    if not node_lines:
+        # fallback for compact single-line nodes section
+        node_lines = [lit for lit in re.findall(r"\{[^{}]*\}", nodes_sec) if "id:" in lit]
+    for lit in node_lines:
         tm = re.search(r"type:\s*(\w+)", lit)
         if not tm:
             errors.append(f"{bp_path}: node missing type: {lit[:60]}")

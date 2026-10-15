@@ -1,0 +1,22 @@
+id: doddle.b2b.discovery
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Run MEDDIC-lite discovery: stakeholder map, metrics, no-go discipline"
+inputs:
+  - {name: context, type: string, required: true, description: "Deal, stakeholders, notes; ask if missing"}
+  - {name: goal, type: string, required: false, description: "Qualification goal"}
+outputs:
+  - {name: discovery_audit, type: markdown, description: "Gaps vs MEDDIC-lite with risk flags"}
+  - {name: stakeholder_map, type: json, description: "Champion, blocker, econ buyer, users"}
+  - {name: qualification_pack, type: markdown, description: "Next questions + exit criteria + recycle rules"}
+tools:
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - notion
+nodes:
+  - {id: intel, type: call, ref: doddle.marketing.customer-research, needs: [inputs], produces: [stakeholder_data], inputs: {context: $context}}
+  - {id: synthesize, type: agent, ref: sales-enabler, needs: [intel], produces: [discovery_audit, stakeholder_map, qualification_pack]}
+on_fail: {retry: 1, fallback: manual_review}

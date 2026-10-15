@@ -1,0 +1,21 @@
+id: doddle.b2b.coldcall
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Cold call openers, discovery bridges, objection trees, voicemail that gets callbacks"
+inputs:
+  - {name: icp, type: string, required: true, description: "ICP + triggers; ask if missing"}
+  - {name: offer, type: string, required: true, description: "Offer + proof; ask if missing"}
+outputs:
+  - {name: call_audit, type: markdown, description: "List-to-connect diagnosis"}
+  - {name: script_pack, type: json, description: "Openers, bridges, closes per persona"}
+  - {name: objection_tree, type: markdown, description: "Objection → reframe → question"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: sales-enabler, needs: [inputs], produces: [call_assessment]}
+  - {id: list_check, type: tool, ref: doddle.tool.v1.hubspot.contacts, needs: [assess], produces: [connect_data]}
+  - {id: recommend, type: agent, ref: sales-enabler, needs: [list_check], produces: [call_audit, script_pack, objection_tree]}
+on_fail: {retry: 1, fallback: manual_review}

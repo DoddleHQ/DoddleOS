@@ -1,0 +1,23 @@
+id: doddle.b2b.rfp
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Answer RFPs and security reviews fast without redline chaos"
+inputs:
+  - {name: context, type: string, required: true, description: "RFP, requirements, deadlines; ask if missing"}
+  - {name: goal, type: string, required: false, description: "Win theme"}
+outputs:
+  - {name: rfp_audit, type: markdown, description: "Shall-win vs shall-skip with effort"}
+  - {name: response_kit, type: json, description: "Answers, proof refs, open items"}
+  - {name: risk_register, type: markdown, description: "Redlines + security gaps + owners"}
+tools:
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+integrations:
+  - notion
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: sales-enabler, needs: [inputs], produces: [rfp_assessment]}
+  - {id: deal_check, type: tool, ref: doddle.tool.v1.hubspot.deals, needs: [assess], produces: [deal_data]}
+  - {id: recommend, type: agent, ref: sales-enabler, needs: [deal_check], produces: [rfp_audit, response_kit, risk_register]}
+on_fail: {retry: 1, fallback: manual_review}

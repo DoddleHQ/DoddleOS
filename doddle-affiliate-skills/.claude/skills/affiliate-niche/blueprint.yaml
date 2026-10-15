@@ -1,0 +1,23 @@
+id: doddle.affiliate.niche
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Score affiliate niches on demand, competition, and monetization fit before building"
+inputs:
+  - {name: seed_vertical, type: string, required: true, description: "Seed vertical or interests; ask if missing"}
+  - {name: budget_band, type: string, required: false, description: "Content + links budget band"}
+  - {name: monetization, type: string, required: false, description: "Networks or programs in scope"}
+outputs:
+  - {name: niche_audit, type: markdown, description: "Demand vs competition vs monetization scoring"}
+  - {name: shortlist, type: json, description: "Ranked niches with go/no-go"}
+tools:
+  - {id: doddle.tool.v1.semrush.keywordResearch, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.dataforseo.serpGoogle, required: false, fallback: manual_review}
+integrations:
+  - semrush
+  - dataforseo
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [assessment]}
+  - {id: research, type: tool, ref: doddle.tool.v1.semrush.keywordResearch, needs: [assess], produces: [demand_data]}
+  - {id: recommend, type: agent, ref: researcher, needs: [research], produces: [niche_audit, shortlist]}
+on_fail: {retry: 1, fallback: manual_review}

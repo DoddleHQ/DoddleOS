@@ -1,0 +1,24 @@
+id: doddle.saas.dunning
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Recover failed payments and at-risk accounts via dunning, save flow, winback"
+inputs:
+  - {name: context, type: string, required: true, description: "Churn, MRR, dunning state; ask if missing"}
+  - {name: goal, type: string, required: false, description: "Retention goal, default dunning + save"}
+outputs:
+  - {name: dunning_audit, type: markdown, description: "Churn diagnosis with involuntary vs voluntary split"}
+  - {name: save_playbook, type: markdown, description: "Day 0/3/7/14 dunning + cancel-save flow"}
+  - {name: winback_pack, type: json, description: "30/60/90-day winback with offers"}
+tools:
+  - {id: doddle.tool.v1.stripe.getMrr, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - stripe
+  - hubspot
+  - google-analytics
+nodes:
+  - {id: churn_check, type: call, ref: doddle.marketing.churn-prevention, needs: [inputs], produces: [churn_data], inputs: {context: $context}}
+  - {id: synthesize, type: agent, ref: continuity-specialist, needs: [churn_check], produces: [dunning_audit, save_playbook, winback_pack]}
+on_fail: {retry: 1, fallback: manual_review}

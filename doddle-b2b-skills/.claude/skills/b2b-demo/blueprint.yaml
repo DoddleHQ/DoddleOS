@@ -1,0 +1,20 @@
+id: doddle.b2b.demo
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Demos that close: click-path, live flow, POC exit criteria"
+inputs:
+  - {name: context, type: string, required: true, description: "Product, buyer, use case; ask if missing"}
+  - {name: goal, type: string, required: false, description: "Demo goal, ex technical win"}
+outputs:
+  - {name: demo_audit, type: markdown, description: "Deck vs live gaps with fixes"}
+  - {name: click_path, type: json, description: "Click sequence with fallback branches"}
+  - {name: demo_script, type: markdown, description: "Talk track: situation → click → value"}
+tools:
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+integrations:
+  - notion
+nodes:
+  - {id: message, type: call, ref: doddle.marketing.product-marketing, needs: [inputs], produces: [message_data], inputs: {context: $context}}
+  - {id: synthesize, type: agent, ref: sales-enabler, needs: [message], produces: [demo_audit, click_path, demo_script]}
+on_fail: {retry: 1, fallback: manual_review}

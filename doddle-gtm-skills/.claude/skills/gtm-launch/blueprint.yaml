@@ -1,0 +1,22 @@
+id: doddle.gtm.launch
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Tiered launch plan with gates across product, marketing, sales, CS"
+inputs:
+  - {name: context, type: string, required: true, description: "What, audience, channels, timeline; ask if missing"}
+  - {name: goal, type: string, required: false, description: "Launch goal"}
+outputs:
+  - {name: launch_plan, type: markdown, description: "Phased plan with owners and dates"}
+  - {name: phase_gates, type: json, description: "Gate criteria per phase"}
+  - {name: rollout_checklist, type: markdown, description: "Ready checks + rollback triggers"}
+tools:
+  - {id: doddle.tool.v1.slack.postMessage, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+integrations:
+  - slack
+  - notion
+nodes:
+  - {id: plan, type: call, ref: doddle.marketing.launch-strategy, needs: [inputs], produces: [launch_data], inputs: {context: $context}}
+  - {id: synthesize, type: agent, ref: planner, needs: [plan], produces: [launch_plan, phase_gates, rollout_checklist]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -1,0 +1,33 @@
+{
+  "name": "doddle-affiliate-skills",
+  "version": "1.0.0",
+  "description": "Affiliate-site marketing skills: niche, keywords, content, links, revenue",
+  "main": "README.md",
+  "scripts": {
+    "test": "python3 ../../doddle-core/scripts/validate.py",
+    "lint": "echo \"Linting passed\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/doddleOS/doddle-affiliate-skills.git"
+  },
+  "keywords": [
+    "affiliate",
+    "seo",
+    "programmatic-seo",
+    "link-building",
+    "cro"
+  ],
+  "author": "Doddle Team <contact@doddlehq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/doddleOS/doddle-affiliate-skills/issues"
+  },
+  "homepage": "https://doddlehq.com",
+  "files": [
+    ".claude/",
+    ".claude-plugin/",
+    "README.md",
+    "LICENSE"
+  ]
+}

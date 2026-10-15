@@ -1,0 +1,22 @@
+id: doddle.b2b.list
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Build tiered ICP account lists with intent triggers and enrichment"
+inputs:
+  - {name: context, type: string, required: true, description: "ICP, TAM, existing data; ask if missing"}
+  - {name: goal, type: string, required: false, description: "Pipeline goal, ex meetings per month"}
+outputs:
+  - {name: tam_audit, type: markdown, description: "TAM sizing with A/B/C tiers"}
+  - {name: tiered_list, type: json, description: "Accounts with fit score and triggers"}
+  - {name: enrich_playbook, type: markdown, description: "Enrichment + refresh SOP"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.semrush.domainOverview, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - semrush
+nodes:
+  - {id: research, type: call, ref: doddle.marketing.customer-research, needs: [inputs], produces: [research_data], inputs: {context: $context}}
+  - {id: synthesize, type: agent, ref: researcher, needs: [research], produces: [tam_audit, tiered_list, enrich_playbook]}
+on_fail: {retry: 1, fallback: manual_review}

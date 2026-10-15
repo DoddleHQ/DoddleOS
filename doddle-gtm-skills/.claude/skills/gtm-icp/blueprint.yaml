@@ -1,0 +1,20 @@
+id: doddle.gtm.icp
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Define ICP, size TAM into tiers, and map intent triggers for pipeline"
+inputs:
+  - {name: context, type: string, required: true, description: "Product, market hints, existing data; ask if missing"}
+  - {name: goal, type: string, required: false, description: "Pipeline goal"}
+outputs:
+  - {name: icp_audit, type: markdown, description: "ICP definition with fit criteria"}
+  - {name: tam_tiers, type: json, description: "A/B/C tiers with triggers"}
+  - {name: trigger_map, type: markdown, description: "Intent sources + enrichment SOP"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+nodes:
+  - {id: list, type: call, ref: doddle.b2b.list, needs: [inputs], produces: [tier_data], inputs: {context: $context}}
+  - {id: synthesize, type: agent, ref: researcher, needs: [list], produces: [icp_audit, tam_tiers, trigger_map]}
+on_fail: {retry: 1, fallback: manual_review}

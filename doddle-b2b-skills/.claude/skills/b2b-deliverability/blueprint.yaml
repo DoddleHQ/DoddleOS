@@ -1,0 +1,21 @@
+id: doddle.b2b.deliverability
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Fix cold email deliverability: DNS, warmup, volume, monitoring"
+inputs:
+  - {name: domain, type: string, required: true, description: "Sending domain; ask if missing"}
+  - {name: volume, type: string, required: false, description: "Daily volume per inbox"}
+outputs:
+  - {name: infra_audit, type: markdown, description: "SPF/DKIM/DMARC + warmup audit"}
+  - {name: warmup_plan, type: json, description: "Ramp schedule with guards"}
+  - {name: monitor_checklist, type: markdown, description: "Bounce, spam, blocklist monitors"}
+tools:
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: email-wizard, needs: [inputs], produces: [infra_assessment]}
+  - {id: inbox_check, type: tool, ref: doddle.tool.v1.hubspot.contacts, needs: [assess], produces: [bounce_data]}
+  - {id: recommend, type: agent, ref: email-wizard, needs: [inbox_check], produces: [infra_audit, warmup_plan, monitor_checklist]}
+on_fail: {retry: 1, fallback: manual_review}

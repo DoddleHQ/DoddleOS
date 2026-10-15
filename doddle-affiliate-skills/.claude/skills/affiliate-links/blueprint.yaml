@@ -1,0 +1,22 @@
+id: doddle.affiliate.links
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Earn affiliate links via digital PR and internal linking without spam"
+inputs:
+  - {name: domain, type: string, required: true, description: "Site domain; ask if missing"}
+  - {name: competitors, type: string, required: false, description: "Competitor domains"}
+outputs:
+  - {name: link_audit, type: markdown, description: "Gap vs competitors + risk flags"}
+  - {name: outreach_pack, type: json, description: "Targets, angles, and followups"}
+tools:
+  - {id: doddle.tool.v1.semrush.domainOverview, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.dataforseo.serpGoogle, required: false, fallback: manual_review}
+integrations:
+  - semrush
+  - dataforseo
+nodes:
+  - {id: assess, type: agent, ref: seo-specialist, needs: [inputs], produces: [assessment]}
+  - {id: gap, type: tool, ref: doddle.tool.v1.semrush.domainOverview, needs: [assess], produces: [gap_data]}
+  - {id: recommend, type: agent, ref: copywriter, needs: [gap], produces: [link_audit, outreach_pack]}
+on_fail: {retry: 1, fallback: manual_review}

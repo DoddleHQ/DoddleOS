@@ -4,7 +4,7 @@
 
 ## Overview
 
-Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 5 specialised B2B skills covering pipeline → proposal → proof → recurring revenue.
+Independent OS pack for [DoddleOS](https://github.com/doddleOS/doddleOS-marketing). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. 13 specialised B2B skills covering list → pipeline → proposal → proof → recurring revenue.
 
 Naming: pack dir `doddle-b2b-skills`, skills `b2b-*`, IDs `doddle.b2b.*`, commands `/b2b:*`.
 
@@ -17,6 +17,14 @@ Naming: pack dir `doddle-b2b-skills`, skills `b2b-*`, IDs `doddle.b2b.*`, comman
 | `b2b-cases` | Case study interview → approval → distribution | `/b2b:cases` |
 | `b2b-retainers` | Retainer packaging, QBRs, churn defense | `/b2b:retainers` |
 | `b2b-partnerships` | Referral partners, co-marketing, channel | `/b2b:partnerships` |
+| `b2b-list` | TAM build, A/B/C tiers, intent triggers (calls customer-research) | `/b2b:list` |
+| `b2b-deliverability` | DNS, warmup, volume guards, monitoring | `/b2b:deliverability` |
+| `b2b-linkedin` | Profile + warm + DM sequences (calls cold-email) | `/b2b:linkedin` |
+| `b2b-coldcall` | Openers, bridges, objection trees | `/b2b:coldcall` |
+| `b2b-discovery` | MEDDIC-lite + stakeholder map (calls customer-research) | `/b2b:discovery` |
+| `b2b-demo` | Click-path + talk track (calls product-marketing) | `/b2b:demo` |
+| `b2b-rfp` | Bid/no-bid + response kit + redlines | `/b2b:rfp` |
+| `b2b-negotiation` | Guardrails + give-gets (calls pricing-strategy, offers) | `/b2b:negotiation` |
 
 ## Installation
 
