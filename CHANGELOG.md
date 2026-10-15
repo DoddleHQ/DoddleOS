@@ -1,3 +1,17 @@
+## [1.5.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.4.0...v1.5.0) (2026-10-15)
+
+
+### 🚀 Features
+
+* add missing travel, gtm, devops slash commands ([2d03a77](https://github.com/DoddleHQ/DoddleOS/commit/2d03a77e920540f63b2b01320313965749052ae2))
+
+
+### 📚 Documentation
+
+* clarify repo as skills distribution, harness draft with no runner ([6297061](https://github.com/DoddleHQ/DoddleOS/commit/6297061e788c4bb1a9afdb4806e895dc0fa4368f))
+* point repo URLs at DoddleHQ/DoddleOS monorepo ([3ed324a](https://github.com/DoddleHQ/DoddleOS/commit/3ed324a10ba0d7692b37ee39518530435224ce5b))
+* refresh badges, pack table, command counts; wire npm test/lint to validator ([6ce7054](https://github.com/DoddleHQ/DoddleOS/commit/6ce70547ac348e603c8ceb4d52252fe157fac7f9))
+
 ## [1.4.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.3.0...v1.4.0) (2026-10-15)
 
 
