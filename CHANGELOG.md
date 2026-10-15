@@ -1,3 +1,10 @@
+## [1.4.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.3.0...v1.4.0) (2026-10-15)
+
+
+### 🚀 Features
+
+* P1 expansion for B2B, SaaS, GTM packs ([b6bcabf](https://github.com/DoddleHQ/DoddleOS/commit/b6bcabf64f22255c3cde401d6c66fa829079cc1e))
+
 ## [1.3.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.2.0...v1.3.0) (2026-10-15)
 
 
