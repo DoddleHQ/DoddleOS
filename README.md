@@ -10,8 +10,8 @@
   <img src="https://img.shields.io/badge/Claude_Code%20|%20Cursor%20|%20Copilot-Compatible-blueviolet" alt="AI Assistants">
   <br>
   <img src="https://img.shields.io/badge/Agents-20-green" alt="Agents">
-  <img src="https://img.shields.io/badge/Commands-164-orange" alt="Commands">
-  <img src="https://img.shields.io/badge/Skills-52-blue" alt="Skills">
+  <img src="https://img.shields.io/badge/Commands-198-orange" alt="Commands">
+  <img src="https://img.shields.io/badge/Skills-172-blue" alt="Skills">
 </p>
 
 <p align="center">
@@ -231,15 +231,16 @@ cp -r doddleOS-marketing/.claude/workflows/* ~/.claude/workflows/
 | Pack | Skills | IDs | Commands |
 |------|--------|-----|----------|
 | Doddle Marketing OS (`doddle-marketing-skills/`) | CRO, copy, SEO, growth, content, analytics (52) | `doddle.marketing.*` v1.5.1 | `/content:*`, `/seo:*`, `/cro:*`, `/growth:*`, `/marketing:*` |
-| Doddle GTM OS (`doddle-gtm-skills/`) | strategy, ABM, win-loss, playbook, channel, advocacy (6) | `doddle.gtm.*` v1.0.0 | `/gtm:strategy`, `/gtm:abm`, `/gtm:win-loss`, `/gtm:playbook`, `/gtm:channel`, `/gtm:advocacy` |
-| Doddle Travel OS (`doddle-travel-skills/`) | search, itinerary, booking, support, reviews (5) | `doddle.travel.*` v1.0.0 | `/travel:search`, `/travel:itinerary`, `/travel:booking`, `/travel:support`, `/travel:reviews` |
+| Doddle GTM OS (`doddle-gtm-skills/`) | strategy, ABM, win-loss, playbook, channel, advocacy + icp, messaging, pricing, launch, enablement, plg, intl, compete (14) | `doddle.gtm.*` v1.2.0 | `/gtm:icp`, `/gtm:messaging`, `/gtm:pricing`, `/gtm:launch`, `/gtm:enablement` |
+| Doddle Travel OS (`doddle-travel-skills/`) | search, itinerary, booking, support, reviews + growth (6) | `doddle.travel.*` v1.1.0 | `/travel:growth` (+ `/travel:search`, `/travel:itinerary`, `/travel:booking`, `/travel:support`, `/travel:reviews` planned) |
+| Doddle Affiliate OS (`doddle-affiliate-skills/`) | niche, keywords, content, links, revenue (5) | `doddle.affiliate.*` v1.0.0 | `/affiliate:niche`, `/affiliate:keywords`, `/affiliate:content`, `/affiliate:links`, `/affiliate:revenue` |
 | Doddle DevOps OS (`doddle-devops-skills/`) | processes, storage, LVM/RAID, boot/systemd, cron/logging, monitoring, packages, networking/ssh, kernel, backup (10) | `doddle.devops.*` v1.0.0 | skills-first pack (derived from *Linux System Administration*, Paul Cobbaut, GFDL 1.3) |
 | Doddle Ecommerce OS (`doddle-ecommerce-skills/`) | PLP, PDP, checkout, search, revenue | `doddle.ecommerce.*` v1.5.1 | `/ecom:plp`, `/ecom:pdp`, `/ecom:checkout`, `/ecom:search`, `/ecom:revenue` |
 | Doddle Local OS (`doddle-local-skills/`) | GBP, reviews, location pages, booking, local ads | `doddle.local.*` v1.0.0 | `/local:gbp`, `/local:reviews`, `/local:pages`, `/local:booking`, `/local:ads` |
-| Doddle SaaS OS (`doddle-saas-skills/`) | homepage, pricing, trial, retention, expansion | `doddle.saas.*` v1.0.0 | `/saas:homepage`, `/saas:pricing`, `/saas:trial`, `/saas:retention`, `/saas:expansion` |
+| Doddle SaaS OS (`doddle-saas-skills/`) | homepage, pricing, trial, retention, expansion + onboarding, paywall, emails, analytics, dunning, comparison, reviews, security, docs (14) | `doddle.saas.*` v1.2.0 | `/saas:homepage`, `/saas:trial`, `/saas:onboarding`, `/saas:paywall`, `/saas:emails`, `/saas:dunning` |
 | Doddle Health OS (`doddle-healthcare-skills/`) | booking, recall, intake, reputation, ads | `doddle.health.*` v1.0.0 | `/health:booking`, `/health:recall`, `/health:intake`, `/health:reputation`, `/health:ads` |
 | Doddle Real Estate OS (`doddle-real-estate-skills/`) | listings, valuation, open-house, nurture, referrals | `doddle.realty.*` v1.0.0 | `/realty:listings`, `/realty:valuation`, `/realty:openhouse`, `/realty:nurture`, `/realty:referrals` |
-| Doddle B2B OS (`doddle-b2b-skills/`) | outbound, proposals, cases, retainers, partnerships | `doddle.b2b.*` v1.0.0 | `/b2b:outbound`, `/b2b:proposals`, `/b2b:cases`, `/b2b:retainers`, `/b2b:partnerships` |
+| Doddle B2B OS (`doddle-b2b-skills/`) | outbound, proposals, cases, retainers, partnerships + list, deliverability, linkedin, coldcall, discovery, demo, rfp, negotiation, onboarding, qbr, referrals (16) | `doddle.b2b.*` v1.2.0 | `/b2b:list`, `/b2b:discovery`, `/b2b:demo`, `/b2b:rfp`, `/b2b:negotiation`, `/b2b:onboarding` |
 | Doddle Restaurant OS (`doddle-restaurant-skills/`) | reservations, ordering, loyalty, events, reputation | `doddle.restaurant.*` v1.0.0 | `/restaurant:reservations`, `/restaurant:ordering`, `/restaurant:loyalty`, `/restaurant:events`, `/restaurant:reputation` |
 | Doddle HR OS (`doddle-hr-skills/`) | recruiting, screening, onboarding, culture, employer-brand | `doddle.hr.*` v1.0.0 | `/hr:recruiting`, `/hr:screening`, `/hr:onboarding`, `/hr:culture`, `/hr:brand` |
 | Doddle Sales OS (`doddle-sales-skills/`) | prospecting, discovery, negotiation, forecasting, enablement | `doddle.sales.*` v1.0.0 | `/sales:prospecting`, `/sales:discovery`, `/sales:negotiation`, `/sales:forecasting`, `/sales:enablement` |
@@ -295,24 +296,28 @@ Validate all: `python3 doddle-core/scripts/validate.py` (0 errors target).
 | CRO | 6 | `/cro:page`, `/cro:form`, `/cro:signup` |
 | Ecom | 5 | `/ecom:plp`, `/ecom:pdp`, `/ecom:checkout` |
 | Growth | 3 | `/growth:launch`, `/growth:referral` |
-| Email | 4 | `/sequence:welcome`, `/sequence:nurture` |
-| Analytics | 5 | `/analytics:roi`, `/analytics:funnel` |
+| Email | 3 | `/sequence:welcome`, `/sequence:nurture` |
+| Analytics | 3 | `/analytics:roi`, `/analytics:funnel` |
 | Sales | 9 | `/sales:pitch`, `/sales:battlecard`, `/sales:prospecting`, `/sales:discovery`, `/sales:forecasting` |
 | Research | 3 | `/research:market`, `/research:persona` |
 | Marketing | 2 | `/marketing:psychology`, `/marketing:ideas` |
 | Testing | 1 | `/test:ab-setup` |
 | Local | 5 | `/local:gbp`, `/local:reviews`, `/local:booking` |
-| SaaS | 5 | `/saas:trial`, `/saas:pricing`, `/saas:retention` |
+| SaaS | 14 | `/saas:trial`, `/saas:onboarding`, `/saas:paywall`, `/saas:dunning` |
 | Health | 5 | `/health:booking`, `/health:recall`, `/health:reputation` |
 | Realty | 5 | `/realty:listings`, `/realty:valuation`, `/realty:openhouse` |
-| B2B | 5 | `/b2b:outbound`, `/b2b:proposals`, `/b2b:retainers` |
+| B2B | 16 | `/b2b:list`, `/b2b:discovery`, `/b2b:demo`, `/b2b:negotiation` |
 | Restaurant | 5 | `/restaurant:reservations`, `/restaurant:ordering`, `/restaurant:loyalty` |
 | HR | 5 | `/hr:recruiting`, `/hr:onboarding`, `/hr:culture` |
 | Creator | 5 | `/creator:ideation`, `/creator:scripting`, `/creator:packaging` |
 | Legal | 5 | `/legal:intake`, `/legal:guides`, `/legal:consults` |
 | Finance | 5 | `/finance:leads`, `/finance:onboarding`, `/finance:reviews` |
 | Education | 5 | `/edu:enrollment`, `/edu:openhouse`, `/edu:nurture` |
-| ...more | 45+ | See full command reference |
+| GTM | 8 | `/gtm:icp`, `/gtm:messaging`, `/gtm:launch`, `/gtm:compete` |
+| Affiliate | 5 | `/affiliate:niche`, `/affiliate:keywords`, `/affiliate:content`, `/affiliate:revenue` |
+| Travel | 1 | `/travel:growth` |
+| DevOps | 0 | Commands planned — skills-first pack |
+| ...more | Audit, Brand, Checklist, Competitor, CRM, Leads, Ops, Pricing, Report, Social, Training + root | See `.claude/commands/` for the full reference (198 total) |
 
 ---
 
