@@ -1,0 +1,22 @@
+id: doddle.seo.seo-onpage
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Match a page to search intent and the SERP-rewarded format; fix title, meta and headings"
+inputs:
+  - {name: url, type: string, required: true, description: "Page to optimize"}
+  - {name: query, type: string, required: false, description: "Target query, if known"}
+outputs:
+  - {name: report, type: markdown, description: "Intent, snippet, heading and format recommendations"}
+  - {name: envelope, type: json, description: "The dseo technical/score envelope"}
+tools:
+  - {id: doddle.tool.v1.cli.dseo, required: true, fallback: manual_review}
+  - {id: doddle.tool.v1.dataforseo.serp, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.gsc.query, required: false, fallback: manual_review}
+integrations:
+  - dataforseo
+  - google-search-console
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.v1.cli.dseo, needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: seo-strategist, needs: [run], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -1,0 +1,17 @@
+id: doddle.seo.geo-schema
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Resolve a site's entities for AI engines with stable @id, sameAs, knowsAbout, and machine-readable authorship"
+inputs:
+  - {name: url, type: string, required: true, description: "Page URL or local HTML file to analyse"}
+outputs:
+  - {name: report, type: markdown, description: "Entity signals, validity issues and ranked fixes"}
+  - {name: envelope, type: json, description: "The dseo schema envelope"}
+tools:
+  - {id: doddle.tool.v1.cli.dseo, required: true, fallback: manual_review}
+integrations: []
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.v1.cli.dseo, needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: schema-architect, needs: [run], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

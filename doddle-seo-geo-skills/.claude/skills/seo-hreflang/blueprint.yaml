@@ -1,0 +1,18 @@
+id: doddle.seo.seo-hreflang
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Audit international SEO and hreflang: x-default, self-references, return tags, canonicals"
+inputs:
+  - {name: url, type: string, required: true, description: "Localized page to check"}
+  - {name: locales, type: string, required: false, description: "Expected language/region set, comma-separated"}
+outputs:
+  - {name: report, type: markdown, description: "hreflang cluster audit and fixes"}
+  - {name: envelope, type: json, description: "The dseo technical envelope"}
+tools:
+  - {id: doddle.tool.v1.cli.dseo, required: true, fallback: manual_review}
+integrations: []
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.v1.cli.dseo, needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: technical-auditor, needs: [run], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

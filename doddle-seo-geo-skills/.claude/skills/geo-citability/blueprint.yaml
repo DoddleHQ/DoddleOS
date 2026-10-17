@@ -1,0 +1,17 @@
+id: doddle.seo.geo-citability
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Score a single page for AI citability and rank the fixes that recover the most"
+inputs:
+  - {name: url, type: string, required: true, description: "Single page to score"}
+outputs:
+  - {name: report, type: markdown, description: "Score, drivers, ranked fixes"}
+  - {name: envelope, type: json, description: "The dseo score envelope"}
+tools:
+  - {id: doddle.tool.v1.cli.dseo, required: true, fallback: manual_review}
+integrations: []
+nodes:
+  - {id: score, type: tool, ref: doddle.tool.v1.cli.dseo, needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: geo-specialist, needs: [score], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

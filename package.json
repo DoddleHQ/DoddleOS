@@ -1,7 +1,7 @@
 {
   "name": "DoddleOS",
   "version": "1.6.0",
-  "description": "DoddleOS skills distribution — validated graph blueprints (SKILL.md + blueprint.yaml) + specs for Claude Code, Cursor, and GitHub Copilot. 20 agents, 198 commands, 172 skills across 18 domain packs. Harness spec is draft in doddle-core/spec/; no runner ships in this repo.",
+  "description": "DoddleOS skills distribution — validated graph blueprints (SKILL.md + blueprint.yaml) + specs for Claude Code, Cursor, and GitHub Copilot. 20 agents, 198 commands, 202 skills across 19 domain packs. Harness spec is draft in doddle-core/spec/; no runner ships in this repo.",
   "main": "CLAUDE.md",
   "scripts": {
     "test": "python3 doddle-core/scripts/validate.py",

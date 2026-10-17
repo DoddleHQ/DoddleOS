@@ -1,0 +1,18 @@
+id: doddle.seo.geo-llmstxt
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Validate an existing llms.txt or draft one as a machine-readable surface for AI engines"
+inputs:
+  - {name: url, type: string, required: true, description: "Site root, or a local llms.txt file to validate"}
+  - {name: generate, type: bool, required: false, description: "Draft an llms.txt from the crawled site"}
+outputs:
+  - {name: report, type: markdown, description: "Validation result or reviewed llms.txt draft"}
+  - {name: envelope, type: json, description: "The dseo llmstxt envelope"}
+tools:
+  - {id: doddle.tool.v1.cli.dseo, required: true, fallback: manual_review}
+integrations: []
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.v1.cli.dseo, needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: geo-specialist, needs: [run], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

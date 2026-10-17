@@ -1,0 +1,20 @@
+id: doddle.seo.seo-local
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Improve local search: LocalBusiness markup plus a GBP, NAP, service-area and reviews plan"
+inputs:
+  - {name: url, type: string, required: true, description: "Business site or location page"}
+  - {name: business_name, type: string, required: false, description: "Canonical business name for NAP checks"}
+  - {name: locations, type: list, required: false, description: "Locations or service areas to cover"}
+outputs:
+  - {name: report, type: markdown, description: "Markup fixes plus GBP/NAP/service-area/review plan"}
+  - {name: envelope, type: json, description: "The dseo schema envelope"}
+tools:
+  - {id: doddle.tool.v1.cli.dseo, required: true, fallback: manual_review}
+integrations:
+  - google-business-profile
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.v1.cli.dseo, needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: seo-strategist, needs: [run], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

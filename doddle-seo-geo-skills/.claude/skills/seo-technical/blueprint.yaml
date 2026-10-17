@@ -1,0 +1,19 @@
+id: doddle.seo.seo-technical
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Fix technical SEO foundations: indexability, canonicalisation, rendering, hygiene"
+inputs:
+  - {name: url, type: string, required: true, description: "Page or site"}
+outputs:
+  - {name: report, type: markdown, description: "Prioritised technical fixes"}
+  - {name: envelope, type: json, description: "The dseo envelope"}
+tools:
+  - {id: doddle.tool.v1.cli.dseo, required: true, fallback: manual_review}
+  - {id: doddle.tool.v1.gsc.query, required: false, fallback: manual_review}
+integrations:
+  - google-search-console
+nodes:
+  - {id: scan, type: tool, ref: doddle.tool.v1.cli.dseo, needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: technical-auditor, needs: [scan], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -1,0 +1,25 @@
+id: doddle.seo.seo-content-brief
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Ready content brief: intent, outline, entities, PAA questions, internal links, schema, metric"
+inputs:
+  - {name: keyword, type: string, required: true, description: "Target keyword or query"}
+  - {name: url, type: string, required: false, description: "Existing URL if optimising rather than creating"}
+  - {name: audience, type: string, required: false, description: "Who the page is for"}
+  - {name: internal_links, type: string, required: false, description: "Hub/spoke URLs to link to"}
+outputs:
+  - {name: report, type: markdown, description: "Ready brief: intent, outline, entities, questions, links, schema, metric"}
+  - {name: plan, type: json, description: "The brief as structured, source-tagged fields"}
+tools:
+  - {id: doddle.tool.v1.dataforseo.serp, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.gsc.query, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - dataforseo
+  - notion
+nodes:
+  - {id: plan, type: agent, ref: seo-strategist, needs: [inputs], produces: [plan]}
+  - {id: narrate, type: agent, ref: seo-strategist, needs: [plan], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

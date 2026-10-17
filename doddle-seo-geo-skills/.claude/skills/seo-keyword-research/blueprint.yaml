@@ -1,0 +1,22 @@
+id: doddle.seo.seo-keyword-research
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Intent-classified, SERP-clustered keyword research with a per-cluster URL decision"
+inputs:
+  - {name: seeds, type: string, required: true, description: "Seed keywords or a topic to expand"}
+  - {name: domain, type: string, required: false, description: "Site the URL decisions apply to"}
+  - {name: market, type: string, required: false, description: "Locale/country for volume and SERP results"}
+outputs:
+  - {name: report, type: markdown, description: "Intent-classified, clustered keyword plan with URL decisions"}
+  - {name: plan, type: json, description: "Clusters with keyword, intent, metric, source, and URL decision"}
+tools:
+  - {id: doddle.tool.v1.semrush.domain, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.dataforseo.serp, required: false, fallback: manual_review}
+integrations:
+  - semrush
+  - dataforseo
+nodes:
+  - {id: research, type: agent, ref: seo-strategist, needs: [inputs], produces: [plan]}
+  - {id: narrate, type: agent, ref: seo-strategist, needs: [research], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

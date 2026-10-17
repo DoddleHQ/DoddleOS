@@ -1,0 +1,25 @@
+id: doddle.seo.seo-competitor
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Competitor keyword-gap analysis and vs/alternatives page planning, own site scored by dseo"
+inputs:
+  - {name: your_url, type: string, required: true, description: "Your site, audited deterministically with dseo audit"}
+  - {name: competitors, type: string, required: false, description: "Named competitors; ask if absent"}
+  - {name: market, type: string, required: false, description: "Locale/country for overlap and SERP results"}
+outputs:
+  - {name: report, type: markdown, description: "Own-site baseline, keyword gaps, comparison-page plan"}
+  - {name: envelope, type: json, description: "The dseo audit envelope for your site, unchanged"}
+  - {name: gaps, type: json, description: "Gap queries with intent, action, source, and comparison flag"}
+tools:
+  - {id: doddle.tool.v1.cli.dseo, required: true, fallback: manual_review}
+  - {id: doddle.tool.v1.semrush.domain, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.dataforseo.serp, required: false, fallback: manual_review}
+integrations:
+  - semrush
+  - dataforseo
+nodes:
+  - {id: audit, type: tool, ref: doddle.tool.v1.cli.dseo, needs: [inputs], produces: [envelope]}
+  - {id: gaps, type: tool, ref: doddle.tool.v1.semrush.domain, needs: [inputs], produces: [gaps]}
+  - {id: narrate, type: agent, ref: seo-strategist, needs: [audit, gaps], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

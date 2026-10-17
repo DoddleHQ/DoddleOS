@@ -1,0 +1,20 @@
+id: doddle.seo.seo-internal-linking
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Design hub-and-spoke internal linking and fix orphans, depth and anchors from crawl structure"
+inputs:
+  - {name: url, type: string, required: true, description: "Site root to crawl"}
+  - {name: max_pages, type: int, required: false, description: "Crawl cap, default 50"}
+outputs:
+  - {name: report, type: markdown, description: "Hub-spoke plan, orphan list, depth and anchor fixes"}
+  - {name: envelope, type: json, description: "The dseo audit envelope"}
+tools:
+  - {id: doddle.tool.v1.cli.dseo, required: true, fallback: manual_review}
+  - {id: doddle.tool.v1.gsc.query, required: false, fallback: manual_review}
+integrations:
+  - google-search-console
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.v1.cli.dseo, needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: technical-auditor, needs: [run], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

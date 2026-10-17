@@ -1,0 +1,39 @@
+{
+  "name": "doddle-seo-geo-skills",
+  "version": "0.1.0",
+  "description": "Doddle SEO & GEO OS — 30 skills for technical/organic SEO and Generative Engine Optimization, with a deterministic zero-dependency evidence toolkit.",
+  "main": "README.md",
+  "scripts": {
+    "test": "python3 -m pytest tests -q",
+    "lint": "python3 scripts/lint_pack.py",
+    "demo": "python3 scripts/dseo score tests/fixtures/site/index.html --json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DoddleHQ/DoddleOS.git"
+  },
+  "keywords": [
+    "seo",
+    "geo",
+    "aeo",
+    "ai-search",
+    "generative-engine-optimization",
+    "technical-seo",
+    "structured-data",
+    "llms-txt",
+    "ai-crawlers"
+  ],
+  "author": "Doddle Team <contact@doddlehq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DoddleHQ/DoddleOS/issues"
+  },
+  "homepage": "https://doddlehq.com",
+  "files": [
+    ".claude/",
+    ".claude-plugin/",
+    "scripts/",
+    "README.md",
+    "LICENSE"
+  ]
+}

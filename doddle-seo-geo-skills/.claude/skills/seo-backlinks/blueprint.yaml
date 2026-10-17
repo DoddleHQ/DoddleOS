@@ -1,0 +1,23 @@
+id: doddle.seo.seo-backlinks
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Analyse a backlink profile and plan link building from live data plus deterministic on-site context"
+inputs:
+  - {name: url, type: string, required: true, description: "Domain/site whose profile is analysed"}
+  - {name: target_pages, type: list, required: false, description: "Pages to prioritise for link acquisition"}
+  - {name: competitors, type: list, required: false, description: "Rival domains to compare, if the tool supports it"}
+outputs:
+  - {name: report, type: markdown, description: "Profile health, anchor diversity, prospecting plan"}
+  - {name: envelope, type: json, description: "The dseo audit envelope"}
+  - {name: backlinks, type: json, description: "The live ahrefs.backlinks response, or a NOT AVAILABLE note"}
+tools:
+  - {id: doddle.tool.v1.cli.dseo, required: true, fallback: manual_review}
+  - {id: doddle.tool.v1.ahrefs.backlinks, required: false, fallback: manual_review}
+integrations:
+  - ahrefs
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.v1.cli.dseo, needs: [inputs], produces: [envelope]}
+  - {id: links, type: tool, ref: doddle.tool.v1.ahrefs.backlinks, needs: [inputs], produces: [backlinks]}
+  - {id: narrate, type: agent, ref: seo-strategist, needs: [run, links], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

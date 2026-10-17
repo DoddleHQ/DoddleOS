@@ -1,0 +1,22 @@
+id: doddle.seo.seo-topical-map
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Advisory topical authority map: clusters, hub-spoke architecture, gaps, cannibalisation"
+inputs:
+  - {name: topic, type: string, required: true, description: "Subject area to map"}
+  - {name: domain, type: string, required: false, description: "Site to inventory and architect for"}
+  - {name: audience, type: string, required: false, description: "Who the content serves; assumed if absent"}
+  - {name: existing_urls, type: string, required: false, description: "Known URLs to inventory instead of crawling"}
+outputs:
+  - {name: report, type: markdown, description: "Clusters, hub-spoke architecture, gaps, cannibalisation flags"}
+  - {name: plan, type: json, description: "Cluster/hub/spoke graph with per-node action and assumptions"}
+tools:
+  - {id: doddle.tool.v1.cli.dseo, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.semrush.domain, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.dataforseo.serp, required: false, fallback: manual_review}
+integrations: []
+nodes:
+  - {id: plan, type: agent, ref: seo-strategist, needs: [inputs], produces: [plan]}
+  - {id: narrate, type: agent, ref: seo-strategist, needs: [plan], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

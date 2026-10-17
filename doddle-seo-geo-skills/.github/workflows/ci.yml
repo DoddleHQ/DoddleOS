@@ -1,0 +1,30 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install pytest
+        run: python -m pip install --upgrade pip pytest
+      - name: Lint pack (structure, frontmatter, blueprints, links, secrets, claims)
+        run: python scripts/lint_pack.py
+      - name: Run tests
+        run: python -m pytest tests -q
+      - name: Smoke-test the toolkit
+        run: |
+          python scripts/dseo version
+          python scripts/dseo score tests/fixtures/site/index.html --json > /dev/null
+          python scripts/dseo robots tests/fixtures/site/robots.txt --json > /dev/null

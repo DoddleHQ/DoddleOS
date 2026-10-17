@@ -1,0 +1,23 @@
+id: doddle.seo.geo-audit
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Full GEO / AI-search audit of a site with a deterministic composite score"
+inputs:
+  - {name: url, type: string, required: true, description: "Site to audit"}
+  - {name: max_pages, type: int, required: false, description: "Crawl cap, default 50"}
+  - {name: site_kind, type: string, required: false, description: "Optional site-kind override"}
+outputs:
+  - {name: report, type: markdown, description: "Ranked, sequenced GEO audit"}
+  - {name: envelope, type: json, description: "The dseo audit envelope"}
+tools:
+  - {id: doddle.tool.v1.cli.dseo, required: true, fallback: manual_review}
+  - {id: doddle.tool.v1.gsc.query, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - google-search-console
+  - google-analytics
+nodes:
+  - {id: crawl, type: tool, ref: doddle.tool.v1.cli.dseo, needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: geo-specialist, needs: [crawl], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

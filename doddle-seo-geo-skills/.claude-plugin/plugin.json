@@ -1,0 +1,64 @@
+{
+  "name": "doddle-seo-geo-skills",
+  "version": "0.1.0",
+  "description": "Doddle SEO & GEO OS — 30 skills and 5 agents for technical/organic SEO and Generative Engine Optimization. Deterministic Python toolkit computes evidence; skills narrate and prioritize. Hybrid format: agent-agnostic SKILL.md + DoddleOS blueprints.",
+  "author": {
+    "name": "Doddle Team",
+    "url": "https://doddlehq.com"
+  },
+  "homepage": "https://doddlehq.com",
+  "repository": "https://github.com/DoddleHQ/DoddleOS",
+  "documentation": "https://docs.doddlehq.com",
+  "license": "MIT",
+  "keywords": [
+    "seo",
+    "geo",
+    "aeo",
+    "llm-seo",
+    "ai-search",
+    "generative-engine-optimization",
+    "answer-engine-optimization",
+    "technical-seo",
+    "structured-data",
+    "llms-txt",
+    "ai-crawlers",
+    "marketing"
+  ],
+  "category": "marketing",
+  "tags": [
+    "seo",
+    "geo",
+    "ai-search",
+    "technical-seo"
+  ],
+  "skills": "./.claude/skills",
+  "agents": "./.claude/agents",
+  "main": "README.md",
+  "components": {
+    "skills": {
+      "path": "./.claude/skills",
+      "count": 30,
+      "ids": "doddle.seo.*"
+    },
+    "agents": {
+      "path": "./.claude/agents",
+      "count": 5,
+      "list": [
+        "geo-specialist",
+        "seo-strategist",
+        "technical-auditor",
+        "schema-architect",
+        "entity-strategist"
+      ]
+    },
+    "toolkit": {
+      "path": "./scripts/doddle_seo",
+      "cli": "dseo",
+      "python": ">=3.9",
+      "dependencies": "stdlib-only"
+    }
+  },
+  "requirements": {
+    "doddleOS": ">=2.0"
+  }
+}

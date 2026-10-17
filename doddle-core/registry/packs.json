@@ -145,6 +145,14 @@
       "version": "1.0.0",
       "skills": 10,
       "os": "Doddle DevOps OS"
+    },
+    {
+      "name": "doddle-seo-geo-skills",
+      "source": "./doddle-seo-geo-skills/.claude/skills",
+      "ids": "doddle.seo.*",
+      "version": "0.1.0",
+      "skills": 30,
+      "os": "Doddle SEO & GEO OS"
     }
   ]
 }

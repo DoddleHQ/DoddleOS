@@ -1,0 +1,18 @@
+id: doddle.seo.geo-content
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Rewrite page content into self-contained, answer-first, evidence-dense passages using deterministic citability signals"
+inputs:
+  - {name: url, type: string, required: true, description: "Page whose content will be rewritten"}
+  - {name: target_signals, type: list, required: false, description: "Signals to focus on; defaults to the weakest"}
+outputs:
+  - {name: report, type: markdown, description: "Weak signals with counts and before/after rewrite proposals"}
+  - {name: envelope, type: json, description: "The dseo citability envelope"}
+tools:
+  - {id: doddle.tool.v1.cli.dseo, required: true, fallback: manual_review}
+integrations: []
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.v1.cli.dseo, needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: geo-specialist, needs: [run], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -1,0 +1,21 @@
+id: doddle.seo.seo-digital-pr
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Plan digital PR campaigns that earn editorial links: linkable assets, outreach and pitching"
+inputs:
+  - {name: url, type: string, required: true, description: "Site/domain the campaign points to"}
+  - {name: goal, type: string, required: true, description: "Campaign objective, e.g. links to a launch page"}
+  - {name: topic, type: string, required: false, description: "Beat/theme the campaign targets"}
+  - {name: asset_type, type: string, required: false, description: "Preferred linkable-asset type, if known"}
+outputs:
+  - {name: report, type: markdown, description: "Asset concept, outreach plan, pitch copy, measurement plan"}
+  - {name: plan, type: json, description: "The structured campaign plan"}
+tools:
+  - {id: doddle.tool.v1.ahrefs.backlinks, required: false, fallback: manual_review}
+integrations:
+  - ahrefs
+nodes:
+  - {id: plan, type: agent, ref: seo-strategist, needs: [inputs], produces: [plan]}
+  - {id: narrate, type: agent, ref: seo-strategist, needs: [plan], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -1,0 +1,20 @@
+id: doddle.seo.seo-migration
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Plan and run a site migration: inventory, 1:1 redirect map, canonical/robots changes, monitoring"
+inputs:
+  - {name: old_url, type: string, required: true, description: "Source site or representative URL"}
+  - {name: new_url, type: string, required: true, description: "Destination site or representative URL"}
+  - {name: migration_type, type: string, required: false, description: "domain / replatform / restructure / redesign"}
+  - {name: cutover_date, type: string, required: false, description: "Planned launch date"}
+outputs:
+  - {name: report, type: markdown, description: "Inventory, redirect map, canonical/robots plan, monitoring checklist"}
+  - {name: envelope, type: json, description: "The before/after dseo audit envelopes"}
+tools:
+  - {id: doddle.tool.v1.cli.dseo, required: false, fallback: manual_review}
+integrations: []
+nodes:
+  - {id: sample, type: tool, ref: doddle.tool.v1.cli.dseo, needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: technical-auditor, needs: [envelope], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

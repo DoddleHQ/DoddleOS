@@ -1,0 +1,17 @@
+id: doddle.seo.geo-crawlers
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Audit and fix AI-crawler access in robots.txt, separating search, training and user-initiated bots"
+inputs:
+  - {name: url, type: string, required: true, description: "Site root, or a robots.txt URL/file to evaluate"}
+outputs:
+  - {name: report, type: markdown, description: "Per-kind crawler findings and robots.txt guidance"}
+  - {name: envelope, type: json, description: "The dseo robots envelope"}
+tools:
+  - {id: doddle.tool.v1.cli.dseo, required: true, fallback: manual_review}
+integrations: []
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.v1.cli.dseo, needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: geo-specialist, needs: [run], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -1,0 +1,18 @@
+id: doddle.seo.geo-platform
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Per-engine GEO guidance for ChatGPT, Perplexity, AI Overviews, Copilot, Claude and Gemini, grounded in deterministic signals"
+inputs:
+  - {name: url, type: string, required: true, description: "Page or site to assess per engine"}
+  - {name: target_engines, type: list, required: false, description: "Engines to prioritise; defaults to all six"}
+outputs:
+  - {name: report, type: markdown, description: "Per-engine priorities tied to deterministic signals"}
+  - {name: envelope, type: json, description: "The dseo score and dseo robots envelopes"}
+tools:
+  - {id: doddle.tool.v1.cli.dseo, required: true, fallback: manual_review}
+integrations: []
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.v1.cli.dseo, needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: geo-specialist, needs: [run], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

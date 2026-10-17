@@ -1,0 +1,12 @@
+# Fixture Co
+
+> Fixture Co builds deterministic SEO and GEO tooling.
+
+## Docs
+
+- [GEO Audit: How to Get Cited by AI Search Engines](https://fixture.example/geo-audit): Practical guide.
+- [Pricing](https://fixture.example/pricing): Plans and limits.
+
+## Optional
+
+- [Changelog](https://fixture.example/changelog): Release notes.

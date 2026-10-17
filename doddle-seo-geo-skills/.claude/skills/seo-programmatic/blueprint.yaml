@@ -1,0 +1,20 @@
+id: doddle.seo.seo-programmatic
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Design and guard programmatic pages at scale with template sampling and shipping gates"
+inputs:
+  - {name: url, type: string, required: true, description: "A representative generated URL or the template root"}
+  - {name: max_pages, type: int, required: false, description: "Sample size for dseo audit"}
+  - {name: dataset_fields, type: list, required: false, description: "Fields available to fill the template"}
+  - {name: page_class, type: string, required: false, description: "The page type being generated"}
+outputs:
+  - {name: report, type: markdown, description: "Template/dataset design, guards, indexation plan, shipping gate"}
+  - {name: envelope, type: json, description: "The dseo audit or dseo technical envelope"}
+tools:
+  - {id: doddle.tool.v1.cli.dseo, required: true, fallback: manual_review}
+integrations: []
+nodes:
+  - {id: sample, type: tool, ref: doddle.tool.v1.cli.dseo, needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: technical-auditor, needs: [sample], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

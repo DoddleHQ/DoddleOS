@@ -1,0 +1,20 @@
+id: doddle.seo.geo-monitor
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Monitor AI visibility with GA4 AI-referral sessions and landing pages, with prompt sampling kept advisory-only"
+inputs:
+  - {name: property, type: string, required: true, description: "GA4 property/site to report on"}
+  - {name: window, type: string, required: true, description: "Comparison window and prior-period basis"}
+  - {name: prompts, type: list, required: false, description: "Prompt set for the advisory sample (never scored)"}
+outputs:
+  - {name: report, type: markdown, description: "AI-referral sessions, landing pages, deltas, labelled prompt sample"}
+  - {name: envelope, type: json, description: "The GA4 report payload"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+nodes:
+  - {id: collect, type: tool, ref: doddle.tool.v1.ga4.getReport, needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: geo-specialist, needs: [collect], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

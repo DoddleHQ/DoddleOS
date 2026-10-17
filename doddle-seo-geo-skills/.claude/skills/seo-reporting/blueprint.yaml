@@ -1,0 +1,24 @@
+id: doddle.seo.seo-reporting
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Search Console and GA4 SEO reporting with named windows, winners/losers and striking distance"
+inputs:
+  - {name: property, type: string, required: true, description: "Site/Search Console property to report on"}
+  - {name: window, type: string, required: true, description: "Current window, e.g. last 28 days"}
+  - {name: comparison, type: string, required: true, description: "Comparison basis, e.g. previous 28 days"}
+  - {name: segment, type: string, required: false, description: "Query/page filter to focus the report"}
+outputs:
+  - {name: report, type: markdown, description: "Winners/losers, CTR anomalies, striking distance, cannibalisation, deltas"}
+  - {name: envelope, type: json, description: "The GSC and GA4 report payloads"}
+tools:
+  - {id: doddle.tool.v1.gsc.query, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - google-search-console
+  - google-analytics
+nodes:
+  - {id: gsc, type: tool, ref: doddle.tool.v1.gsc.query, needs: [inputs], produces: [gsc]}
+  - {id: ga4, type: tool, ref: doddle.tool.v1.ga4.getReport, needs: [inputs], produces: [ga4]}
+  - {id: narrate, type: agent, ref: seo-strategist, needs: [gsc, ga4], produces: [report, envelope]}
+on_fail: {retry: 1, fallback: manual_review}

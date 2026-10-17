@@ -1,0 +1,44 @@
+{
+  "name": "doddle-seo-geo-skills",
+  "owner": {
+    "name": "Doddle Team",
+    "email": "contact@doddlehq.com",
+    "url": "https://doddlehq.com"
+  },
+  "metadata": {
+    "description": "Doddle SEO & GEO OS — 30 independent skills for technical/organic SEO and Generative Engine Optimization, backed by a deterministic evidence toolkit",
+    "version": "0.1.0",
+    "updatedAt": "2026-10-17"
+  },
+  "plugins": [
+    {
+      "name": "doddle-seo-geo-skills",
+      "source": "./",
+      "description": "Doddle SEO & GEO OS: 30 skills (GEO + technical SEO + content + authority) with a deterministic CLI. Skills narrate; the toolkit computes every number from recorded evidence.",
+      "author": {
+        "name": "Doddle Team"
+      },
+      "homepage": "https://doddlehq.com",
+      "repository": "https://github.com/DoddleHQ/DoddleOS",
+      "documentation": "https://docs.doddlehq.com",
+      "license": "MIT",
+      "keywords": [
+        "seo",
+        "geo",
+        "aeo",
+        "ai-search",
+        "technical-seo",
+        "structured-data",
+        "llms-txt"
+      ],
+      "category": "marketing",
+      "tags": [
+        "seo",
+        "geo",
+        "ai-search"
+      ],
+      "featured": true,
+      "verified": true
+    }
+  ]
+}

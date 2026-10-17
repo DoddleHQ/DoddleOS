@@ -1,0 +1,19 @@
+id: doddle.seo.geo-report
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Render a deterministic GEO audit as a client-ready markdown deliverable without adding new numbers"
+inputs:
+  - {name: url, type: string, required: true, description: "Site to report on"}
+  - {name: max_pages, type: int, required: false, description: "Crawl cap, default 50"}
+  - {name: out, type: string, required: false, description: "Path to write the markdown report"}
+outputs:
+  - {name: report, type: markdown, description: "Client-ready GEO report"}
+  - {name: envelope, type: json, description: "The dseo report envelope (audit + markdown)"}
+tools:
+  - {id: doddle.tool.v1.cli.dseo, required: true, fallback: manual_review}
+integrations: []
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.v1.cli.dseo, needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: geo-specialist, needs: [run], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

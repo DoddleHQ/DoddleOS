@@ -1,0 +1,17 @@
+id: doddle.seo.seo-schema
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Validate JSON-LD and prioritise structured data that can earn rich results"
+inputs:
+  - {name: url, type: string, required: true, description: "Page to inspect"}
+outputs:
+  - {name: report, type: markdown, description: "Rich-result opportunities and validity fixes"}
+  - {name: envelope, type: json, description: "The dseo schema envelope"}
+tools:
+  - {id: doddle.tool.v1.cli.dseo, required: true, fallback: manual_review}
+integrations: []
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.v1.cli.dseo, needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: schema-architect, needs: [run], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

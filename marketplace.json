@@ -5,13 +5,13 @@
     "email": "contact@doddlehq.com"
   },
   "metadata": {
-    "description": "DoddleOS skills distribution for Claude Code - validated graph blueprints + specs across 18 domain packs (harness draft; runner separate)"
+    "description": "DoddleOS skills distribution for Claude Code - validated graph blueprints + specs across 19 domain packs (harness draft; runner separate)"
   },
   "plugins": [
     {
       "name": "doddleOS-marketing",
       "source": "./",
-      "description": "DoddleOS skills distribution — 20 agents, 198 commands, 172 skills across 18 domain packs (DoddleOS v2 blueprints + draft harness spec; no runner ships here)",
+      "description": "DoddleOS skills distribution — 20 agents, 198 commands, 202 skills across 19 domain packs (DoddleOS v2 blueprints + draft harness spec; no runner ships here)",
       "author": {
         "name": "Doddle Team"
       },

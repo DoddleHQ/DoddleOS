@@ -1,0 +1,17 @@
+id: doddle.seo.seo-geo-fundamentals
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Shared SEO/GEO hub: orient SEO vs GEO and route to the right skill in the family"
+inputs:
+  - {name: question, type: string, required: true, description: "The SEO/GEO question or goal to orient"}
+  - {name: site_kind, type: string, required: false, description: "Site type, if it changes which discipline leads"}
+outputs:
+  - {name: report, type: markdown, description: "Orientation: SEO vs GEO, the routed skill, and the shared references"}
+  - {name: plan, type: json, description: "The routing decision with primary and follow-on skills"}
+tools: []
+integrations: []
+nodes:
+  - {id: plan, type: agent, ref: geo-specialist, needs: [inputs], produces: [plan]}
+  - {id: narrate, type: agent, ref: geo-specialist, needs: [plan], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

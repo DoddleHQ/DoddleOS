@@ -1,0 +1,18 @@
+id: doddle.seo.geo-brand-entity
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Read a brand's entity markup, fix the controllable sameAs lever, and separate earned footprint from controllable signals"
+inputs:
+  - {name: url, type: string, required: true, description: "Site or page carrying the brand's entity markup"}
+  - {name: brand_name, type: string, required: false, description: "Canonical brand name to check for consistency"}
+outputs:
+  - {name: report, type: markdown, description: "Controllable sameAs fix, earned-vs-controllable split, manual checklist"}
+  - {name: envelope, type: json, description: "The dseo schema envelope"}
+tools:
+  - {id: doddle.tool.v1.cli.dseo, required: true, fallback: manual_review}
+integrations: []
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.v1.cli.dseo, needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: entity-strategist, needs: [run], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

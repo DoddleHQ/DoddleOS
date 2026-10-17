@@ -1,0 +1,24 @@
+id: doddle.seo.seo-strategy
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Prioritised, dependency-ordered SEO roadmap scored by impact x confidence / effort"
+inputs:
+  - {name: goal, type: string, required: true, description: "Business objective the strategy must serve"}
+  - {name: market, type: string, required: false, description: "Locale/country the plan targets"}
+  - {name: audience, type: string, required: false, description: "Who the strategy is for"}
+  - {name: candidates, type: list, required: false, description: "Known backlog, supplemented from notion.pages"}
+  - {name: horizon, type: string, required: false, description: "Planning window, e.g. one quarter"}
+outputs:
+  - {name: report, type: markdown, description: "Scored, sequenced roadmap ending on the single recommended bet"}
+  - {name: plan, type: json, description: "Items with impact, confidence, effort, value source, dependencies"}
+tools:
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+integrations:
+  - notion
+  - hubspot
+nodes:
+  - {id: plan, type: agent, ref: seo-strategist, needs: [inputs], produces: [plan]}
+  - {id: narrate, type: agent, ref: seo-strategist, needs: [plan], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

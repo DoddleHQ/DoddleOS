@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  Validated graph blueprints (SKILL.md + blueprint.yaml) executed as agent/tool DAGs: 172 skills across 18 independent peer packs — marketing, GTM, travel, devops, affiliate, ecom, local, SaaS, health, legal, finance, and more. Each pack installs and runs standalone; cross-pack binding via blueprint call nodes. The harness spec in <code>doddle-core/spec/</code> is draft — no runner ships in this repo; execution lives in the host assistant or a future runtime.
+  Validated graph blueprints (SKILL.md + blueprint.yaml) executed as agent/tool DAGs: 202 skills across 19 independent peer packs — marketing, GTM, travel, devops, affiliate, ecom, local, SaaS, health, legal, finance, and more. Each pack installs and runs standalone; cross-pack binding via blueprint call nodes. The harness spec in <code>doddle-core/spec/</code> is draft — no runner ships in this repo; execution lives in the host assistant or a future runtime.
 </p>
 
 <p align="center">
@@ -248,6 +248,7 @@ cp -r doddleOS-marketing/.claude/workflows/* ~/.claude/workflows/
 | Doddle Legal OS (`doddle-legal-skills/`) | intake, guides, consults, reputation, referrals | `doddle.legal.*` v1.0.0 | `/legal:intake`, `/legal:guides`, `/legal:consults`, `/legal:reputation`, `/legal:referrals` |
 | Doddle Finance OS (`doddle-finance-skills/`) | leads, onboarding, reviews, cross-sell, referrals | `doddle.finance.*` v1.0.0 | `/finance:leads`, `/finance:onboarding`, `/finance:reviews`, `/finance:crosssell`, `/finance:referrals` |
 | Doddle Education OS (`doddle-education-skills/`) | enrollment, open-house, content, nurture, alumni | `doddle.edu.*` v1.0.0 | `/edu:enrollment`, `/edu:openhouse`, `/edu:content`, `/edu:nurture`, `/edu:alumni` |
+| Doddle SEO & GEO OS (`doddle-seo-geo-skills/`) | technical SEO, on-page, schema, internal links, hreflang, keywords, topical maps, content briefs, competitor gaps, backlinks, digital PR, local, ecommerce, migration, SXO, programmatic, reporting + GEO audit, citability, AI crawlers, llms.txt, brand entity, platform, monitoring (30) | `doddle.seo.*` v0.1.0 | skills-first pack (deterministic `dseo` toolkit: `score`, `audit`, `citability`, `robots`, `llmstxt`, `schema`, `report`) |
 
 Validate all: `python3 doddle-core/scripts/validate.py` (0 errors target).
 

@@ -1,0 +1,22 @@
+id: doddle.seo.seo-sxo
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Win SERP features and improve CTR: snippet-ready structure plus live SERP feature evidence"
+inputs:
+  - {name: url, type: string, required: true, description: "Page to make snippet-ready"}
+  - {name: query, type: string, required: true, description: "Target query whose SERP is being won"}
+  - {name: locale, type: string, required: false, description: "Market/locale for the SERP, e.g. en-US"}
+outputs:
+  - {name: report, type: markdown, description: "Feature-by-feature plan, snippet readiness, CTR title/meta copy"}
+  - {name: envelope, type: json, description: "The dseo score envelope"}
+tools:
+  - {id: doddle.tool.v1.cli.dseo, required: true, fallback: manual_review}
+  - {id: doddle.tool.v1.dataforseo.serp, required: false, fallback: manual_review}
+integrations:
+  - dataforseo
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.v1.cli.dseo, needs: [inputs], produces: [envelope]}
+  - {id: serp, type: tool, ref: doddle.tool.v1.dataforseo.serp, needs: [inputs], produces: [serp]}
+  - {id: narrate, type: agent, ref: seo-strategist, needs: [run, serp], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

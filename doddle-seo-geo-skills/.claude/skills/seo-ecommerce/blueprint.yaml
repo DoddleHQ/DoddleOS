@@ -1,0 +1,21 @@
+id: doddle.seo.seo-ecommerce
+version: 0.1.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Fix e-commerce SEO: product markup, category vs PDP intent, faceted crawl and variants"
+inputs:
+  - {name: url, type: string, required: true, description: "Product, category, or store URL"}
+  - {name: template, type: string, required: false, description: "Template under review (PDP, category, variant)"}
+  - {name: catalogue_size, type: int, required: false, description: "Approximate SKU/page count for crawl planning"}
+outputs:
+  - {name: report, type: markdown, description: "Markup fixes, template findings, intent/crawl recommendations"}
+  - {name: envelope, type: json, description: "The dseo schema and dseo audit envelopes"}
+tools:
+  - {id: doddle.tool.v1.cli.dseo, required: true, fallback: manual_review}
+  - {id: doddle.tool.v1.dataforseo.serp, required: false, fallback: manual_review}
+integrations:
+  - dataforseo
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.v1.cli.dseo, needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: seo-strategist, needs: [run], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}
