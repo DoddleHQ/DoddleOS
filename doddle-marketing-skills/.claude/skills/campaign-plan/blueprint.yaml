@@ -1,0 +1,22 @@
+id: doddle.marketing.campaign-plan
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+domains: [agency, smb]
+description: "Orchestrate a campaign: lock the intake protocol, pull baseline data, split work into parallel jobs with owners and dependencies"
+inputs:
+  - {name: context, type: string, required: true, description: "Raw problem or goal, in the user's words; ask if missing"}
+  - {name: brief, type: string, required: false, description: "Existing intake protocol; skips the intake sub-graph when provided"}
+  - {name: channels, type: string, required: false, description: "Channels in scope; propose from brief if missing"}
+  - {name: budget, type: string, required: false, description: "Total budget ballpark; ask if missing"}
+outputs:
+  - {name: job_map, type: json, description: "Jobs split by wave with owner, skill ref, and dependencies"}
+  - {name: orchestration_notes, type: markdown, description: "Sequencing rationale, risks, and handoffs for the PM"}
+tools: []
+integrations: []
+nodes:
+  - {id: intake, type: call, ref: doddle.marketing.marketing-intake, needs: [inputs], produces: [brief_data], inputs: {context: $context}}
+  - {id: baseline, type: call, ref: doddle.marketing.analytics-attribution, needs: [inputs], produces: [attribution_data], inputs: {context: $context}}
+  - {id: decompose, type: agent, ref: planner, needs: [intake, baseline], produces: [job_map]}
+  - {id: coordinate, type: agent, ref: project-manager, needs: [decompose], produces: [orchestration_notes]}
+on_fail: {retry: 1, fallback: manual_review}

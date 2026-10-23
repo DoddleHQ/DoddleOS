@@ -1,0 +1,26 @@
+id: doddle.marketing.measurement-plan
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+domains: [agency, smb]
+description: "Pre-launch KPI targets, UTM/event taxonomy, tracking plan, and decision rules that feed the measurement loop"
+inputs:
+  - {name: brief, type: string, required: true, description: "Campaign brief with goal and channels; ask if missing"}
+  - {name: channels, type: string, required: false, description: "Channels in scope; infer from brief if missing"}
+  - {name: sales_cycle, type: string, required: false, description: "Sales cycle length; default per GTM motion"}
+outputs:
+  - {name: kpi_targets, type: json, description: "Metric, definition, baseline, target, and tool binding per KPI"}
+  - {name: tracking_plan, type: markdown, description: "UTM taxonomy, event taxonomy, dataLayer/GTM structure, reporting cadence"}
+  - {name: decisions, type: markdown, description: "Pre-agreed decision rules: if metric X is below target by week N, take action Y"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [measurement_assessment]}
+  - {id: baseline, type: tool, ref: doddle.tool.v1.ga4.getReport, needs: [assess], produces: [baseline_data]}
+  - {id: targets, type: agent, ref: planner, needs: [baseline], produces: [kpi_targets]}
+  - {id: tracking, type: agent, ref: researcher, needs: [targets], produces: [tracking_plan, decisions]}
+on_fail: {retry: 1, fallback: manual_review}

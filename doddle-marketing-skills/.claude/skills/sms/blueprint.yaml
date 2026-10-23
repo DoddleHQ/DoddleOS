@@ -1,5 +1,5 @@
 id: doddle.marketing.sms
-version: 1.5.1
+version: 1.6.0
 kind: skill
 engine: doddle-os>=1.0
 description: "Plan SMS campaigns, flows, and compliant lifecycle messages"
@@ -20,4 +20,5 @@ nodes:
   - {id: draft, type: agent, ref: copywriter, needs: [brief], produces: [draft]}
   - {id: review, type: agent, ref: brand-voice-guardian, needs: [draft], produces: [reviewed_draft]}
   - {id: finalize, type: agent, ref: copywriter, needs: [review], produces: [draft, variants]}
+  - {id: approve_copy, type: gate, needs: [finalize], produces: [decision], approvers: [owner], timeout_s: 3600, on_approve: proceed, on_reject: revise}
 on_fail: {retry: 1, fallback: manual_review}

@@ -139,6 +139,8 @@ We keep all important docs in `./docs` folder and keep updating them, structure 
 
 ### Campaign Management
 - `/campaign:plan` - Create comprehensive campaign plan
+- `/campaign:run` - Run full pipeline: intake → approve gate → distribution (NEW)
+- `/campaign:reallocate` - Reallocate budget via measurement decision rules (NEW)
 - `/campaign:brief` - Generate creative brief
 - `/campaign:analyze` - Analyze campaign performance
 - `/campaign:calendar` - Generate content calendar

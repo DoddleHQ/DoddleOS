@@ -1,0 +1,20 @@
+id: doddle.marketing.page-build-spec
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+domains: [enterprise]
+description: "Translate approved landing page copy and design into a developer-ready build spec with section map, events, and responsive rules"
+inputs:
+  - {name: draft, type: string, required: true, description: "Approved page copy (copywriting output) or existing page; ask if missing"}
+  - {name: art_direction, type: string, required: false, description: "Creative-direction output: visual rules"}
+  - {name: tracking, type: string, required: false, description: "Measurement-plan outputs: UTMs and events the page must fire"}
+outputs:
+  - {name: build_spec, type: markdown, description: "Section-by-section build spec for a developer or site agent"}
+  - {name: section_map, type: json, description: "Machine-readable section map: component types, content slots, event bindings"}
+  - {name: spec_review, type: markdown, description: "CRO pass: conversion elements, load order, mobile rules"}
+tools: []
+integrations: []
+nodes:
+  - {id: structure, type: agent, ref: planner, needs: [inputs], produces: [build_spec, section_map]}
+  - {id: verify, type: agent, ref: conversion-optimizer, needs: [structure], produces: [spec_review]}
+on_fail: {retry: 1, fallback: manual_review}

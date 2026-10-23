@@ -1,7 +1,7 @@
 ---
 name: conversion-copywriting
 id: doddle.marketing.conversion-copywriting
-version: 1.5.1
+version: 1.6.0
 blueprint: ./blueprint.yaml
 description: When the user wants to write or improve high-converting copy for landing pages, ads, emails, or sales pages. Also use when the user mentions "conversion copy," "sales copy," "persuasive copy," "high-converting headlines," "CTA copy," "sales page copy," or "copy that converts." For general copywriting, see copywriting.
 ---

@@ -1,7 +1,7 @@
 ---
 name: image
 id: doddle.marketing.image
-version: 1.5.1
+version: 1.6.0
 blueprint: ./blueprint.yaml
 description: When the user wants to create, generate, edit, or optimize images for marketing — blog heroes, social graphics, product screenshots, thumbnails, or ad creatives. Also use when the user mentions "image creation," "graphic design," "AI images," "thumbnails," or "marketing visuals."
 ---

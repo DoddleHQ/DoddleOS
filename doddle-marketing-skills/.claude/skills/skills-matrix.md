@@ -12,6 +12,7 @@ This file maps relationships between skills, helping identify which skills work 
 | **Retention** | onboarding-cro, paywall-upgrade-cro, referral-program | Customer success |
 | **Brand** | brand-building, marketing-psychology, copywriting | Brand equity |
 | **Research** | marketing-fundamentals, marketing-ideas, competitor-alternatives | Market intelligence |
+| **Campaign Pipeline** | marketing-intake, campaign-plan, measurement-plan, budget-allocator, media-reallocator, creative-direction, ugc-creator, page-build-spec, claims-review | End-to-end campaign orchestration |
 
 ## Dependency Map
 
@@ -70,6 +71,24 @@ paid-advertising
 └── analytics-attribution (performance tracking)
 
 MCP Tools: meta-ads, google-ads (if available)
+```
+
+### Campaign Pipeline Ecosystem (DoddleOS v2 blueprints)
+```
+marketing-intake ─ brief protocol (brief_schema.json)
+├── campaign-plan → call: marketing-intake + call: analytics-attribution → job_map
+├── measurement-plan → KPI targets + UTM/event taxonomy + decision rules
+├── budget-allocator → channel splits + CAC/LTV scenarios
+├── creative-direction → concept + art direction (feeds copy/image/video/social)
+├── [generate assets] → copywriting, email-sequence, social-media, video-marketing, image,
+│                      sms, page-build-spec, ugc-creator (claims route to claims-review)
+├── approval gate ──── type: gate (approve_copy / approve_content) in every creative blueprint;
+│                      checklist command: /checklist:content-approval
+├── [distribute] → crosspost.publish / hubspot / meta-ads (per MCP availability)
+└── media-reallocator → executes decision rules vs actuals → reallocation_plan
+
+Commands: /campaign:run (Stage 0-8), /campaign:reallocate (review cycle)
+Domains: pipeline skills tagged [agency, smb] / [agency] / [enterprise] for router disambiguation
 ```
 
 ### Add-on Pack Ecosystems (DoddleOS v2 blueprints)

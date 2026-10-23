@@ -80,7 +80,7 @@ Spawn multiple agents simultaneously for independent tasks:
 
 ### MOFU (Middle of Funnel) - Consideration
 **Primary:** `lead-qualifier`, `email-wizard`
-**Supporting:** `copywriter`, `ui-ux-designer`
+**Supporting:** `copywriter`, `planner`
 **Focus:** Lead magnets, email nurtures, webinars
 
 ### BOFU (Bottom of Funnel) - Decision

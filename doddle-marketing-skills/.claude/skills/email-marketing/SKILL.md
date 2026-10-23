@@ -1,7 +1,7 @@
 ---
 name: email-marketing
 id: doddle.marketing.email-marketing
-version: 1.5.1
+version: 1.6.0
 blueprint: ./blueprint.yaml
 description: Email campaign strategy, automation, and optimization. Use when creating email sequences, improving deliverability, designing automation workflows, or optimizing email performance.
 ---

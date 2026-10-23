@@ -1,0 +1,20 @@
+id: doddle.marketing.claims-review
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+domains: [enterprise]
+description: "Audit campaign copy and creative for substantiated claims, prohibited language, disclosures, and compliance risks before the approval gate"
+inputs:
+  - {name: draft, type: string, required: true, description: "Copy or creative to review; ask if missing"}
+  - {name: category, type: string, required: false, description: "Regulated-vertical context (health, finance, etc.); infer if missing"}
+  - {name: claims, type: string, required: false, description: "Approved claim list or evidence source; propose assumption list if missing"}
+outputs:
+  - {name: claims_matrix, type: json, description: "Every significant claim: text, status (substantiated/assumed/prohibited), evidence, fix"}
+  - {name: review_notes, type: markdown, description: "Compliance review notes: required disclosures, wording fixes, red flags"}
+tools: []
+integrations: []
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [claims_assessment]}
+  - {id: matrix, type: agent, ref: researcher, needs: [assess], produces: [claims_matrix]}
+  - {id: verify, type: agent, ref: project-manager, needs: [matrix], produces: [review_notes]}
+on_fail: {retry: 1, fallback: manual_review}

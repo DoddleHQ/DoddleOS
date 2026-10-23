@@ -1,7 +1,7 @@
 ---
 name: video-marketing
 id: doddle.marketing.video-marketing
-version: 1.5.1
+version: 1.6.0
 blueprint: ./blueprint.yaml
 description: When the user wants to create, optimize, or distribute video content for marketing purposes. Also use when the user mentions "video marketing," "YouTube strategy," "TikTok marketing," "short-form video," "video ads," "video content," "webinar," or "live streaming." For social media video specifically, see social-media.
 ---

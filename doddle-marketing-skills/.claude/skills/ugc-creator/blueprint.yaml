@@ -1,0 +1,21 @@
+id: doddle.marketing.ugc-creator
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+domains: [agency]
+description: "Design a creator/UGC pipeline: creator briefs, content prompts, shot lists, usage rights, and review flow"
+inputs:
+  - {name: brief, type: string, required: true, description: "Product, goal, and campaign context; ask if missing"}
+  - {name: platforms, type: string, required: false, description: "Platforms where UGC will publish; infer from brief if missing"}
+  - {name: constraints, type: string, required: false, description: "Do-say/avoid lists, claims limits, disclosure rules"}
+outputs:
+  - {name: creator_brief, type: markdown, description: "Creator-facing brief: product hooks, talking points, what to shoot"}
+  - {name: content_prompts, type: json, description: "Machine-readable shot lists and prompt variants per platform"}
+  - {name: usage_rights, type: markdown, description: "Rights checklist: releases, disclosure, usage windows, approval flow"}
+tools: []
+integrations: []
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [ugc_assessment]}
+  - {id: architect, type: agent, ref: planner, needs: [assess], produces: [creator_brief, content_prompts]}
+  - {id: compliance, type: agent, ref: researcher, needs: [architect], produces: [usage_rights]}
+on_fail: {retry: 1, fallback: manual_review}

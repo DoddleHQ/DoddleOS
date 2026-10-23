@@ -1,5 +1,5 @@
 id: doddle.marketing.image
-version: 1.5.1
+version: 1.6.0
 kind: skill
 engine: doddle-os>=1.0
 description: "When the user wants to create, generate, edit, or optimize images for marketing — blog heroes, social graphics, product screenshots, thumbnails, or ad creatives."
@@ -19,6 +19,7 @@ integrations:
 nodes:
   - {id: brief, type: agent, ref: copywriter, needs: [inputs], produces: [brief_doc]}
   - {id: create, type: agent, ref: copywriter, needs: [brief], produces: [plan, assets]}
-  - {id: distribute, type: tool, ref: doddle.tool.v1.crosspost.publish, needs: [create], produces: [distribution_receipt]}
+  - {id: approve_content, type: gate, needs: [create], produces: [decision], approvers: [owner], timeout_s: 3600, on_approve: proceed, on_reject: revise}
+  - {id: distribute, type: tool, ref: doddle.tool.v1.crosspost.publish, needs: [approve_content], produces: [distribution_receipt]}
   - {id: measure, type: agent, ref: conversion-optimizer, needs: [distribute], produces: [plan, assets]}
 on_fail: {retry: 1, fallback: manual_review}

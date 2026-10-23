@@ -1,0 +1,24 @@
+id: doddle.marketing.media-reallocator
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+domains: [agency, smb]
+description: "Reallocate in-flight budget between channels based on measured performance against pre-agreed decision rules"
+inputs:
+  - {name: budget_split, type: string, required: true, description: "Current allocations (budget-allocator output path or inline JSON); ask if missing"}
+  - {name: actuals, type: string, required: false, description: "Measured performance per channel; pull from MCP or ask"}
+  - {name: decision_rules, type: string, required: false, description: "Measurement-plan decision rules to execute as written"}
+outputs:
+  - {name: reallocation_plan, type: json, description: "Moves: from-channel, to-channel, amount, trigger, projected impact"}
+  - {name: reallocation_notes, type: markdown, description: "Rationale, rules executed, assumptions, execution steps"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [performance_assessment]}
+  - {id: decide, type: agent, ref: planner, needs: [assess], produces: [reallocation_plan]}
+  - {id: verify, type: agent, ref: project-manager, needs: [decide], produces: [reallocation_notes]}
+on_fail: {retry: 1, fallback: manual_review}

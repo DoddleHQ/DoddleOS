@@ -1,0 +1,25 @@
+id: doddle.marketing.budget-allocator
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+domains: [agency, smb]
+description: "Allocate campaign budget across channels with CAC/LTV unit economics and scenario guardrails"
+inputs:
+  - {name: brief, type: string, required: true, description: "Campaign brief: goal, audience, channels; ask if missing"}
+  - {name: total_budget, type: number, required: true, description: "Total budget in account currency; ask if missing"}
+  - {name: price_or_acv, type: string, required: false, description: "Deal size or price band; propose assumption if missing"}
+outputs:
+  - {name: budget_split, type: json, description: "Channel allocations with rationale and expected CPA/ROAS"}
+  - {name: unit_economics, type: markdown, description: "CAC, LTV, payback, margin math and lean/base/stretch scenarios"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - hubspot
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [economics_assessment]}
+  - {id: model, type: agent, ref: planner, needs: [assess], produces: [budget_split, unit_economics]}
+  - {id: stress_test, type: agent, ref: researcher, needs: [model], produces: [assumptions]}
+  - {id: summary, type: agent, ref: project-manager, needs: [stress_test], produces: [allocation_summary]}
+on_fail: {retry: 1, fallback: manual_review}

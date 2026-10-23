@@ -1,0 +1,22 @@
+id: doddle.marketing.creative-direction
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+domains: [agency]
+description: "Set the creative concept, art direction, and asset hierarchy for a campaign before channel assets are produced"
+inputs:
+  - {name: brief, type: string, required: true, description: "Campaign brief with goal, audience, offer; ask if missing"}
+  - {name: channels, type: string, required: false, description: "Channels in scope; infer from brief if missing"}
+  - {name: voice, type: string, required: false, description: "Brand voice guidelines or docs path"}
+outputs:
+  - {name: creative_brief, type: markdown, description: "Concept system: big idea, message hierarchy, tone, do/don't rules"}
+  - {name: art_direction, type: markdown, description: "Visual direction: palette, layout patterns, asset specs per channel"}
+  - {name: creative_review, type: markdown, description: "Guardian pass: deviations from brand voice and fixes"}
+tools: []
+integrations: []
+nodes:
+  - {id: assess, type: agent, ref: brainstormer, needs: [inputs], produces: [concept_options]}
+  - {id: concept, type: agent, ref: planner, needs: [assess], produces: [creative_brief]}
+  - {id: direct, type: agent, ref: copywriter, needs: [concept], produces: [art_direction]}
+  - {id: guard, type: agent, ref: brand-voice-guardian, needs: [direct], produces: [creative_review]}
+on_fail: {retry: 1, fallback: manual_review}

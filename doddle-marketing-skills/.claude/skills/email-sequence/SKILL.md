@@ -1,7 +1,7 @@
 ---
 name: email-sequence
 id: doddle.marketing.email-sequence
-version: 1.5.1
+version: 1.6.0
 blueprint: ./blueprint.yaml
 description: When the user wants to create or optimize an email sequence, drip campaign, automated email flow, or lifecycle email program. Also use when the user mentions "email sequence," "drip campaign," "nurture sequence," "onboarding emails," "welcome sequence," "re-engagement emails," "email automation," or "lifecycle emails." For in-app onboarding, see onboarding-cro.
 ---

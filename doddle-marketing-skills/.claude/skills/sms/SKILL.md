@@ -1,7 +1,7 @@
 ---
 name: sms
 id: doddle.marketing.sms
-version: 1.5.1
+version: 1.6.0
 blueprint: ./blueprint.yaml
 description: When the user wants to plan, build, or optimize SMS or MMS marketing — including welcome flows, abandoned cart texts, promotional blasts, and lifecycle messages. Also use when the user mentions "SMS marketing," "text message marketing," "SMS campaign," or "SMS automation."
 ---

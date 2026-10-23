@@ -1,6 +1,6 @@
 # Doddle Marketing OS
 
-> Independent marketing OS pack: 49 skills covering CRO, copy, SEO, growth, content, and analytics.
+> Independent marketing OS pack: 61 skills covering the campaign pipeline, CRO, copy, SEO, growth, content, and analytics.
 
 ## Overview
 
@@ -13,8 +13,9 @@ Independent OS pack for [DoddleOS](https://github.com/DoddleHQ/DoddleOS). Instal
 | Core | `marketing-fundamentals`, `marketing-psychology`, `marketing-ideas`, `seo-mastery`, `social-media`, `email-marketing`, `paid-advertising`, `content-strategy`, `analytics-attribution`, `brand-building`, `problem-solving` |
 | CRO | `page-cro`, `form-cro`, `popup-cro`, `signup-flow-cro`, `onboarding-cro`, `paywall-upgrade-cro`, `ab-test-setup` |
 | Content & Copy | `copywriting`, `copy-editing`, `email-sequence`, `conversion-copywriting` |
-| SEO & Growth | `programmatic-seo`, `schema-markup`, `competitor-alternatives`, `launch-strategy`, `pricing-strategy`, `referral-program`, `free-tool-strategy` |
-| Specialized | `ai-seo`, `aso`, `churn-prevention`, `cold-email`, `community-building`, `customer-research`, `directory-submissions`, `events`, `image`, `influencer-marketing`, `lead-magnets`, `marketing-loops`, `offers`, `partnerships`, `product-led-growth`, `product-marketing`, `public-relations`, `revops`, `sms`, `video-marketing`, `document-skills` |
+| SEO & Growth | `programmatic-seo`, `schema-markup`, `competitor-alternatives`, `launch-strategy`, `pricing-strategy`, `referral-program`, `free-tool-strategy`, `digital-pr`, `gsc-reporting`, `internal-linking` |
+| Campaign Pipeline | `marketing-intake`, `campaign-plan`, `measurement-plan`, `budget-allocator`, `media-reallocator`, `creative-direction`, `ugc-creator`, `page-build-spec`, `claims-review`, `revops` |
+| Specialized | `ai-seo`, `aso`, `churn-prevention`, `cold-email`, `community-building`, `customer-research`, `directory-submissions`, `events`, `image`, `influencer-marketing`, `lead-magnets`, `marketing-loops`, `offers`, `partnerships`, `product-led-growth`, `product-marketing`, `public-relations`, `sms`, `video-marketing`, `document-skills` (docx/pdf/pptx/xlsx) |
 
 ## Installation
 

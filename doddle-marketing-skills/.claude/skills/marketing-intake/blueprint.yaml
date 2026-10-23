@@ -1,0 +1,24 @@
+id: doddle.marketing.marketing-intake
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+domains: [agency, smb]
+description: "Turn a raw business problem or campaign request into an executable brief protocol with goal, offer, constraints, budget, timeline, and KPI targets"
+inputs:
+  - {name: context, type: string, required: true, description: "Raw problem, request, or client situation in the user's words; ask if missing"}
+  - {name: product, type: string, required: false, description: "Product or service being marketed; infer from context if missing"}
+  - {name: audience, type: string, required: false, description: "Target audience or segment; infer from context if missing"}
+  - {name: offer, type: string, required: false, description: "Offer, price, or ask; propose from context if missing"}
+  - {name: budget, type: string, required: false, description: "Budget range in account currency; ask if missing"}
+  - {name: timeline, type: string, required: false, description: "Start, end, or key dates; ask if missing"}
+  - {name: kpi_targets, type: string, required: false, description: "Success metrics and targets; propose from context if missing"}
+outputs:
+  - {name: brief, type: markdown, description: "Written intake protocol: goal, offer, constraints, success definition"}
+  - {name: brief_schema, type: json, description: "Machine-readable protocol for downstream DAG nodes"}
+tools: []
+integrations: []
+nodes:
+  - {id: assess, type: agent, ref: project-manager, needs: [inputs], produces: [intake_assessment]}
+  - {id: structure, type: agent, ref: planner, needs: [assess], produces: [brief, brief_schema]}
+  - {id: verify, type: agent, ref: project-manager, needs: [structure], produces: [completeness_check]}
+on_fail: {retry: 1, fallback: manual_review}

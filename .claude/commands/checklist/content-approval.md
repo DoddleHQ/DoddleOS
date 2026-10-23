@@ -129,6 +129,8 @@ argument-hint: [content-type] [approvers]
 |------|-------|---------|
 | Content creation | `copywriter` | Draft stage |
 | SEO review | `attraction-specialist` | Optimization |
+| Brand voice check | `brand-voice-guardian` | Gate review |
+| CRO check | `conversion-optimizer` | Gate review (conversion content) |
 | Quality check | `researcher` | Fact verification |
 | Final polish | `copywriter` | Revisions |
 
@@ -198,7 +200,22 @@ Draft → Review → Revisions → Approval → Publish
 ### Stage 4: Final Approval
 - [ ] All feedback addressed
 - [ ] Quality standards met
+- [ ] Tracking references claimed (UTMs, event names from the campaign measurement plan)
 - [ ] Ready for publication
+
+---
+
+## Blueprint Gate Alignment
+
+Creative skills in this pack end with an approval gate node (`type: gate`, `approvers: [owner]`, `on_approve: proceed`, `on_reject: revise`). When content comes from a Doddle blueprint run, this command fills the reviewer role of that gate:
+
+| Skill | Gate id | Pre-gate reviewer agent |
+|-------|---------|--------------------------|
+| copywriting / conversion-copywriting | `approve_copy` | `brand-voice-guardian` or `conversion-optimizer` |
+| email-sequence / email-marketing / sms | `approve_copy` | `brand-voice-guardian` |
+| social-media / video-marketing / image | `approve_content` | `copywriter` + reviewer pair |
+
+Gate rules: nothing distributes before approval; rejected assets loop back to the creating agent with user notes (max 2 rounds); approval decisions are logged per asset.
 
 ---
 
