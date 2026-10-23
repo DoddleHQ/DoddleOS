@@ -1,0 +1,22 @@
+id: doddle.agency.proposals
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+domains: [agency]
+description: "Write winning agency proposals and SOWs: scope, approach, pricing presentation, timelines, risk clauses, and follow-up"
+inputs:
+  - {name: brief, type: string, required: true, description: "Client context, project scope, decision criteria, budget; ask if missing"}
+  - {name: pricing, type: string, required: false, description: "Rate card or pricing model from agency-pricing; propose assumption if missing"}
+  - {name: portfolio, type: string, required: false, description: "Relevant case studies or past work to cite"}
+outputs:
+  - {name: proposal, type: markdown, description: "Client-facing proposal: approach, timeline, pricing, terms"}
+  - {name: scope_of_work, type: markdown, description: "SOW: deliverables, milestones, responsibilities, exclusions"}
+  - {name: pricing_options, type: json, description: "Pricing tiers or options presented with value framing"}
+tools: []
+integrations: []
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [client_assessment]}
+  - {id: structure, type: agent, ref: planner, needs: [assess], produces: [proposal_outline]}
+  - {id: write, type: agent, ref: copywriter, needs: [structure], produces: [proposal, scope_of_work, pricing_options]}
+  - {id: review, type: agent, ref: sales-enabler, needs: [write], produces: [winnability_check]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -10,8 +10,8 @@
   <img src="https://img.shields.io/badge/Claude_Code%20|%20Cursor%20|%20Copilot-Compatible-blueviolet" alt="AI Assistants">
   <br>
   <img src="https://img.shields.io/badge/Agents-20-green" alt="Agents">
-  <img src="https://img.shields.io/badge/Commands-220-orange" alt="Commands">
-  <img src="https://img.shields.io/badge/Skills-182-blue" alt="Skills">
+  <img src="https://img.shields.io/badge/Commands-222-orange" alt="Commands">
+  <img src="https://img.shields.io/badge/Skills-186-blue" alt="Skills">
 </p>
 
 <p align="center">
@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  Validated graph blueprints (SKILL.md + blueprint.yaml) executed as agent/tool DAGs: 182 skills across 18 independent peer packs — marketing, GTM, travel, devops, affiliate, ecom, local, SaaS, health, legal, finance, and more. Each pack installs and runs standalone; cross-pack binding via blueprint call nodes. The harness spec in <code>doddle-core/spec/</code> is draft — no runner ships in this repo; execution lives in the host assistant or a future runtime.
+  Validated graph blueprints (SKILL.md + blueprint.yaml) executed as agent/tool DAGs: 186 skills across 19 independent peer packs — marketing, agency, GTM, travel, devops, affiliate, ecom, local, SaaS, health, legal, finance, and more. Each pack installs and runs standalone; cross-pack binding via blueprint call nodes. The harness spec in <code>doddle-core/spec/</code> is draft — no runner ships in this repo; execution lives in the host assistant or a future runtime.
 </p>
 
 <p align="center">
@@ -63,7 +63,7 @@ doddleOS-marketing/
 |   |   |-- growth/      # /growth:launch, /growth:referral, /growth:free-tool
 |   |   |-- ...and more
 |   |
-|   |-- skills/          # moved → doddle-marketing-skills/ (independent peer pack, 62 skills)
+|   |-- skills/          # moved → doddle-marketing-skills/ (independent peer pack, 61 skills)
 |   |
 |   |-- workflows/       # Core marketing workflows
 |       |-- primary-workflow.md         # Campaign lifecycle
@@ -230,7 +230,8 @@ cp -r doddleOS-marketing/.claude/workflows/* ~/.claude/workflows/
 
 | Pack | Skills | IDs | Commands |
 |------|--------|-----|----------|
-| Doddle Marketing OS (`doddle-marketing-skills/`) | CRO, copy, SEO, growth, content, analytics, campaign pipeline, agency marketing (62) | `doddle.marketing.*` v1.6.0 | `/campaign:*`, `/content:*`, `/seo:*`, `/cro:*`, `/growth:*`, `/marketing:*` |
+| Doddle Marketing OS (`doddle-marketing-skills/`) | CRO, copy, SEO, growth, content, analytics, campaign pipeline (61) | `doddle.marketing.*` v1.6.0 | `/campaign:*`, `/content:*`, `/seo:*`, `/cro:*`, `/growth:*`, `/marketing:*` |
+| Doddle Agency OS (`doddle-agency-skills/`) | agency website marketing, proposals, pricing, client onboarding, reporting (5) | `doddle.agency.*` v1.0.0 | skills-first pack (client lifecycle: Market → Propose → Price → Onboard → Report) |
 | Doddle GTM OS (`doddle-gtm-skills/`) | strategy, ABM, win-loss, playbook, channel, advocacy + icp, messaging, pricing, launch, enablement, plg, intl, compete (14) | `doddle.gtm.*` v1.2.0 | `/gtm:icp`, `/gtm:messaging`, `/gtm:pricing`, `/gtm:launch`, `/gtm:enablement` |
 | Doddle Travel OS (`doddle-travel-skills/`) | search, itinerary, booking, support, reviews + growth (6) | `doddle.travel.*` v1.1.0 | `/travel:growth` (+ `/travel:search`, `/travel:itinerary`, `/travel:booking`, `/travel:support`, `/travel:reviews` planned) |
 | Doddle Affiliate OS (`doddle-affiliate-skills/`) | niche, keywords, content, links, revenue (5) | `doddle.affiliate.*` v1.0.0 | `/affiliate:niche`, `/affiliate:keywords`, `/affiliate:content`, `/affiliate:links`, `/affiliate:revenue` |

@@ -1,6 +1,6 @@
 ---
 name: agency-marketing
-id: doddle.marketing.agency-marketing
+id: doddle.agency.marketing
 version: 1.0.0
 blueprint: ./blueprint.yaml
 description: When the user wants to market their agency's own website — a marketing agency, software dev agency, AI consulting agency, or any consulting business. Also use when the user mentions "agency website," "services page," "case studies," "agency positioning," "agency homepage," "why clients choose us," "agency marketing," or "our website doesn't convert." Produces positioning, site copy, and a page-by-page site map with booking CTAs.

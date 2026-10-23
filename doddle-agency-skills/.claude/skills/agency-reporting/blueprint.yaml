@@ -1,0 +1,24 @@
+id: doddle.agency.reporting
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+domains: [agency]
+description: "Client reporting for agencies: monthly reports, KPI dashboards, ROI proof, QBR preparation, and retention-ready narratives"
+inputs:
+  - {name: brief, type: string, required: true, description: "Engagement scope, KPIs, reporting period; ask if missing"}
+  - {name: data, type: string, required: false, description: "Actual performance data; pull via MCP or ask"}
+outputs:
+  - {name: report, type: markdown, description: "Client-ready report: results vs targets, highlights, blockers, next steps"}
+  - {name: kpi_summary, type: json, description: "Machine-readable KPI rollup: metric, target, actual, delta, status"}
+  - {name: recommendations, type: markdown, description: "Prioritized recommendations with impact estimates for the next period"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - hubspot
+nodes:
+  - {id: gather, type: agent, ref: researcher, needs: [inputs], produces: [data_assessment]}
+  - {id: compile, type: agent, ref: researcher, needs: [gather], produces: [kpi_summary]}
+  - {id: write, type: agent, ref: copywriter, needs: [compile], produces: [report, recommendations]}
+on_fail: {retry: 1, fallback: manual_review}

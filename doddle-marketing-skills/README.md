@@ -1,10 +1,10 @@
 # Doddle Marketing OS
 
-> Independent marketing OS pack: 62 skills covering the campaign pipeline, CRO, copy, SEO, growth, content, and analytics.
+> Independent marketing OS pack: 61 skills covering the campaign pipeline, CRO, copy, SEO, growth, content, and analytics.
 
 ## Overview
 
-Independent OS pack for [DoddleOS](https://github.com/DoddleHQ/DoddleOS). Installs and runs standalone. One of 17 peer packs (marketing + devops + 15 other OS packs). Cross-pack binding only via blueprint `call` nodes where noted.
+Independent OS pack for [DoddleOS](https://github.com/DoddleHQ/DoddleOS). Installs and runs standalone. One of 19 peer packs (marketing + devops + 17 other OS packs). Cross-pack binding only via blueprint `call` nodes where noted.
 
 ## Skills Included
 
@@ -15,7 +15,6 @@ Independent OS pack for [DoddleOS](https://github.com/DoddleHQ/DoddleOS). Instal
 | Content & Copy | `copywriting`, `copy-editing`, `email-sequence`, `conversion-copywriting` |
 | SEO & Growth | `programmatic-seo`, `schema-markup`, `competitor-alternatives`, `launch-strategy`, `pricing-strategy`, `referral-program`, `free-tool-strategy`, `digital-pr`, `gsc-reporting`, `internal-linking` |
 | Campaign Pipeline | `marketing-intake`, `campaign-plan`, `measurement-plan`, `budget-allocator`, `media-reallocator`, `creative-direction`, `ugc-creator`, `page-build-spec`, `claims-review`, `revops` |
-| Agency Marketing | `agency-marketing` |
 | Specialized | `ai-seo`, `aso`, `churn-prevention`, `cold-email`, `community-building`, `customer-research`, `directory-submissions`, `events`, `image`, `influencer-marketing`, `lead-magnets`, `marketing-loops`, `offers`, `partnerships`, `product-led-growth`, `product-marketing`, `public-relations`, `sms`, `video-marketing`, `document-skills` (docx/pdf/pptx/xlsx) |
 
 ## Installation

@@ -1,4 +1,4 @@
-id: doddle.marketing.agency-marketing
+id: doddle.agency.marketing
 version: 1.0.0
 kind: skill
 engine: doddle-os>=1.0

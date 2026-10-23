@@ -86,7 +86,13 @@ Activate relevant skills during tasks:
 - `copywriting` - Marketing page copy, headlines, CTAs (NEW)
 - `copy-editing` - Edit and polish existing marketing copy (NEW)
 - `email-sequence` - Drip campaigns, nurture sequences (NEW)
+
+### Agency Business Skills (Doddle Agency OS pack)
 - `agency-marketing` - Agency's own website: positioning, services copy, case studies, proof (NEW)
+- `agency-proposals` - Winning proposals & SOWs: approach, scope, pricing, terms (NEW)
+- `agency-pricing` - Pricing models, rate cards, margin analysis, scenarios (NEW)
+- `agency-client-onboarding` - Kickoff, access checklists, cadence, first-30-days plan (NEW)
+- `agency-reporting` - Client reports, KPI rollups, ROI proof, QBR prep (NEW)
 
 ### SEO & Growth Skills
 - `programmatic-seo` - Template pages at scale (NEW)

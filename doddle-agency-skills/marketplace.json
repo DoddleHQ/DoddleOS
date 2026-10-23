@@ -1,0 +1,43 @@
+{
+  "name": "doddle-agency-skills",
+  "owner": {
+    "name": "Doddle Team",
+    "email": "contact@doddlehq.com",
+    "url": "https://doddlehq.com"
+  },
+  "metadata": {
+    "description": "Doddle Agency OS \u2014 agency-business skills: own-website marketing, proposals, pricing, client onboarding, and reporting",
+    "version": "1.0.0",
+    "updatedAt": "2026-10-23"
+  },
+  "plugins": [
+    {
+      "name": "doddle-agency-skills",
+      "source": "./",
+      "description": "Doddle Agency OS: 5 skills covering the agency client lifecycle — Market, Propose, Price, Onboard, Report",
+      "author": {
+        "name": "Doddle Team"
+      },
+      "homepage": "https://doddlehq.com",
+      "repository": "https://github.com/DoddleHQ/DoddleOS",
+      "documentation": "https://docs.doddlehq.com",
+      "license": "MIT",
+      "keywords": [
+        "agency",
+        "consulting",
+        "proposals",
+        "pricing",
+        "onboarding",
+        "reporting"
+      ],
+      "category": "agency",
+      "tags": [
+        "agency",
+        "business",
+        "client-lifecycle"
+      ],
+      "featured": true,
+      "verified": true
+    }
+  ]
+}

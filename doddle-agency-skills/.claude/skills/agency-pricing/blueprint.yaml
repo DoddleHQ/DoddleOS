@@ -1,0 +1,20 @@
+id: doddle.agency.pricing
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+domains: [agency]
+description: "Select agency pricing models, build rate cards, and analyze margins: retainer vs project vs value-based, rate structure, and scenario planning"
+inputs:
+  - {name: brief, type: string, required: true, description: "Services offered, delivery costs, market position, target clients; ask if missing"}
+  - {name: financials, type: string, required: false, description: "Cost base, current margins, historical rate data; propose assumption if missing"}
+outputs:
+  - {name: pricing_model, type: markdown, description: "Recommended pricing model with rationale, guardrails, and transitions"}
+  - {name: rate_card, type: json, description: "Machine-readable rate card: roles, rates, tiers, minimums"}
+  - {name: margin_analysis, type: markdown, description: "Margin math, break-even, scenarios (lean/base/stretch), pricing risks"}
+tools: []
+integrations: []
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [pricing_assessment]}
+  - {id: model, type: agent, ref: planner, needs: [assess], produces: [pricing_model, rate_card]}
+  - {id: analyze, type: agent, ref: researcher, needs: [model], produces: [margin_analysis]}
+on_fail: {retry: 1, fallback: manual_review}

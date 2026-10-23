@@ -7,7 +7,7 @@
       "source": "./doddle-marketing-skills/.claude/skills",
       "ids": "doddle.marketing.*",
       "version": "1.6.0",
-      "skills": 62,
+      "skills": 61,
       "os": "Doddle Marketing OS"
     },
     {
@@ -145,6 +145,14 @@
       "version": "1.0.0",
       "skills": 10,
       "os": "Doddle DevOps OS"
+    },
+    {
+      "name": "doddle-agency-skills",
+      "source": "./doddle-agency-skills/.claude/skills",
+      "ids": "doddle.agency.*",
+      "version": "1.0.0",
+      "skills": 5,
+      "os": "Doddle Agency OS"
     }
   ]
 }

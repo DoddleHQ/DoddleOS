@@ -13,7 +13,6 @@ This file maps relationships between skills, helping identify which skills work 
 | **Brand** | brand-building, marketing-psychology, copywriting | Brand equity |
 | **Research** | marketing-fundamentals, marketing-ideas, competitor-alternatives | Market intelligence |
 | **Campaign Pipeline** | marketing-intake, campaign-plan, measurement-plan, budget-allocator, media-reallocator, creative-direction, ugc-creator, page-build-spec, claims-review | End-to-end campaign orchestration |
-| **Agency Marketing** | agency-marketing | Agency's own website: positioning, services copy, case studies, proof |
 
 ## Dependency Map
 
