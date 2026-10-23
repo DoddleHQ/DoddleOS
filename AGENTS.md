@@ -46,4 +46,4 @@ Before doing a task in any covered domain:
 ## What does NOT exist yet
 
 - No blueprint runner/harness (spec is draft at `doddle-core/spec/harness*.md`). Graphs execute only by you following them.
-- Stub skills are marked `status: stub` in their blueprint — they need live API keys; treat their outputs as templates requiring MCP setup.
+- **Stub MCP integrations** (`google-business-profile`, `stripe`, `sensortower`, `zalo`): config reserved, server/API keys pending (`doddle-core/registry/integrations/_registry.md`). Skills bind their tool ids with `required: false` / `fallback: manual_review` and show `⚠️ NOT AVAILABLE` until promoted — outputs are templates requiring setup, not live data.
