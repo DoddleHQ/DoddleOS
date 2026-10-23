@@ -45,6 +45,10 @@ Self-contained copies. No cross-pack agent refs: `researcher`, `planner`, `copyw
 
 Peer packs bind via blueprint `call` nodes (`type: call`, `ref: doddle.<domain>.<skill>`). No install dependency on any other pack. Kernel only: `doddle-core` spec v2 + `doddle.tool.v1` tools.
 
+**Recommended companion packs** (segment guidance in the skills points to these):
+- Local agencies → `doddle-local-skills` (GBP, reviews, location pages)
+- National/procurement agencies → `doddle-b2b-skills` (RFP/security reviews, QBR, negotiation)
+
 ## Validate
 
 ```bash
