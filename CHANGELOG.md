@@ -1,3 +1,10 @@
+## [1.10.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.9.0...v1.10.0) (2026-10-23)
+
+
+### 🚀 Features
+
+* **agency:** regions dimension on all 5 skills + segment guidance + pack cross-links ([d29211a](https://github.com/DoddleHQ/DoddleOS/commit/d29211ab370228334951606f8d4421fc04415d20))
+
 ## [1.9.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.8.0...v1.9.0) (2026-10-23)
 
 
