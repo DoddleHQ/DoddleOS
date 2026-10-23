@@ -1,3 +1,17 @@
+## [1.11.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.10.0...v1.11.0) (2026-10-23)
+
+
+### 🚀 Features
+
+* **gtm:** replace GTM pack with Doddle GTM OS v2.0.0 (32 skills, 7 agents, dgtm toolkit) ([f39cb0b](https://github.com/DoddleHQ/DoddleOS/commit/f39cb0b73530ecae38b11136b43c0bfcb1b398fb))
+
+
+### 📚 Documentation
+
+* **agency:** recommend companion packs for local and national segments ([16633f6](https://github.com/DoddleHQ/DoddleOS/commit/16633f6a518875d367fe06e477a42b568fa51c9b))
+* correct stubs in AGENTS.md — stubs are MCP integrations, not status: stub blueprints ([d6c42e9](https://github.com/DoddleHQ/DoddleOS/commit/d6c42e94c6a10a0e3a05cc4336f2b581ffadee0c))
+* root AGENTS.md — LLM-agnostic entry point for consuming DoddleOS from any workspace ([07ed6f8](https://github.com/DoddleHQ/DoddleOS/commit/07ed6f82dd21a64714436d91269ea62083d8137b))
+
 ## [1.10.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.9.0...v1.10.0) (2026-10-23)
 
 
