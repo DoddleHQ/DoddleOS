@@ -1,0 +1,23 @@
+id: doddle.gtm.gtm-metrics
+version: 0.2.0
+kind: skill
+engine: doddle-os>=1.0
+description: "revenue-analyst skill for metrics."
+inputs:
+  - {name: inputs, type: file, required: true, description: "Recorded inputs for the metrics set"}
+  - {name: window, type: string, required: false, description: "Reporting window"}
+outputs:
+  - {name: scorecard, type: markdown, description: "KPI scorecard"}
+  - {name: envelope, type: json, description: "Metric envelopes"}
+tools:
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+integrations:
+  - ga4
+  - hubspot
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["unit-economics"], needs: [inputs], produces: [envelope]}
+  - {id: run_2, type: tool, ref: doddle.tool.cli.dgtm, args: ["funnel"], needs: [run], produces: [envelope]}
+  - {id: narrate, type: agent, ref: revenue-analyst, needs: [run_2], produces: [scorecard]}
+on_fail: {retry: 1, fallback: manual_review}

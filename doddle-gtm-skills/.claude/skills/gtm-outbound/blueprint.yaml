@@ -1,0 +1,21 @@
+id: doddle.gtm.gtm-outbound
+version: 0.2.0
+kind: skill
+engine: doddle-os>=1.0
+description: "demand-gen-strategist skill for outbound."
+inputs:
+  - {name: icp, type: string, required: true, description: "Target profile"}
+  - {name: offer, type: string, required: true, description: "Value proposition to lead with"}
+  - {name: channels, type: string, required: false, description: "Outbound channels"}
+outputs:
+  - {name: sequences, type: markdown, description: "Outbound sequence plan and copy"}
+tools:
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.linkedin.ads, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.gong.calls, required: false, fallback: manual_review}
+integrations:
+  - linkedin
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["frameworks"], needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: demand-gen-strategist, needs: [run], produces: [sequences]}
+on_fail: {retry: 1, fallback: manual_review}

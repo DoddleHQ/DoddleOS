@@ -1,23 +1,19 @@
-id: doddle.gtm.channel
-version: 1.0.0
+id: doddle.gtm.gtm-channel
+version: 0.2.0
 kind: skill
 engine: doddle-os>=1.0
-description: "Design partner motion: tiers, enablement, deal reg, co-sell plays"
+description: "revenue-analyst skill for channel."
 inputs:
-  - {name: product_offer, type: string, required: true, description: "Offer and margin; ask if missing"}
-  - {name: partner_hint, type: string, required: false, description: "Candidate types; infer if missing"}
-  - {name: locale, type: string, required: false, description: "Market; default en-US"}
+  - {name: cac, type: number, required: true, description: "Channel acquisition cost assumption"}
+  - {name: arpa, type: number, required: true, description: "Average revenue per account, monthly"}
+  - {name: gross-margin, type: number, required: false, description: "Gross margin fraction"}
+  - {name: churn, type: number, required: false, description: "Monthly churn rate"}
 outputs:
-  - {name: report, type: markdown, description: "Tiers, kit, reg rules, co-sell plays"}
-  - {name: action_list, type: json, description: "Partner actions with owner and effort"}
+  - {name: analysis, type: markdown, description: "Channel economics analysis"}
+  - {name: envelope, type: json, description: "Unit-economics envelope"}
 tools:
-  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
-  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
-integrations:
-  - hubspot
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
 nodes:
-  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [assessment]}
-  - {id: enrich, type: tool, ref: doddle.tool.v1.hubspot.deals, needs: [assess], produces: [partner_data]}
-  - {id: recommend, type: agent, ref: sales-enabler, needs: [enrich], produces: [report]}
-  - {id: plan, type: agent, ref: planner, needs: [recommend], produces: [action_list]}
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["unit-economics"], needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: revenue-analyst, needs: [run], produces: [analysis]}
 on_fail: {retry: 1, fallback: manual_review}

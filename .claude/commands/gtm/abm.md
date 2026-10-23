@@ -1,8 +1,8 @@
 ---
-description: Run account-based motion for high-ACV segments
-argument-hint: [icp acv]
+description: Account-based marketing tiers and plays
+argument-hint: [accounts criteria]
 ---
 
-**Skills**: Activate `gtm-abm` (id `doddle.gtm.abm`).
+**Skills**: Activate `gtm-abm` (id `doddle.gtm.gtm-abm`).
 
-Collect `icp` (required), `account_source`, `acv`, `locale` if missing, then run skill per `doddle-gtm-skills/.claude/skills/gtm-abm/SKILL.md`.
+Collect `accounts` (required), `criteria` (required) if missing, then run skill per `doddle-gtm-skills/.claude/skills/gtm-abm/SKILL.md`.

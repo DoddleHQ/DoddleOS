@@ -1,0 +1,16 @@
+id: doddle.gtm.gtm-competitive
+version: 0.2.0
+kind: skill
+engine: doddle-os>=1.0
+description: "positioning-strategist skill for competitive."
+inputs:
+  - {name: competitors, type: string, required: true, description: "Competitors to analyse"}
+  - {name: evidence, type: file, required: false, description: "Win/loss or call notes if available"}
+outputs:
+  - {name: analysis, type: markdown, description: "Competitive landscape and positioning gaps"}
+tools:
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["frameworks"], needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: positioning-strategist, needs: [run], produces: [analysis]}
+on_fail: {retry: 1, fallback: manual_review}

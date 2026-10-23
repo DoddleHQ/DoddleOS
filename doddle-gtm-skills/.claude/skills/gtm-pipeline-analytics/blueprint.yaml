@@ -1,0 +1,23 @@
+id: doddle.gtm.gtm-pipeline-analytics
+version: 0.2.0
+kind: skill
+engine: doddle-os>=1.0
+description: "revenue-analyst skill for pipeline analytics."
+inputs:
+  - {name: export, type: file, required: true, description: "Deals/opportunities export (JSON or CSV)"}
+  - {name: segment, type: string, required: false, description: "Segment filter; defaults to SMB"}
+outputs:
+  - {name: report, type: markdown, description: "Pipeline audit report"}
+  - {name: envelope, type: json, description: "Audit envelope"}
+tools:
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.salesforce.opportunities, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - salesforce
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["audit"], needs: [inputs], produces: [envelope]}
+  - {id: run_2, type: tool, ref: doddle.tool.cli.dgtm, args: ["report"], needs: [run], produces: [envelope]}
+  - {id: narrate, type: agent, ref: revenue-analyst, needs: [run_2], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -1,0 +1,19 @@
+id: doddle.gtm.gtm-sales-narrative
+version: 0.2.0
+kind: skill
+engine: doddle-os>=1.0
+description: "enablement-lead skill for sales narrative."
+inputs:
+  - {name: positioning, type: string, required: true, description: "Positioning and value proposition"}
+  - {name: audience, type: string, required: false, description: "Who the narrative is for"}
+outputs:
+  - {name: narrative, type: markdown, description: "Sales narrative"}
+tools:
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.gong.calls, required: false, fallback: manual_review}
+integrations:
+  - gong
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["frameworks"], needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: enablement-lead, needs: [run], produces: [narrative]}
+on_fail: {retry: 1, fallback: manual_review}

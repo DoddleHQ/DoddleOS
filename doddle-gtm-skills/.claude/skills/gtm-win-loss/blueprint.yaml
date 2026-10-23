@@ -1,24 +1,22 @@
-id: doddle.gtm.win-loss
-version: 1.0.0
+id: doddle.gtm.gtm-win-loss
+version: 0.2.0
 kind: skill
 engine: doddle-os>=1.0
-description: "Build battlecards, run loss interviews, code reasons into fixes"
+description: "revenue-analyst skill for win loss."
 inputs:
-  - {name: competitor, type: string, required: true, description: "Rival name; ask if missing"}
-  - {name: product_offer, type: string, required: false, description: "Own offer and proof; infer if missing"}
-  - {name: locale, type: string, required: false, description: "Market; default en-US"}
+  - {name: export, type: file, required: true, description: "Closed-deal export (JSON or CSV)"}
+  - {name: interviews, type: file, required: false, description: "Win/loss interview notes"}
 outputs:
-  - {name: report, type: markdown, description: "Battlecard, traps, proof, interview script"}
-  - {name: action_list, type: json, description: "Fixes with owner and effort"}
+  - {name: analysis, type: markdown, description: "Win/loss analysis"}
+  - {name: envelope, type: json, description: "Audit envelope"}
 tools:
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.gong.calls, required: false, fallback: manual_review}
   - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
-  - {id: doddle.tool.v1.semrush.domainOverview, required: false, fallback: manual_review}
 integrations:
+  - gong
   - hubspot
-  - semrush
 nodes:
-  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [assessment]}
-  - {id: enrich, type: tool, ref: doddle.tool.v1.hubspot.deals, needs: [assess], produces: [deal_data]}
-  - {id: recommend, type: agent, ref: sales-enabler, needs: [enrich], produces: [report]}
-  - {id: plan, type: agent, ref: planner, needs: [recommend], produces: [action_list]}
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["audit"], needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: revenue-analyst, needs: [run], produces: [analysis]}
 on_fail: {retry: 1, fallback: manual_review}

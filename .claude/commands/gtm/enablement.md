@@ -1,8 +1,8 @@
 ---
-description: One brief to decks, one-pagers, battlecards, ramp
-argument-hint: [context goal]
+description: Enablement program and rep ramp
+argument-hint: [team]
 ---
 
-**Skills**: Activate `gtm-enablement` (id `doddle.gtm.enablement`).
+**Skills**: Activate `gtm-enablement` (id `doddle.gtm.gtm-enablement`).
 
-Collect `context` (required), `goal` if missing, then run skill per `doddle-gtm-skills/.claude/skills/gtm-enablement/SKILL.md`.
+Collect `team` (required), `gaps` if missing, then run skill per `doddle-gtm-skills/.claude/skills/gtm-enablement/SKILL.md`.

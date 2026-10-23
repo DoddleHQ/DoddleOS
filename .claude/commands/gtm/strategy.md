@@ -1,8 +1,8 @@
 ---
-description: Build go-to-market plan with ICP, message, channels, gates
-argument-hint: [product-offer icp-hint]
+description: Build go-to-market plan: ICP, message, channels, launch gates
+argument-hint: [objective]
 ---
 
-**Skills**: Activate `gtm-strategy` (id `doddle.gtm.strategy`).
+**Skills**: Activate `gtm-strategy` (id `doddle.gtm.gtm-strategy`).
 
-Collect `product_offer` (required), `icp_hint`, `acv`, `locale` if missing, then run skill per `doddle-gtm-skills/.claude/skills/gtm-strategy/SKILL.md`.
+Collect `objective` (required), `segment`, `inputs` if missing, then run skill per `doddle-gtm-skills/.claude/skills/gtm-strategy/SKILL.md`.

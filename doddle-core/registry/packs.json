@@ -118,8 +118,8 @@
       "name": "doddle-gtm-skills",
       "source": "./doddle-gtm-skills/.claude/skills",
       "ids": "doddle.gtm.*",
-      "version": "1.2.0",
-      "skills": 14,
+      "version": "2.0.0",
+      "skills": 32,
       "os": "Doddle GTM OS"
     },
     {

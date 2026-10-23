@@ -1,8 +1,8 @@
 ---
-description: Define ICP, tier TAM, map triggers
-argument-hint: [context goal]
+description: Scored ideal customer profile with weights and disqualifiers
+argument-hint: [criteria]
 ---
 
-**Skills**: Activate `gtm-icp` (id `doddle.gtm.icp`).
+**Skills**: Activate `gtm-icp` (id `doddle.gtm.gtm-icp`).
 
-Collect `context` (required), `goal` if missing, then run skill per `doddle-gtm-skills/.claude/skills/gtm-icp/SKILL.md`.
+Collect `criteria` (required), `accounts` if missing, then run skill per `doddle-gtm-skills/.claude/skills/gtm-icp/SKILL.md`.

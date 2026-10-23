@@ -1,0 +1,19 @@
+id: doddle.gtm.gtm-market-sizing
+version: 0.2.0
+kind: skill
+engine: doddle-os>=1.0
+description: "revenue-analyst skill for market sizing."
+inputs:
+  - {name: accounts, type: number, required: false, description: "Total addressable accounts (bottom-up)"}
+  - {name: acv, type: number, required: false, description: "Annual contract value assumption"}
+  - {name: sam-pct, type: number, required: false, description: "Serviceable share of TAM (assumption)"}
+  - {name: som-pct, type: number, required: false, description: "Obtainable share of SAM (assumption)"}
+outputs:
+  - {name: sizing, type: markdown, description: "TAM/SAM/SOM from the given inputs"}
+  - {name: envelope, type: json, description: "Sizing envelope"}
+tools:
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["size-market"], needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: revenue-analyst, needs: [run], produces: [sizing]}
+on_fail: {retry: 1, fallback: manual_review}

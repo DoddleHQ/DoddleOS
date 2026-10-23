@@ -1,0 +1,22 @@
+id: doddle.gtm.gtm-forecasting
+version: 0.2.0
+kind: skill
+engine: doddle-os>=1.0
+description: "revenue-analyst skill for forecasting."
+inputs:
+  - {name: export, type: file, required: true, description: "Deals/opportunities export (JSON or CSV)"}
+  - {name: stages, type: string, required: false, description: "Stage probabilities (assumptions)"}
+outputs:
+  - {name: forecast, type: markdown, description: "Forecast from recorded pipeline"}
+  - {name: envelope, type: json, description: "Audit envelope"}
+tools:
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.salesforce.opportunities, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - salesforce
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["audit"], needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: revenue-analyst, needs: [run], produces: [forecast]}
+on_fail: {retry: 1, fallback: manual_review}

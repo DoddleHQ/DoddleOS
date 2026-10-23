@@ -1,22 +1,21 @@
-id: doddle.gtm.enablement
-version: 1.0.0
+id: doddle.gtm.gtm-enablement
+version: 0.2.0
 kind: skill
 engine: doddle-os>=1.0
-description: "One brief to decks, one-pagers, battlecards, and rep ramp"
+description: "enablement-lead skill for enablement."
 inputs:
-  - {name: context, type: string, required: true, description: "Product, buyer, use case; ask if missing"}
-  - {name: goal, type: string, required: false, description: "Enablement goal"}
+  - {name: team, type: string, required: true, description: "Who is being enabled"}
+  - {name: gaps, type: string, required: false, description: "Known skill or knowledge gaps"}
 outputs:
-  - {name: asset_gap, type: markdown, description: "What reps send vs what exists"}
-  - {name: enablement_kit, type: json, description: "Deck, one-pager, battlecard refs"}
-  - {name: ramp_plan, type: markdown, description: "Certification + shadow + first deals"}
+  - {name: program, type: markdown, description: "Enablement program"}
 tools:
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
   - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
-  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.gong.calls, required: false, fallback: manual_review}
 integrations:
   - notion
-  - hubspot
+  - gong
 nodes:
-  - {id: demo_base, type: call, ref: doddle.b2b.demo, needs: [inputs], produces: [demo_data], inputs: {context: $context}}
-  - {id: synthesize, type: agent, ref: sales-enabler, needs: [demo_base], produces: [asset_gap, enablement_kit, ramp_plan]}
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["frameworks"], needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: enablement-lead, needs: [run], produces: [program]}
 on_fail: {retry: 1, fallback: manual_review}

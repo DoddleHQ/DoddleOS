@@ -1,0 +1,18 @@
+id: doddle.gtm.gtm-onboarding
+version: 0.2.0
+kind: skill
+engine: doddle-os>=1.0
+description: "enablement-lead skill for onboarding."
+inputs:
+  - {name: customer, type: string, required: true, description: "The customer onboarding"}
+  - {name: success, type: string, required: true, description: "Definition of success and first value"}
+outputs:
+  - {name: plan, type: markdown, description: "Onboarding plan"}
+tools:
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+integrations:
+  - notion
+nodes:
+  - {id: analyze, type: agent, ref: enablement-lead, needs: [inputs], produces: [plan]}
+on_fail: {retry: 1, fallback: manual_review}

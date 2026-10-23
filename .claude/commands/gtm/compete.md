@@ -1,8 +1,8 @@
 ---
-description: Intel loop to battlecard refresh
-argument-hint: [competitor offer]
+description: Competitive landscape and positioning gaps
+argument-hint: [competitors]
 ---
 
-**Skills**: Activate `gtm-compete` (id `doddle.gtm.compete`).
+**Skills**: Activate `gtm-competitive` (id `doddle.gtm.gtm-competitive`).
 
-Collect `competitor` (required), `product_offer` if missing, then run skill per `doddle-gtm-skills/.claude/skills/gtm-compete/SKILL.md`.
+Collect `competitors` (required), `evidence` if missing, then run skill per `doddle-gtm-skills/.claude/skills/gtm-competitive/SKILL.md`.

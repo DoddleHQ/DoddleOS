@@ -9,7 +9,7 @@ Checks (stdlib only, no deps):
 - SKILL.md frontmatter has name, id, version, blueprint, description
 - blueprint.yaml exists, has id/version/kind/engine/inputs/outputs/nodes
 - frontmatter id == blueprint id
-- tool IDs use doddle.tool.v1 namespace
+- tool IDs use doddle.tool.v1.<server>.<tool> or doddle.tool.cli.<cli>
 - nodes have id/type/needs
 Exit 1 on errors, 0 on pass (warnings ok unless --strict).
 """
@@ -24,7 +24,7 @@ SKIP = {"common", "document-skills"}
 
 FM_RE = re.compile(r"^---\n(.*?)\n---", re.S)
 REQUIRED_FM = ["name", "id", "version", "blueprint", "description"]
-TOOL_RE = re.compile(r"doddle\.tool\.v1\.[\w-]+\.[\w-]+")
+TOOL_RE = re.compile(r"doddle\.tool\.(?:v1\.[\w-]+\.[\w-]+|cli\.[\w-]+)")
 NODE_TYPES = {"agent", "tool", "call", "gate"}
 
 

@@ -1,149 +1,92 @@
 ---
 name: gtm-messaging
-id: doddle.gtm.messaging
-version: 1.0.0
+id: doddle.gtm.gtm-messaging
+version: 0.2.0
 blueprint: ./blueprint.yaml
-description: Positioning to message house with proof. Use for launches and repositioning. For assets see gtm-enablement.
+description: "When the user wants to turn positioning into messaging — a messaging house, value proposition pillars, or persona and stage messages. Use for 'build a messaging house', 'messaging framework', 'value proposition pillars', 'what is our core message', 'message by persona'. Uses only the agreed positioning and user-supplied inputs."
 ---
 
-# GTM Messaging
+# Messaging House
 
-One house, every team speaks it. Calls product-marketing.
+Turn positioning into a messaging house the whole team can use — roof, pillars, proof, persona and stage.
 
-## Language & Quality Standards
+## Deterministic Toolkit
 
-**CRITICAL**: Respond in same language user uses.
+```
+dgtm frameworks --name messaging-house --json
+```
 
-**Standards**: Token efficiency, sacrifice grammar for concision, list unresolved questions at end.
+Read `frameworks[0].sections` — the exact structure to fill:
 
----
+1. Roof: core value proposition
+2. Pillars (3)
+3. Proof per pillar
+4. Message by persona
+5. Message by stage
+6. Words to use / avoid
 
-## When to Use This Skill
+The framework supplies the **structure** (`deterministic`, from the registry); the agreed
+positioning and the user's inputs supply the content (`advisory`). This skill runs no
+calculator and invents no proof, metric or customer result — leave proof blank where none is
+given and flag the gap.
 
-Apply when:
-- New product or segment message
-- Sales says deck doesn't land
-- Competitor reframing wins
+## Workflow
 
-## Initial Assessment
+1. Pull the structure with `dgtm frameworks --name messaging-house`.
+2. Take the agreed positioning and elicit the three pillars and the proof behind each.
+3. Write the roof and pillars from the positioning only.
+4. Fill proof per pillar; leave it blank and flag it when no proof was supplied.
+5. Map the message by persona (from `gtm-persona`) and by stage.
+6. List the words to use and avoid; flag any pillar with no supporting proof.
 
-1. **Product**
-   - Context: product, audience, proof, rivals?
+## Sub-flows
 
----
+| Sub-flow | When to use | Toolkit focus |
+|----------|-------------|---------------|
+| `house-from-positioning` | Build the full messaging house from agreed positioning | `messaging-house` |
+| `proof-gap-audit` | Audit an existing house for pillars with no supporting proof | `messaging-house` |
+| `persona-stage-messages` | Only the message-by-persona and message-by-stage rows are needed | `messaging-house` |
 
-## Inputs Schema
+## Response Contract
 
-| Input | Type | Required | Description |
-|-------|------|----------|-------------|
-| context | string | yes | Product, audience, proof, rivals |
-| goal | string | no | Messaging goal |
+Report in this order, every time:
 
----
+1. **Headline result.** One sentence: the roof proposition, tagged `advisory`.
+2. **Key evidence.** The positioning and inputs used, each tagged `advisory`; the house structure
+   tagged `deterministic` (from the registry).
+3. **Artifact path.** Where the messaging house was written, or "inline".
+4. **One suggested next command.** Exactly one.
 
-## Outputs Schema
-
-| Output | Type | Description |
-|--------|------|-------------|
-| message_house | markdown | Pillars, proof, voice |
-| proof_bank | json | Claims + refs |
-| objection_map | markdown | Reframes |
-
----
-
-## Core Framework
-
-### Step 1: Position
-Call `product-marketing` for strategy input.
-
-### Step 2: House
-3 pillars max, proof per pillar.
-
-### Step 3: Arm
-Objections + traps for sales.
-
----
-
-## Detailed Guidance
-
-### House
-
-**Checklist:**
-- [ ] Every claim has proof ref
-- [ ] Cons + fences stated (trust)
-- [ ] One-liner passes hallway test
-
----
+Hard rules: never invent a number, a proof point or a customer result; never do arithmetic; on
+`ok: false` relay `error.message` + `error.hint`. Full block: `common/response-contract.md`.
 
 ## Common Mistakes
 
-| Mistake | Why It's Wrong | Do This Instead |
-|---------|----------------|-----------------|
-| Feature list | No value | Pillar → proof → outcome |
-| No proof | Ignored | Bank or cut claim |
-
----
-
-## Metrics to Track
-
-| Metric | Definition | Target | Tool |
-|--------|------------|--------|------|
-| Message pull-through | Deck → call usage | Up | Manual |
-
----
-
-## Decision Tree
-
-No proof → cut or mark unproven. Too many pillars → merge to 3.
-
----
-
-## Quick Assessment Checklist
-
-1. [ ] Product context?
-
----
-
-## Expected Output Format
-
-### Message House
-[Pillars + proof]
-
----
-
-## Common Failure Modes
-
-| Failure | Symptom | Fix |
-|---------|---------|-----|
-| Jargon house | Reps skip | Plain + proof |
-
----
-
-## MCP Tool Integration
-
-| Tool ID | When to Use | Data to Pull | Required |
-|---------|-------------|--------------|----------|
-| doddle.tool.v1.notion.pages | Source docs | Context | no |
-
-Fallback: if tool unavailable, state data as NOT AVAILABLE per `data-reliability-rules.md`. Never fabricate.
-
----
-
-## Agent Collaboration
-
-| Agent | When to Collaborate | What They Provide |
-|-------|--------------------|--------------------|
-| copywriter | House copy | Pillars |
-
----
+| Mistake | Fix |
+|---------|-----|
+| Building messaging from a feature list | Start from the positioning and the pillars |
+| Inventing proof for a pillar | Leave the proof blank and flag the gap |
+| One message for every persona | Fill the message-by-persona row from real personas |
+| Paraphrasing the house from memory | Read `frameworks[0].sections` from the command |
+| Treating stage messages as static | Map a message to each funnel stage |
 
 ## Related Skills
 
-- **gtm-enablement**: Asset production
-- **b2b-demo**: Demo consumer
+- `gtm-positioning` — the input this skill turns into a house.
+- `gtm-persona` — supplies the message-by-persona row.
+- `gtm-competitive` — pressure-tests the pillars against alternatives.
+- `gtm-sales-narrative` — delivers the house in the field.
+- `gtm-enablement` — the house is an enablement asset.
 
----
+## Inputs
 
-## Questions to Ask
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| positioning | string | yes | The agreed positioning |
+| personas | string | no | Personas to message to |
 
-1. Product + audience + rivals?
+## Outputs
+
+| Name | Type | Description |
+|------|------|-------------|
+| messaging | markdown | Messaging house |

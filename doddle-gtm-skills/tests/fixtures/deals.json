@@ -1,0 +1,14 @@
+[
+  {"id": "D-001", "stage": "Discovery", "amount": 4800, "created_at": "2026-01-04", "outcome": "open", "segment": "smb", "owner": "ana"},
+  {"id": "D-002", "stage": "Discovery", "amount": 2400, "created_at": "2026-01-09", "outcome": "open", "segment": "smb", "owner": "ana"},
+  {"id": "D-003", "stage": "Demo", "amount": 6000, "created_at": "2026-01-12", "outcome": "open", "segment": "smb", "owner": "ben"},
+  {"id": "D-004", "stage": "Proposal", "amount": 9600, "created_at": "2026-01-15", "outcome": "open", "segment": "mid", "owner": "ben"},
+  {"id": "D-005", "stage": "Discovery", "amount": 3600, "created_at": "2026-02-02", "outcome": "open", "segment": "", "owner": ""},
+  {"id": "D-006", "stage": "Negotiation", "amount": 12000, "created_at": "2026-02-05", "outcome": "open", "segment": "mid", "owner": "cara"},
+  {"id": "D-007", "stage": "Closed Won", "amount": 5400, "created_at": "2025-11-10", "closed_at": "2025-12-05", "outcome": "won", "segment": "smb", "owner": "ana"},
+  {"id": "D-008", "stage": "Closed Won", "amount": 7200, "created_at": "2025-11-02", "closed_at": "2026-01-20", "outcome": "won", "segment": "mid", "owner": "ben"},
+  {"id": "D-009", "stage": "Closed Won", "amount": 3000, "created_at": "2025-12-01", "closed_at": "2025-12-22", "outcome": "won", "segment": "smb", "owner": "ana"},
+  {"id": "D-010", "stage": "Closed Lost", "amount": 9000, "created_at": "2025-10-15", "closed_at": "2026-02-10", "outcome": "lost", "segment": "mid", "owner": "cara"},
+  {"id": "D-011", "stage": "Closed Lost", "amount": 4500, "created_at": "2025-12-20", "closed_at": "2026-01-30", "outcome": "lost", "segment": "smb", "owner": "ben"},
+  {"id": "D-012", "stage": "Demo", "amount": 5100, "created_at": "2026-02-18", "outcome": "open", "segment": "smb", "owner": "cara"}
+]

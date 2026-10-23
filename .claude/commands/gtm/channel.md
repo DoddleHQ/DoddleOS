@@ -1,8 +1,8 @@
 ---
-description: Design partner motion with tiers and co-sell plays
-argument-hint: [product-offer partner-hint]
+description: Channel economics comparison
+argument-hint: [cac arpa]
 ---
 
-**Skills**: Activate `gtm-channel` (id `doddle.gtm.channel`).
+**Skills**: Activate `gtm-channel` (id `doddle.gtm.gtm-channel`).
 
-Collect `product_offer` (required), `partner_hint`, `locale` if missing, then run skill per `doddle-gtm-skills/.claude/skills/gtm-channel/SKILL.md`.
+Collect `cac` (required), `arpa` (required), `gross-margin`, `churn` if missing, then run skill per `doddle-gtm-skills/.claude/skills/gtm-channel/SKILL.md`.

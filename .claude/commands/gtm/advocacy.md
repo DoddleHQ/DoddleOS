@@ -1,8 +1,8 @@
 ---
-description: Turn customers into references, reviews, and community proof
-argument-hint: [product-offer segment]
+description: References, reviews and referral flywheel
+argument-hint: [proof]
 ---
 
-**Skills**: Activate `gtm-advocacy` (id `doddle.gtm.advocacy`).
+**Skills**: Activate `gtm-advocacy` (id `doddle.gtm.gtm-advocacy`).
 
-Collect `product_offer` (required), `segment`, `locale` if missing, then run skill per `doddle-gtm-skills/.claude/skills/gtm-advocacy/SKILL.md`.
+Collect `proof` (required), `goal` if missing, then run skill per `doddle-gtm-skills/.claude/skills/gtm-advocacy/SKILL.md`.

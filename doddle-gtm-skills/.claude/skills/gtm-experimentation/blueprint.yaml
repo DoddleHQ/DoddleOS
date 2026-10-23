@@ -1,0 +1,20 @@
+id: doddle.gtm.gtm-experimentation
+version: 0.2.0
+kind: skill
+engine: doddle-os>=1.0
+description: "demand-gen-strategist skill for experimentation."
+inputs:
+  - {name: hypothesis, type: string, required: true, description: "The hypothesis to test"}
+  - {name: funnel, type: string, required: true, description: "Baseline funnel counts"}
+outputs:
+  - {name: brief, type: markdown, description: "Experiment brief"}
+  - {name: envelope, type: json, description: "Funnel envelope"}
+tools:
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - ga4
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["funnel"], needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: demand-gen-strategist, needs: [run], produces: [brief]}
+on_fail: {retry: 1, fallback: manual_review}

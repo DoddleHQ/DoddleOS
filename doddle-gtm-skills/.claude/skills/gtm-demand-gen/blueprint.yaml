@@ -1,0 +1,23 @@
+id: doddle.gtm.gtm-demand-gen
+version: 0.2.0
+kind: skill
+engine: doddle-os>=1.0
+description: "demand-gen-strategist skill for demand gen."
+inputs:
+  - {name: pipeline-target, type: number, required: true, description: "Pipeline target for the period"}
+  - {name: funnel, type: string, required: true, description: "Stage conversion assumptions"}
+  - {name: channels, type: string, required: false, description: "Candidate channels"}
+outputs:
+  - {name: plan, type: markdown, description: "Demand plan with funnel math"}
+  - {name: envelope, type: json, description: "Funnel envelope"}
+tools:
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.linkedin.ads, required: false, fallback: manual_review}
+integrations:
+  - ga4
+  - linkedin
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["funnel"], needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: demand-gen-strategist, needs: [run], produces: [plan]}
+on_fail: {retry: 1, fallback: manual_review}

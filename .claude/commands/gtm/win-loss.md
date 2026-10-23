@@ -1,8 +1,8 @@
 ---
-description: Build battlecards and code win-loss reasons
-argument-hint: [competitor product-offer]
+description: Win/loss analysis from closed deals
+argument-hint: [export]
 ---
 
-**Skills**: Activate `gtm-win-loss` (id `doddle.gtm.win-loss`).
+**Skills**: Activate `gtm-win-loss` (id `doddle.gtm.gtm-win-loss`).
 
-Collect `competitor` (required), `product_offer`, `locale` if missing, then run skill per `doddle-gtm-skills/.claude/skills/gtm-win-loss/SKILL.md`.
+Collect `export` (required), `interviews` if missing, then run skill per `doddle-gtm-skills/.claude/skills/gtm-win-loss/SKILL.md`.

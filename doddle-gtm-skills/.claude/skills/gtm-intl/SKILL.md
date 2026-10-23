@@ -1,150 +1,82 @@
 ---
 name: gtm-intl
-id: doddle.gtm.intl
-version: 1.0.0
+id: doddle.gtm.gtm-intl
+version: 0.2.0
 blueprint: ./blueprint.yaml
-description: Prioritize locales and ship min viable localization. Use for market expansion.
+description: "Rank candidate international markets and design a minimum launch pack for the winners. Use when the user asks about going international, localization, geo expansion or which country to enter next."
 ---
 
-# GTM Intl
+# International Expansion
 
-Demand proof before translation. One locale done beats five started.
+Rank candidate markets on recorded fit criteria and define the minimum pack needed to enter
+the winner — never a full local build-out by default.
 
-## Language & Quality Standards
+## Advisory (no toolkit)
 
-**CRITICAL**: Respond in same language user uses.
+The toolkit has no market-data source, so every ranking input is user-supplied and labelled
+`advisory`: candidate list, demand signals, competitor presence, localization effort,
+readiness. Do not fetch or invent country statistics; if the user has none, report the ranking
+as blocked on inputs.
 
-**Standards**: Token efficiency, sacrifice grammar for concision, list unresolved questions at end.
+## Sub-flows
 
----
+| Sub-flow | When to use | Output focus |
+|----------|-------------|--------------|
+| `market-ranking` | Choosing between 2+ candidate countries | Weighted ranking table |
+| `minimum-launch-pack` | A market is chosen; define smallest viable entry | Localized asset list |
+| `localization-scope` | Deciding what must be translated vs adapted | Scope matrix |
+| `geo-hold` | Deferring entry; what to monitor instead | Trigger watchlist |
 
-## When to Use This Skill
+## Workflow
 
-Apply when:
-- Expansion ask with no ranking
-- Translation without payments/support
-- EU/data-residency blind spots
+1. Collect the candidate markets and the ranking axes (fit, effort, readiness). Default axes
+   if the user has none: ICP presence, competition, localization effort, sales readiness.
+2. Collect each market's input values from the user; tag every one `advisory`. Never fill a
+   blank with a remembered statistic.
+3. Build the ranking table (weights × scores are the user's; state them, do not silently
+   normalize).
+4. For the winning market, pull the minimum launch pack: which assets localize, which channel
+   enters first, which proof transfers.
+5. Define triggers for revisiting (evidence that would change the ranking).
 
-## Initial Assessment
+## Response Contract
 
-1. **Markets**
-   - Context: traction, constraints?
+Report in this order, every time:
 
----
+1. **Headline result.** One sentence: the top-ranked market and score if computed, tagged
+   `advisory`; if inputs are missing, say the ranking is blocked.
+2. **Key evidence.** Every input per market, each tagged `advisory` with its source (user
+   statement / supplied file).
+3. **Artifact path.** Where the ranking was written, or "inline".
+4. **One suggested next command.** Exactly one.
 
-## Inputs Schema
-
-| Input | Type | Required | Description |
-|-------|------|----------|-------------|
-| context | string | yes | Markets, traction, constraints |
-| goal | string | no | Expansion goal |
-
----
-
-## Outputs Schema
-
-| Output | Type | Description |
-|--------|------|-------------|
-| market_rank | markdown | Ranked locales + proof |
-| locale_pack | json | Pages, payments, support min |
-| rollout_plan | markdown | Sequence + gates |
-
----
-
-## Core Framework
-
-### Step 1: Rank
-Demand + willingness-to-pay + support cost.
-
-### Step 2: Pack
-Min: pricing page, checkout, DPA, support hours.
-
-### Step 3: Gate
-Pilot revenue before second locale.
-
----
-
-## Detailed Guidance
-
-### Expansion
-
-**Checklist:**
-- [ ] Payment method + tax covered per locale
-- [ ] Support hours stated, no fake 24/7
-- [ ] No invented demand — tool or NOT AVAILABLE
-
----
+Hard rules: never invent country statistics, demand data or competitor facts; never do
+arithmetic the user did not authorize — state the weights and scores and let them stand as
+recorded inputs; if a market input is missing, mark it `NOT AVAILABLE`. Full block:
+`common/response-contract.md`.
 
 ## Common Mistakes
 
-| Mistake | Why It's Wrong | Do This Instead |
-|---------|----------------|-----------------|
-| Translate all | Cost, no return | Min pack + pilot |
-| Ignore residency | Deal blocker | DPA + region first |
-
----
-
-## Metrics to Track
-
-| Metric | Definition | Target | Tool |
-|--------|------------|--------|------|
-| Pilot revenue | Locale ARR / q | Hurdle | HubSpot |
-
----
-
-## Decision Tree
-
-No demand proof → test with English + local payment first.
-
----
-
-## Quick Assessment Checklist
-
-1. [ ] Markets context?
-
----
-
-## Expected Output Format
-
-### Market Rank
-[Locales + packs]
-
----
-
-## Common Failure Modes
-
-| Failure | Symptom | Fix |
-|---------|---------|-----|
-| Thin locale | Bounce | Full min pack or skip |
-
----
-
-## MCP Tool Integration
-
-| Tool ID | When to Use | Data to Pull | Required |
-|---------|-------------|--------------|----------|
-| doddle.tool.v1.dataforseo.serpGoogle | Demand | SERP per locale | no |
-| doddle.tool.v1.semrush.keywordResearch | Sizing | Keywords | no |
-
-Fallback: if tool unavailable, state data as NOT AVAILABLE per `data-reliability-rules.md`. Never fabricate.
-
----
-
-## Agent Collaboration
-
-| Agent | When to Collaborate | What They Provide |
-|-------|--------------------|--------------------|
-| researcher | Market intel | Demand |
-
----
+| Mistake | Fix |
+|---------|-----|
+| Quoting remembered market sizes | Every market number is user-supplied `advisory` |
+| Full localization up front | Default to the minimum launch pack; expand on evidence |
+| Ranking without weights | Make the weights explicit and recorded |
+| Ignoring readiness | Rank on readiness, not just demand |
 
 ## Related Skills
 
-- **gtm-launch**: Rollout execution
-- **gtm-pricing**: Locale pricing
+`gtm-strategy`, `gtm-launch`, `gtm-segmentation`, `gtm-messaging`, `gtm-pricing`
 
----
+## Inputs
 
-## Questions to Ask
+| Input | Required | Type | Notes |
+|-------|----------|------|-------|
+| markets | yes | string | Candidate markets to rank |
+| criteria | no | string | Ranking axes; defaults to fit / effort / readiness |
 
-1. Markets + constraints?
+## Outputs
+
+| Output | Type | Notes |
+|--------|------|-------|
+| plan | markdown | Locale ranking and minimum launch pack |

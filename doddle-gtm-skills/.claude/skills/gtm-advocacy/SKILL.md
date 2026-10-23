@@ -1,200 +1,83 @@
 ---
 name: gtm-advocacy
-id: doddle.gtm.advocacy
-version: 1.0.0
+id: doddle.gtm.gtm-advocacy
+version: 0.2.0
 blueprint: ./blueprint.yaml
-description: Turn customers into proof: references, reviews, cases, community. Use when proof thin, sales needs logos, or reviews flat. For cases, see sales-enablement.
+description: "Design or review a customer advocacy program — references, reviews, referrals and community proof. Use when the user wants more proof assets, a reference program, review flywheel or referral motion."
 ---
 
-# GTM Advocacy
+# Advocacy Program
 
-Ask → approve → publish → amplify. Reviews flywheel + reference bench.
+Turn existing customer wins into a repeatable proof engine — references, reviews, referrals —
+without inventing proof you do not have.
 
-## Language & Quality Standards
+## Deterministic Toolkit
 
-**CRITICAL**: Respond in same language user uses.
+- `dgtm report --export <file>` — aggregate recorded proof assets / closed-deal evidence into
+  an envelope (`evidence.stamp` must be CURRENT to report as live).
+- `dgtm frameworks --name case-study-brief|partnership-scorecard` — structure for each proof
+  type; never paraphrase from memory.
 
-**Standards**: Token efficiency, sacrifice grammar for concision, list unresolved questions at end.
+Read the envelope's `scores`/`metrics` verbatim. Assets the user has not supplied are
+`NOT AVAILABLE`, never assumed.
 
----
+## Sub-flows
 
-## When to Use This Skill
+| Sub-flow | When to use | Toolkit focus |
+|----------|-------------|---------------|
+| `references` | Sales needs named customer references for live deals | `report` + case-study-brief |
+| `reviews` | Building a review flywheel (G2, marketplaces, directories) | case-study-brief only |
+| `referrals` | designing a customer referral motion with incentives | partnership-scorecard |
+| `community` | Seeding proof from user community / events | case-study-brief only |
 
-Apply when:
-- Deals stall for lack of peer proof
-- Reviews <4.3 or volume flat
-- Zero referenceable logos per segment
-- Expansion signals ignored
+## Workflow
 
-## Initial Assessment
+1. Confirm which advocacy motion the user wants (references / reviews / referrals / community)
+   and for which segment (default SMB).
+2. Run `dgtm report` on any supplied proof/deal export; record `evidence.stamp`.
+3. Pull the framework structure (`dgtm frameworks --name <slug>`); fill it from user-supplied
+   evidence only.
+4. Design the program: who to ask, when (trigger moment), what they get, owner, cadence.
+5. Flag consent and approval needs — every external proof artifact requires customer
+   permission before it is published.
 
-1. **Base**
-   - NPS / CSAT? Happy accounts named?
-   - Ask permission culture? Legal blocks?
-2. **Proof gap**
-   - Which segment lacks case? Which rival cited?
+## Response Contract
 
----
+Report in this order, every time:
 
-## Inputs Schema
+1. **Headline result.** One sentence: the motion designed and the proof inventory size if
+   measured (tag `live`/`advisory`), else `NOT AVAILABLE`.
+2. **Key evidence.** Proof assets supplied, each tagged `advisory`; framework structure tagged
+   `deterministic`.
+3. **Artifact path.** Where the program doc was written, or "inline".
+4. **One suggested next command.** Exactly one.
 
-| Input | Type | Required | Description |
-|-------|------|----------|-------------|
-| product_offer | string | yes | Offer + outcomes; ask if missing |
-| segment | string | no | Proof gap segment; infer if missing |
-| locale | string | no | Market; default en-US |
-
----
-
-## Outputs Schema
-
-| Output | Type | Description |
-|--------|------|-------------|
-| report | markdown | Reference bench, review plan, case pipeline |
-| action_list | json | Advocacy actions with owner + effort |
-
----
-
-## Core Framework
-
-### Step 1: Recruit
-Happy → asked → permissioned. Bench per segment.
-
-### Step 2: Publish
-Case pipeline: draft → approve → publish in 14 days.
-
-### Step 3: Amplify
-Reviews → social → sales deck → expansion triggers.
-
----
-
-## Detailed Guidance
-
-### Recruitment
-
-**Checklist:**
-- [ ] Bench: 3 refs per segment minimum
-- [ ] Ask moments: onboarding win, renewal, support save
-- [ ] Incentive: early access, community, not cash
-
-### Cases + Reviews
-
-**Checklist:**
-- [ ] Case: pain → action → metric, 1 page
-- [ ] Review asks: G2, Capterra, GBP per motion
-- [ ] Response SLA: all reviews <48h
-
-### Amplification
-
-**Checklist:**
-- [ ] Sales: proof mapped to objections
-- [ ] Marketing: quotes → ads, pages, PR
-- [ ] Expansion: advocate health → upsell trigger
-
----
+Hard rules: never invent a customer, quote, metric or permission; never do arithmetic; if proof
+is missing, say `NOT AVAILABLE`. Full block: `common/response-contract.md`.
 
 ## Common Mistakes
 
-### Strategy Mistakes
-| Mistake | Why It's Wrong | Do This Instead |
-|---------|----------------|-----------------|
-| Ask only at renewal | Too late | Ask at wins |
-| One mega-case | No coverage | 3 small per segment |
-
-### Execution Mistakes
-| Mistake | Why It's Wrong | Do This Instead |
-|---------|----------------|-----------------|
-| Draft never approved | Dies in legal | Pre-approved template |
-| Ignore negatives | Festers | Reply + fix loop |
-
-### Analysis Mistakes
-| Mistake | Why It's Wrong | Do This Instead |
-|---------|----------------|-----------------|
-| Count cases | Vanity | Usage in deals |
-
----
-
-## Metrics to Track
-
-| Metric | Definition | Target | Tool |
-|--------|------------|--------|------|
-| Reference coverage | Segments with 3+ refs | 100% | CRM |
-| Review velocity | New reviews / mo | Growing | G2/GBP |
-| Rating | Avg stars | >4.3 | Listings |
-| Case usage | Deals citing proof | >50% | Enablement |
-| Advocacy-sourced | Expansion $ | Tracked | CRM |
-
----
-
-## Decision Tree
-
-No refs → recruit before asking for public. Rating low → fix + reply before scaling asks. Proof unused → map to objections.
-
----
-
-## Quick Assessment Checklist
-
-1. [ ] Offer + outcomes?
-2. [ ] Happy accounts?
-3. [ ] Proof gap segment?
-4. [ ] Review platforms?
-5. [ ] Legal constraints?
-
----
-
-## Expected Output Format
-
-### Bench
-[Refs per segment]
-
-### Pipeline
-[Cases + reviews plan]
-
-### Amplification
-[Sales + marketing use]
-
----
-
-## Common Failure Modes
-
-| Failure | Symptom | Fix |
-|---------|---------|-----|
-| Ask fatigue | Same 2 logos | Rotate bench |
-| Approval stall | Drafts rot | 7-day nudge + short form |
-
----
-
-## MCP Tool Integration
-
-| Tool ID | When to Use | Data to Pull | Required |
-|---------|-------------|--------------|----------|
-| doddle.tool.v1.hubspot.contacts | Happy-account find | Health, tenure | no |
-| doddle.tool.v1.gsc.getSearchAnalytics | Review impact | Branded queries | no |
-
-Fallback: if tool unavailable, state data as NOT AVAILABLE per `data-reliability-rules.md`. Never fabricate.
-
----
-
-## Agent Collaboration
-
-| Agent | When to Collaborate | What They Provide |
-|-------|--------------------|--------------------|
-| sales-enabler | Case production | Drafts, decks |
-| copywriter | Quote polish | Proof copy |
-| researcher | Review mining | Theme analysis |
-
----
+| Mistake | Fix |
+|---------|-----|
+| Inventing quotes or logos | Only user-supplied, consented proof enters the program |
+| Asking at the wrong moment | Tie the ask to a trigger (first value moment, renewal, win) |
+| Skipping consent | Every public proof artifact needs recorded permission |
+| Treating advocacy as one motion | References, reviews, referrals and community need different designs |
 
 ## Related Skills
 
-- **gtm-win-loss**: Proof gaps
-- **gtm-channel**: Partner proof
-- **referral-program**: Flywheel mechanics
+`gtm-case-study`, `gtm-partnerships`, `gtm-channel`, `gtm-onboarding`, `gtm-enablement`
 
----
+## Inputs
 
-## Questions to Ask
+| Input | Required | Type | Notes |
+|-------|----------|------|-------|
+| proof | yes | string/file | Proof assets or references available |
+| goal | no | string | reviews / referrals / references / community |
 
-1. Offer + outcomes delivered?
-2. Happy accounts to recruit?
-3. Proof gap segment?
+## Outputs
+
+| Output | Type | Notes |
+|--------|------|-------|
+| program | markdown | Advocacy program design |
+| envelope | json | From `dgtm report` when an export is supplied |

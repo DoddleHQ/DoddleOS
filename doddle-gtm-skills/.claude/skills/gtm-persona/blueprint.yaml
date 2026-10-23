@@ -1,0 +1,16 @@
+id: doddle.gtm.gtm-persona
+version: 0.2.0
+kind: skill
+engine: doddle-os>=1.0
+description: "positioning-strategist skill for persona."
+inputs:
+  - {name: segment, type: string, required: true, description: "Segment the personas belong to"}
+  - {name: roles, type: string, required: false, description: "Buying-committee roles"}
+outputs:
+  - {name: personas, type: markdown, description: "Buyer personas"}
+tools:
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["frameworks"], needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: positioning-strategist, needs: [run], produces: [personas]}
+on_fail: {retry: 1, fallback: manual_review}

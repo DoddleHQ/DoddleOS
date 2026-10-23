@@ -1,0 +1,19 @@
+id: doddle.gtm.gtm-battlecards
+version: 0.2.0
+kind: skill
+engine: doddle-os>=1.0
+description: "enablement-lead skill for battlecards."
+inputs:
+  - {name: competitor, type: string, required: true, description: "Competitor to arm against"}
+  - {name: evidence, type: file, required: false, description: "Teardown, win/loss or call notes"}
+outputs:
+  - {name: battlecard, type: markdown, description: "Competitive battlecard"}
+tools:
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.gong.calls, required: false, fallback: manual_review}
+integrations:
+  - gong
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["frameworks"], needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: enablement-lead, needs: [run], produces: [battlecard]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -1,0 +1,22 @@
+id: doddle.gtm.gtm-reporting
+version: 0.2.0
+kind: skill
+engine: doddle-os>=1.0
+description: "revenue-analyst skill for reporting."
+inputs:
+  - {name: export, type: file, required: true, description: "Deals/opportunities export (JSON or CSV)"}
+  - {name: window, type: string, required: false, description: "Reporting window"}
+outputs:
+  - {name: report, type: markdown, description: "GTM report"}
+  - {name: envelope, type: json, description: "Audit envelope"}
+tools:
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+  - ga4
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["report"], needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: revenue-analyst, needs: [run], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

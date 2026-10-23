@@ -1,8 +1,8 @@
 ---
-description: Choose PLG vs SLG motion with loops and triggers
-argument-hint: [context goal]
+description: Product-led growth loop
+argument-hint: [product funnel]
 ---
 
-**Skills**: Activate `gtm-plg` (id `doddle.gtm.plg`).
+**Skills**: Activate `gtm-plg` (id `doddle.gtm.gtm-plg`).
 
-Collect `context` (required), `goal` if missing, then run skill per `doddle-gtm-skills/.claude/skills/gtm-plg/SKILL.md`.
+Collect `product` (required), `funnel` (required) if missing, then run skill per `doddle-gtm-skills/.claude/skills/gtm-plg/SKILL.md`.

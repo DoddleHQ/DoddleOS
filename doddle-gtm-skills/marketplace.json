@@ -6,15 +6,15 @@
     "url": "https://doddlehq.com"
   },
   "metadata": {
-    "description": "Doddle GTM OS — go-to-market orchestration: strategy, ABM, win-loss, sales playbook, channel, advocacy",
-    "version": "1.0.0",
+    "description": "Doddle GTM OS \u2014 32 independent go-to-market skills, backed by a deterministic evidence toolkit",
+    "version": "2.0.0",
     "updatedAt": "2026-09-12"
   },
   "plugins": [
     {
       "name": "doddle-gtm-skills",
       "source": "./",
-      "description": "Doddle GTM OS: 6 GTM skills: strategy, ABM, win-loss, sales playbook, channel, advocacy",
+      "description": "Doddle GTM OS: 32 skills (strategy, positioning, ICP, demand, pipeline, enablement, pricing, advocacy, international, measurement) with a deterministic CLI. Skills narrate; the toolkit computes from recorded inputs and labels every assumption.",
       "author": {
         "name": "Doddle Team"
       },
@@ -24,11 +24,10 @@
       "license": "MIT",
       "keywords": [
         "gtm",
-        "abm",
-        "win-loss",
-        "playbook",
-        "channel",
-        "advocacy"
+        "go-to-market",
+        "positioning",
+        "pipeline",
+        "pricing"
       ],
       "category": "gtm",
       "tags": [
@@ -38,7 +37,8 @@
         "channel"
       ],
       "featured": true,
-      "verified": true
+      "verified": true,
+      "version": "2.0.0"
     }
   ]
 }

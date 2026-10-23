@@ -1,8 +1,8 @@
 ---
-description: Packaging and guardrails for launch
-argument-hint: [context goal]
+description: Pricing analysis: margin and break-even
+argument-hint: [price variable-cost]
 ---
 
-**Skills**: Activate `gtm-pricing` (id `doddle.gtm.pricing`).
+**Skills**: Activate `gtm-pricing` (id `doddle.gtm.gtm-pricing`).
 
-Collect `context` (required), `goal` if missing, then run skill per `doddle-gtm-skills/.claude/skills/gtm-pricing/SKILL.md`.
+Collect `price` (required), `variable-cost` (required), `fixed-cost` if missing, then run skill per `doddle-gtm-skills/.claude/skills/gtm-pricing/SKILL.md`.

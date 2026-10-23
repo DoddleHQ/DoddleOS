@@ -1,151 +1,98 @@
 ---
 name: gtm-plg
-id: doddle.gtm.plg
-version: 1.0.0
+id: doddle.gtm.gtm-plg
+version: 0.2.0
 blueprint: ./blueprint.yaml
-description: Choose PLG vs SLG with loops and PQL triggers. Use for self-serve vs sales-assist decisions.
+description: "When the user wants a product-led growth loop from activation funnel counts — signup, activation, habit, monetization and referral. Use for 'product led growth', 'PLG loop', 'activation funnel', 'freemium conversion', 'self-serve growth plan'. Funnel counts are the user's inputs."
 ---
 
-# GTM PLG
+# Product-Led Growth
 
-Loops acquire, triggers hand off. Calls revops for funnel truth.
+Model a product-led growth loop from activation funnel counts.
 
-## Language & Quality Standards
+## Deterministic Toolkit
 
-**CRITICAL**: Respond in same language user uses.
+```
+dgtm funnel --stage name:count [--stage name:count ...] [--json]
+dgtm frameworks --name plg-loop --json
+```
 
-**Standards**: Token efficiency, sacrifice grammar for concision, list unresolved questions at end.
+Read the JSON envelope — every figure comes from it:
 
----
+- `metrics.overall_conversion` — last stage ÷ first stage for the activation funnel.
+- `metrics.steps[]` — per-step `from`, `to`, `conversion`, `dropoff`.
+- `notes[]` — zero or missing stage counts; a zero-in stage yields `null` conversion, not zero.
+- `frameworks[0].sections` — PLG Loop structure: Entry point, Activation moment, Habit,
+  Loop mechanic, Monetization, Referral / virality, Guardrail metrics.
 
-## When to Use This Skill
+The funnel counts are **`advisory`** inputs the user gives; the conversion is reproducible with
+them, not measured. Use `doddle.tool.v1.ga4.getReport` for live traffic and conversion by source
+and tag it `live`; if it is not configured say `⚠️ NOT AVAILABLE — configure
+doddle.tool.v1.ga4.getReport`.
 
-Apply when:
-- PLG vs SLG debate unresolved
-- Self-serve stalls at activation
-- Sales wants PQLs, product resists
+## Workflow
 
-## Initial Assessment
+1. Confirm the segment (default **SMB**) and the product's entry point (signup, trial, freemium).
+2. Collect the ordered activation funnel counts (visit, signup, activate, habit, paid).
+3. Run `dgtm funnel --stage …` and read `metrics`.
+4. Pull the structure with `dgtm frameworks --name plg-loop`.
+5. Map the counts to the loop sections; label every rate `advisory` and name the weakest step
+   from `metrics.steps[]`.
+6. Cite `ga4.getReport` as `live` when configured; never invent a traffic or conversion number.
+7. State `scoring_version`, `data_version` and `evidence.stamp`.
 
-1. **Funnel**
-   - Context: product, funnel, CRM state?
+## Sub-flows
 
----
+| Sub-flow | When to use | Toolkit focus |
+|----------|-------------|---------------|
+| `activation-repair` | `metrics.steps[]` names a weak step and activation, not traffic, is the problem | `dgtm funnel`, `dgtm frameworks --name plg-loop` |
+| `freemium-monetization` | A free tier exists and the open question is paid conversion, not signup volume | `dgtm frameworks --name plg-loop`, `dgtm frameworks --name pricing-model` |
+| `referral-loop-design` | Counts include a referred-visit stage and virality is the intended lever | `dgtm frameworks --name plg-loop` |
+| `traffic-source-mix` | Entry-point traffic, rather than any funnel step, is what needs diagnosing | `doddle.tool.v1.ga4.getReport` |
 
-## Inputs Schema
+## Response Contract
 
-| Input | Type | Required | Description |
-|-------|------|----------|-------------|
-| context | string | yes | Product, funnel, CRM state |
-| goal | string | no | Motion goal |
+Report in this order, every time:
 
----
+1. **Headline result.** One sentence carrying the overall activation conversion and the weakest
+   step, with the input counts tagged `advisory`. If `evidence.stamp` is not `CURRENT`, say so
+   here.
+2. **Key evidence.** The step conversions, each tagged `deterministic` (computed) or `advisory`
+   (assumed counts), and any GA4 figures tagged `live`.
+3. **Artifact path.** Where the loop was written, or "inline".
+4. **One suggested next command.** Exactly one.
 
-## Outputs Schema
-
-| Output | Type | Description |
-|--------|------|-------------|
-| motion_audit | markdown | Readiness + gaps |
-| plg_loops | json | Invite, usage, content loops |
-| slg_triggers | markdown | PQL + handoff rules |
-
----
-
-## Core Framework
-
-### Step 1: Ops
-Call `revops` for lifecycle + scoring truth.
-
-### Step 2: Loops
-One loop instrumented end-to-end before adding.
-
-### Step 3: Triggers
-PQL = fit x aha x recency, SLA attached.
-
----
-
-## Detailed Guidance
-
-### Loops
-
-**Checklist:**
-- [ ] Single loop metric owned weekly
-- [ ] Viral actions preserve core value
-- [ ] Sales trigger fires on behavior, not form fill
-
----
+Hard rules: never invent a number; `null` is not measured, not zero; never do arithmetic; on
+`ok: false` relay `error.message` + `error.hint`. Full block: `common/response-contract.md`.
 
 ## Common Mistakes
 
-| Mistake | Why It's Wrong | Do This Instead |
-|---------|----------------|-----------------|
-| PLG theater | Signup with sales gate | Self-serve aha first |
-| No SLA | PQLs rot | Handoff + time budget |
-
----
-
-## Metrics to Track
-
-| Metric | Definition | Target | Tool |
-|--------|------------|--------|------|
-| Loop coefficient | Invites → activated | >1 | GA4 |
-| PQL → opp | Conversion | Up | HubSpot |
-
----
-
-## Decision Tree
-
-No aha → SLG assist first. Aha + virality → PLG loop.
-
----
-
-## Quick Assessment Checklist
-
-1. [ ] Funnel context?
-
----
-
-## Expected Output Format
-
-### Motion Audit
-[Readiness + loops + triggers]
-
----
-
-## Common Failure Modes
-
-| Failure | Symptom | Fix |
-|---------|---------|-----|
-| Vanity signup | No activation | Aha before scale |
-
----
-
-## MCP Tool Integration
-
-| Tool ID | When to Use | Data to Pull | Required |
-|---------|-------------|--------------|----------|
-| doddle.tool.v1.ga4.getReport | Funnel | Steps | no |
-| doddle.tool.v1.hubspot.contacts | Stages | Lifecycle | no |
-
-Fallback: if tool unavailable, state data as NOT AVAILABLE per `data-reliability-rules.md`. Never fabricate.
-
----
-
-## Agent Collaboration
-
-| Agent | When to Collaborate | What They Provide |
-|-------|--------------------|--------------------|
-| planner | Motion design | Loops |
-
----
+| Mistake | Fix |
+|---------|-----|
+| Inventing activation or viral coefficients | Use only supplied counts; label the rest `NOT AVAILABLE` |
+| Treating a zero stage as a 0% conversion | It is `null`; name the reason from `notes[]` |
+| Assuming a viral loop exists | Mark referral/virality unknown unless the counts show it |
+| Re-deriving step conversion by hand | Read `metrics.steps[]` from the envelope |
+| Reporting GA4 traffic without the tool | Say `⚠️ NOT AVAILABLE — configure doddle.tool.v1.ga4.getReport` |
 
 ## Related Skills
 
-- **saas-trial**: Loop surface
-- **saas-analytics**: PQL model
+- `gtm-demand-gen` — the paid and marketing-led side of the funnel.
+- `gtm-onboarding` — time-to-first-value for new signups.
+- `gtm-experimentation` — test activation changes before scaling them.
+- `gtm-metrics` — carry activation rates into the KPI set.
 
----
+## Inputs
 
-## Questions to Ask
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| product | string | yes | The product and its entry point |
+| funnel | string | yes | Activation funnel counts as name:count |
+| segment | string | no | Segment filter; defaults to SMB |
 
-1. Product/funnel context + goal?
+## Outputs
+
+| Name | Type | Description |
+|------|------|-------------|
+| loop | markdown | Product-led growth loop |
+| envelope | json | Funnel envelope |

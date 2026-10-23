@@ -1,84 +1,116 @@
-# Doddle GTM OS
+# Doddle GTM OS (`doddle-gtm-skills`)
 
-> Go-to-market orchestration: ICP → message → channel → launch → sales → expansion. Sequences execution packs into one plan.
+> Synced from the standalone source of truth: [`DoddleHQ/doddle-go-to-market-skills`](https://github.com/DoddleHQ/doddle-go-to-market-skills)
+> (tag `v0.2.0`). This DoddleOS copy keeps pack name `doddle-gtm-skills` and commands
+> `/gtm:*` for existing consumers; skill IDs are `doddle.gtm.<skill>`.
 
-## Overview
+**Doddle Go-To-Market OS** — 32 agent-agnostic skills and 7 agents for taking a product to
+market: positioning, ICP, segmentation, demand, pipeline, enablement, pricing, expansion,
+measurement and international entry. **Default segment: SMB.**
 
-Independent OS pack for [DoddleOS](https://github.com/DoddleHQ/DoddleOS). Installs and runs standalone; binds to peer packs only via blueprint `call` nodes where noted. Orchestration layer over marketing, sales, and vertical packs.
+The one claim this pack makes: **every number is reproducible from recorded inputs.** A
+stdlib-only Python toolkit (`dgtm`) computes; the skills narrate and prioritize. Unlike a
+website audit, the inputs here are often *assumptions* — so the pack always distinguishes a
+**measured** (`live`) number from an **assumed** (`advisory`) one, and says which is which.
 
-Naming: pack dir `doddle-gtm-skills`, skills `gtm-*`, IDs `doddle.gtm.*`, commands `/gtm:*`.
+## Why it is different
 
-## Skills Included
+- **Deterministic toolkit.** Funnel conversion, unit economics, pricing, market sizing, weighted
+  scoring and pipeline audit are computed in Python, never in prose. Same inputs → same outputs.
+- **Assumptions are labelled, not hidden.** ACV, churn, ICP weights and market-size inputs are
+  the user's beliefs. The skills say so, every time.
+- **Versioned.** Every envelope carries `toolkit_version`, `scoring_version` (`gtm-1`) and
+  `data_version` (`gtm-frameworks-2026-10-2`). Reports always state them.
+- **Frameworks are configuration.** The 30 named templates live in a versioned registry
+  (`dgtm frameworks`), never paraphrased from memory.
+- **Read-only.** No CRM writes, no sends, no ad spend. This pack reads and analyses.
+- **Agent-agnostic.** Each skill is a `SKILL.md` readable by Claude Code, opencode, Cursor or
+  Codex, plus a DoddleOS `blueprint.yaml`.
 
-| Skill | Purpose | Command |
-|-------|---------|---------|
-| `gtm-strategy` | ICP, TAM tiering, message, channel mix, launch gates | `/gtm:strategy` |
-| `gtm-abm` | Account select, personalize, orchestrate plays | `/gtm:abm` |
-| `gtm-win-loss` | Battlecards, loss analysis, competitive traps | `/gtm:win-loss` |
-| `gtm-sales-playbook` | MEDDIC, demo, RFP, discount guardrails | `/gtm:playbook` |
-| `gtm-channel` | Reseller, co-sell, affiliate design + ops | `/gtm:channel` |
-| `gtm-advocacy` | References, reviews flywheel, community proof | `/gtm:advocacy` |
-| `gtm-icp` | ICP fences + TAM tiers + triggers (calls b2b-list) | `/gtm:icp` |
-| `gtm-messaging` | Message house + proof bank (calls product-marketing) | `/gtm:messaging` |
-| `gtm-pricing` | Tiers + fences for launch (calls pricing-strategy) | `/gtm:pricing` |
-| `gtm-launch` | Phased launch + gates (calls launch-strategy) | `/gtm:launch` |
-| `gtm-enablement` | Deck/1-pager/battlecard + ramp (calls b2b-demo) | `/gtm:enablement` |
-| `gtm-plg` | PLG vs SLG loops + triggers (calls revops) | `/gtm:plg` |
-| `gtm-intl` | Locale ranking + min pack | `/gtm:intl` |
-| `gtm-compete` | Intel → traps (calls win-loss) | `/gtm:compete` |
+## Install
 
-## Installation
+The pack is self-contained. Point your agent at `.claude/skills/` (skills) and
+`.claude/agents/` (agents), or install the DoddleOS plugin from `.claude-plugin/plugin.json`.
 
 ```bash
-/plugin marketplace add DoddleHQ/DoddleOS
+python3 scripts/dgtm doctor          # check the environment
+python3 scripts/dgtm version
 ```
 
-> Per-pack plugin install is planned; install single packs via manual copy below.
+Python 3.9+; no dependencies (stdlib only).
 
-Manual: `cp -r doddle-gtm-skills/.claude/skills/* your-project/.claude/skills/`
+## The toolkit — `dgtm`
 
-## What Each Skill Covers
+```
+dgtm version
+dgtm frameworks [--name SLUG] [--json]
+dgtm funnel --stage name:count --stage name:count ... [--json]
+dgtm unit-economics --cac C --arpa A --gross-margin G --churn R [--json]
+dgtm pricing --price P --variable-cost V [--fixed-cost F] [--tier name:price:cost:mix ...] [--json]
+dgtm size-market --accounts N --acv X [--sam-pct S --som-pct O] [--json]
+dgtm score --criteria name:weight:score ... [--target T] [--json]
+dgtm audit  <deals.json|csv> [--json]
+dgtm report <deals.json|csv> [--out FILE] [--json]
+dgtm doctor
+```
 
-### gtm-strategy (TAM → Launch Plan)
-- ICP + TAM sizing + A/B/C tiering
-- Positioning → message house → channel mix
-- Launch gates (product, marketing, sales, CS ready)
-- Calls peer packs: `doddle.marketing.*`, `doddle.sales.*`
+Every command emits a JSON **evidence envelope**. Example:
 
-### gtm-abm (Accounts → Pipeline)
-- Account selection + scoring (fit + intent)
-- Personalization tiers (1:1, 1:few, 1:many)
-- Plays: warm-up, exec outreach, direct mail, ads
-- SDR/AE orchestration + meeting bar
+```bash
+python3 scripts/dgtm report tests/fixtures/deals.json --out GTM-PIPELINE.md
+```
 
-### gtm-win-loss (Deals → Learning)
-- Battlecard per competitor (traps, landmines, proof)
-- Loss interview script + coding taxonomy
-- Win reasons → message + product feedback loop
+The pipeline audit reads a deals export (columns like `stage`, `amount`, `created_at`,
+`closed_at`, `outcome`, `segment`; common aliases accepted) and scores data hygiene and pipeline
+mechanics — **not** revenue outcomes.
 
-### gtm-sales-playbook (Hire → Quota)
-- MEDDIC-lite qualification + exit criteria
-- Demo script (situation → click → value)
-- RFP response kit + discount approval matrix
-- New-rep ramp (certification, shadow, first deals)
+## What is in the pack
 
-### gtm-channel (Partner → Sourced Pipeline)
-- Partner tiers (referral, reseller, co-sell)
-- Enablement kit + deal registration
-- Co-marketing plays + sourced-pipeline share
+**Skills (32)** grouped by the GTM motion (every skill ships a `## Sub-flows` table):
 
-### gtm-advocacy (Customers → Proof)
-- Reference recruitment + review flywheel
-- Case pipeline (ask → draft → approve → publish)
-- Community signals → expansion triggers
+| Group | Skills |
+|-------|--------|
+| Strategy & positioning | gtm-strategy, gtm-positioning, gtm-messaging, gtm-icp, gtm-market-sizing, gtm-competitive, gtm-intl |
+| Segments & accounts | gtm-segmentation, gtm-persona, gtm-abm |
+| Demand & pipeline | gtm-demand-gen, gtm-lead-scoring, gtm-outbound, gtm-pipeline-analytics, gtm-forecasting, gtm-win-loss |
+| Content & enablement | gtm-launch, gtm-sales-narrative, gtm-enablement, gtm-battlecards, gtm-case-study |
+| Pricing & monetization | gtm-pricing, gtm-packaging, gtm-expansion |
+| Channels & growth | gtm-partnerships, gtm-channel, gtm-plg, gtm-advocacy |
+| Measurement & ops | gtm-metrics, gtm-reporting, gtm-experimentation, gtm-onboarding |
 
-## Optional bindings (peer packs, no install dependency)
+**Agents (7):** `gtm-strategist`, `positioning-strategist`, `demand-gen-strategist`,
+`enablement-lead`, `revenue-analyst`, `revenue-operations`, `partner-manager`. Every skill has
+exactly one owner; agents hand off via `## Escalation` sections.
 
-Orchestrates (via `call`):
-- `doddle.marketing.product-marketing` - Positioning input
-- `doddle.sales.prospecting` - Outbound execution
-- `doddle.sales.enablement` - Asset production
+Full inventory: [`skills-matrix.md`](skills-matrix.md). Authoring rules: [`AGENTS.md`](AGENTS.md).
 
-## License
+## Slash commands
 
-MIT License - Same as DoddleOS core
+Every skill is reachable as `/gtm:<name>` (files under `.claude/commands/gtm/`):
+
+| Command | Skill | Command | Skill |
+|---------|-------|---------|-------|
+| `/gtm:strategy` | gtm-strategy | `/gtm:market-sizing` | gtm-market-sizing |
+| `/gtm:positioning` | gtm-positioning | `/gtm:competitive` | gtm-competitive |
+| `/gtm:messaging` | gtm-messaging | `/gtm:playbook` | gtm-sales-narrative (legacy alias) |
+| `/gtm:icp` | gtm-icp | `/gtm:enablement` | gtm-enablement |
+| `/gtm:persona` | gtm-persona | `/gtm:battlecards` | gtm-battlecards |
+| `/gtm:segmentation` | gtm-segmentation | `/gtm:case-study` | gtm-case-study |
+| `/gtm:abm` | gtm-abm | `/gtm:onboarding` | gtm-onboarding |
+| `/gtm:demand-gen` | gtm-demand-gen | `/gtm:pricing` | gtm-pricing |
+| `/gtm:lead-scoring` | gtm-lead-scoring | `/gtm:packaging` | gtm-packaging |
+| `/gtm:outbound` | gtm-outbound | `/gtm:expansion` | gtm-expansion |
+| `/gtm:pipeline-analytics` | gtm-pipeline-analytics | `/gtm:partnerships` | gtm-partnerships |
+| `/gtm:forecasting` | gtm-forecasting | `/gtm:channel` | gtm-channel |
+| `/gtm:win-loss` | gtm-win-loss | `/gtm:plg` | gtm-plg |
+| `/gtm:launch` | gtm-launch | `/gtm:advocacy` | gtm-advocacy |
+| `/gtm:sales-narrative` | gtm-sales-narrative | `/gtm:intl` | gtm-intl |
+| `/gtm:metrics` | gtm-metrics | `/gtm:reporting` | gtm-reporting |
+| `/gtm:experimentation` | gtm-experimentation | | |
+
+## Validation
+
+```bash
+python3 scripts/lint_pack.py && python3 -m pytest tests -q
+python3 doddle-core/scripts/validate.py --strict   # from repo root
+```

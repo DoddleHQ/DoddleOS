@@ -1,7 +1,7 @@
 {
   "name": "doddle-gtm-skills",
-  "version": "1.0.0",
-  "description": "Doddle GTM OS — go-to-market orchestration: strategy, ABM, win-loss, sales playbook, channel, advocacy (DoddleOS v2 blueprints) - 6 skills",
+  "version": "2.0.0",
+  "description": "Doddle GTM OS \u2014 go-to-market orchestration: 32 skills and 7 agents (strategy, positioning, ICP, demand, pipeline, enablement, pricing, advocacy, international, measurement). Deterministic Python toolkit (dgtm) computes funnel math, unit economics, pricing, market sizing, scoring and pipeline audit; skills narrate. Synced from DoddleHQ/doddle-go-to-market-skills.",
   "author": {
     "name": "Doddle Team",
     "url": "https://doddlehq.com"
@@ -13,17 +13,20 @@
   "keywords": [
     "gtm",
     "go-to-market",
+    "positioning",
+    "icp",
+    "demand-generation",
+    "pipeline",
+    "pricing",
     "abm",
-    "win-loss",
-    "sales-playbook",
-    "channel"
+    "smb"
   ],
   "category": "gtm",
   "tags": [
     "gtm",
-    "abm",
+    "go-to-market",
     "sales",
-    "channel"
+    "revenue"
   ],
   "skills": "./.claude/skills",
   "agents": "./.claude/agents",
@@ -31,15 +34,27 @@
   "components": {
     "skills": {
       "path": "./.claude/skills",
-      "count": 6,
+      "count": 32,
+      "ids": "doddle.gtm.*"
+    },
+    "agents": {
+      "path": "./.claude/agents",
+      "count": 7,
       "list": [
-        "gtm-strategy",
-        "gtm-abm",
-        "gtm-win-loss",
-        "gtm-sales-playbook",
-        "gtm-channel",
-        "gtm-advocacy"
+        "gtm-strategist",
+        "positioning-strategist",
+        "demand-gen-strategist",
+        "enablement-lead",
+        "revenue-analyst",
+        "revenue-operations",
+        "partner-manager"
       ]
+    },
+    "toolkit": {
+      "path": "./scripts/doddle_gtm",
+      "cli": "dgtm",
+      "python": ">=3.9",
+      "dependencies": "stdlib-only"
     }
   },
   "requirements": {

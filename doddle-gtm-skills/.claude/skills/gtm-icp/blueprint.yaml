@@ -1,20 +1,20 @@
-id: doddle.gtm.icp
-version: 1.0.0
+id: doddle.gtm.gtm-icp
+version: 0.2.0
 kind: skill
 engine: doddle-os>=1.0
-description: "Define ICP, size TAM into tiers, and map intent triggers for pipeline"
+description: "positioning-strategist skill for icp."
 inputs:
-  - {name: context, type: string, required: true, description: "Product, market hints, existing data; ask if missing"}
-  - {name: goal, type: string, required: false, description: "Pipeline goal"}
+  - {name: criteria, type: string, required: true, description: "Weighted qualifying criteria for the ICP"}
+  - {name: accounts, type: file, required: false, description: "Optional account list to score against the ICP"}
 outputs:
-  - {name: icp_audit, type: markdown, description: "ICP definition with fit criteria"}
-  - {name: tam_tiers, type: json, description: "A/B/C tiers with triggers"}
-  - {name: trigger_map, type: markdown, description: "Intent sources + enrichment SOP"}
+  - {name: icp, type: markdown, description: "ICP definition"}
+  - {name: envelope, type: json, description: "Weighted score envelope"}
 tools:
-  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.clearbit.company, required: false, fallback: manual_review}
 integrations:
-  - hubspot
+  - clearbit
 nodes:
-  - {id: list, type: call, ref: doddle.b2b.list, needs: [inputs], produces: [tier_data], inputs: {context: $context}}
-  - {id: synthesize, type: agent, ref: researcher, needs: [list], produces: [icp_audit, tam_tiers, trigger_map]}
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["score"], needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: positioning-strategist, needs: [run], produces: [icp]}
 on_fail: {retry: 1, fallback: manual_review}

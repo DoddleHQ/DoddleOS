@@ -1,0 +1,19 @@
+id: doddle.gtm.gtm-partnerships
+version: 0.2.0
+kind: skill
+engine: doddle-os>=1.0
+description: "gtm-strategist skill for partnerships."
+inputs:
+  - {name: objective, type: string, required: true, description: "What the partnership must achieve"}
+  - {name: candidates, type: string, required: false, description: "Candidate partners"}
+outputs:
+  - {name: model, type: markdown, description: "Partnership model"}
+tools:
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+integrations:
+  - notion
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["frameworks"], needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: gtm-strategist, needs: [run], produces: [model]}
+on_fail: {retry: 1, fallback: manual_review}

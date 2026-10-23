@@ -1,203 +1,103 @@
 ---
 name: gtm-abm
-id: doddle.gtm.abm
-version: 1.0.0
+id: doddle.gtm.gtm-abm
+version: 0.2.0
 blueprint: ./blueprint.yaml
-description: Run account-based motion: select, personalize, orchestrate SDR/AE/ads. Use when ACV high, buying committee large, or outbound reply low. For list building, see sales-prospecting. For plan, see gtm-strategy.
+description: "When the user wants to tier target accounts and run account-based plays — Tier 1/2/3, effort matched to value, owners and a success metric. Use for 'ABM tiers', 'tier our target accounts', 'account-based plan', 'which accounts get 1:1', 'score our target list'. Tiering criteria are user assumptions."
 ---
 
-# GTM ABM
+# ABM
 
-Fit + intent → tiers → personalized plays → meetings. 1:1 / 1:few / 1:many.
+Tier target accounts by weighted criteria and match effort to value — reproducibly.
 
-## Language & Quality Standards
+## Deterministic Toolkit
 
-**CRITICAL**: Respond in same language user uses.
+```
+dgtm score --criteria name:weight:score [--criteria …] [--target <account>] [--json]
+dgtm frameworks --name abm-tiering --json
+```
 
-**Standards**: Token efficiency, sacrifice grammar for concision, list unresolved questions at end.
+Read the `score` envelope: `metrics.composite`, `metrics.coverage`, `criteria[]` (each with
+`weight`, `score`, `contribution`) and `notes[]`. `coverage` is the share of criteria that
+received a score; a missing score is `null`, not zero. Every criterion, weight and score is an
+**assumption** the user supplies — label it `advisory`. Then read `frameworks[0].sections` from
+`abm-tiering` — the structure the tiers are written into:
 
----
+1. Tier 1 (1:1)
+2. Tier 2 (1:few)
+3. Tier 3 (1:many)
+4. Account criteria
+5. Play per tier
+6. Owners
+7. Success metric
 
-## When to Use This Skill
+Use `doddle.tool.v1.clearbit.company` for firmographic enrichment and
+`doddle.tool.v1.hubspot.deals` for open deals; if either is unavailable, print
+`⚠️ NOT AVAILABLE — configure <tool>` and ask for the account list and firmographics instead.
 
-Apply when:
-- ACV >$15k or committee 3+
-- Broad outbound reply <2%
-- Key accounts named but untouched
-- Expansion into named logos needed
+## Workflow
 
-## Initial Assessment
+1. Pull the tiering structure with `dgtm frameworks --name abm-tiering`.
+2. Take the weighted criteria from the user; confirm the weights sum to 1.
+3. Run `dgtm score --criteria name:weight:score …` for each account and read the envelope.
+4. Rank by `metrics.composite` and cut the tiers using the account criteria.
+5. Assign a play, an owner and a success metric to each tier.
+6. Enrich accounts with `clearbit.company` / `hubspot.deals` if available; never estimate a
+   missing firmographic. State that all criteria are assumptions.
 
-1. **Accounts**
-   - List source? Fit fields? Intent signals?
-2. **Capacity**
-   - SDR/AE ratio? Personalization bandwidth?
-   - Ad budget for 1:many?
+## Sub-flows
 
----
+| Sub-flow | When to use | Toolkit focus |
+|----------|-------------|---------------|
+| `tier-1-one-to-one` | A handful of top-scoring accounts get bespoke, rep-owned plays | `dgtm frameworks --name abm-tiering` |
+| `tier-2-few` | A cluster of similar mid-tier accounts shares one semi-custom play | `dgtm frameworks --name abm-tiering` |
+| `tier-3-many` | The long tail is handled by scaled, campaign-led touches | `dgtm frameworks --name demand-gen-plan` |
+| `enrichment-pass` | The account list lacks firmographics needed to score criteria | `dgtm score`, `doddle.tool.v1.clearbit.company` |
 
-## Inputs Schema
+## Response Contract
 
-| Input | Type | Required | Description |
-|-------|------|----------|-------------|
-| icp | string | yes | Titles, size, industry; ask if missing |
-| account_source | string | no | List origin; infer if missing |
-| acv | string | no | Deal band for tiering |
-| locale | string | no | Market; default en-US |
+Report in this order, every time:
 
----
+1. **Headline result.** One sentence: the composite for the scored account(s) and the tier cut,
+   and that the criteria are assumptions. If `evidence.stamp` is not `CURRENT`, say so here.
+2. **Key evidence.** The `criteria[]` contributions tagged `deterministic`; every criterion,
+   weight and score tagged `advisory` (an assumption); enriched firmographics tagged `live`; the
+   tier structure tagged `deterministic` (from the registry).
+3. **Artifact path.** Where the JSON/report was written, or "inline".
+4. **One suggested next command.** Exactly one.
 
-## Outputs Schema
-
-| Output | Type | Description |
-|--------|------|-------------|
-| report | markdown | Tiers, personalization, plays, cadence |
-| action_list | json | Account actions with owner + effort |
-
----
-
-## Core Framework
-
-### Step 1: Select
-Fit score + intent → A/B/C. Cap A at SDR capacity.
-
-### Step 2: Personalize
-1:1 deep, 1:few vertical, 1:many programmatic.
-
-### Step 3: Orchestrate
-Warm-up → exec → SDR → ads → meeting bar.
-
----
-
-## Detailed Guidance
-
-### Selection
-
-**Checklist:**
-- [ ] Fit: size, industry, tech, geo
-- [ ] Intent: hiring, funding, visits, search
-- [ ] Exclude: customers, competitors, bad-fit
-
-### Personalization
-
-**Checklist:**
-- [ ] 1:1: exec map, custom POV, direct
-- [ ] 1:few: vertical pain, peer proof
-- [ ] 1:many: persona ads, landing variants
-
-### Plays
-
-**Checklist:**
-- [ ] Warm-up (ads, social, content) 2 wks
-- [ ] Sequence (email + phone + social) 3-4 wks
-- [ ] Handoff bar: 2+ stakeholders, pain + timeline
-- [ ] No-response recycle with reason
-
----
+Hard rules: never invent a number; a `null` criterion score is not measured, not zero; never do
+arithmetic; criteria are assumptions and must be labelled; on `ok: false` relay `error.message` +
+`error.hint`. Full block: `common/response-contract.md`.
 
 ## Common Mistakes
 
-### Strategy Mistakes
-| Mistake | Why It's Wrong | Do This Instead |
-|---------|----------------|-----------------|
-| 500 target accounts | No depth | A ≤50 per SDR |
-| No intent | Cold waste | Intent gate |
-| Marketing-only ABM | No meetings | SDR/AE SLA |
-
-### Execution Mistakes
-| Mistake | Why It's Wrong | Do This Instead |
-|---------|----------------|-----------------|
-| Generic copy | Ignored | Account POV first line |
-| Single-thread | Dies on leave | Multi-thread 3+ |
-
-### Analysis Mistakes
-| Mistake | Why It's Wrong | Do This Instead |
-|---------|----------------|-----------------|
-| Count touches | Vanity | Meetings + progression |
-
----
-
-## Metrics to Track
-
-| Metric | Definition | Target | Tool |
-|--------|------------|--------|------|
-| Coverage | A accounts worked | 100%/qtr | CRM |
-| Reply / meeting rate | Per tier | A >8% reply | CRM |
-| Progression | MQA → opp | >20% | HubSpot |
-| Pipeline per account | $ per A | >3x CAC | Finance |
-
----
-
-## Decision Tree
-
-No list → build fit first. No intent → warm-up only. Low capacity → shrink A tier. Reply low → rewrite POV.
-
----
-
-## Quick Assessment Checklist
-
-1. [ ] ICP + list source?
-2. [ ] Intent available?
-3. [ ] SDR capacity?
-4. [ ] Ad budget?
-5. [ ] Meeting bar defined?
-
----
-
-## Expected Output Format
-
-### Tiers
-[A/B/C with counts]
-
-### Plays
-[Cadence per tier]
-
-### Handoff
-[Bar + SLA]
-
----
-
-## Common Failure Modes
-
-| Failure | Symptom | Fix |
-|---------|---------|-----|
-| Too many A | Thin touches | Cut to capacity |
-| No orchestration | Random acts | Shared cadence |
-| No recycle | List burn | Recycle reasons |
-
----
-
-## MCP Tool Integration
-
-| Tool ID | When to Use | Data to Pull | Required |
-|---------|-------------|--------------|----------|
-| doddle.tool.v1.hubspot.contacts | Account baseline | Contacts, companies | no |
-| doddle.tool.v1.semrush.domainOverview | Fit enrichment | Firmographics | no |
-
-Fallback: if tool unavailable, state data as NOT AVAILABLE per `data-reliability-rules.md`. Never fabricate.
-
----
-
-## Agent Collaboration
-
-| Agent | When to Collaborate | What They Provide |
-|-------|--------------------|--------------------|
-| lead-qualifier | Scoring, tiers | Fit filters |
-| copywriter | POV, sequences | Personalization |
-| sales-enabler | Exec assets | One-pagers |
-
----
+| Mistake | Fix |
+|---------|-----|
+| Presenting the tiering criteria as facts | Label every criterion, weight and score `advisory` |
+| Re-adding the weighted contributions by hand | Read `metrics.composite` from the envelope |
+| Treating a missing score as zero | It is `null`; check `metrics.coverage` and `notes[]` |
+| Defaulting weights when the user did not give them | Ask; do not substitute a default |
+| Skipping the play/owner/success metric per tier | Fill the abm-tiering sections or flag the gap |
 
 ## Related Skills
 
-- **gtm-strategy**: Plan wrapper
-- **sales-prospecting**: List mechanics
-- **gtm-win-loss**: Message ammo
+- `gtm-icp` — define the profile the account criteria test.
+- `gtm-segmentation` — group accounts before tiering them.
+- `gtm-demand-gen` — the channels the plays run through.
+- `gtm-outbound` — the direct touch for Tier 1 accounts.
+- `gtm-lead-scoring` — scoring inbound leads (distinct from account tiering).
 
----
+## Inputs
 
-## Questions to Ask
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| accounts | file | yes | Target account list |
+| criteria | string | yes | Weighted tiering criteria |
 
-1. ICP + account source?
-2. SDR/AE capacity?
-3. ACV band?
+## Outputs
+
+| Name | Type | Description |
+|------|------|-------------|
+| program | markdown | ABM tiers and plays |
+| envelope | json | Account score envelope |

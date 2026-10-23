@@ -1,0 +1,20 @@
+id: doddle.gtm.gtm-lead-scoring
+version: 0.2.0
+kind: skill
+engine: doddle-os>=1.0
+description: "demand-gen-strategist skill for lead scoring."
+inputs:
+  - {name: criteria, type: string, required: true, description: "Weighted fit and intent criteria"}
+  - {name: leads, type: file, required: false, description: "Optional leads to score"}
+outputs:
+  - {name: model, type: markdown, description: "Lead-scoring model"}
+  - {name: envelope, type: json, description: "Score envelope"}
+tools:
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["score"], needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: demand-gen-strategist, needs: [run], produces: [model]}
+on_fail: {retry: 1, fallback: manual_review}

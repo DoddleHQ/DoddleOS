@@ -1,11 +1,11 @@
 {
   "name": "doddle-gtm-skills",
-  "version": "1.0.0",
-  "description": "Go-to-market orchestration skills: strategy, ABM, win-loss, sales playbook, channel, advocacy",
+  "version": "2.0.0",
+  "description": "Doddle GTM OS \u2014 32 go-to-market skills (positioning, ICP, demand, pipeline, enablement, pricing, advocacy, measurement) with a deterministic zero-dependency evidence toolkit (dgtm). Defaults to SMB.",
   "main": "README.md",
   "scripts": {
-    "test": "python3 ../../doddle-core/scripts/validate.py",
-    "lint": "echo \"Linting passed\""
+    "test": "python3 -m pytest tests -q",
+    "lint": "python3 scripts/lint_pack.py"
   },
   "repository": {
     "type": "git",

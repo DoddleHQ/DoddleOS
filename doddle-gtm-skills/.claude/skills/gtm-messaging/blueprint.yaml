@@ -1,20 +1,16 @@
-id: doddle.gtm.messaging
-version: 1.0.0
+id: doddle.gtm.gtm-messaging
+version: 0.2.0
 kind: skill
 engine: doddle-os>=1.0
-description: "Positioning to message house with proof and objection handling"
+description: "positioning-strategist skill for messaging."
 inputs:
-  - {name: context, type: string, required: true, description: "Product, audience, value prop, competitors; ask if missing"}
-  - {name: goal, type: string, required: false, description: "Messaging goal"}
+  - {name: positioning, type: string, required: true, description: "The agreed positioning"}
+  - {name: personas, type: string, required: false, description: "Personas to message to"}
 outputs:
-  - {name: message_house, type: markdown, description: "Pillars, proof, voice"}
-  - {name: proof_bank, type: json, description: "Claims with proof refs"}
-  - {name: objection_map, type: markdown, description: "Objections with reframes"}
+  - {name: messaging, type: markdown, description: "Messaging house"}
 tools:
-  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
-integrations:
-  - notion
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
 nodes:
-  - {id: position, type: call, ref: doddle.marketing.product-marketing, needs: [inputs], produces: [position_data], inputs: {context: $context}}
-  - {id: synthesize, type: agent, ref: copywriter, needs: [position], produces: [message_house, proof_bank, objection_map]}
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["frameworks"], needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: positioning-strategist, needs: [run], produces: [messaging]}
 on_fail: {retry: 1, fallback: manual_review}

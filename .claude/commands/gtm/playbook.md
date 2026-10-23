@@ -1,8 +1,8 @@
 ---
-description: Codify sales motion with MEDDIC, demo script, and discount matrix
-argument-hint: [product-offer acv]
+description: Sales narrative: status quo to proof to ask
+argument-hint: [positioning]
 ---
 
-**Skills**: Activate `gtm-sales-playbook` (id `doddle.gtm.sales-playbook`).
+**Skills**: Activate `gtm-sales-narrative` (id `doddle.gtm.gtm-sales-narrative`).
 
-Collect `product_offer` (required), `acv`, `locale` if missing, then run skill per `doddle-gtm-skills/.claude/skills/gtm-sales-playbook/SKILL.md`.
+Collect `positioning` (required), `audience` if missing, then run skill per `doddle-gtm-skills/.claude/skills/gtm-sales-narrative/SKILL.md`.

@@ -75,3 +75,4 @@ dist
 .mcp.json
 .cache
 data/**
+.pytest_cache

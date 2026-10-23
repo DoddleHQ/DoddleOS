@@ -1,20 +1,18 @@
-id: doddle.gtm.pricing
-version: 1.0.0
+id: doddle.gtm.gtm-pricing
+version: 0.2.0
 kind: skill
 engine: doddle-os>=1.0
-description: "Packaging and guardrails for launch: value metric, tiers, fences"
+description: "gtm-strategist skill for pricing."
 inputs:
-  - {name: context, type: string, required: true, description: "Product, pricing, market, motion; ask if missing"}
-  - {name: goal, type: string, required: false, description: "Pricing goal"}
+  - {name: price, type: number, required: true, description: "List price"}
+  - {name: variable-cost, type: number, required: true, description: "Variable cost per unit/account"}
+  - {name: fixed-cost, type: number, required: false, description: "Fixed cost for break-even"}
 outputs:
-  - {name: pricing_audit, type: markdown, description: "Value metric + tier diagnosis"}
-  - {name: tier_model, type: json, description: "Tiers with fences and annual framing"}
-  - {name: guardrail_notes, type: markdown, description: "Discount floors + approval matrix"}
+  - {name: analysis, type: markdown, description: "Pricing analysis"}
+  - {name: envelope, type: json, description: "Pricing envelope"}
 tools:
-  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
-integrations:
-  - hubspot
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
 nodes:
-  - {id: price, type: call, ref: doddle.marketing.pricing-strategy, needs: [inputs], produces: [pricing_data], inputs: {context: $context}}
-  - {id: synthesize, type: agent, ref: planner, needs: [price], produces: [pricing_audit, tier_model, guardrail_notes]}
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["pricing"], needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: gtm-strategist, needs: [run], produces: [analysis]}
 on_fail: {retry: 1, fallback: manual_review}

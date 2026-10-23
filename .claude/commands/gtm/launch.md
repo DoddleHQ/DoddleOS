@@ -1,8 +1,8 @@
 ---
-description: Tiered launch with gates
-argument-hint: [context goal]
+description: Phased GTM launch with readiness gates
+argument-hint: [product attributes]
 ---
 
-**Skills**: Activate `gtm-launch` (id `doddle.gtm.launch`).
+**Skills**: Activate `gtm-launch` (id `doddle.gtm.gtm-launch`).
 
-Collect `context` (required), `goal` if missing, then run skill per `doddle-gtm-skills/.claude/skills/gtm-launch/SKILL.md`.
+Collect `product` (required), `attributes` (required) if missing, then run skill per `doddle-gtm-skills/.claude/skills/gtm-launch/SKILL.md`.

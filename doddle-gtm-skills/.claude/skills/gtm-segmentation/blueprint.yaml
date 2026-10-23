@@ -1,0 +1,20 @@
+id: doddle.gtm.gtm-segmentation
+version: 0.2.0
+kind: skill
+engine: doddle-os>=1.0
+description: "gtm-strategist skill for segmentation."
+inputs:
+  - {name: market, type: string, required: true, description: "Market to segment"}
+  - {name: criteria, type: string, required: false, description: "Segmentation axes"}
+outputs:
+  - {name: segments, type: markdown, description: "Segment definitions and priority"}
+  - {name: envelope, type: json, description: "Sizing envelope"}
+tools:
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.clearbit.company, required: false, fallback: manual_review}
+integrations:
+  - clearbit
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["size-market"], needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: gtm-strategist, needs: [run], produces: [segments]}
+on_fail: {retry: 1, fallback: manual_review}

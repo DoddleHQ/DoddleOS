@@ -1,25 +1,22 @@
-id: doddle.gtm.abm
-version: 1.0.0
+id: doddle.gtm.gtm-abm
+version: 0.2.0
 kind: skill
 engine: doddle-os>=1.0
-description: "Run account-based motion: select, personalize, orchestrate SDR/AE/ads"
+description: "demand-gen-strategist skill for abm."
 inputs:
-  - {name: icp, type: string, required: true, description: "Titles, size, industry; ask if missing"}
-  - {name: account_source, type: string, required: false, description: "List origin; infer if missing"}
-  - {name: acv, type: string, required: false, description: "Deal band for tiering"}
-  - {name: locale, type: string, required: false, description: "Market; default en-US"}
+  - {name: accounts, type: file, required: true, description: "Target account list"}
+  - {name: criteria, type: string, required: true, description: "Weighted tiering criteria"}
 outputs:
-  - {name: report, type: markdown, description: "Tiers, personalization, plays, cadence"}
-  - {name: action_list, type: json, description: "Account actions with owner and effort"}
+  - {name: program, type: markdown, description: "ABM tiers and plays"}
+  - {name: envelope, type: json, description: "Account score envelope"}
 tools:
-  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
-  - {id: doddle.tool.v1.semrush.domainOverview, required: false, fallback: manual_review}
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.clearbit.company, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
 integrations:
+  - clearbit
   - hubspot
-  - semrush
 nodes:
-  - {id: assess, type: agent, ref: lead-qualifier, needs: [inputs], produces: [assessment]}
-  - {id: enrich, type: tool, ref: doddle.tool.v1.hubspot.contacts, needs: [assess], produces: [account_data]}
-  - {id: recommend, type: agent, ref: copywriter, needs: [enrich], produces: [report]}
-  - {id: plan, type: agent, ref: planner, needs: [recommend], produces: [action_list]}
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["score"], needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: demand-gen-strategist, needs: [run], produces: [program]}
 on_fail: {retry: 1, fallback: manual_review}

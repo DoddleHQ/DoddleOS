@@ -1,0 +1,17 @@
+id: doddle.gtm.gtm-packaging
+version: 0.2.0
+kind: skill
+engine: doddle-os>=1.0
+description: "gtm-strategist skill for packaging."
+inputs:
+  - {name: tiers, type: string, required: true, description: "Tiers with price, cost and expected mix"}
+  - {name: value-metric, type: string, required: false, description: "The value metric to meter on"}
+outputs:
+  - {name: packaging, type: markdown, description: "Packaging model with blended margins"}
+  - {name: envelope, type: json, description: "Pricing envelope"}
+tools:
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["pricing"], needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: gtm-strategist, needs: [run], produces: [packaging]}
+on_fail: {retry: 1, fallback: manual_review}

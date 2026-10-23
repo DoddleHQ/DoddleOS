@@ -1,199 +1,95 @@
 ---
 name: gtm-channel
-id: doddle.gtm.channel
-version: 1.0.0
+id: doddle.gtm.gtm-channel
+version: 0.2.0
 blueprint: ./blueprint.yaml
-description: Design partner motion: tiers, enablement, deal reg, co-sell. Use when needing sourced pipeline, reseller scale, or affiliate ops. For referrals, see referral-program.
+description: "When the user wants to compare acquisition channels on unit economics — CAC, LTV:CAC and payback. Use for 'which channel is best', 'compare channels', 'channel economics', 'paid vs organic vs partner', 'where should we spend'. Inputs are assumptions the user supplies."
 ---
 
-# GTM Channel
+# Channel Economics
 
-Tiers → enablement → registration → co-sell → sourced share.
+Compare channels on the same unit economics — reproducibly from each channel's inputs.
 
-## Language & Quality Standards
+## Deterministic Toolkit
 
-**CRITICAL**: Respond in same language user uses.
+```
+dgtm unit-economics --cac C --arpa A --gross-margin G --churn R [--json]
+```
 
-**Standards**: Token efficiency, sacrifice grammar for concision, list unresolved questions at end.
+Run it once per channel and read `metrics` from each envelope:
 
----
+- `ltv` — `arpa x gross_margin / churn`.
+- `ltv_cac` — `ltv / cac`.
+- `cac_payback_months` — `cac / (arpa x gross_margin)`.
+- `monthly_gross_profit` — `arpa x gross_margin`.
+- `inputs` and `notes` — the exact values used and any missing input.
 
-## When to Use This Skill
+CAC, ARPA, gross margin and churn are the user's **assumptions** — label them `advisory`. A
+churn of `0` yields `ltv` of `null` (undefined, not infinite). Compare channels **only** on inputs
+from the same period and segment.
 
-Apply when:
-- Direct CAC too high, partners hold trust
-- Inbound referrals ad-hoc, untracked
-- Reseller interest but no program
-- Co-sell with adjacent vendors possible
+## Workflow
 
-## Initial Assessment
+1. List the channels to compare and the segment (default **SMB**).
+2. Collect `cac`, `arpa`, `gross-margin` and `churn` per channel; label each `advisory`.
+3. Run `dgtm unit-economics …` once per channel and read each `metrics` block.
+4. Narrate the relative economics — payback and LTV:CAC — without recomputing them.
+5. Flag any channel missing an input as not comparable, not as zero.
+6. State `scoring_version`, `data_version` and `evidence.stamp`.
 
-1. **Fit**
-   - Who serves same buyer pre/post you?
-   - Margin to share? Deal reg appetite?
-2. **Capacity**
-   - Partner manager? Enablement bandwidth?
+## Sub-flows
 
----
+| Sub-flow | When to use | Toolkit focus |
+|----------|-------------|---------------|
+| `channel-compare` | Default: rank two or more channels on one window and segment | `dgtm unit-economics` per channel |
+| `single-channel-check` | Viability of one channel ("should we keep paid search?") | `dgtm unit-economics` |
+| `budget-shift` | Deciding where the next increment of spend should go | `dgtm unit-economics` per channel, `demand-gen-plan` |
+| `partner-vs-direct` | Comparing a partner-led motion against direct acquisition | `dgtm unit-economics` per channel, `partnership-model` |
 
-## Inputs Schema
+## Response Contract
 
-| Input | Type | Required | Description |
-|-------|------|----------|-------------|
-| product_offer | string | yes | Offer + margin; ask if missing |
-| partner_hint | string | no | Candidate types; infer if missing |
-| locale | string | no | Market; default en-US |
+Report in this order, every time:
 
----
+1. **Headline result.** One sentence naming the leading channel and its payback or LTV:CAC. If
+   `evidence.stamp` is not `CURRENT`, say so here.
+2. **Key evidence.** Per-channel figures tagged `deterministic` (computed) and their inputs
+   tagged `advisory` (assumed) — measured or assumed, stated.
+3. **Artifact path.** Where the JSON was written, or "inline".
+4. **One suggested next command.** Exactly one.
 
-## Outputs Schema
-
-| Output | Type | Description |
-|--------|------|-------------|
-| report | markdown | Tiers, kit, reg rules, co-sell plays |
-| action_list | json | Partner actions with owner + effort |
-
----
-
-## Core Framework
-
-### Step 1: Tier
-Referral → reseller → co-sell. Criteria + payout per tier.
-
-### Step 2: Enable
-Kit: pitch, demo, pricing, FAQ, deal reg.
-
-### Step 3: Sell
-Co-marketing → sourced deals → share tracked.
-
----
-
-## Detailed Guidance
-
-### Tiers & Terms
-
-**Checklist:**
-- [ ] Referral (finders fee), reseller (margin), co-sell (split)
-- [ ] Entry bar + exit for dead partners
-- [ ] Deal reg: 30-day protection, conflict rules
-
-### Enablement
-
-**Checklist:**
-- [ ] One-pager, deck, demo video, pricing sheet
-- [ ] Partner landing + tracking links
-- [ ] Quarterly business review format
-
-### Co-sell
-
-**Checklist:**
-- [ ] Top 10 target partners named
-- [ ] 2 co-marketing plays per quarter
-- [ ] Sourced-pipeline share dashboard
-
----
+Hard rules: never invent a number; `null` is not measured, not zero; never do arithmetic;
+assumptions are labelled; on `ok: false` relay `error.message` + `error.hint`. Full block:
+`common/response-contract.md`.
 
 ## Common Mistakes
 
-### Strategy Mistakes
-| Mistake | Why It's Wrong | Do This Instead |
-|---------|----------------|-----------------|
-| 100 logos, 0 deals | Vanity | 10 active max |
-| Equal payout all | Adverse select | Tier by effort |
-
-### Execution Mistakes
-| Mistake | Why It's Wrong | Do This Instead |
-|---------|----------------|-----------------|
-| No reg rules | Channel conflict | Write first |
-| No enablement | Partners silent | Kit + training |
-
-### Analysis Mistakes
-| Mistake | Why It's Wrong | Do This Instead |
-|---------|----------------|-----------------|
-| Count partners | Vanity | Sourced $ |
-
----
-
-## Metrics to Track
-
-| Metric | Definition | Target | Tool |
-|--------|------------|--------|------|
-| Sourced pipeline $ | Partner-originated | >20% mix | CRM |
-| Active partners | ≥1 deal/qtr | ≥5 | CRM |
-| Reg conflicts | Disputed deals | 0 | Manual |
-| Time to first deal | Days signed→deal | <90 | CRM |
-
----
-
-## Decision Tree
-
-No manager → referral-only. Margin thin → co-sell not resell. Conflict-prone → reg before recruiting.
-
----
-
-## Quick Assessment Checklist
-
-1. [ ] Offer + margin?
-2. [ ] Candidate partners?
-3. [ ] Manager capacity?
-4. [ ] Reg appetite?
-5. [ ] Tracking in CRM?
-
----
-
-## Expected Output Format
-
-### Tiers + Terms
-[Levels, payouts, bars]
-
-### Kit + Reg
-[Assets, rules]
-
-### Co-sell Plan
-[Targets, plays, dashboard]
-
----
-
-## Common Failure Modes
-
-| Failure | Symptom | Fix |
-|---------|---------|-----|
-| Logo farm | 0 sourced | Prune quarterly |
-| Direct conflict | AE vs partner | Reg + split credit |
-
----
-
-## MCP Tool Integration
-
-| Tool ID | When to Use | Data to Pull | Required |
-|---------|-------------|--------------|----------|
-| doddle.tool.v1.hubspot.deals | Sourced tracking | Source, stage | no |
-| doddle.tool.v1.hubspot.contacts | Partner contacts | Roles, owners | no |
-
-Fallback: if tool unavailable, state data as NOT AVAILABLE per `data-reliability-rules.md`. Never fabricate.
-
----
-
-## Agent Collaboration
-
-| Agent | When to Collaborate | What They Provide |
-|-------|--------------------|--------------------|
-| researcher | Partner mapping | Candidate lists |
-| sales-enabler | Kit production | Decks, sheets |
-| planner | Recruit sequencing | Outreach plan |
-
----
+| Mistake | Fix |
+|---------|-----|
+| Presenting assumed CAC as measured | Label every input `advisory` |
+| Comparing channels from different windows | Use one period and one segment |
+| Treating zero churn as infinite LTV | `ltv` is `null`; it is undefined |
+| Re-deriving payback by hand | Read `metrics.cac_payback_months` |
+| Ranking a channel with a missing input | Mark it not comparable, not worst |
 
 ## Related Skills
 
-- **gtm-strategy**: Mix context
-- **partnerships**: Tactic depth
-- **referral-program**: Flywheel mechanics
+- `gtm-demand-gen` — turn the winning channels into a plan.
+- `gtm-pricing` — price and margin set the channel ceiling.
+- `gtm-plg` — the product loop is one channel to compare.
+- `gtm-metrics` — track channel economics in the scorecard.
 
----
+## Inputs
 
-## Questions to Ask
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| cac | number | yes | Channel acquisition cost (assumption) |
+| arpa | number | yes | Average revenue per account, monthly (assumption) |
+| gross-margin | number | no | Gross margin fraction (assumption) |
+| churn | number | no | Monthly churn rate (assumption) |
 
-1. Offer + margin shareable?
-2. Candidate partner types?
-3. Manager + CRM tracking?
+## Outputs
+
+| Name | Type | Description |
+|------|------|-------------|
+| analysis | markdown | Channel economics comparison |
+| envelope | json | Unit-economics envelope |

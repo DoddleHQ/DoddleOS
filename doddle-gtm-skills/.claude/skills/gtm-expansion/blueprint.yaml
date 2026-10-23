@@ -1,0 +1,20 @@
+id: doddle.gtm.gtm-expansion
+version: 0.2.0
+kind: skill
+engine: doddle-os>=1.0
+description: "revenue-analyst skill for expansion."
+inputs:
+  - {name: export, type: file, required: true, description: "Deals/opportunities export (JSON or CSV)"}
+  - {name: motion, type: string, required: false, description: "Upsell, cross-sell or renewal focus"}
+outputs:
+  - {name: plan, type: markdown, description: "Expansion plan"}
+  - {name: envelope, type: json, description: "Audit envelope"}
+tools:
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
+integrations:
+  - hubspot
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["audit"], needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: revenue-analyst, needs: [run], produces: [plan]}
+on_fail: {retry: 1, fallback: manual_review}

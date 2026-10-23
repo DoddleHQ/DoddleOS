@@ -1,25 +1,21 @@
-id: doddle.gtm.strategy
-version: 1.0.0
+id: doddle.gtm.gtm-strategy
+version: 0.2.0
 kind: skill
 engine: doddle-os>=1.0
-description: "Build go-to-market plan: ICP, TAM, message, channel mix, launch gates"
+description: "gtm-strategist skill for strategy."
 inputs:
-  - {name: product_offer, type: string, required: true, description: "Product + offer + proof; ask if missing"}
-  - {name: icp_hint, type: string, required: false, description: "Titles, size, industry; infer if missing"}
-  - {name: acv, type: string, required: false, description: "Deal size band"}
-  - {name: locale, type: string, required: false, description: "Market; default en-US"}
+  - {name: objective, type: string, required: true, description: "What the plan must achieve"}
+  - {name: segment, type: string, required: false, description: "Primary segment; defaults to SMB"}
+  - {name: inputs, type: file, required: false, description: "User-supplied assumptions (ACV, churn, funnel counts)"}
 outputs:
-  - {name: report, type: markdown, description: "ICP, TAM tiers, message house, channel mix, gates"}
-  - {name: action_list, type: json, description: "Sequenced GTM actions with owner and effort"}
+  - {name: plan, type: markdown, description: "The assembled go-to-market plan"}
 tools:
-  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
-  - {id: doddle.tool.v1.semrush.domainOverview, required: false, fallback: manual_review}
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
 integrations:
-  - hubspot
-  - semrush
+  - notion
 nodes:
-  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [assessment]}
-  - {id: size, type: tool, ref: doddle.tool.v1.hubspot.contacts, needs: [assess], produces: [tam_data]}
-  - {id: recommend, type: agent, ref: lead-qualifier, needs: [size], produces: [report]}
-  - {id: plan, type: agent, ref: planner, needs: [recommend], produces: [action_list]}
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["unit-economics"], needs: [inputs], produces: [envelope]}
+  - {id: run_2, type: tool, ref: doddle.tool.cli.dgtm, args: ["funnel"], needs: [run], produces: [envelope]}
+  - {id: narrate, type: agent, ref: gtm-strategist, needs: [run_2], produces: [plan]}
 on_fail: {retry: 1, fallback: manual_review}

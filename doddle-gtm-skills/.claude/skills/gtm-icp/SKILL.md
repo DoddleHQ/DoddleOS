@@ -1,149 +1,94 @@
 ---
 name: gtm-icp
-id: doddle.gtm.icp
-version: 1.0.0
+id: doddle.gtm.gtm-icp
+version: 0.2.0
 blueprint: ./blueprint.yaml
-description: Define ICP, tier TAM, map triggers. Use for new motion or ICP refresh. For sequencing see gtm-abm.
+description: "When the user wants to define or score an ideal customer profile. Use for 'define our ICP', 'ideal customer profile', 'who should we target', 'score these accounts', 'qualify our best-fit customers'. Weights and 0-100 scores are the user's assumptions; this skill never presents them as facts."
 ---
 
-# GTM ICP
+# ICP Definition
 
-Fit + intent before spend. Calls b2b-list (which calls customer-research) — depth 2, within limit.
+Define a scored ideal customer profile from weighted criteria the user supplies.
 
-## Language & Quality Standards
+## Deterministic Toolkit
 
-**CRITICAL**: Respond in same language user uses.
+```
+dgtm score --criteria name:weight:score [--criteria name:weight:score ...] [--target T] [--json]
+dgtm frameworks --name icp-template --json
+```
 
-**Standards**: Token efficiency, sacrifice grammar for concision, list unresolved questions at end.
+Read the JSON envelope:
 
----
+- `metrics.composite` — the weighted score (0-100) over the criteria that were scored.
+- `metrics.coverage` — the share of total weight that was actually scored.
+- `criteria[]` — `name`, `weight`, `score`, `contribution` per criterion.
+- `notes[]` — criteria that were not measured.
 
-## When to Use This Skill
+Every `weight` and `score` is a user **assumption** (`advisory`); the `composite` and `coverage`
+are computed (`deterministic`). `coverage` below 1 means some criteria were not scored — report
+it as not measured, never as zero. Read `frameworks[0].sections` for the ICP structure. Enrich
+target accounts with `doddle.tool.v1.clearbit.company` (read-only); if unavailable, ask for the
+account list and print `NOT AVAILABLE — configure doddle.tool.v1.clearbit.company`.
 
-Apply when:
-- New GTM motion or segment
-- TAM too big to work
-- Intent sources unclear
+## Workflow
 
-## Initial Assessment
+1. Elicit the qualifying criteria, each with a weight and a 0-100 score (or leave the score blank).
+2. Run `dgtm score --criteria …` and read `metrics`, `criteria` and `notes`.
+3. Read the `icp-template` structure with `dgtm frameworks --name icp-template`.
+4. Fill firmographics, technographics, triggers, buying committee and disqualifiers from the inputs.
+5. Optionally enrich the target accounts via `doddle.tool.v1.clearbit.company`.
+6. Narrate the composite and coverage; label every weight and score `advisory`.
 
-1. **Market**
-   - Context: product, hints, data?
+## Sub-flows
 
----
+| Sub-flow | When to use | Toolkit focus |
+|----------|-------------|---------------|
+| `definition-only` | Define the ICP before any account list exists | `icp-template` |
+| `account-scoring` | Score a supplied account list against the ICP | `dgtm score` |
+| `refinement` | Re-weight criteria after new win/loss evidence | `dgtm score`, `icp-template` |
 
-## Inputs Schema
+## Response Contract
 
-| Input | Type | Required | Description |
-|-------|------|----------|-------------|
-| context | string | yes | Product, market hints, data |
-| goal | string | no | Pipeline goal |
+Report in this order, every time:
 
----
+1. **Headline result.** One sentence carrying the composite and coverage together, tagged with the
+   assumption that the weights are the user's. If any criterion is unscored, say so here.
+2. **Key evidence.** The criteria and their contributions, tagged `deterministic`; the weights and
+   scores tagged `advisory` (assumptions).
+3. **Artifact path.** Where the ICP was written, or "inline".
+4. **One suggested next command.** Exactly one.
 
-## Outputs Schema
-
-| Output | Type | Description |
-|--------|------|-------------|
-| icp_audit | markdown | ICP with fit criteria |
-| tam_tiers | json | A/B/C with triggers |
-| trigger_map | markdown | Sources + SOP |
-
----
-
-## Core Framework
-
-### Step 1: List
-Call `doddle.b2b.list` for tiers + triggers.
-
-### Step 2: Sharpen
-ICP fences: in/out, deal-breakers.
-
-### Step 3: Wire
-Enrichment + refresh cadence.
-
----
-
-## Detailed Guidance
-
-### ICP
-
-**Checklist:**
-- [ ] Fit (title x size x tech) + intent (hiring/funding/trigger)
-- [ ] Out-of-ICP logged with reason
-- [ ] Tier effort split 10/30/60
-
----
+Hard rules: never invent a number; `null` is not measured, not zero; never do arithmetic; on
+`ok: false` relay `error.message` + `error.hint`. Full block: `common/response-contract.md`.
 
 ## Common Mistakes
 
-| Mistake | Why It's Wrong | Do This Instead |
-|---------|----------------|-----------------|
-| Everyone ICP | No focus | Fences |
-| Static TAM | Rots | 30d refresh |
-
----
-
-## Metrics to Track
-
-| Metric | Definition | Target | Tool |
-|--------|------------|--------|------|
-| Tier-A coverage | Worked / total A | 100%/q | HubSpot |
-
----
-
-## Decision Tree
-
-No data → research via b2b-list first. Too big → tier harder.
-
----
-
-## Quick Assessment Checklist
-
-1. [ ] Context + goal?
-
----
-
-## Expected Output Format
-
-### ICP Audit
-[Fit + tiers + triggers]
-
----
-
-## Common Failure Modes
-
-| Failure | Symptom | Fix |
-|---------|---------|-----|
-| Depth breach | Schedule depth error | Keep chain ≤3 (here 2) |
-
----
-
-## MCP Tool Integration
-
-| Tool ID | When to Use | Data to Pull | Required |
-|---------|-------------|--------------|----------|
-| doddle.tool.v1.hubspot.contacts | Base | Contacts | no |
-
-Fallback: if tool unavailable, state data as NOT AVAILABLE per `data-reliability-rules.md`. Never fabricate.
-
----
-
-## Agent Collaboration
-
-| Agent | When to Collaborate | What They Provide |
-|-------|--------------------|--------------------|
-| researcher | TAM | Tiers |
-
----
+| Mistake | Fix |
+|---------|-----|
+| Presenting weights as measured facts | Label every weight and score `advisory` |
+| Reading `coverage` below 1 as a zero score | It means some criteria were not scored |
+| Confusing the ICP (an account) with a persona (a role) | The ICP is account-level; personas are roles |
+| Recomputing the weighted mean by hand | Read `metrics.composite` from the envelope |
+| Guessing firmographics instead of enriching | Use clearbit, or ask for the account list |
 
 ## Related Skills
 
-- **gtm-strategy**: Full plan consumer
-- **gtm-abm**: Tier-1 execution
+- `gtm-segmentation` — group accounts into segments before profiling.
+- `gtm-persona` — the role-level view inside the ICP.
+- `gtm-abm` — tier accounts against the ICP.
+- `gtm-market-sizing` — size the market the ICP defines.
+- `gtm-lead-scoring` — apply the same criteria to inbound leads.
 
----
+## Inputs
 
-## Questions to Ask
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| criteria | string | yes | Weighted qualifying criteria for the ICP |
+| accounts | file | no | Optional account list to score against the ICP |
 
-1. Product context + goal?
+## Outputs
+
+| Name | Type | Description |
+|------|------|-------------|
+| icp | markdown | ICP definition |
+| envelope | json | Weighted score envelope |

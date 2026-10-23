@@ -1,0 +1,17 @@
+id: doddle.gtm.gtm-positioning
+version: 0.2.0
+kind: skill
+engine: doddle-os>=1.0
+description: "positioning-strategist skill for positioning."
+inputs:
+  - {name: product, type: string, required: true, description: "The product being positioned"}
+  - {name: alternative, type: string, required: true, description: "What buyers use today instead"}
+  - {name: differentiators, type: string, required: false, description: "Why you are meaningfully better"}
+outputs:
+  - {name: positioning, type: markdown, description: "Positioning canvas and statement"}
+tools:
+  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
+nodes:
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["frameworks"], needs: [inputs], produces: [envelope]}
+  - {id: narrate, type: agent, ref: positioning-strategist, needs: [run], produces: [positioning]}
+on_fail: {retry: 1, fallback: manual_review}
