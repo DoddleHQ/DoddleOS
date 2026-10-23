@@ -1,3 +1,10 @@
+## [1.9.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.8.0...v1.9.0) (2026-10-23)
+
+
+### 🚀 Features
+
+* **agency:** standalone Doddle Agency OS pack (19th peer, 5 skills) ([4fe8b7d](https://github.com/DoddleHQ/DoddleOS/commit/4fe8b7dd2a3fe3300439fe7d72f7e473b696845e))
+
 ## [1.8.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.7.0...v1.8.0) (2026-10-23)
 
 
