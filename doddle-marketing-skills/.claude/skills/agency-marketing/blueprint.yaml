@@ -1,0 +1,22 @@
+id: doddle.marketing.agency-marketing
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+domains: [agency]
+description: "Market an agency's own website: positioning, services-page copy, case-study framework, proof architecture for marketing, dev, AI, or consulting agencies"
+inputs:
+  - {name: brief, type: string, required: true, description: "Agency type, services offered, target clients, differentiators; ask if missing"}
+  - {name: existing_site, type: string, required: false, description: "Current site content or URL for audit"}
+  - {name: portfolio, type: string, required: false, description: "Case studies, results, testimonials available for proof"}
+outputs:
+  - {name: positioning, type: markdown, description: "ICP, differentiation, messaging pillars, proof strategy"}
+  - {name: site_copy, type: markdown, description: "Homepage, services page, case-study template, about angle, CTAs"}
+  - {name: site_map, type: json, description: "Page-by-page section structure with content slots and booking CTAs"}
+tools: []
+integrations: []
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [agency_assessment]}
+  - {id: position, type: agent, ref: planner, needs: [assess], produces: [positioning]}
+  - {id: copy, type: agent, ref: copywriter, needs: [position], produces: [site_copy, site_map]}
+  - {id: review, type: agent, ref: conversion-optimizer, needs: [copy], produces: [cro_review]}
+on_fail: {retry: 1, fallback: manual_review}

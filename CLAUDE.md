@@ -86,6 +86,7 @@ Activate relevant skills during tasks:
 - `copywriting` - Marketing page copy, headlines, CTAs (NEW)
 - `copy-editing` - Edit and polish existing marketing copy (NEW)
 - `email-sequence` - Drip campaigns, nurture sequences (NEW)
+- `agency-marketing` - Agency's own website: positioning, services copy, case studies, proof (NEW)
 
 ### SEO & Growth Skills
 - `programmatic-seo` - Template pages at scale (NEW)
