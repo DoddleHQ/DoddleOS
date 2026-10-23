@@ -1,3 +1,10 @@
+## [1.8.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.7.0...v1.8.0) (2026-10-23)
+
+
+### 🚀 Features
+
+* **marketing:** add agency-marketing skill (agency's own website genre) ([ef8f480](https://github.com/DoddleHQ/DoddleOS/commit/ef8f4809e0f12be9214a0e73d578ca172fab537c))
+
 ## [1.7.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.6.0...v1.7.0) (2026-10-23)
 
 
