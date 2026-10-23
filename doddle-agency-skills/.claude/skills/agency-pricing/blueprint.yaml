@@ -7,6 +7,7 @@ description: "Select agency pricing models, build rate cards, and analyze margin
 inputs:
   - {name: brief, type: string, required: true, description: "Services offered, delivery costs, market position, target clients; ask if missing"}
   - {name: financials, type: string, required: false, description: "Cost base, current margins, historical rate data; propose assumption if missing"}
+  - {name: regions, type: string, required: false, description: "Operating scope: local | national | international; infer from brief if missing"}
 outputs:
   - {name: pricing_model, type: markdown, description: "Recommended pricing model with rationale, guardrails, and transitions"}
   - {name: rate_card, type: json, description: "Machine-readable rate card: roles, rates, tiers, minimums"}

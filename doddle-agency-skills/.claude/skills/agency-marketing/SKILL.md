@@ -56,6 +56,7 @@ Before positioning, evaluate:
 | brief | string | yes | Agency type, services, target clients, differentiators |
 | existing_site | string | no | Current site content or URL for audit |
 | portfolio | string | no | Case studies, results, testimonials available for proof |
+| regions | string | no | Operating scope: local \| national \| international; infer from brief if missing |
 
 ---
 
@@ -139,6 +140,20 @@ The conversion event is a booked call (or a qualified inquiry). Every page ends 
 
 ---
 
+## Segment Guidance (local | national | international)
+
+Honored via the `regions` input (infer from brief if not stated):
+
+| Dimension | Local | National | International |
+|-----------|-------|----------|--------------|
+| ICP & buyer | Owner-operator in one city/region | Country-wide buyer roles (CMO/VP, committees) | Multi-market buyers; entry per region |
+| Site focus | Click-to-call hero, service-area proof | Logos, security/trust page, procurement-grade proof | Localized sites, regional contacts, per-market proof |
+| Proof stack | GBP rating, review velocity, booked-job numbers | Named case studies at national scale | Case studies from the buyer's own region — US proof does not sell EU buyers |
+| Primary CTA | "Call now" / "Book a job" | "Book a discovery call" / RFP response | Localized form + timezone-appropriate response promise |
+
+- **Local agencies:** GBP optimization, review-ask flows, and location pages are not rebuilt here — get them from `doddle-local-skills`.
+---
+
 ## Common Mistakes
 
 ### Strategy Mistakes
@@ -168,6 +183,7 @@ No MCP tools required — this is strategy and copy work. If the user provides a
 
 ## Related Skills
 
+- `doddle.local.gbp`, `doddle.local.reviews`, `doddle.local.pages` — local-pack capabilities (GBP ranking, review velocity, service-area pages) a local agency should also apply to itself
 - `doddle.marketing.copywriting` — page-level copy mechanics this builds on
 - `doddle.marketing.conversion-copywriting` — persuasion frameworks for the services page
 - `doddle.marketing.brand-building` — brand voice and identity if the agency needs a full rebrand

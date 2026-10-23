@@ -8,6 +8,7 @@ inputs:
   - {name: brief, type: string, required: true, description: "Agency type, services offered, target clients, differentiators; ask if missing"}
   - {name: existing_site, type: string, required: false, description: "Current site content or URL for audit"}
   - {name: portfolio, type: string, required: false, description: "Case studies, results, testimonials available for proof"}
+  - {name: regions, type: string, required: false, description: "Operating scope: local | national | international; infer from brief if missing"}
 outputs:
   - {name: positioning, type: markdown, description: "ICP, differentiation, messaging pillars, proof strategy"}
   - {name: site_copy, type: markdown, description: "Homepage, services page, case-study template, about angle, CTAs"}

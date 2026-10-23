@@ -50,6 +50,7 @@ Before modeling, evaluate:
 |-------|------|----------|-------------|
 | brief | string | yes | Services offered, delivery costs, market position, target clients |
 | financials | string | no | Cost base, current margins, historical rate data; propose assumption if missing |
+| regions | string | no | Operating scope: local \| national \| international; infer from brief if missing |
 
 ---
 
@@ -110,6 +111,19 @@ The rate card feeds `agency-proposals` (pricing options) and `agency-marketing` 
 
 ---
 
+## Segment Guidance (local | national | international)
+
+Honored via the `regions` input (infer from brief if not stated):
+
+| Dimension | Local | National | International |
+|-----------|-------|----------|--------------|
+| Model bias | Fixed-price projects; cash-sensitive owners; quick payment terms | Tiered rate cards, annual commitments, MSA + SOW structure | `rate_card.currency` set per market; FX margin buffer |
+| Floors | Lower absolute rates — but never below cost × floor margin | Procurement negotiation; discount approval thresholds | VAT/tax + invoicing entity; localization cost priced into delivery estimates |
+| Watch out | Seasonality of local demand | Rate-card leakage across long engagements | Payment rails and FX volatility eroding margins |
+
+- Procurement give-gets and negotiation guardrails for national deals live in `doddle.b2b.negotiation`.
+---
+
 ## Common Mistakes
 
 ### Strategy Mistakes
@@ -131,6 +145,7 @@ The rate card feeds `agency-proposals` (pricing options) and `agency-marketing` 
 
 ## Related Skills
 
+- `doddle.b2b.negotiation` — procurement guardrails and give-gets for national deals
 - `doddle.agency.proposals` — consumes the rate card to present pricing tiers
 - `doddle.agency.marketing` — positioning must align with the price tier
 - `doddle.agency.reporting` — utilization and margin visibility per client

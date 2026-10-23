@@ -7,6 +7,7 @@ description: "Onboard new agency clients: kickoff process, access checklist, com
 inputs:
   - {name: brief, type: string, required: true, description: "New client details, engagement type, scope, start date; ask if missing"}
   - {name: contract, type: string, required: false, description: "Signed SOW or contract reference with scope and terms"}
+  - {name: regions, type: string, required: false, description: "Operating scope: local | national | international; infer from brief if missing"}
 outputs:
   - {name: onboarding_plan, type: markdown, description: "Kickoff workflow: milestones, owners, first-30-days plan"}
   - {name: access_checklist, type: json, description: "Machine-readable access and asset checklist with owners and status"}

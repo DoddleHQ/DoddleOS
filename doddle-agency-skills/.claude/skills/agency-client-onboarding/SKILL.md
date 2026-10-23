@@ -48,6 +48,7 @@ Before planning, evaluate:
 |-------|------|----------|-------------|
 | brief | string | yes | New client details, engagement type, scope, start date |
 | contract | string | no | Signed SOW with scope and terms |
+| regions | string | no | Operating scope: local \| national \| international; infer from brief if missing |
 
 ---
 
@@ -98,6 +99,19 @@ Agenda: intros, scope recap (in plain language), access checklist walkthrough, c
 
 ---
 
+## Segment Guidance (local | national | international)
+
+Honored via the `regions` input (infer from brief if not stated):
+
+| Dimension | Local | National | International |
+|-----------|-------|----------|--------------|
+| Cadence | Phone/WhatsApp; owner reachable directly | Weekly sync + steering committee; escalation matrix | Written timezone-overlap windows; async-first docs |
+| Access | Simple: logins, photos, no SSO | SSO, security review, procurement onboarding checklist | Data-residency rules for shared access; regional legal entity setup |
+| Kickoff | On-site or 30-min call | Multi-stakeholder roster with roles mapped | Localized kickoff deck; interpreters if needed |
+
+- Enterprise-style SOW-to-value onboarding patterns (30-day success plans, risk flags) are covered in `doddle.b2b.onboarding`.
+---
+
 ## Common Mistakes
 
 ### Strategy Mistakes
@@ -119,6 +133,7 @@ Agenda: intros, scope recap (in plain language), access checklist walkthrough, c
 
 ## Related Skills
 
+- `doddle.b2b.onboarding` — enterprise SOW-to-value patterns (success plan, risk flags)
 - `doddle.agency.proposals` — the SOW this onboarding executes
 - `doddle.agency.reporting` — consumes the success criteria set at kickoff
 - `doddle.agency.pricing` — retainer utilization starts with clean onboarding

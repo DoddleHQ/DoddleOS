@@ -7,6 +7,7 @@ description: "Client reporting for agencies: monthly reports, KPI dashboards, RO
 inputs:
   - {name: brief, type: string, required: true, description: "Engagement scope, KPIs, reporting period; ask if missing"}
   - {name: data, type: string, required: false, description: "Actual performance data; pull via MCP or ask"}
+  - {name: regions, type: string, required: false, description: "Operating scope: local | national | international; infer from brief if missing"}
 outputs:
   - {name: report, type: markdown, description: "Client-ready report: results vs targets, highlights, blockers, next steps"}
   - {name: kpi_summary, type: json, description: "Machine-readable KPI rollup: metric, target, actual, delta, status"}

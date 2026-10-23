@@ -49,6 +49,7 @@ Before writing, evaluate:
 | brief | string | yes | Client context, project scope, decision criteria, budget |
 | pricing | string | no | Rate card or pricing model from agency-pricing |
 | portfolio | string | no | Relevant case studies to cite |
+| regions | string | no | Operating scope: local \| national \| international; infer from brief if missing |
 
 ---
 
@@ -101,6 +102,19 @@ The reviewer checks: does the proposal answer their decision criteria? Is proof 
 
 ---
 
+## Segment Guidance (local | national | international)
+
+Honored via the `regions` input (infer from brief if not stated):
+
+| Dimension | Local | National | International |
+|-----------|-------|----------|--------------|
+| Document | 1-2 page fixed-price proposal; owner decides same week | Committee + procurement: formal SOW, MSA, security questionnaire | Multi-currency quote, entity/invoicing terms, data-residency clauses |
+| Proof | Reviews, local logos, "down the street" trust | National case studies, named enterprise logos | Proof localized per buyer market |
+| Cycle | Fast, one decision-maker | Multi-stakeholder, RFP-driven | Multi-region legal review, timezone-shifted follow-ups |
+
+- **National/procurement deals:** RFP responses and security reviews are a specialist skill — use `doddle.b2b.rfp` rather than stretching this proposal template.
+---
+
 ## Common Mistakes
 
 ### Strategy Mistakes
@@ -123,6 +137,8 @@ The reviewer checks: does the proposal answer their decision criteria? Is proof 
 
 ## Related Skills
 
+- `doddle.b2b.proposals` — scoped-SOW + followup mechanics for product-company deals
+- `doddle.b2b.rfp` — RFP and security-questionnaire responses (national procurement path)
 - `doddle.agency.pricing` — supplies the rate card and pricing model
 - `doddle.agency.marketing` — supplies positioning proof and case-study library
 - `doddle.agency.client-onboarding` — runs after the proposal is won

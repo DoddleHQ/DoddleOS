@@ -8,6 +8,7 @@ inputs:
   - {name: brief, type: string, required: true, description: "Client context, project scope, decision criteria, budget; ask if missing"}
   - {name: pricing, type: string, required: false, description: "Rate card or pricing model from agency-pricing; propose assumption if missing"}
   - {name: portfolio, type: string, required: false, description: "Relevant case studies or past work to cite"}
+  - {name: regions, type: string, required: false, description: "Operating scope: local | national | international; infer from brief if missing"}
 outputs:
   - {name: proposal, type: markdown, description: "Client-facing proposal: approach, timeline, pricing, terms"}
   - {name: scope_of_work, type: markdown, description: "SOW: deliverables, milestones, responsibilities, exclusions"}

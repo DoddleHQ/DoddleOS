@@ -49,6 +49,7 @@ Before compiling, evaluate:
 |-------|------|----------|-------------|
 | brief | string | yes | Engagement scope, KPIs, reporting period |
 | data | string | no | Actual performance data; pull via MCP or ask |
+| regions | string | no | Operating scope: local \| national \| international; infer from brief if missing |
 
 ---
 
@@ -98,6 +99,20 @@ Every report ends with next period's plan preview and, near renewal, an explicit
 
 ---
 
+## Segment Guidance (local | national | international)
+
+Honored via the `regions` input (infer from brief if not stated):
+
+| Dimension | Local | National | International |
+|-----------|-------|----------|--------------|
+| Format | One-pager: calls, bookings, review rating — owner reads in 5 min | Dashboard + exec summary; committee-friendly | Per-region KPI rollups; currency-normalized totals |
+| Data | GBP insights, review velocity, call tracking | GA4/CRM at national scale; procurement value reporting | Per-market attribution differences; GDPR/anonymization caveats |
+| Audience | Owner-operator | Sponsor + day-to-day + procurement | Regional leads + HQ |
+
+- **Local data sources:** GBP insights and review velocity come from `doddle.local.gbp` / `doddle.local.reviews` — do not fabricate them when MCP is off.
+- **National QBRs:** deck structure, health audit, and expansion triggers are a specialist skill — use `doddle.b2b.qbr`.
+---
+
 ## Common Mistakes
 
 ### Strategy Mistakes
@@ -128,6 +143,8 @@ Every report ends with next period's plan preview and, near renewal, an explicit
 
 ## Related Skills
 
+- `doddle.b2b.qbr` — QBR deck, health audit, expansion triggers (national/committee)
+- `doddle.local.gbp`, `doddle.local.reviews` — local proof metrics (GBP insights, review velocity)
 - `doddle.agency.client-onboarding` — supplies the success criteria this scores against
 - `doddle.agency.proposals` — the promised outcomes this must prove
 - `doddle.marketing.analytics-attribution` — deeper attribution analysis when asked "why"
