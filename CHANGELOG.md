@@ -1,3 +1,16 @@
+## [1.7.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.6.0...v1.7.0) (2026-10-23)
+
+
+### 🚀 Features
+
+* **marketing:** campaign pipeline spine, approval gates, and role-coverage (W1-W5) ([3130a5a](https://github.com/DoddleHQ/DoddleOS/commit/3130a5ad7b6c21b46371924dd86b0d2f63170e30))
+
+
+### 📚 Documentation
+
+* honest per-pack install blocks; track projector script in repo ([b8c3405](https://github.com/DoddleHQ/DoddleOS/commit/b8c3405c18b4999d1202f9d55c417115f739c4ee))
+* refresh migrated-skills redirect stub (61 skills, 18 packs, install path) ([3b98fd4](https://github.com/DoddleHQ/DoddleOS/commit/3b98fd46e5c35bc4b0b872ecb60033f1a8815f6b))
+
 ## [1.6.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.5.1...v1.6.0) (2026-10-15)
 
 
