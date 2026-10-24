@@ -6,6 +6,7 @@ description: "Social reputation and crisis response: trigger detection, response
 inputs:
   - {name: brief, type: string, required: true, description: "Crisis/incident brief: what happened, affected channels, severity, stakeholders"}
   - {name: constraints, type: string, required: false, description: "Legal/brand constraints; propose assumption if missing"}
+- {name: regions, type: string, required: false, description: "Operating scope: local | national | international; infer from brief if missing"}
 outputs:
   - {name: response_plan, type: markdown, description: "Crisis response plan: triggers, response templates, timeline, escalation"}
   - {name: escalation_matrix, type: json, description: "Who responds when, approval thresholds, channels, recovery criteria"}

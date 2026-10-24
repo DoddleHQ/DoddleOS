@@ -6,6 +6,7 @@ description: "Brand and competitor listening: mention tracking, sentiment monito
 inputs:
   - {name: brief, type: string, required: true, description: "Listening brief: brands/keywords to monitor, competitors, channels, keywords"}
   - {name: channel, type: string, required: false, description: "Channels to monitor; infer if missing"}
+- {name: regions, type: string, required: false, description: "Operating scope: local | national | international; infer from brief if missing"}
 outputs:
   - {name: listening_summary, type: markdown, description: "Brand/competitor mention summary: volume, sentiment, share of voice"}
   - {name: trend_alert, type: markdown, description: "Trend alerts: emerging topics, competitor campaigns, sentiment shifts"}

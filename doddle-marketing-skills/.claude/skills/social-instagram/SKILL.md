@@ -32,6 +32,8 @@ Outputs: `plan` (markdown: strategy, cadence, format mix) + `assets` (json: copy
 ---
 
 ## Core Framework (Instagram-Specific)
+5. **Regions (`regions` input)**: `local` guides local proof (`local.gbp`, `local.reviews`, `local.pages`); `national` guides national/procurement proof (`b2b.proposals`, `b2b.rfp`, `b2b.qbr`); `international` guides region-localized metrics/content (`regions` normalization per `AGENTS.md`). Flag as assumption if unstated.
+
 ### 1. Confirm Platform-Goal Fit: Instagram excels at awareness + saves. For procurement/committee leads → redirect to `social-media` (LinkedIn) or `b2b.proposals`.
 ### 2. Lock Native Pillars: Educational (carousel/post) 40% + Entertaining/Inspirational (Reels) 50% + Promotional 10%. Lock in `plan`.
 ### 3. Create Native Assets: Reels (hook 0.5s, vertical, captions, trending sounds); carousel (hook slide 1, value slides 2-8, CTA final); Stories (polls, questions, swipe-ups); static (high-quality, minimal text, save-worthy info). Lock in `assets`.

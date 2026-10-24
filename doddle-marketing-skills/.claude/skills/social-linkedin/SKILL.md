@@ -12,6 +12,8 @@ When creating B2B/professional content — document/carousel posts, thought lead
 Apply when the client's goal (leads, authority, B2B awareness) matches LinkedIn's strengths (professional decision-makers, document/carousel dwell time, sponsored lead-gen). Confirm via `social-media` matrix. If the client's audience isn't professional/B2B, redirect to `social-media` for platform selection.
 
 ## Core Framework (LinkedIn-Specific)
+5. **Regions (`regions` input)**: `local` guides local proof (`local.gbp`, `local.reviews`, `local.pages`); `national` guides national/procurement proof (`b2b.proposals`, `b2b.rfp`, `b2b.qbr`); `international` guides region-localized metrics/content (`regions` normalization per `AGENTS.md`). Flag as assumption if unstated.
+
 ### 1. Lock Professional Pillars: Educational (document/carousel) + Thought Leadership (long-form) + Promotional (10% max, with proof). Ratio: 50% educational / 30% thought leadership / 10% promotional / 10% entertaining/inspirational.
 ### 2. Create Native Assets: Document/carousel for dwell time; native video (under 60s) preferred over links; no outbound links in post body; CTAs in comments.
 ### 3. Cadence: Post 3-5x/week (Tue-Thu best: 8-10am, 12pm). Lock schedule in `assets`. Apply `approve_content` gate before `crosspost.publish`.

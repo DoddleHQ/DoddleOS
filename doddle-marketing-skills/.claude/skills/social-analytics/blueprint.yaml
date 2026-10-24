@@ -6,6 +6,7 @@ description: "Social measurement and reporting: platform-specific KPIs, engageme
 inputs:
   - {name: brief, type: string, required: true, description: "Measurement brief: KPIs, platforms, reporting period, audience"}
   - {name: data, type: string, required: false, description: "Actual performance data from platforms / GA4 / HubSpot; ask if missing"}
+- {name: regions, type: string, required: false, description: "Operating scope: local | national | international; infer from brief if missing"}
 outputs:
   - {name: report, type: markdown, description: "Client-ready social report: results vs targets, highlights, blockers, next steps"}
   - {name: kpi_summary, type: json, description: "Machine-readable KPI rollup: metric, target, actual, delta, status"}

@@ -6,6 +6,7 @@ description: "Daily social community management: comment/DM response cadence, mo
 inputs:
   - {name: brief, type: string, required: true, description: "Community brief: audience tone, response goals, moderation rules"}
   - {name: assets, type: string, required: false, description: "Content assets from social-media or related skills"}
+- {name: regions, type: string, required: false, description: "Operating scope: local | national | international; infer from brief if missing"}
 outputs:
   - {name: playbook, type: markdown, description: "Community engagement playbook: cadence, response templates, escalation rules"}
   - {name: moderation_guide, type: markdown, description: "UGC moderation rules: what to approve/reject/escalate, brand-safety guidelines"}

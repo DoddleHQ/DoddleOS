@@ -7,6 +7,7 @@ inputs:
   - {name: brief, type: string, required: true, description: "Campaign brief: goal, audience, key message, format preference"}
   - {name: channel, type: string, required: false, description: "TikTok; infer from brief if missing"}
   - {name: budget, type: string, required: false, description: "Paid boost / Spark Ads budget; organic-only if missing"}
+- {name: regions, type: string, required: false, description: "Operating scope: local | national | international; infer from brief if missing"}
 outputs:
   - {name: plan, type: markdown, description: "TikTok strategy: pillars, cadence, sound/trend plan, engagement playbook"}
   - {name: assets, type: json, description: "Post assets: script/hooks, sound refs, caption, hashtags, schedule, CTA"}

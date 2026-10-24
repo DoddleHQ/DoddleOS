@@ -7,6 +7,7 @@ inputs:
   - {name: brief, type: string, required: true, description: "Campaign brief: goal, audience, key message, video length/format preference"}
   - {name: channel, type: string, required: false, description: "YouTube; infer from brief if missing"}
   - {name: budget, type: string, required: false, description: "Production / promotion budget; organic-only if missing"}
+- {name: regions, type: string, required: false, description: "Operating scope: local | national | international; infer from brief if missing"}
 outputs:
   - {name: plan, type: markdown, description: "YouTube strategy: video pillars, cadence, retention targets, playlist plan, engagement playbook"}
   - {name: assets, type: json, description: "Video assets: script/hooks, thumbnail specs, chapters, end screens, schedule, CTA"}

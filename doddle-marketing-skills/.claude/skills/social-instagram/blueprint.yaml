@@ -7,6 +7,7 @@ inputs:
   - {name: brief, type: string, required: true, description: "Campaign brief: goal, audience, key message, format preference"}
   - {name: channel, type: string, required: false, description: "Instagram; infer from brief if missing"}
   - {name: budget, type: string, required: false, description: "Paid boost / Reels ads / Story ads budget; organic-only if missing"}
+- {name: regions, type: string, required: false, description: "Operating scope: local | national | international; infer from brief if missing"}
 outputs:
   - {name: plan, type: markdown, description: "Instagram strategy: pillars, cadence, Reels/Story mix, engagement playbook"}
   - {name: assets, type: json, description: "Post assets: copy, hashtags, Reels script, carousel slides, schedule, CTA"}
