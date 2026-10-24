@@ -1,0 +1,18 @@
+id: doddle.marketing.social-listening
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Brand and competitor listening: mention tracking, sentiment monitoring, trend alerts, competitor comparison, share-of-voice tracking."
+inputs:
+  - {name: brief, type: string, required: true, description: "Listening brief: brands/keywords to monitor, competitors, channels, keywords"}
+  - {name: channel, type: string, required: false, description: "Channels to monitor; infer if missing"}
+outputs:
+  - {name: listening_summary, type: markdown, description: "Brand/competitor mention summary: volume, sentiment, share of voice"}
+  - {name: trend_alert, type: markdown, description: "Trend alerts: emerging topics, competitor campaigns, sentiment shifts"}
+  - {name: competitor_data, type: markdown, description: "Competitor comparison: share of voice, engagement trends, content themes"}
+tools: []
+integrations: []
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [listening_assessment]}
+  - {id: gather, type: agent, ref: planner, needs: [assess], produces: [listening_summary, trend_alert, competitor_data]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -1,15 +1,15 @@
-id: doddle.marketing.social-media
-version: 1.6.0
+id: doddle.marketing.social-youtube
+version: 1.0.0
 kind: skill
 engine: doddle-os>=1.0
-description: "Social media strategy, content creation, and platform optimization. Use when creating social content, developing engagement strategies, optimizing for platform algorithms, or building community."
+description: "YouTube-specific strategy: long-form video, retention optimization, thumbnails/CTR, playlists, subscriber growth, session time."
 inputs:
-  - {name: brief, type: string, required: true, description: "Campaign brief: goal, audience, key message; ask if missing"}
-  - {name: channel, type: string, required: false, description: "Target social channel(s); infer from brief if missing"}
-  - {name: budget, type: string, required: false, description: "Paid boost budget if any; organic-only if missing"}
+  - {name: brief, type: string, required: true, description: "Campaign brief: goal, audience, key message, video length/format preference"}
+  - {name: channel, type: string, required: false, description: "YouTube; infer from brief if missing"}
+  - {name: budget, type: string, required: false, description: "Production / promotion budget; organic-only if missing"}
 outputs:
-  - {name: plan, type: markdown, description: "Channel strategy with pillars, calendar, and engagement playbook"}
-  - {name: assets, type: json, description: "Machine-readable post assets: copy, hashtags, formats, schedule"}
+  - {name: plan, type: markdown, description: "YouTube strategy: video pillars, cadence, retention targets, playlist plan, engagement playbook"}
+  - {name: assets, type: json, description: "Video assets: script/hooks, thumbnail specs, chapters, end screens, schedule, CTA"}
 tools:
   - {id: doddle.tool.v1.tiktok.trending, required: false, fallback: manual_review}
   - {id: doddle.tool.v1.crosspost.publish, required: false, fallback: manual_review}

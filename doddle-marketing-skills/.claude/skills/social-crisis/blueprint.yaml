@@ -1,0 +1,19 @@
+id: doddle.marketing.social-crisis
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Social reputation and crisis response: trigger detection, response templates, escalation rules, brand-voice protection, and recovery narratives."
+inputs:
+  - {name: brief, type: string, required: true, description: "Crisis/incident brief: what happened, affected channels, severity, stakeholders"}
+  - {name: constraints, type: string, required: false, description: "Legal/brand constraints; propose assumption if missing"}
+outputs:
+  - {name: response_plan, type: markdown, description: "Crisis response plan: triggers, response templates, timeline, escalation"}
+  - {name: escalation_matrix, type: json, description: "Who responds when, approval thresholds, channels, recovery criteria"}
+  - {name: recovery_narrative, type: markdown, description: "Post-crisis messaging framework: acknowledgment, action, outcome, trust rebuild"}
+tools: []
+integrations: []
+nodes:
+  - {id: assess, type: agent, ref: researcher, needs: [inputs], produces: [crisis_assessment]}
+  - {id: plan, type: agent, ref: planner, needs: [assess], produces: [response_plan, escalation_matrix]}
+  - {id: review, type: agent, ref: brand-voice-guardian, needs: [plan], produces: [recovery_narrative]}
+on_fail: {retry: 1, fallback: manual_review}

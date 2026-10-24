@@ -1,0 +1,23 @@
+id: doddle.marketing.social-engagement
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Daily social community management: comment/DM response cadence, moderation guides, UGC spotlight, conversation playbooks, and engagement metrics tracking."
+inputs:
+  - {name: brief, type: string, required: true, description: "Community brief: audience tone, response goals, moderation rules"}
+  - {name: assets, type: string, required: false, description: "Content assets from social-media or related skills"}
+outputs:
+  - {name: playbook, type: markdown, description: "Community engagement playbook: cadence, response templates, escalation rules"}
+  - {name: moderation_guide, type: markdown, description: "UGC moderation rules: what to approve/reject/escalate, brand-safety guidelines"}
+  - {name: spotlight_plan, type: markdown, description: "UGC/community spotlight schedule: feature criteria, permission workflow"}
+tools:
+  - {id: doddle.tool.v1.crosspost.publish, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - crosspost
+  - google-analytics
+nodes:
+  - {id: brief, type: agent, ref: planner, needs: [inputs], produces: [brief_doc]}
+  - {id: design, type: agent, ref: planner, needs: [brief], produces: [playbook, moderation_guide, spotlight_plan]}
+  - {id: approve_content, type: gate, needs: [design], produces: [decision], approvers: [owner], timeout_s: 3600, on_approve: proceed, on_reject: revise}
+on_fail: {retry: 1, fallback: manual_review}

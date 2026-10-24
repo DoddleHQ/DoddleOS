@@ -1,0 +1,23 @@
+id: doddle.marketing.social-analytics
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Social measurement and reporting: platform-specific KPIs, engagement rate, follower growth, share/saves, CTR, UTM attribution, competitor share of voice, monthly dashboards, and QBR prep."
+inputs:
+  - {name: brief, type: string, required: true, description: "Measurement brief: KPIs, platforms, reporting period, audience"}
+  - {name: data, type: string, required: false, description: "Actual performance data from platforms / GA4 / HubSpot; ask if missing"}
+outputs:
+  - {name: report, type: markdown, description: "Client-ready social report: results vs targets, highlights, blockers, next steps"}
+  - {name: kpi_summary, type: json, description: "Machine-readable KPI rollup: metric, target, actual, delta, status"}
+  - {name: recommendations, type: markdown, description: "Prioritized recommendations with projected impact for next period"}
+tools:
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hubspot.contacts, required: false, fallback: manual_review}
+integrations:
+  - google-analytics
+  - hubspot
+nodes:
+  - {id: gather, type: agent, ref: researcher, needs: [inputs], produces: [data_assessment]}
+  - {id: compile, type: agent, ref: planner, needs: [gather], produces: [kpi_summary]}
+  - {id: write, type: agent, ref: copywriter, needs: [compile], produces: [report, recommendations]}
+on_fail: {retry: 1, fallback: manual_review}

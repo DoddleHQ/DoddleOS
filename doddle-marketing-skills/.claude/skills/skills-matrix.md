@@ -12,6 +12,7 @@ This file maps relationships between skills, helping identify which skills work 
 | **Retention** | onboarding-cro, paywall-upgrade-cro, referral-program | Customer success |
 | **Brand** | brand-building, marketing-psychology, copywriting | Brand equity |
 | **Research** | marketing-fundamentals, marketing-ideas, competitor-alternatives | Market intelligence |
+| **Social** | `social-linkedin`, `social-instagram`, `social-tiktok`, `social-twitter`, `social-facebook`, `social-youtube`, `social-analytics`, `social-engagement`, `social-crisis`, `social-listening` | Platform-specific execution, measurement, engagement, crisis response, listening |
 | **Campaign Pipeline** | marketing-intake, campaign-plan, measurement-plan, budget-allocator, media-reallocator, creative-direction, ugc-creator, page-build-spec, claims-review | End-to-end campaign orchestration |
 
 ## Dependency Map
@@ -71,6 +72,23 @@ paid-advertising
 └── analytics-attribution (performance tracking)
 
 MCP Tools: meta-ads, google-ads (if available)
+```
+
+### Social Ecosystem (DoddleOS v2 blueprints — 10 skills)
+```
+social-media (broad framework)
+├── social-linkedin → B2B professional content
+├── social-instagram → Visual/Reels
+├── social-tiktok → Short-form video (stub: `tiktok.trending` requires setup)
+├── social-twitter → Threads/conversation
+├── social-facebook → Community/groups/events
+├── social-youtube → Long-form education (stub: `youtube-analytics` not in registry; `ga4.getReport` used for traffic attribution only — never fabricate retention/subscriber metrics)
+├── social-analytics → Scorecards/reports (stub: native analytics APIs not registered; `hubspot.contacts` / `ga4.getReport` require setup; never fabricate engagement/retention/SOV numbers)
+├── social-engagement → Response/moderation cadence
+├── social-crisis → Reputation/crisis response
+└── social-listening → Competitor/listening (stub: `listening-server` not registered; manual review or `social-analytics` data only)
+Domains: no domain tokens (horizontal marketing functions); `regions` input (local/national/international) applies per `AGENTS.md` guidance.
+Cross-links: `local.gbp`/`local.reviews` (local proof); `b2b.proposals`/`b2b.rfp` (procurement awareness); `video-marketing`/`image` (production); `paid-advertising` (boost); `analytics-attribution` (attribution); `agency-marketing` (agency positioning themes).
 ```
 
 ### Campaign Pipeline Ecosystem (DoddleOS v2 blueprints)

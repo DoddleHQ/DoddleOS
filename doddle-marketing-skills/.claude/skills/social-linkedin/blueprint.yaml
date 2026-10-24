@@ -1,0 +1,25 @@
+id: doddle.marketing.social-linkedin
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "LinkedIn-specific strategy, content creation, and optimization for B2B, professional, decision-maker audiences. Use for professional content, document/carousel posts, thought leadership, and lead-generation on LinkedIn."
+inputs:
+  - {name: brief, type: string, required: true, description: "Campaign brief: goal, audience, key message, format preference"}
+  - {name: channel, type: string, required: false, description: "LinkedIn; infer from brief if missing"}
+  - {name: budget, type: string, required: false, description: "Paid boost / sponsored content budget; organic-only if missing"}
+outputs:
+  - {name: plan, type: markdown, description: "LinkedIn strategy: pillars, cadence, format mix, engagement playbook"}
+  - {name: assets, type: json, description: "Post assets: copy, hashtags, document format, schedule, CTA"}
+tools:
+  - {id: doddle.tool.v1.crosspost.publish, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.ga4.getReport, required: false, fallback: manual_review}
+integrations:
+  - crosspost
+  - google-analytics
+nodes:
+  - {id: brief, type: agent, ref: copywriter, needs: [inputs], produces: [brief_doc]}
+  - {id: create, type: agent, ref: copywriter, needs: [brief], produces: [plan, assets]}
+  - {id: approve_content, type: gate, needs: [create], produces: [decision], approvers: [owner], timeout_s: 3600, on_approve: proceed, on_reject: revise}
+  - {id: distribute, type: tool, ref: doddle.tool.v1.crosspost.publish, needs: [approve_content], produces: [distribution_receipt]}
+  - {id: measure, type: agent, ref: conversion-optimizer, needs: [distribute], produces: [plan, assets]}
+on_fail: {retry: 1, fallback: manual_review}

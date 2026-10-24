@@ -173,9 +173,12 @@ We keep all important docs in `./docs` folder and keep updating them, structure 
 - `/seo:schema` - Add/optimize schema markup (NEW)
 
 ### Social Media
-- `/social:engage` - Develop engagement strategy
+- `/social:engage` - Develop engagement strategy (NEW: `social-engagement`)
 - `/social:viral` - Create viral-potential content
 - `/social:schedule` - Create posting schedule
+- `/social:listen` - Brand/competitor listening (`social-listening`)
+- `/social:crisis` - Reputation/crisis response (`social-crisis`)
+- `/social:analytics` - Social measurement/reports (`social-analytics`)
 
 ### Email & Sequences
 - `/sequence:welcome` - Create welcome sequence
