@@ -1,3 +1,10 @@
+## [1.13.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.12.0...v1.13.0) (2026-10-24)
+
+
+### 🚀 Features
+
+* **social:** add regions input + segment notes to all 10 platform+execution skills ([eb535ad](https://github.com/DoddleHQ/DoddleOS/commit/eb535addd7b9a202f7b362670de52abb927740fb))
+
 ## [1.12.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.11.0...v1.12.0) (2026-10-24)
 
 
