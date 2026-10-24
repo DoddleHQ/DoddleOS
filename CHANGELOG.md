@@ -1,3 +1,10 @@
+## [1.12.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.11.0...v1.12.0) (2026-10-24)
+
+
+### 🚀 Features
+
+* **social:** split social-media into 6 platform skills + 4 execution/reporting skills (10 new) ([c01118d](https://github.com/DoddleHQ/DoddleOS/commit/c01118dd003b15839b4d9064080df0d4fd69cab0))
+
 ## [1.11.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.10.0...v1.11.0) (2026-10-23)
 
 
