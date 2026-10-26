@@ -65,7 +65,7 @@ Before structuring the spec, evaluate:
 ## Core Framework
 
 ### Step 1: Decompose into Sections
-Split the approved copy into sections in DOM order: hero, value props, social proof, offer, FAQ, final CTA. Each section gets: purpose, component type (one of the platform's primitives), and behavioral notes.
+Split the approved copy into sections in DOM order, following the page's chosen persuasion structure (PAS/AIDA/BAB/4 Ps/FAB per `conversion-copywriting` — default hero, value props, social proof, offer, FAQ, final CTA if none was declared). Each section gets: purpose, component type (one of the platform's primitives), and behavioral notes.
 
 ### Step 2: Slot the Content
 For each section, map copy fragments to typed content slots: heading (string), body (rich text), image (alt text mandatory), CTA (label + href + event name). The event names come from the measurement plan — an unnamed CTA event is a build blocker.

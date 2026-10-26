@@ -94,6 +94,49 @@ Before writing copy, understand:
 | Agitate | Make it worse | "Every day you wait, budget burns..." |
 | Solution | Present your offer | "Our tool cuts waste by 40%..." |
 
+### The BAB Framework
+
+**Before** → **After** → **Bridge**
+
+| Step | Description | Example |
+|------|-------------|---------|
+| Before | Current painful state | "Juggling five tools, none talk to each other" |
+| After | Desired end state | "One dashboard, every channel in sync" |
+| Bridge | Your product as the path | "Tool X unifies your stack in a day" |
+
+### The 4 Ps Framework
+
+**Picture** → **Promise** → **Prove** → **Push**
+
+| Step | Description | Example |
+|------|-------------|---------|
+| Picture | Paint the result | "Imagine closing 40% more demos" |
+| Promise | Commit to the outcome | "Cut demo-to-close time in half" |
+| Prove | Evidence | Reviews, case study, numbers |
+| Push | Ask | Direct CTA, risk-reversed |
+
+### The FAB Framework
+
+**Features** → **Advantages** → **Benefits**
+
+| Step | Description | Example |
+|------|-------------|---------|
+| Feature | The spec | "Merino wool" |
+| Advantage | What it does | "Resists odor" |
+| Benefit | What it means for them | "Pack fewer shirts" |
+
+### Structure Selection Guide
+
+| Structure | Best for | When to use it |
+|-----------|----------|----------------|
+| PAS | Visitors who already feel the pain | Problem-aware audiences, ad copy, cold traffic with a known pain |
+| AIDA | Cold visitors you must grab first | Hero sections, top-of-funnel ads, first-touch pages |
+| BAB | Results easy to picture | Transformation offers, case-study-led pages, before/after niches |
+| 4 Ps | Warm visitors (email clicks, returners) | Email CTAs, retargeting pages, returning-visitor sequences |
+| FAB | Product details and specs | Below the buy box, feature tables, spec-heavy ecommerce |
+
+Pick ONE primary structure per page; others may appear as supporting sections.
+
 ### The 4 U's Formula
 
 | Element | Question | Example |

@@ -339,6 +339,26 @@ Attention → Interest → Desire → Action. The classic customer journey model
 
 **Marketing application**: Structure pages and campaigns to move through each stage. Capture attention before building desire.
 
+### PAS Framework
+Problem → Agitate → Solution. Names the pain, deepens it, then presents the fix.
+
+**Marketing application**: Use when visitors already feel the pain — name the problem, show what it costs, then give the fix.
+
+### BAB Framework (Before → After → Bridge)
+Before → After → Bridge. Paints the current state, the desired state, then the product as the bridge.
+
+**Marketing application**: Use when the result is easy to picture — show the before, the after, then the product as the bridge.
+
+### 4 Ps Framework (Picture → Promise → Prove → Push)
+Picture → Promise → Prove → Push. Visualizes the outcome, commits to it, proves it, then asks.
+
+**Marketing application**: Use for email clicks and returning (warm) visitors — paint the result, promise it, prove it with reviews, then ask.
+
+### FAB Framework (Features → Advantages → Benefits)
+Features → Advantages → Benefits. Translates specs into customer value.
+
+**Marketing application**: Use below the buy box to explain each spec — "Merino wool" → "resists odor" → "pack fewer shirts".
+
 ### Rule of 7
 Prospects need roughly 7 touchpoints before converting. One ad rarely converts; sustained presence does.
 
@@ -462,6 +482,8 @@ If you need more context:
 - **popup-cro**: Use triggers and psychology in popups
 - **pricing-page optimization**: See page-cro for pricing psychology
 - **ab-test-setup**: Test psychological hypotheses
+- **conversion-copywriting**: Persuasion structures (PAS/AIDA/BAB/4 Ps/FAB) for copy execution
+- **page-build-spec**: Landing pages assemble sections in the chosen structure's order
 
 ---
 
