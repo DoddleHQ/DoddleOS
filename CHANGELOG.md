@@ -1,3 +1,10 @@
+## [1.14.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.13.0...v1.14.0) (2026-10-26)
+
+
+### 🚀 Features
+
+* **marketing:** add persuasion structures (PAS/AIDA/BAB/4Ps/FAB) to marketing-psychology, conversion-copywriting, page-build-spec ([69cfd75](https://github.com/DoddleHQ/DoddleOS/commit/69cfd753c1dc9911335b9a313e3362f948318a08))
+
 ## [1.13.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.12.0...v1.13.0) (2026-10-24)
 
 
