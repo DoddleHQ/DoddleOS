@@ -1,3 +1,10 @@
+## [1.15.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.14.0...v1.15.0) (2026-11-25)
+
+
+### 🚀 Features
+
+* **wordpress:** add WordPress Agent Skills peer pack ([add0c80](https://github.com/DoddleHQ/DoddleOS/commit/add0c801f7cd9f075e1de981d41e2ada934bdd8b))
+
 ## [Unreleased]
 
 ### 🚀 Features
