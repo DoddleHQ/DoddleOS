@@ -2,8 +2,8 @@
 """Validate DoddleOS skills: SKILL.md + blueprint.yaml pairs.
 
 Usage (repo root): python3 doddle-core/scripts/validate.py [--strict]
-Discovery-based: scans .claude/skills/ plus every doddle-*/.claude/skills/
-pack found on disk. Adding a pack requires NO validator edit.
+Discovery-based: scans .claude/skills/ plus every top-level peer pack with
+.claude/skills/ found on disk. Adding a pack requires NO validator edit.
 
 Checks (stdlib only, no deps):
 - SKILL.md frontmatter has name, id, version, blueprint, description
@@ -19,7 +19,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 SKILL_DIRS = [d for d in sorted((ROOT / ".claude" / "skills").glob("*/")) if d.is_dir()]
-SKILL_DIRS += [d for d in sorted(ROOT.glob("doddle-*/.claude/skills/*/")) if d.is_dir()]
+SKILL_DIRS += [d for d in sorted(ROOT.glob("*/.claude/skills/*/")) if d.is_dir()]
 SKIP = {"common", "document-skills"}
 
 FM_RE = re.compile(r"^---\n(.*?)\n---", re.S)

@@ -71,14 +71,26 @@ const { execSync } = require('child_process');
       fs.unlinkSync(archivePath);
     }
 
+    const peerPackDirs = fs
+      .readdirSync(projectRoot, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory() && fs.existsSync(path.join(projectRoot, entry.name, '.claude', 'skills')))
+      .map((entry) => entry.name);
+
     const archiveTargets = [
       '.claude',
+      '.claude-plugin',
       '.opencode',
       'plans',
       '.gitignore',
       '.repomixignore',
       '.mcp.json',
+      'AGENTS.md',
       'CLAUDE.md',
+      'README.md',
+      'LICENSE',
+      'marketplace.json',
+      'package.json',
+      ...peerPackDirs,
     ];
 
     const existingTargets = archiveTargets.filter((target) => fs.existsSync(path.join(projectRoot, target)));

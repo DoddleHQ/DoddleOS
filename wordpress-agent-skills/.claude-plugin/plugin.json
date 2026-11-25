@@ -1,0 +1,76 @@
+{
+  "name": "wordpress-agent-skills",
+  "version": "1.0.0",
+  "description": "DoddleOS WordPress Agent Skills — 20 upstream-derived skills, 3 portable agents, validated graph blueprints, WP 7.0+ / PHP 7.4.0+.",
+  "author": {
+    "name": "WordPress Contributors; Doddle Team",
+    "url": "https://github.com/WordPress/agent-skills"
+  },
+  "homepage": "https://github.com/WordPress/agent-skills",
+  "repository": "https://github.com/DoddleHQ/DoddleOS",
+  "license": "GPL-2.0-or-later",
+  "keywords": [
+    "wordpress",
+    "gutenberg",
+    "blocks",
+    "plugins",
+    "themes",
+    "wp-cli",
+    "agent-skills"
+  ],
+  "category": "development",
+  "tags": [
+    "wordpress",
+    "gutenberg",
+    "php",
+    "plugins",
+    "themes",
+    "wp-cli"
+  ],
+  "skills": "./.claude/skills",
+  "agents": "./.claude/agents",
+  "main": "README.md",
+  "components": {
+    "skills": {
+      "path": "./.claude/skills",
+      "count": 20,
+      "list": [
+        "wordpress-router",
+        "wp-project-triage",
+        "wp-block-development",
+        "wp-block-themes",
+        "wp-patterns",
+        "wp-plugin-development",
+        "wp-rest-api",
+        "wp-interactivity-api",
+        "wp-abilities-api",
+        "wp-ability-development",
+        "wp-abilities-audit",
+        "wp-abilities-verify",
+        "wp-wpcli-and-ops",
+        "wp-performance",
+        "wp-phpstan",
+        "wp-env",
+        "wp-playground",
+        "blueprint",
+        "wp-plugin-directory-guidelines",
+        "wpds"
+      ]
+    },
+    "agents": {
+      "path": "./.claude/agents",
+      "count": 3,
+      "list": [
+        "wordpress-surveyor",
+        "wordpress-engineer",
+        "wordpress-reviewer"
+      ]
+    }
+  },
+  "requirements": {
+    "doddleOS": ">=2.0",
+    "wordpress": ">=7.0",
+    "php": ">=7.4.0",
+    "node": ">=18.0.0"
+  }
+}

@@ -94,6 +94,14 @@ Activate relevant skills during tasks:
 - `agency-client-onboarding` - Kickoff, access checklists, cadence, first-30-days plan (NEW)
 - `agency-reporting` - Client reports, KPI rollups, ROI proof, QBR prep (NEW)
 
+### WordPress Agent Skills (`wordpress-agent-skills/`)
+- Start with `wordpress-router` → `wp-project-triage`; follow the selected domain skill and its blueprint.
+- Blocks/themes/patterns: `wp-block-development`, `wp-block-themes`, `wp-patterns`
+- Plugins/APIs: `wp-plugin-development`, `wp-rest-api`, `wp-abilities-api`, `wp-ability-development`, `wp-abilities-audit`, `wp-abilities-verify`
+- Frontend/UI: `wp-interactivity-api`, `wpds`
+- Ops/quality: `wp-wpcli-and-ops`, `wp-env`, `wp-playground`, `blueprint`, `wp-performance`, `wp-phpstan`, `wp-plugin-directory-guidelines`
+- Write-class blueprints stop at `approve_changes`; verify with `wordpress-reviewer`.
+
 ### SEO & Growth Skills
 - `programmatic-seo` - Template pages at scale (NEW)
 - `schema-markup` - Structured data, rich snippets (NEW)

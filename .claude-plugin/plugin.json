@@ -1,7 +1,7 @@
 {
   "name": "doddleOS-marketing",
   "version": "2.0.0",
-  "description": "DoddleOS skills distribution: validated graph blueprints + specs (harness draft; no runner ships here). 20 agents, 198 commands, 172 skills across 18 independent peer packs (marketing, GTM, travel, devops, affiliate + 13 verticals)",
+  "description": "DoddleOS skills distribution: validated graph blueprints + specs (harness draft; no runner ships here). 116 agents, 238 commands, 233 skills across 20 independent peer packs (marketing, GTM, travel, devops, WordPress, affiliate + 14 verticals)",
   "author": {
     "name": "Doddle Team",
     "url": "https://doddlehq.com"
@@ -25,7 +25,9 @@
     "lead-generation",
     "sales-enablement",
     "brand-building",
-    "analytics"
+    "analytics",
+    "wordpress",
+    "gutenberg"
   ],
   "category": "marketing",
   "tags": [
@@ -56,12 +58,12 @@
     },
     "commands": {
       "path": "./.claude/commands",
-      "count": 164,
+      "count": 238,
       "categories": ["campaign", "content", "seo", "cro", "ecom", "social", "sequence", "analytics", "report", "sales", "leads", "crm", "brand", "ops", "research", "competitor", "growth", "pricing", "marketing", "test", "audit", "game", "training", "local", "saas", "health", "realty", "b2b", "restaurant", "hr", "creator", "legal", "finance", "edu"]
     },
     "skills": {
       "path": "./doddle-marketing-skills/.claude/skills",
-      "count": 52,
+      "count": 70,
       "categories": {
         "core": ["marketing-fundamentals", "marketing-psychology", "marketing-ideas", "seo-mastery", "social-media", "email-marketing", "paid-advertising", "content-strategy", "analytics-attribution", "brand-building", "problem-solving"],
         "cro": ["page-cro", "form-cro", "popup-cro", "signup-flow-cro", "onboarding-cro", "paywall-upgrade-cro", "ab-test-setup"],

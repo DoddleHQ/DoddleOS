@@ -4,7 +4,7 @@
 
 ## Overview
 
-Independent OS pack for [DoddleOS](https://github.com/DoddleHQ/DoddleOS). Installs and runs standalone. One of 19 peer packs (marketing + devops + 17 other OS packs). Cross-pack binding only via blueprint `call` nodes where noted.
+Independent OS pack for [DoddleOS](https://github.com/DoddleHQ/DoddleOS). Installs and runs standalone. One of 20 peer packs (marketing + devops + WordPress + 17 other OS packs). Cross-pack binding only via blueprint `call` nodes where noted.
 
 ## Skills Included
 

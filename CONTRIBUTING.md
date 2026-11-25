@@ -41,6 +41,9 @@ Thanks for your interest in contributing! This document provides guidelines for 
 ```markdown
 ---
 name: skill-name
+id: doddle.<domain>.<skill-name>
+version: 1.0.0
+blueprint: ./blueprint.yaml
 description: One-line description for skill selection
 ---
 
@@ -51,12 +54,21 @@ description: One-line description for skill selection
 ## When to Use This Skill
 [Trigger conditions]
 
-## Core Concepts
-[Key knowledge]
+## Core Framework
+[Ordered procedure]
 
-## Best Practices
-[Recommendations]
+## Verification
+[Checks and evidence]
+
+## Common Mistakes
+[Failure modes and fixes]
 ```
+
+Every skill also needs a sibling `blueprint.yaml` with `id`, `version`, `kind: skill`,
+`engine`, `inputs`, `outputs`, `nodes`, and `on_fail`. See
+`doddle-core/spec/blueprint-schema.md`. Peer packs live at
+`<pack>/.claude/skills/<skill-name>/`; WordPress-specific skills also retain the
+upstream `compatibility:` frontmatter contract.
 
 ### Command File Structure
 

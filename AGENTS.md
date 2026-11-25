@@ -4,13 +4,13 @@ This file is the entry point for AI agents regardless of vendor (Claude Code, Ge
 
 ## What this repo is
 
-DoddleOS is a library of **186 skills across 19 peer packs** — marketing, agency, sales, b2b, GTM, travel, ecommerce, local, SaaS, health, legal, finance, devops, and more. Each skill is a pair of files: `SKILL.md` (the instructions) + `blueprint.yaml` (an ordered execution graph). No runtime ships here — **you are the runtime**: read the skill, walk the graph, do the work.
+DoddleOS is a library of **233 skills across 20 peer packs** — marketing, agency, sales, b2b, GTM, travel, ecommerce, local, SaaS, health, legal, finance, devops, WordPress, and more. Each skill is a pair of files: `SKILL.md` (the instructions) + `blueprint.yaml` (an ordered execution graph). No runtime ships here — **you are the runtime**: read the skill, walk the graph, do the work.
 
 ## Core consumption rule
 
 Before doing a task in any covered domain:
 
-1. **Find the skill.** Pack table: `README.md` → "Independent OS Packs". Registry: `doddle-core/registry/packs.json`. Per-pack catalog: `<pack>/README.md`. Directories follow `doddle-<domain>-skills/.claude/skills/<skill>/SKILL.md`.
+1. **Find the skill.** Pack table: `README.md` → "Independent OS Packs". Registry: `doddle-core/registry/packs.json`. Per-pack catalog: `<pack>/README.md`. Directories follow `<pack>/.claude/skills/<skill>/SKILL.md` (usually `doddle-<domain>-skills/`; WordPress uses `wordpress-agent-skills/`).
 2. **Read the SKILL.md fully** and follow its Core Framework, Inputs/Outputs, and Common Mistakes.
 3. **Read `blueprint.yaml` as ordered steps.** Node types: `agent` (delegate/act as that role), `tool` (call an MCP tool), `call` (recurse into another skill's blueprint), `gate` (STOP and get human approval — never skip a gate). Dependencies are in `needs`; every declared output is produced by some node.
 4. **If a skill's prerequisites are missing**, produce a partial result with assumptions flagged, or stop and ask — per that skill's `on_fail` / Missing Data Rule.
@@ -27,8 +27,8 @@ Before doing a task in any covered domain:
 
 | Path | Portable? | Notes |
 |------|-----------|-------|
-| `doddle-*/.claude/skills/*/SKILL.md` | ✅ fully | Plain markdown instructions — read and follow in any workspace |
-| `doddle-*/.claude/skills/*/blueprint.yaml` | ✅ fully | Plain YAML graph — walk it yourself |
+| `<pack>/.claude/skills/*/SKILL.md` | ✅ fully | Plain markdown instructions — read and follow in any workspace |
+| `<pack>/.claude/skills/*/blueprint.yaml` | ✅ fully | Plain YAML graph — walk it yourself |
 | `.claude/workflows/*.md` | ✅ fully | Mandatory rules (data-reliability first) |
 | `docs/`, pack `README.md`, `skills-matrix.md` | ✅ fully | Reference material |
 | `.claude/commands/*/*.md` | ⚠️ body portable, wrapper Claude-specific | Copy the body into your workspace's prompt-template/command feature |

@@ -6,10 +6,10 @@
     "url": "https://doddlehq.com"
   },
   "metadata": {
-    "description": "DoddleOS agentic task execution operating system for Claude Code - validated graph blueprints across 17 domain packs",
-    "longDescription": "DoddleOS execution engine with 20 agents, 164 slash commands, 138 validated skills across 17 domain packs (marketing + GTM flagship plus ecom, local, SaaS, health, legal, finance, and more), and interactive training.",
+    "description": "DoddleOS agentic task execution operating system for Claude Code - validated graph blueprints across 20 peer packs",
+    "longDescription": "DoddleOS execution engine with 116 agents, 238 slash commands, 233 validated skills across 20 peer packs (marketing + GTM flagship plus WordPress, ecom, local, SaaS, health, legal, finance, and more), and interactive training.",
     "version": "2.0.0",
-    "updatedAt": "2025-01-24"
+    "updatedAt": "2026-11-25"
   },
   "plugins": [
     {
@@ -52,7 +52,7 @@
     {
       "name": "doddleOS-marketing-skills",
       "source": "./doddle-marketing-skills/.claude/skills",
-      "description": "52 marketing skills including CRO, SEO, copywriting, psychology, and growth",
+      "description": "70 marketing skills including CRO, SEO, copywriting, psychology, social, campaign pipeline, and growth",
       "author": {
         "name": "Doddle Team"
       },
@@ -86,7 +86,7 @@
     {
       "name": "doddleOS-marketing-commands",
       "source": "./.claude/commands",
-      "description": "164 slash commands for campaigns, content, SEO, CRO, analytics, and 13 domain packs",
+      "description": "238 categorized slash commands for campaigns, content, SEO, CRO, analytics, and domain packs",
       "author": {
         "name": "Doddle Team"
       },
@@ -97,6 +97,28 @@
       ],
       "category": "commands",
       "tags": ["commands", "marketing"]
+    },
+    {
+      "name": "wordpress-agent-skills",
+      "source": "./wordpress-agent-skills",
+      "description": "20 WordPress Agent Skills with validated DoddleOS blueprints and 3 portable agent roles (WP 7.0+, PHP 7.4.0+).",
+      "author": {
+        "name": "WordPress Contributors; Doddle Team"
+      },
+      "homepage": "https://github.com/WordPress/agent-skills",
+      "repository": "https://github.com/DoddleHQ/DoddleOS",
+      "license": "GPL-2.0-or-later",
+      "keywords": [
+        "wordpress",
+        "gutenberg",
+        "blocks",
+        "plugins",
+        "themes",
+        "wp-cli",
+        "agent-skills"
+      ],
+      "category": "development",
+      "tags": ["wordpress", "gutenberg", "php", "plugins", "themes"]
     }
   ]
 }

@@ -6,12 +6,12 @@
 
 <p align="center">
   <a href="https://github.com/DoddleHQ/DoddleOS/stargazers"><img src="https://img.shields.io/github/stars/DoddleHQ/DoddleOS?style=flat" alt="Stars"></a>
-  <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License">
+  <img src="https://img.shields.io/badge/license-MIT%20core%20%7C%20GPL%20WordPress-blue.svg" alt="License">
   <img src="https://img.shields.io/badge/Claude_Code%20|%20Cursor%20|%20Copilot-Compatible-blueviolet" alt="AI Assistants">
   <br>
-  <img src="https://img.shields.io/badge/Agents-20-green" alt="Agents">
-  <img src="https://img.shields.io/badge/Commands-222-orange" alt="Commands">
-  <img src="https://img.shields.io/badge/Skills-186-blue" alt="Skills">
+  <img src="https://img.shields.io/badge/Agents-116-green" alt="Agents">
+  <img src="https://img.shields.io/badge/Commands-238-orange" alt="Commands">
+  <img src="https://img.shields.io/badge/Skills-233-blue" alt="Skills">
 </p>
 
 <p align="center">
@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  Validated graph blueprints (SKILL.md + blueprint.yaml) executed as agent/tool DAGs: 186 skills across 19 independent peer packs — marketing, agency, GTM, travel, devops, affiliate, ecom, local, SaaS, health, legal, finance, and more. Each pack installs and runs standalone; cross-pack binding via blueprint call nodes. The harness spec in <code>doddle-core/spec/</code> is draft — no runner ships in this repo; execution lives in the host assistant or a future runtime.
+  Validated graph blueprints (SKILL.md + blueprint.yaml) executed as agent/tool DAGs: 233 skills across 20 independent peer packs — marketing, agency, GTM, travel, devops, WordPress, affiliate, ecom, local, SaaS, health, legal, finance, and more. Each pack installs and runs standalone; cross-pack binding via blueprint call nodes. The harness spec in <code>doddle-core/spec/</code> is draft — no runner ships in this repo; execution lives in the host assistant or a future runtime.
 </p>
 
 <p align="center">
@@ -63,7 +63,7 @@ doddleOS-marketing/
 |   |   |-- growth/      # /growth:launch, /growth:referral, /growth:free-tool
 |   |   |-- ...and more
 |   |
-|   |-- skills/          # moved → doddle-marketing-skills/ (independent peer pack, 61 skills)
+|   |-- skills/          # moved → doddle-marketing-skills/ (independent peer pack, 70 skills)
 |   |
 |   |-- workflows/       # Core marketing workflows
 |       |-- primary-workflow.md         # Campaign lifecycle
@@ -230,12 +230,13 @@ cp -r doddleOS-marketing/.claude/workflows/* ~/.claude/workflows/
 
 | Pack | Skills | IDs | Commands |
 |------|--------|-----|----------|
-| Doddle Marketing OS (`doddle-marketing-skills/`) | CRO, copy, SEO, growth, content, analytics, campaign pipeline (61) | `doddle.marketing.*` v1.6.0 | `/campaign:*`, `/content:*`, `/seo:*`, `/cro:*`, `/growth:*`, `/marketing:*` |
+| Doddle Marketing OS (`doddle-marketing-skills/`) | CRO, copy, SEO, growth, content, analytics, campaign pipeline (70) | `doddle.marketing.*` v1.6.0 | `/campaign:*`, `/content:*`, `/seo:*`, `/cro:*`, `/growth:*`, `/marketing:*` |
 | Doddle Agency OS (`doddle-agency-skills/`) | agency website marketing, proposals, pricing, client onboarding, reporting (5) | `doddle.agency.*` v1.0.0 | skills-first pack (client lifecycle: Market → Propose → Price → Onboard → Report) |
-| Doddle GTM OS (`doddle-gtm-skills/`) | strategy, ABM, win-loss, playbook, channel, advocacy + icp, messaging, pricing, launch, enablement, plg, intl, compete (14) | `doddle.gtm.*` v1.2.0 | `/gtm:icp`, `/gtm:messaging`, `/gtm:pricing`, `/gtm:launch`, `/gtm:enablement` |
+| Doddle GTM OS (`doddle-gtm-skills/`) | strategy, ABM, win-loss, playbook, channel, advocacy + icp, messaging, pricing, launch, enablement, plg, intl, compete (32) | `doddle.gtm.*` v2.0.0 | `/gtm:icp`, `/gtm:messaging`, `/gtm:pricing`, `/gtm:launch`, `/gtm:enablement` |
 | Doddle Travel OS (`doddle-travel-skills/`) | search, itinerary, booking, support, reviews + growth (6) | `doddle.travel.*` v1.1.0 | `/travel:growth` (+ `/travel:search`, `/travel:itinerary`, `/travel:booking`, `/travel:support`, `/travel:reviews` planned) |
 | Doddle Affiliate OS (`doddle-affiliate-skills/`) | niche, keywords, content, links, revenue (5) | `doddle.affiliate.*` v1.0.0 | `/affiliate:niche`, `/affiliate:keywords`, `/affiliate:content`, `/affiliate:links`, `/affiliate:revenue` |
 | Doddle DevOps OS (`doddle-devops-skills/`) | processes, storage, LVM/RAID, boot/systemd, cron/logging, monitoring, packages, networking/ssh, kernel, backup (10) | `doddle.devops.*` v1.0.0 | skills-first pack (derived from *Linux System Administration*, Paul Cobbaut, GFDL 1.3) |
+| WordPress Agent Skills (`wordpress-agent-skills/`) | router, triage, blocks, themes, patterns, plugins, REST, interactivity, abilities, WP-CLI, performance, PHPStan, env, Playground, Blueprint, WPDS (20) | `doddle.wordpress.*` v1.0.0 | skills-first pack (upstream WordPress/agent-skills, GPL-2.0-or-later) |
 | Doddle Ecommerce OS (`doddle-ecommerce-skills/`) | PLP, PDP, checkout, search, revenue | `doddle.ecommerce.*` v1.5.1 | `/ecom:plp`, `/ecom:pdp`, `/ecom:checkout`, `/ecom:search`, `/ecom:revenue` |
 | Doddle Local OS (`doddle-local-skills/`) | GBP, reviews, location pages, booking, local ads | `doddle.local.*` v1.0.0 | `/local:gbp`, `/local:reviews`, `/local:pages`, `/local:booking`, `/local:ads` |
 | Doddle SaaS OS (`doddle-saas-skills/`) | homepage, pricing, trial, retention, expansion + onboarding, paywall, emails, analytics, dunning, comparison, reviews, security, docs (14) | `doddle.saas.*` v1.2.0 | `/saas:homepage`, `/saas:trial`, `/saas:onboarding`, `/saas:paywall`, `/saas:emails`, `/saas:dunning` |
@@ -249,6 +250,8 @@ cp -r doddleOS-marketing/.claude/workflows/* ~/.claude/workflows/
 | Doddle Legal OS (`doddle-legal-skills/`) | intake, guides, consults, reputation, referrals | `doddle.legal.*` v1.0.0 | `/legal:intake`, `/legal:guides`, `/legal:consults`, `/legal:reputation`, `/legal:referrals` |
 | Doddle Finance OS (`doddle-finance-skills/`) | leads, onboarding, reviews, cross-sell, referrals | `doddle.finance.*` v1.0.0 | `/finance:leads`, `/finance:onboarding`, `/finance:reviews`, `/finance:crosssell`, `/finance:referrals` |
 | Doddle Education OS (`doddle-education-skills/`) | enrollment, open-house, content, nurture, alumni | `doddle.edu.*` v1.0.0 | `/edu:enrollment`, `/edu:openhouse`, `/edu:content`, `/edu:nurture`, `/edu:alumni` |
+
+> **License note:** `wordpress-agent-skills/` is derived from WordPress/agent-skills and distributed under GPL-2.0-or-later; its `LICENSE` and `UPSTREAM.md` govern that pack.
 
 Validate all: `python3 doddle-core/scripts/validate.py` (0 errors target).
 
@@ -613,7 +616,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## License
 
-MIT - Use freely, modify as needed, contribute back if you can.
+The DoddleOS core and original scaffolding are MIT. The `wordpress-agent-skills/` pack contains material derived from WordPress/agent-skills and is distributed under GPL-2.0-or-later; see that pack's `LICENSE`, `COPYING`, and `UPSTREAM.md`.
 
 ---
 

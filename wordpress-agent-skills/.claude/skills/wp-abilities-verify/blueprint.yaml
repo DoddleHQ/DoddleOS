@@ -1,0 +1,22 @@
+id: doddle.wordpress.wp-abilities-verify
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Verify Abilities API callbacks, annotations, permissions, schemas, and audit claims."
+inputs:
+  - {name: context, type: string, required: true, description: "WordPress task, user intent, and relevant repository context"}
+  - {name: repo_path, type: string, required: false, description: "WordPress repository or site root; defaults to the current working directory"}
+  - {name: goal, type: string, required: false, description: "Desired outcome or acceptance criteria; infer from context when omitted"}
+  - {name: constraints, type: string, required: false, description: "Version, environment, security, downtime, or tooling constraints"}
+outputs:
+  - {name: report, type: markdown, description: "Evidence, actions, verification results, and unresolved questions"}
+  - {name: recommendations, type: json, description: "Prioritized next steps with owners, risks, and acceptance checks"}
+tools: []
+integrations: []
+nodes:
+  - {id: route, type: call, ref: doddle.wordpress.wordpress-router, needs: [inputs], produces: [routing]}
+  - {id: assess, type: agent, ref: wordpress-surveyor, needs: [routing], produces: [assessment]}
+  - {id: approve_changes, type: gate, needs: [assess], produces: [decision], approvers: [owner], timeout_s: 3600, on_approve: proceed, on_reject: revise}
+  - {id: execute, type: agent, ref: wordpress-engineer, needs: [approve_changes], produces: [report, recommendations]}
+  - {id: verify, type: agent, ref: wordpress-reviewer, needs: [execute], produces: [verification]}
+on_fail: {retry: 1, fallback: manual_review}

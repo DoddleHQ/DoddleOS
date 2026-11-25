@@ -153,6 +153,14 @@
       "version": "1.0.0",
       "skills": 5,
       "os": "Doddle Agency OS"
+    },
+    {
+      "name": "wordpress-agent-skills",
+      "source": "./wordpress-agent-skills/.claude/skills",
+      "ids": "doddle.wordpress.*",
+      "version": "1.0.0",
+      "skills": 20,
+      "os": "Doddle WordPress OS"
     }
   ]
 }

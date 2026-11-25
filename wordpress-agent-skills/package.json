@@ -1,0 +1,47 @@
+{
+  "name": "wordpress-agent-skills",
+  "version": "1.0.0",
+  "description": "DoddleOS WordPress Agent Skills pack: 20 upstream-derived WordPress skills with validated execution blueprints and 3 portable agent roles.",
+  "main": "README.md",
+  "scripts": {
+    "test": "node shared/scripts/validate-skills.mjs && python3 ../doddle-core/scripts/validate.py",
+    "lint": "node shared/scripts/validate-skills.mjs && python3 ../doddle-core/scripts/validate.py --strict",
+    "build": "node shared/scripts/skillpack-build.mjs --clean"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DoddleHQ/DoddleOS.git"
+  },
+  "keywords": [
+    "wordpress",
+    "gutenberg",
+    "blocks",
+    "plugins",
+    "themes",
+    "wp-cli",
+    "agent-skills",
+    "doddleos"
+  ],
+  "author": "WordPress Contributors; DoddleOS adaptations",
+  "license": "GPL-2.0-or-later",
+  "bugs": {
+    "url": "https://github.com/DoddleHQ/DoddleOS/issues"
+  },
+  "homepage": "https://github.com/WordPress/agent-skills",
+  "files": [
+    ".claude/",
+    ".claude-plugin/",
+    "docs/",
+    "eval/",
+    "shared/",
+    "COPYING",
+    "LICENSE",
+    "README.md",
+    "UPSTREAM.md",
+    "marketplace.json",
+    "skills-matrix.md"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "name": "wordpress-agent-skills",
+  "owner": {
+    "name": "WordPress Contributors; Doddle Team",
+    "url": "https://github.com/WordPress/agent-skills"
+  },
+  "metadata": {
+    "description": "DoddleOS WordPress Agent Skills — 20 upstream-derived skills with validated blueprints and 3 portable agent roles.",
+    "version": "1.0.0",
+    "license": "GPL-2.0-or-later"
+  },
+  "plugins": [
+    {
+      "name": "wordpress-agent-skills",
+      "source": "./",
+      "description": "WordPress development, Gutenberg, plugins, themes, REST, Abilities, WP-CLI, performance, Playground, and WPDS skills for DoddleOS.",
+      "author": {
+        "name": "WordPress Contributors; Doddle Team"
+      },
+      "homepage": "https://github.com/WordPress/agent-skills",
+      "repository": "https://github.com/DoddleHQ/DoddleOS",
+      "license": "GPL-2.0-or-later",
+      "keywords": [
+        "wordpress",
+        "gutenberg",
+        "blocks",
+        "plugins",
+        "themes",
+        "wp-cli",
+        "agent-skills"
+      ],
+      "category": "development",
+      "tags": [
+        "wordpress",
+        "gutenberg",
+        "php",
+        "plugins",
+        "themes"
+      ],
+      "featured": true,
+      "verified": true
+    }
+  ]
+}

@@ -47,4 +47,4 @@ description: <triggers>
 * Every declared output MUST appear in ≥1 `produces` (output coverage).
 * Packs are independent: no cross-pack install deps. `call`/`fallback_for` refs
   may target any peer pack's skill id; validator collects ids globally across
-  all `doddle-*/.claude/skills/` packs.
+  all top-level `<pack>/.claude/skills/` directories.
