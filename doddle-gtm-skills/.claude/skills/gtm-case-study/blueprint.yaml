@@ -8,11 +8,6 @@ inputs:
   - {name: results, type: string, required: true, description: "User-supplied, verified results"}
 outputs:
   - {name: case_study, type: markdown, description: "Case study"}
-tools:
-  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
-  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
-integrations:
-  - notion
 nodes:
   - {id: analyze, type: agent, ref: enablement-lead, needs: [inputs], produces: [case_study]}
 on_fail: {retry: 1, fallback: manual_review}

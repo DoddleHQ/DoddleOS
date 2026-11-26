@@ -15,8 +15,8 @@ Audit a deals/opportunities export and report pipeline health — reproducibly.
 Run the toolkit; the model never computes these numbers by hand.
 
 ```
-dgtm report <export.json|csv> [--json]      # markdown report + envelope
-dgtm audit  <export.json|csv> [--json]      # envelope only
+dgtm report <export.json|csv> [--segment SEGMENT] [--max-age-days 30] [--json]
+dgtm audit  <export.json|csv> [--segment SEGMENT] [--max-age-days 30] [--json]
 ```
 
 Read the JSON envelope. Every figure comes from it. Key fields:
@@ -25,6 +25,9 @@ Read the JSON envelope. Every figure comes from it. Key fields:
 - `signals[]` — `pipeline.win_rate`, `pipeline.cycle_time`, `pipeline.stage_spread`,
   `pipeline.data_completeness`, `pipeline.segment_coverage`.
 - `totals.open_pipeline_value` — sum of open deal amounts, from the export.
+- `filters.segment` — the applied case-insensitive segment filter, or `null` for all segments.
+- `evidence.export` — export mtime, age in days and the freshness limit; older than the limit is
+  stamped `STALE`, never `CURRENT`.
 - `findings[]` — pre-ranked, each with `points_lost`.
 
 Expected columns: `stage`, `amount`, `created_at`, `closed_at`, `outcome` (won/lost/open),
@@ -34,8 +37,10 @@ deals; otherwise ask for the export file.
 
 ## Workflow
 
-1. Confirm the export path and the segment (default **SMB**).
-2. Run `dgtm report <export>` and read the envelope.
+1. Confirm the export path and the segment (default **SMB**). Pass `--segment SMB` for the pack
+   default; omitting `--segment` audits every segment.
+2. Run `dgtm report <export> --segment <segment>` and read the envelope. Keep the default
+   `--max-age-days 30` unless the user states a different freshness limit.
 3. If `ok: false`, relay `error.message` and `error.hint`; stop.
 4. Narrate the composite and tier, then the signals that moved it.
 5. List findings in priority order with `points_lost`.
@@ -45,10 +50,10 @@ deals; otherwise ask for the export file.
 
 | Sub-flow | When to use | Toolkit focus |
 |----------|-------------|---------------|
-| `full-audit` | Default: full pipeline-health read on a deals export | `dgtm report <export>` |
-| `envelope-only` | A downstream skill needs the JSON envelope, not the prose report | `dgtm audit <export> --json` |
-| `segment-slice` | One segment's pipeline is the question (e.g. mid-market vs SMB) | `dgtm report <export>` with the `segment` input |
-| `hygiene-check` | Suspected data-quality problems before trusting any pipeline metric | `dgtm audit <export>` → `signals.pipeline.data_completeness` |
+| `full-audit` | Default: full pipeline-health read on a deals export | `dgtm report <export> --segment SMB` |
+| `envelope-only` | A downstream skill needs the JSON envelope, not the prose report | `dgtm audit <export> --segment SMB --json` |
+| `segment-slice` | One segment's pipeline is the question (e.g. mid-market vs SMB) | `dgtm report <export> --segment <segment>` |
+| `hygiene-check` | Suspected data-quality problems before trusting any pipeline metric | `dgtm audit <export> --segment SMB` → `signals.pipeline.data_completeness` |
 
 ## Response Contract
 
@@ -72,8 +77,8 @@ Full block: `common/response-contract.md`.
 | Re-deriving win rate or cycle time by hand | Read `signals[]` from the envelope |
 | Treating a missing amount as `0` | It is `null` / not measured; name the reason |
 | Presenting the readiness score as revenue performance | It measures hygiene and mechanics only |
-| Assuming a stale export is current | Check and state `evidence.stamp` |
-| Dropping the segment | State the segment and the window on every figure |
+| Assuming a stale export is current | Check `evidence.stamp` and `evidence.export.age_days`; request a fresh export |
+| Dropping the segment | Pass `--segment`; CLI omission means all segments, not the SMB default |
 
 ## Related Skills
 
@@ -87,7 +92,7 @@ Full block: `common/response-contract.md`.
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | export | file | yes | Deals/opportunities export (JSON or CSV) |
-| segment | string | no | Segment filter; defaults to SMB |
+| segment | string | no | Segment filter; pack default is SMB, while CLI omission audits all segments |
 
 ## Outputs
 

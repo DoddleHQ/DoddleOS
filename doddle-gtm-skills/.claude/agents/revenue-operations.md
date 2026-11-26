@@ -17,7 +17,8 @@ programs that feed learning back into the field, and expansion analytics.
 
 ## Deterministic toolkit
 
-- `dgtm audit --export <file>` — pipeline / closed-deal / expansion audits from exports.
+- `dgtm audit <export.json|csv> [--segment SEGMENT] [--max-age-days 30]` — pipeline / closed-deal /
+  expansion audits from exports.
 - `dgtm frameworks --name forecast-model|win-loss-program|win-loss-interview|nrr-waterfall`.
 - `doddle.tool.v1.hubspot.deals` / `doddle.tool.v1.salesforce.opportunities` (optional, live)
   — stage and amount data.

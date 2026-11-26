@@ -11,8 +11,8 @@ Commands::
     dgtm pricing --price P --variable-cost V [--fixed-cost F] [--tier name:price:cost:mix ...] [--json]
     dgtm size-market --accounts N --acv X [--sam-pct S --som-pct O] [--json]
     dgtm score --criteria name:weight:score [--target T] [--json]
-    dgtm audit  <deals.json|csv> [--json]
-    dgtm report <deals.json|csv> [--out FILE] [--json]
+    dgtm audit  <deals.json|csv> [--segment SEGMENT] [--max-age-days N] [--json]
+    dgtm report <deals.json|csv> [--segment SEGMENT] [--max-age-days N] [--out FILE] [--json]
     dgtm doctor
 """
 
@@ -20,13 +20,14 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import sys
 from typing import Any, Dict, List, Optional
 
 from . import DATA_VERSION, SCORING_VERSION, TOOLKIT_VERSION
 from . import calc, frameworks as fw_mod, scoring as scoring_mod
 from .envelope import CURRENT, utc_now
-from .pipeline import audit_pipeline
+from .pipeline import DEFAULT_MAX_AGE_DAYS, audit_pipeline
 from .report import render_markdown
 
 
@@ -79,6 +80,16 @@ def _num(value: Optional[str]) -> Optional[float]:
         return float(str(value))
     except ValueError:
         return None
+
+
+def _max_age_days(value: str) -> float:
+    try:
+        days = float(value)
+    except ValueError as exc:
+        raise argparse.ArgumentTypeError("must be a number") from exc
+    if not math.isfinite(days) or days < 0:
+        raise argparse.ArgumentTypeError("must be a finite, non-negative number")
+    return days
 
 
 def _pairs(values: Optional[List[str]], arity: int, kw: int = 0) -> List[Dict[str, Any]]:
@@ -207,13 +218,15 @@ def cmd_score(args: argparse.Namespace) -> int:
 
 
 def cmd_audit(args: argparse.Namespace) -> int:
-    env = audit_pipeline(args.export)
+    env = audit_pipeline(
+        args.export, segment=args.segment, max_age_days=args.max_age_days)
     _emit(env, _wants_json(args))
     return 0 if env["ok"] else 1
 
 
 def cmd_report(args: argparse.Namespace) -> int:
-    env = audit_pipeline(args.export)
+    env = audit_pipeline(
+        args.export, segment=args.segment, max_age_days=args.max_age_days)
     env["command"] = "report"
     env["markdown"] = render_markdown(env)
     if args.out:
@@ -285,10 +298,16 @@ def build_parser() -> argparse.ArgumentParser:
 
     sp = sub.add_parser("audit", parents=[common], help="audit a deals/pipeline export (JSON/CSV)")
     sp.add_argument("export")
+    sp.add_argument("--segment", help="only audit rows whose segment matches (case-insensitive)")
+    sp.add_argument("--max-age-days", type=_max_age_days, default=DEFAULT_MAX_AGE_DAYS,
+                    help="maximum export age based on file mtime (default: 30)")
     sp.set_defaults(func=cmd_audit)
 
     sp = sub.add_parser("report", parents=[common], help="audit an export and render markdown")
     sp.add_argument("export")
+    sp.add_argument("--segment", help="only audit rows whose segment matches (case-insensitive)")
+    sp.add_argument("--max-age-days", type=_max_age_days, default=DEFAULT_MAX_AGE_DAYS,
+                    help="maximum export age based on file mtime (default: 30)")
     sp.add_argument("--out")
     sp.set_defaults(func=cmd_report)
 

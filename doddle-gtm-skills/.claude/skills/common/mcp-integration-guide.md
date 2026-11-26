@@ -4,11 +4,32 @@ Skills may reference external data only through tool IDs on this registry. **Nev
 tool ID.** The toolkit CLI (`doddle.tool.cli.dgtm`) covers everything deterministic; MCP tools
 cover live, account-specific data.
 
+## Declared vs actually invoked
+
+- **Registry entry:** a tool the pack knows about. It is not a promise that a skill calls it.
+- **`tools:` declaration:** an optional capability attached to a blueprint. A declaration alone
+  does not execute anything and must not be narrated as a live pull.
+- **`type: tool` node:** an actual graph invocation. It must name the declared tool in `ref`,
+  map explicit inputs in `args`, depend on an earlier node or `inputs`, and run before the
+  narration node. MCP declarations stay `required: false` / `fallback: manual_review`.
+
+Only two live bindings currently meet the safe-mapping and read-only rules:
+`gtm-icp` and `gtm-abm` invoke `doddle.tool.v1.clearbit.company` with their optional `domain`
+input. If `domain` is absent or the tool is unavailable, skip the lookup and use user-supplied
+firmographics; never pass an empty placeholder or invent enrichment.
+
+Other registry tools are catalog entries only. CRM tools have no safe mapping from an export
+path to a live query; analytics/ad tools lack property/account inputs; Gong lacks a call-selection
+input; and the generic Notion pages capability does not guarantee a read-only operation. Those
+candidates are deliberately not declared or invoked until an explicit safe binding exists. A
+mention in `SKILL.md` is integration guidance, not execution: treat it as `NOT AVAILABLE` and use
+the documented user-supplied fallback.
+
 ## Registry
 
 | Tool ID | Provides | Typical skills | Required |
 |---------|----------|----------------|----------|
-| `doddle.tool.cli.dgtm` | Funnel math, unit economics, pricing, market sizing, weighted scoring, pipeline audit, frameworks | all `gtm-*` | yes (bundled) |
+| `doddle.tool.cli.dgtm` | Funnel math, unit economics, pricing, market sizing, weighted scoring, pipeline audit, frameworks | toolkit skills | bundled; declared only when invoked |
 | `doddle.tool.v1.hubspot.deals` | Deals, stages, amounts, close dates | gtm-pipeline-analytics, gtm-forecasting, gtm-win-loss, gtm-expansion | no |
 | `doddle.tool.v1.salesforce.opportunities` | Opportunities and stage history (alt CRM) | gtm-pipeline-analytics, gtm-forecasting | no |
 | `doddle.tool.v1.gong.calls` | Recorded calls, transcripts, talk ratios | gtm-win-loss, gtm-battlecards, gtm-sales-narrative | no |
@@ -23,8 +44,9 @@ MCP tool needed, and no scraping.
 ## Rules
 
 1. **Deterministic first.** If `dgtm` can compute it, do not ask an MCP tool for it.
-2. **Optional tools are optional.** Every MCP tool in a blueprint is `required: false` with
-   `fallback: manual_review`. Their absence degrades the report, it does not fail the skill.
+2. **Optional tools are optional.** Every invoked MCP tool has both a `tools:` declaration
+   (`required: false`, `fallback: manual_review`) and an optional `type: tool` node before
+   narration. Their absence degrades the report, it does not fail the skill.
 3. **Unavailable ⇒ say so.** Print `⚠️ NOT AVAILABLE — configure <tool>` and name the setup.
    Never estimate a substitute.
 4. **Live numbers are `live` class.** Tag them. They are not part of the deterministic score.

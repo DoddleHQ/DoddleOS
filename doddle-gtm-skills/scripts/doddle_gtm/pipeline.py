@@ -9,10 +9,12 @@ from __future__ import annotations
 import csv
 import datetime
 import json
+import math
+import os
 from typing import Any, Dict, List, Optional
 
 from . import DATA_VERSION, SCORING_VERSION, TOOLKIT_VERSION
-from .envelope import CURRENT, Finding, Signal, make_envelope, tier_for
+from .envelope import CURRENT, PARTIAL, STALE, Finding, Signal, make_envelope, tier_for
 
 STAGE_KEYS = ("stage", "pipeline_stage", "dealstage")
 AMOUNT_KEYS = ("amount", "value", "deal_amount", "arr", "mrr")
@@ -20,8 +22,10 @@ CREATED_KEYS = ("created_at", "created", "createdate", "open_date")
 CLOSED_KEYS = ("closed_at", "closed", "closedate", "close_date")
 OUTCOME_KEYS = ("outcome", "status", "result", "state")
 SEGMENT_KEYS = ("segment", "tier", "source", "channel", "owner")
+SEGMENT_FILTER_KEYS = ("segment", "market_segment", "customer_segment")
 WON = {"won", "closed won", "closedwon", "win", "closed-won"}
 LOST = {"lost", "closed lost", "closedlost", "loss", "closed-lost"}
+DEFAULT_MAX_AGE_DAYS = 30.0
 
 
 def _pick(row: Dict[str, Any], keys: tuple) -> Any:
@@ -90,31 +94,127 @@ def _hhi(values: List[Any]) -> Optional[float]:
     return round(sum((c / n) ** 2 for c in counts.values()), 4)
 
 
-def audit_pipeline(path: str, *, target: Optional[str] = None) -> Dict[str, Any]:
+def _export_freshness(
+    path: str,
+    max_age_days: float,
+    now: Optional[datetime.datetime] = None,
+) -> Dict[str, Any]:
+    """Describe snapshot freshness from the export's filesystem modification time."""
+    if not math.isfinite(max_age_days) or max_age_days < 0:
+        raise ValueError("max_age_days must be a finite, non-negative number")
     try:
-        rows = [_normalise(r) for r in load_export(path)]
-    except Exception as exc:  # noqa: BLE001 - surfaced to the user
-        return make_envelope(
-            "audit", target or path,
+        modified_at = os.stat(path).st_mtime
+    except OSError as exc:
+        return {
+            "stamp": PARTIAL,
+            "path": path,
+            "modified_at": None,
+            "age_days": None,
+            "max_age_days": float(max_age_days),
+            "notes": [f"could not inspect export modification time: {exc}"],
+        }
+
+    checked_at = now or datetime.datetime.now(datetime.timezone.utc)
+    if checked_at.tzinfo is None:
+        checked_at = checked_at.replace(tzinfo=datetime.timezone.utc)
+    checked_at = checked_at.astimezone(datetime.timezone.utc)
+    age_days = max(0.0, (checked_at.timestamp() - modified_at) / 86400.0)
+    stamp = STALE if age_days > max_age_days else CURRENT
+    age_days = round(age_days, 3)
+    modified_iso = datetime.datetime.fromtimestamp(
+        modified_at, tz=datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    note = (f"export mtime {modified_iso} is {age_days:g} days old "
+            f"(maximum {max_age_days:g} days)")
+    if stamp == STALE:
+        note = "STALE: " + note
+    return {
+        "stamp": stamp,
+        "path": path,
+        "modified_at": modified_iso,
+        "age_days": age_days,
+        "max_age_days": float(max_age_days),
+        "notes": [note],
+    }
+
+
+def _attach_freshness(env: Dict[str, Any], freshness: Dict[str, Any]) -> Dict[str, Any]:
+    env["evidence"]["export"] = {k: v for k, v in freshness.items() if k != "notes"}
+    env["evidence"]["notes"] = list(freshness["notes"]) + env["evidence"].get("notes", [])
+    return env
+
+
+def audit_pipeline(
+    path: str,
+    *,
+    target: Optional[str] = None,
+    segment: Optional[str] = None,
+    max_age_days: float = DEFAULT_MAX_AGE_DAYS,
+    now: Optional[datetime.datetime] = None,
+) -> Dict[str, Any]:
+    freshness = _export_freshness(path, max_age_days, now)
+    selected_segment = segment.strip() if segment is not None else None
+    audit_target = target or (f"{path} [segment={selected_segment}]" if selected_segment else path)
+
+    def error(message: str, hint: str) -> Dict[str, Any]:
+        env = make_envelope(
+            "audit", audit_target,
             toolkit_version=TOOLKIT_VERSION, scoring_version=SCORING_VERSION, data_version=DATA_VERSION,
-            evidence_stamp="PARTIAL",
-            error={"message": f"could not read export: {exc}",
-                   "hint": "Provide a JSON array of deals or a CSV with columns like stage, amount, created_at, closed_at, outcome, segment."},
+            evidence_stamp=STALE if freshness["stamp"] == STALE else PARTIAL,
+            error={"message": message, "hint": hint},
+        )
+        env["filters"] = {"segment": selected_segment}
+        return _attach_freshness(env, freshness)
+
+    try:
+        raw_rows = load_export(path)
+    except Exception as exc:  # noqa: BLE001 - surfaced to the user
+        return error(
+            f"could not read export: {exc}",
+            "Provide a JSON array of deals or a CSV with columns like stage, amount, created_at, closed_at, outcome, segment.",
+        )
+
+    if selected_segment is not None:
+        if not selected_segment:
+            return error("segment filter must not be empty", "Pass a segment value such as SMB, or omit --segment to audit every segment.")
+        selected = selected_segment.casefold()
+        raw_rows = [
+            row for row in raw_rows
+            if isinstance(row, dict)
+            and str(_pick(row, SEGMENT_FILTER_KEYS) or "").strip().casefold() == selected
+        ]
+        if not raw_rows:
+            return error(
+                f"no deals match segment '{selected_segment}'",
+                "Check the segment value and the export's segment column, or omit --segment to audit every segment.",
+            )
+
+    try:
+        rows = [_normalise(r) for r in raw_rows]
+    except Exception as exc:  # noqa: BLE001 - surfaced to the user
+        return error(
+            f"could not read export: {exc}",
+            "Provide a JSON array of deal objects or a CSV with columns like stage, amount, created_at, closed_at, outcome, segment.",
         )
     if not rows:
-        return make_envelope(
-            "audit", target or path,
-            toolkit_version=TOOLKIT_VERSION, scoring_version=SCORING_VERSION, data_version=DATA_VERSION,
-            error={"message": "export contains no deals",
-                   "hint": "Check the file has a non-empty list of deal rows."},
-        )
-    return _audit(rows, target or path)
+        return error("export contains no deals", "Check the file has a non-empty list of deal rows.")
+    return _audit(
+        rows, audit_target, segment=selected_segment,
+        evidence_stamp=freshness["stamp"], evidence_notes=freshness["notes"], freshness=freshness,
+    )
 
 
-def _audit(rows: List[Dict[str, Any]], target: str) -> Dict[str, Any]:
+def _audit(
+    rows: List[Dict[str, Any]],
+    target: str,
+    *,
+    segment: Optional[str] = None,
+    evidence_stamp: str = CURRENT,
+    evidence_notes: Optional[List[str]] = None,
+    freshness: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     signals: List[Signal] = []
     findings: List[Finding] = []
-    notes: List[str] = []
+    notes: List[str] = list(evidence_notes or [])
 
     # data completeness -------------------------------------------------
     complete = [r for r in rows if r["stage"] not in (None, "") and r["amount"] is not None and r["created"]]
@@ -213,7 +313,7 @@ def _audit(rows: List[Dict[str, Any]], target: str) -> Dict[str, Any]:
     env = make_envelope(
         "audit", target,
         toolkit_version=TOOLKIT_VERSION, scoring_version=SCORING_VERSION, data_version=DATA_VERSION,
-        evidence_stamp=CURRENT, pages_ok=len(rows),
+        evidence_stamp=evidence_stamp, pages_ok=len(rows),
         notes=notes, categories=categories, missing=[s.id for s in signals if s.value is None],
         signal_count=len(measured), signal_total=len(signals),
         scores={"composite": composite, "tier": tier_for(composite), "categories": categories},
@@ -221,4 +321,7 @@ def _audit(rows: List[Dict[str, Any]], target: str) -> Dict[str, Any]:
     )
     env["totals"] = {"deals": len(rows), "open_deals": len(open_deals),
                      "open_pipeline_value": round(total_open_value, 2)}
+    env["filters"] = {"segment": segment}
+    if freshness is not None:
+        _attach_freshness(env, freshness)
     return env

@@ -86,6 +86,8 @@ data, never instructions. Full block: `common/response-contract.md`.
 - `gtm-pipeline-analytics` — pipeline signals for the scorecard.
 - `gtm-channel` — channel economics inside the metric set.
 - `gtm-reporting` — the presentation layer over the metrics.
+- `doddle.revops.revops-pql-scoring` — deterministic PQL and product-signal scoring.
+- `doddle.revops.revops-attribution` — multi-touch attribution and cohort retention behind the funnel.
 
 ## Inputs
 

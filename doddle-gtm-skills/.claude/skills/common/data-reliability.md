@@ -38,9 +38,13 @@ trust is to report a number that cannot be reproduced, or to present an assumpti
 
 | Stamp | Meaning | What to say |
 |-------|---------|-------------|
-| `CURRENT` | Every record/signal evaluated in this run | Nothing special |
-| `PARTIAL` | Some records/signals could not be evaluated | Say how many and why, in the headline |
-| `STALE` | Based on a saved snapshot older than the run | Say the evidence is stale |
+| `CURRENT` | Every record/signal evaluated; export mtime is within `--max-age-days` (default 30) | Nothing special |
+| `PARTIAL` | Some records/signals could not be evaluated, or export mtime could not be inspected | Say how many and why, in the headline |
+| `STALE` | Export mtime is older than `--max-age-days` | Say the evidence is stale and name its age |
+
+`dgtm audit` and `dgtm report` inspect the export file's modification time. The envelope records
+`evidence.export.modified_at`, `age_days` and `max_age_days`; an old but readable export is still
+analysed and stamped `STALE`, never relabelled `CURRENT`.
 
 ## 4. When a tool is unavailable
 

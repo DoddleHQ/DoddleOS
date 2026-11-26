@@ -8,8 +8,6 @@ inputs:
   - {name: criteria, type: string, required: false, description: "Ranking axes (fit, effort, readiness)"}
 outputs:
   - {name: plan, type: markdown, description: "Locale ranking and minimum launch pack"}
-tools:
-  - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
 nodes:
   - {id: analyze, type: agent, ref: gtm-strategist, needs: [inputs], produces: [plan]}
 on_fail: {retry: 1, fallback: manual_review}

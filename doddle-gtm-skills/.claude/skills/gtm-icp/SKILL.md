@@ -26,9 +26,10 @@ Read the JSON envelope:
 
 Every `weight` and `score` is a user **assumption** (`advisory`); the `composite` and `coverage`
 are computed (`deterministic`). `coverage` below 1 means some criteria were not scored — report
-it as not measured, never as zero. Read `frameworks[0].sections` for the ICP structure. Enrich
-target accounts with `doddle.tool.v1.clearbit.company` (read-only); if unavailable, ask for the
-account list and print `NOT AVAILABLE — configure doddle.tool.v1.clearbit.company`.
+it as not measured, never as zero. Read `frameworks[0].sections` for the ICP structure. When the
+optional `domain` input is supplied, the blueprint invokes `doddle.tool.v1.clearbit.company`
+(read-only) before narration. If the domain or tool is unavailable, use user-supplied
+firmographics and print `NOT AVAILABLE — configure doddle.tool.v1.clearbit.company`.
 
 ## Workflow
 
@@ -36,7 +37,8 @@ account list and print `NOT AVAILABLE — configure doddle.tool.v1.clearbit.comp
 2. Run `dgtm score --criteria …` and read `metrics`, `criteria` and `notes`.
 3. Read the `icp-template` structure with `dgtm frameworks --name icp-template`.
 4. Fill firmographics, technographics, triggers, buying committee and disqualifiers from the inputs.
-5. Optionally enrich the target accounts via `doddle.tool.v1.clearbit.company`.
+5. If `domain` is supplied, run the optional Clearbit node via `doddle.tool.v1.clearbit.company`;
+   otherwise ask for firmographics and do not imply a live lookup.
 6. Narrate the composite and coverage; label every weight and score `advisory`.
 
 ## Sub-flows
@@ -85,6 +87,7 @@ Hard rules: never invent a number; `null` is not measured, not zero; never do ar
 |------|------|----------|-------------|
 | criteria | string | yes | Weighted qualifying criteria for the ICP |
 | accounts | file | no | Optional account list to score against the ICP |
+| domain | string | no | Optional company domain mapped to the read-only Clearbit lookup |
 
 ## Outputs
 

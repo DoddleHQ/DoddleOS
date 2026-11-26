@@ -10,10 +10,7 @@ outputs:
   - {name: narrative, type: markdown, description: "Sales narrative"}
 tools:
   - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
-  - {id: doddle.tool.v1.gong.calls, required: false, fallback: manual_review}
-integrations:
-  - gong
 nodes:
-  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["frameworks"], needs: [inputs], produces: [envelope]}
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["frameworks", "--name", "sales-narrative"], needs: [inputs], produces: [envelope]}
   - {id: narrate, type: agent, ref: enablement-lead, needs: [run], produces: [narrative]}
 on_fail: {retry: 1, fallback: manual_review}

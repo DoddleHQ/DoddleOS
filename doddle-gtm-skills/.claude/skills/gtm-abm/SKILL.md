@@ -31,9 +31,11 @@ received a score; a missing score is `null`, not zero. Every criterion, weight a
 6. Owners
 7. Success metric
 
-Use `doddle.tool.v1.clearbit.company` for firmographic enrichment and
-`doddle.tool.v1.hubspot.deals` for open deals; if either is unavailable, print
-`⚠️ NOT AVAILABLE — configure <tool>` and ask for the account list and firmographics instead.
+When the optional `domain` input is supplied, the blueprint invokes
+`doddle.tool.v1.clearbit.company` for read-only firmographic enrichment before narration. If the
+domain or tool is unavailable, print `⚠️ NOT AVAILABLE — configure doddle.tool.v1.clearbit.company`
+and ask for firmographics. Deal evidence must come from user-supplied records; no live CRM call is
+wired because an export path is not a safe CRM query.
 
 ## Workflow
 
@@ -42,8 +44,8 @@ Use `doddle.tool.v1.clearbit.company` for firmographic enrichment and
 3. Run `dgtm score --criteria name:weight:score …` for each account and read the envelope.
 4. Rank by `metrics.composite` and cut the tiers using the account criteria.
 5. Assign a play, an owner and a success metric to each tier.
-6. Enrich accounts with `clearbit.company` / `hubspot.deals` if available; never estimate a
-   missing firmographic. State that all criteria are assumptions.
+6. If `domain` is supplied, run the optional `clearbit.company` node; otherwise use supplied
+   firmographics. Never estimate a missing firmographic. State that all criteria are assumptions.
 
 ## Sub-flows
 
@@ -52,7 +54,7 @@ Use `doddle.tool.v1.clearbit.company` for firmographic enrichment and
 | `tier-1-one-to-one` | A handful of top-scoring accounts get bespoke, rep-owned plays | `dgtm frameworks --name abm-tiering` |
 | `tier-2-few` | A cluster of similar mid-tier accounts shares one semi-custom play | `dgtm frameworks --name abm-tiering` |
 | `tier-3-many` | The long tail is handled by scaled, campaign-led touches | `dgtm frameworks --name demand-gen-plan` |
-| `enrichment-pass` | The account list lacks firmographics needed to score criteria | `dgtm score`, `doddle.tool.v1.clearbit.company` |
+| `enrichment-pass` | The account list lacks firmographics needed to score criteria | `dgtm score`, `clearbit.company` when `domain` is supplied |
 
 ## Response Contract
 
@@ -94,6 +96,7 @@ arithmetic; criteria are assumptions and must be labelled; on `ok: false` relay 
 |------|------|----------|-------------|
 | accounts | file | yes | Target account list |
 | criteria | string | yes | Weighted tiering criteria |
+| domain | string | no | Optional company domain mapped to the read-only Clearbit lookup |
 
 ## Outputs
 

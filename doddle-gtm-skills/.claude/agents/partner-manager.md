@@ -19,7 +19,7 @@ recorded evidence, never optimism.
 ## Deterministic toolkit
 
 - `dgtm unit-economics --cac … --arpa …` — channel/partner economics.
-- `dgtm report --export <file>` — aggregate sourced/influenced pipeline evidence.
+- `dgtm report <export.json|csv>` — aggregate sourced/influenced pipeline evidence.
 - `doddle.tool.v1.hubspot.deals` (optional, live) — sourced-partner pipeline.
 - `dgtm frameworks --name partnership-model|partnership-scorecard|channel-fit-matrix|case-study-brief`.
 

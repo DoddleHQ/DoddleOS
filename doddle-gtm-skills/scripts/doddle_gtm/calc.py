@@ -83,8 +83,8 @@ def unit_economics(
 
 def pricing(
     *,
-    price: Optional[float],
-    variable_cost: Optional[float],
+    price: Optional[float] = None,
+    variable_cost: Optional[float] = None,
     fixed_cost: Optional[float] = None,
     tiers: Optional[List[Dict[str, Any]]] = None,
 ) -> Dict[str, Any]:
@@ -106,7 +106,8 @@ def pricing(
             "breakeven_units": None if breakeven is None else round(breakeven, 1),
         }
         out["missing"] = (["fixed_cost"] if fixed_cost is None else [])
-    else:
+    elif price is not None or variable_cost is not None or not tiers:
+        # Tier-only pricing does not require a separate single-plan price/cost pair.
         out["missing"] = [n for n, v in (("price", price), ("variable_cost", variable_cost)) if v is None]
 
     if tiers:

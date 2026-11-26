@@ -13,7 +13,7 @@ without inventing proof you do not have.
 
 ## Deterministic Toolkit
 
-- `dgtm report --export <file>` — aggregate recorded proof assets / closed-deal evidence into
+- `dgtm report <export.json|csv>` — aggregate recorded proof assets / closed-deal evidence into
   an envelope (`evidence.stamp` must be CURRENT to report as live).
 - `dgtm frameworks --name case-study-brief|partnership-scorecard` — structure for each proof
   type; never paraphrase from memory.

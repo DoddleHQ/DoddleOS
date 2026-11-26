@@ -11,6 +11,6 @@ outputs:
 tools:
   - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
 nodes:
-  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["frameworks"], needs: [inputs], produces: [envelope]}
+  - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["frameworks", "--name", "messaging-house"], needs: [inputs], produces: [envelope]}
   - {id: narrate, type: agent, ref: positioning-strategist, needs: [run], produces: [messaging]}
 on_fail: {retry: 1, fallback: manual_review}

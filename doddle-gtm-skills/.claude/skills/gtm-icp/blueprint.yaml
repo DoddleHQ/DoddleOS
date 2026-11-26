@@ -6,6 +6,7 @@ description: "positioning-strategist skill for icp."
 inputs:
   - {name: criteria, type: string, required: true, description: "Weighted qualifying criteria for the ICP"}
   - {name: accounts, type: file, required: false, description: "Optional account list to score against the ICP"}
+  - {name: domain, type: string, required: false, description: "Optional company domain for read-only firmographic enrichment"}
 outputs:
   - {name: icp, type: markdown, description: "ICP definition"}
   - {name: envelope, type: json, description: "Weighted score envelope"}
@@ -16,5 +17,6 @@ integrations:
   - clearbit
 nodes:
   - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["score"], needs: [inputs], produces: [envelope]}
-  - {id: narrate, type: agent, ref: positioning-strategist, needs: [run], produces: [icp]}
+  - {id: live_1, type: tool, ref: doddle.tool.v1.clearbit.company, args: ["{inputs.domain}"], needs: [run], produces: [clearbit_company_evidence]}
+  - {id: narrate, type: agent, ref: positioning-strategist, needs: [run, live_1], produces: [icp]}
 on_fail: {retry: 1, fallback: manual_review}

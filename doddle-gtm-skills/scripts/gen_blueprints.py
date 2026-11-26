@@ -7,13 +7,16 @@ Run: python3 scripts/gen_blueprints.py
 
 from __future__ import annotations
 
+import json
 import os
+from typing import List
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SKILLS = os.path.join(ROOT, ".claude", "skills")
 
-# (slug, agent, kind, commands, mcp, inputs, outputs, integrations)
+# (slug, agent, kind, commands, mcp candidates, inputs, outputs, integrations)
 # kind: toolkit | advisory
+# MCP candidates become declarations/nodes only with an explicit safe input binding below.
 SPECS = [
     ("gtm-strategy", "gtm-strategist", "toolkit", ["unit-economics", "funnel"],
      ["notion.pages"],
@@ -38,7 +41,8 @@ SPECS = [
     ("gtm-icp", "positioning-strategist", "toolkit", ["score"],
      ["clearbit.company"],
      [("criteria", "string", True, "Weighted qualifying criteria for the ICP"),
-      ("accounts", "file", False, "Optional account list to score against the ICP")],
+      ("accounts", "file", False, "Optional account list to score against the ICP"),
+      ("domain", "string", False, "Optional company domain for read-only firmographic enrichment")],
      [("icp", "markdown", "ICP definition"), ("envelope", "json", "Weighted score envelope")],
      ["clearbit"]),
     ("gtm-market-sizing", "revenue-analyst", "toolkit", ["size-market"],
@@ -70,7 +74,8 @@ SPECS = [
     ("gtm-abm", "demand-gen-strategist", "toolkit", ["score"],
      ["clearbit.company", "hubspot.deals"],
      [("accounts", "file", True, "Target account list"),
-      ("criteria", "string", True, "Weighted tiering criteria")],
+      ("criteria", "string", True, "Weighted tiering criteria"),
+      ("domain", "string", False, "Optional company domain for read-only firmographic enrichment")],
      [("program", "markdown", "ABM tiers and plays"), ("envelope", "json", "Account score envelope")],
      ["clearbit", "hubspot"]),
     ("gtm-demand-gen", "demand-gen-strategist", "toolkit", ["funnel"],
@@ -96,7 +101,7 @@ SPECS = [
     ("gtm-pipeline-analytics", "revenue-analyst", "toolkit", ["audit", "report"],
      ["hubspot.deals", "salesforce.opportunities"],
      [("export", "file", True, "Deals/opportunities export (JSON or CSV)"),
-      ("segment", "string", False, "Segment filter; defaults to SMB")],
+      ("segment", "string", False, "Segment filter; pack default is SMB (omit to audit all)")],
      [("report", "markdown", "Pipeline audit report"), ("envelope", "json", "Audit envelope")],
      ["hubspot", "salesforce"]),
     ("gtm-forecasting", "revenue-analyst", "toolkit", ["audit"],
@@ -228,6 +233,27 @@ INTEGRATION_TOOL = {
     "linkedin": "doddle.tool.v1.linkedin.ads",
 }
 
+# Framework-only skills must read the named registry entry, not the whole registry.
+FRAMEWORK_BY_SKILL = {
+    "gtm-positioning": "positioning-canvas",
+    "gtm-messaging": "messaging-house",
+    "gtm-competitive": "competitive-teardown",
+    "gtm-persona": "persona-template",
+    "gtm-outbound": "demand-gen-plan",
+    "gtm-launch": "launch-checklist",
+    "gtm-sales-narrative": "sales-narrative",
+    "gtm-enablement": "sales-narrative",
+    "gtm-battlecards": "battlecard",
+    "gtm-partnerships": "partnership-model",
+}
+
+# A candidate MCP tool is wired only when a read-only call has an explicit input mapping.
+# Other candidates stay in the integration catalog but are not declared or invoked.
+MCP_NODE_INPUTS = {
+    ("gtm-icp", "clearbit.company"): "domain",
+    ("gtm-abm", "clearbit.company"): "domain",
+}
+
 
 def _inputs_yaml(inputs):
     out = ["inputs:"]
@@ -244,14 +270,31 @@ def _outputs_yaml(outputs):
     return out
 
 
+def _command_args(slug: str, command) -> List[str]:
+    args = [command] if isinstance(command, str) else list(command)
+    if slug == "gtm-pipeline-analytics" and args[0] in ("audit", "report"):
+        args.extend(["{inputs.export}", "--segment", "{inputs.segment}"])
+    return args
+
+
 def build(spec):
     slug, agent, kind, commands, mcp, inputs, outputs, integrations = spec
     if kind == "toolkit" and not commands:
-        commands = ["frameworks"]
+        commands = [("frameworks", "--name", FRAMEWORK_BY_SKILL[slug])]
+    wired_mcp = [
+        (INTEGRATION_TOOL[m.split(".", 1)[0]], MCP_NODE_INPUTS[(slug, m)])
+        for m in mcp if (slug, m) in MCP_NODE_INPUTS
+    ]
+    active_integrations = [
+        i for i in integrations
+        if any(tool_id == INTEGRATION_TOOL[i] for tool_id, _ in wired_mcp)
+    ]
     sid = f"doddle.gtm.{slug}"
-    tools = ["tools:", f"  - {{id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}}"]
-    for m in mcp:
-        tools.append(f"  - {{id: doddle.tool.v1.{m}, required: false, fallback: manual_review}}")
+    tools = []
+    if kind == "toolkit":
+        tools.append(f"  - {{id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}}")
+    for tool_id, _ in wired_mcp:
+        tools.append(f"  - {{id: {tool_id}, required: false, fallback: manual_review}}")
     lines = [
         f"id: {sid}",
         "version: 0.2.0",
@@ -260,11 +303,13 @@ def build(spec):
         f'description: "{agent} skill for {slug.replace("gtm-", "").replace("-", " ")}."',
         *_inputs_yaml(inputs),
         *_outputs_yaml(outputs),
-        *tools,
     ]
-    if integrations:
+    if tools:
+        lines.append("tools:")
+        lines.extend(tools)
+    if active_integrations:
         lines.append("integrations:")
-        for i in integrations:
+        for i in active_integrations:
             lines.append(f"  - {i}")
     md_out = next((o[0] for o in outputs if o[1] == "markdown"), "report")
     env_out = next((o[0] for o in outputs if o[1] == "json"), "envelope")
@@ -274,12 +319,29 @@ def build(spec):
         for i, cmd in enumerate(commands):
             nid = "run" if i == 0 else f"run_{i+1}"
             node_ids.append(nid)
-            lines.append(f'  - {{id: {nid}, type: tool, ref: doddle.tool.cli.dgtm, args: ["{cmd}"], '
+            args = json.dumps(_command_args(slug, cmd))
+            lines.append(f'  - {{id: {nid}, type: tool, ref: doddle.tool.cli.dgtm, args: {args}, '
                          f'needs: [{"inputs" if i == 0 else node_ids[i-1]}], produces: [{env_out}]}}')
-        last = node_ids[-1]
-        lines.append(f'  - {{id: narrate, type: agent, ref: {agent}, needs: [{last}], produces: [{md_out}]}}')
+        previous = node_ids[-1]
+        final_needs = [previous]
+        final_node = "narrate"
     else:
-        lines.append(f'  - {{id: analyze, type: agent, ref: {agent}, needs: [inputs], produces: [{md_out}]}}')
+        previous = "inputs"
+        final_needs = ["inputs"]
+        final_node = "analyze"
+
+    live_ids = []
+    for i, (tool_id, input_name) in enumerate(wired_mcp, start=1):
+        nid = f"live_{i}"
+        live_ids.append(nid)
+        output = f"{tool_id.removeprefix('doddle.tool.v1.').replace('.', '_')}_evidence"
+        lines.append(
+            f'  - {{id: {nid}, type: tool, ref: {tool_id}, '
+            f'args: ["{{inputs.{input_name}}}"], needs: [{previous}], produces: [{output}]}}')
+        previous = nid
+    needs = ", ".join(final_needs + live_ids)
+    lines.append(f'  - {{id: {final_node}, type: agent, ref: {agent}, '
+                 f'needs: [{needs}], produces: [{md_out}]}}')
     lines.append("on_fail: {retry: 1, fallback: manual_review}")
     return "\n".join(lines) + "\n"
 

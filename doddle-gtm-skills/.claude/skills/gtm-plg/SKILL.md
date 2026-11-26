@@ -81,6 +81,8 @@ Hard rules: never invent a number; `null` is not measured, not zero; never do ar
 - `gtm-onboarding` — time-to-first-value for new signups.
 - `gtm-experimentation` — test activation changes before scaling them.
 - `gtm-metrics` — carry activation rates into the KPI set.
+- `doddle.revops.revops-pql-scoring` — score accounts from real product events.
+- `doddle.revops.revops-data-infrastructure` — validate the event table before trusting a funnel.
 
 ## Inputs
 

@@ -49,8 +49,8 @@ dgtm unit-economics --cac C --arpa A --gross-margin G --churn R [--json]
 dgtm pricing --price P --variable-cost V [--fixed-cost F] [--tier name:price:cost:mix ...] [--json]
 dgtm size-market --accounts N --acv X [--sam-pct S --som-pct O] [--json]
 dgtm score --criteria name:weight:score ... [--target T] [--json]
-dgtm audit  <deals.json|csv> [--json]
-dgtm report <deals.json|csv> [--out FILE] [--json]
+dgtm audit  <deals.json|csv> [--segment SEGMENT] [--max-age-days 30] [--json]
+dgtm report <deals.json|csv> [--segment SEGMENT] [--max-age-days 30] [--out FILE] [--json]
 dgtm doctor
 ```
 
@@ -62,7 +62,10 @@ python3 scripts/dgtm report tests/fixtures/deals.json --out GTM-PIPELINE.md
 
 The pipeline audit reads a deals export (columns like `stage`, `amount`, `created_at`,
 `closed_at`, `outcome`, `segment`; common aliases accepted) and scores data hygiene and pipeline
-mechanics — **not** revenue outcomes.
+mechanics — **not** revenue outcomes. `--segment` filters that column case-insensitively;
+omitting it audits every segment. Freshness comes from the export file's mtime: older than
+`--max-age-days` (default 30) is stamped `STALE`, with the mtime and age recorded in
+`evidence.export`.
 
 ## What is in the pack
 

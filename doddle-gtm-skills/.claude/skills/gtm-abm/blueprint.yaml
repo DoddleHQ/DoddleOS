@@ -6,17 +6,17 @@ description: "demand-gen-strategist skill for abm."
 inputs:
   - {name: accounts, type: file, required: true, description: "Target account list"}
   - {name: criteria, type: string, required: true, description: "Weighted tiering criteria"}
+  - {name: domain, type: string, required: false, description: "Optional company domain for read-only firmographic enrichment"}
 outputs:
   - {name: program, type: markdown, description: "ABM tiers and plays"}
   - {name: envelope, type: json, description: "Account score envelope"}
 tools:
   - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
   - {id: doddle.tool.v1.clearbit.company, required: false, fallback: manual_review}
-  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
 integrations:
   - clearbit
-  - hubspot
 nodes:
   - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["score"], needs: [inputs], produces: [envelope]}
-  - {id: narrate, type: agent, ref: demand-gen-strategist, needs: [run], produces: [program]}
+  - {id: live_1, type: tool, ref: doddle.tool.v1.clearbit.company, args: ["{inputs.domain}"], needs: [run], produces: [clearbit_company_evidence]}
+  - {id: narrate, type: agent, ref: demand-gen-strategist, needs: [run, live_1], produces: [program]}
 on_fail: {retry: 1, fallback: manual_review}

@@ -11,11 +11,6 @@ outputs:
   - {name: envelope, type: json, description: "Audit envelope"}
 tools:
   - {id: doddle.tool.cli.dgtm, required: false, fallback: manual_review}
-  - {id: doddle.tool.v1.gong.calls, required: false, fallback: manual_review}
-  - {id: doddle.tool.v1.hubspot.deals, required: false, fallback: manual_review}
-integrations:
-  - gong
-  - hubspot
 nodes:
   - {id: run, type: tool, ref: doddle.tool.cli.dgtm, args: ["audit"], needs: [inputs], produces: [envelope]}
   - {id: narrate, type: agent, ref: revenue-analyst, needs: [run], produces: [analysis]}
