@@ -1,3 +1,15 @@
+## [1.16.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.15.0...v1.16.0) (2026-11-26)
+
+
+### 🚀 Features
+
+* **revops:** add Doddle RevOps OS pack — 3 revenue-data skills, 2 agents, drev toolkit ([8ac954e](https://github.com/DoddleHQ/DoddleOS/commit/8ac954eba460f5d693036a8010d0f6734ae2979e))
+
+
+### 🐞 Bug Fixes
+
+* **gtm:** harden execution contract — invoke declared tools, fix framework args, add export freshness, tier-pricing fix, segment filter ([74d3d79](https://github.com/DoddleHQ/DoddleOS/commit/74d3d79e41de9c4b1ccd4eb7caeabfc9eb0ac22e))
+
 ## [1.15.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.14.0...v1.15.0) (2026-11-25)
 
 
