@@ -1,0 +1,15 @@
+{
+  "syncs": [
+    {
+      "name": "crm_deals_to_warehouse",
+      "source": "crm.opportunities",
+      "destination": "fct_opportunities",
+      "enabled": true
+    },
+    {
+      "name": "trial_signups",
+      "source": "app.trials",
+      "enabled": true
+    }
+  ]
+}

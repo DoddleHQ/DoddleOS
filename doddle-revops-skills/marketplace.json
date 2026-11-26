@@ -1,0 +1,36 @@
+{
+  "name": "doddle-revops-skills",
+  "owner": {
+    "name": "Doddle Team",
+    "email": "contact@doddlehq.com",
+    "url": "https://doddlehq.com"
+  },
+  "metadata": {
+    "description": "Doddle RevOps OS — 3 read-only revenue-data skills with a deterministic zero-dependency evidence toolkit (drev).",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "doddle-revops-skills",
+      "source": "./",
+      "description": "Revenue data layer for DoddleOS: source-of-truth audit, PQL scoring, multi-touch attribution and cohorts.",
+      "author": {
+        "name": "Doddle Team"
+      },
+      "homepage": "https://doddlehq.com",
+      "repository": "https://github.com/DoddleHQ/DoddleOS",
+      "license": "MIT",
+      "keywords": [
+        "revops",
+        "revenue-operations",
+        "pql",
+        "attribution",
+        "cohorts"
+      ],
+      "category": "revops",
+      "tags": ["revops", "data", "attribution", "pql", "revenue"],
+      "featured": true,
+      "verified": true
+    }
+  ]
+}

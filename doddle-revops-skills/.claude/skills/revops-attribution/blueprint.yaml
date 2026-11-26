@@ -1,0 +1,24 @@
+id: doddle.revops.revops-attribution
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Allocate won revenue across touchpoints with deterministic multi-touch attribution, then build logo and revenue retention cohorts."
+inputs:
+  - {name: touchpoints, type: file, required: true, description: "Touchpoint export (CSV/JSON) with contact_id/deal_id, channel, occurred_at"}
+  - {name: deals, type: file, required: true, description: "Deals export (CSV/JSON) with deal_id, amount, closed_at, outcome"}
+  - {name: model, type: string, required: false, description: "Attribution model: linear | time-decay | position-based; default linear"}
+  - {name: window_days, type: number, required: false, description: "Attribution window in days; default 90"}
+  - {name: cohorts, type: file, required: false, description: "Cohort input (CSV/JSON) with account_id, cohort_start, period_start, active"}
+outputs:
+  - {name: report, type: markdown, description: "Attribution summary by channel, coverage, ROI, and cohort retention matrix"}
+  - {name: attribution_envelope, type: json, description: "Deterministic attribution envelope"}
+  - {name: cohort_envelope, type: json, description: "Deterministic cohort envelope"}
+tools:
+  - {id: doddle.tool.cli.drev, required: false, fallback: manual_review}
+integrations: []
+nodes:
+  - {id: survey, type: agent, ref: revops-data-engineer, needs: [inputs], produces: [assessment]}
+  - {id: attribute, type: tool, ref: doddle.tool.cli.drev, args: ["attribution"], needs: [survey], produces: [attribution_envelope]}
+  - {id: cohort, type: tool, ref: doddle.tool.cli.drev, args: ["cohorts"], needs: [attribute], produces: [cohort_envelope]}
+  - {id: report, type: agent, ref: revops-analyst, needs: [cohort], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

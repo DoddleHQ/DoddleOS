@@ -6,8 +6,8 @@
     "url": "https://doddlehq.com"
   },
   "metadata": {
-    "description": "DoddleOS agentic task execution operating system for Claude Code - validated graph blueprints across 20 peer packs",
-    "longDescription": "DoddleOS execution engine with 116 agents, 238 slash commands, 233 validated skills across 20 peer packs (marketing + GTM flagship plus WordPress, ecom, local, SaaS, health, legal, finance, and more), and interactive training.",
+    "description": "DoddleOS agentic task execution operating system for Claude Code - validated graph blueprints across 21 peer packs",
+    "longDescription": "DoddleOS execution engine with 118 agents, 241 slash commands, 236 validated skills across 21 peer packs (marketing + GTM flagship plus WordPress, RevOps, ecom, local, SaaS, health, legal, finance, and more), and interactive training.",
     "version": "2.0.0",
     "updatedAt": "2026-11-25"
   },
@@ -119,6 +119,26 @@
       ],
       "category": "development",
       "tags": ["wordpress", "gutenberg", "php", "plugins", "themes"]
+    },
+    {
+      "name": "doddle-revops-skills",
+      "source": "./doddle-revops-skills",
+      "description": "Doddle RevOps OS — 3 read-only revenue-data skills (data infrastructure, PQL scoring, multi-touch attribution and cohorts) with the deterministic drev toolkit.",
+      "author": {
+        "name": "Doddle Team"
+      },
+      "homepage": "https://doddlehq.com",
+      "repository": "https://github.com/DoddleHQ/DoddleOS",
+      "license": "MIT",
+      "keywords": [
+        "revops",
+        "revenue-operations",
+        "pql",
+        "attribution",
+        "cohorts"
+      ],
+      "category": "revops",
+      "tags": ["revops", "data", "attribution", "pql", "revenue"]
     }
   ]
 }

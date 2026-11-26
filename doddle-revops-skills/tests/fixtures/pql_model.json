@@ -1,0 +1,9 @@
+{
+  "aha_events": ["created_project", "invited_teammate"],
+  "event_weights": {"created_project": 60, "invited_teammate": 40, "page_view": 2},
+  "weights": {"fit": 0.4, "intent": 0.4, "recency": 0.2},
+  "thresholds": {"pql": 70, "hot": 85},
+  "window_days": 3650,
+  "min_aha_count": 1,
+  "as_of": "2026-11-26T00:00:00Z"
+}

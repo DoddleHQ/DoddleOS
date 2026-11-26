@@ -1,0 +1,5 @@
+source_id,canonical_id,match_method,confidence
+crm_123,acct_9f3,deterministic,1.0
+web_556,acct_9f3,fuzzy,0.74
+crm_124,acct_2b1,deterministic,1.0
+web_999,,unmatched,0.0

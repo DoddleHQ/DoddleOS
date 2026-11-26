@@ -1,0 +1,6 @@
+deal_id,contact_id,amount,closed_at,outcome
+d1,c1,1000,2026-11-01T12:00:00Z,won
+d2,c2,500,2026-11-02T12:00:00Z,won
+d3,c3,2000,2026-11-03T12:00:00Z,lost
+d4,c4,800,2026-11-04T12:00:00Z,won
+d5,c5,700,2026-11-05T12:00:00Z,won

@@ -161,6 +161,14 @@
       "version": "1.0.0",
       "skills": 20,
       "os": "Doddle WordPress OS"
+    },
+    {
+      "name": "doddle-revops-skills",
+      "source": "./doddle-revops-skills/.claude/skills",
+      "ids": "doddle.revops.*",
+      "version": "1.0.0",
+      "skills": 3,
+      "os": "Doddle RevOps OS"
     }
   ]
 }

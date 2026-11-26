@@ -1,0 +1,22 @@
+id: doddle.revops.revops-data-infrastructure
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Audit revenue data infrastructure — warehouse tables, dbt models, identity resolution, reverse-ETL syncs, and single-source-of-truth coverage."
+inputs:
+  - {name: warehouse_export, type: file, required: true, description: "JSON table-profile export from the warehouse"}
+  - {name: dbt_manifest, type: file, required: false, description: "dbt manifest.json for model/source/test coverage"}
+  - {name: identity_map, type: file, required: false, description: "Identity resolution map (CSV/JSON) with canonical ids"}
+  - {name: reverse_etl_config, type: file, required: false, description: "Reverse-ETL sync configuration (JSON)"}
+  - {name: max_age_days, type: number, required: false, description: "Freshness threshold in days; default 30"}
+outputs:
+  - {name: report, type: markdown, description: "Source-of-truth matrix, readiness score, and prioritized fixes"}
+  - {name: envelope, type: json, description: "Deterministic profiling envelope"}
+tools:
+  - {id: doddle.tool.cli.drev, required: false, fallback: manual_review}
+integrations: []
+nodes:
+  - {id: survey, type: agent, ref: revops-data-engineer, needs: [inputs], produces: [assessment]}
+  - {id: profile, type: tool, ref: doddle.tool.cli.drev, args: ["data-profile"], needs: [survey], produces: [envelope]}
+  - {id: report, type: agent, ref: revops-analyst, needs: [profile], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

@@ -1,0 +1,5 @@
+{"account_id": "acct_9f3", "event_name": "created_project", "event_at": "2026-11-20T10:00:00Z"}
+{"account_id": "acct_9f3", "event_name": "invited_teammate", "event_at": "2026-11-21T10:00:00Z"}
+{"account_id": "acct_2b1", "event_name": "page_view", "event_at": "2026-11-22T10:00:00Z"}
+{"account_id": "acct_9f3", "event_name": "page_view", "event_at": "2026-11-24T10:00:00Z"}
+{"account_id": "acct_ghost", "event_name": "page_view", "event_at": "2026-11-24T11:00:00Z"}

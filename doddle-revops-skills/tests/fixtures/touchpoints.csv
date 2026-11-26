@@ -1,0 +1,7 @@
+contact_id,deal_id,channel,campaign,occurred_at,cost
+c1,d1,organic,brand,2026-10-01T09:00:00Z,
+c1,d1,paid,retargeting,2026-10-20T09:00:00Z,120
+c1,d1,referral,partner-share,2026-10-25T09:00:00Z,
+c2,d2,email,lifecycle,2026-10-05T09:00:00Z,30
+c3,d3,organic,brand,2026-09-01T09:00:00Z,
+c4,d4,partner,reseller,2026-09-15T09:00:00Z,200

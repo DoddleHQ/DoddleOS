@@ -404,6 +404,17 @@ Declare user inputs the blueprint expects. Keep table in SKILL.md, formal schema
 
 ---
 
+## Related Packs
+
+- **`doddle.revops.revops-data-infrastructure`** — validate the warehouse, dbt, identity, and
+  reverse-ETL layer this lifecycle depends on.
+- **`doddle.revops.revops-pql-scoring`** — deterministic PQL scoring from product events.
+- **`doddle.revops.revops-attribution`** — multi-touch attribution and cohort retention.
+
+This skill designs the lifecycle; the RevOps pack measures it from recorded data.
+
+---
+
 ## Questions to Ask
 
 1. CRM used, current lead flow, scoring rules?

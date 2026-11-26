@@ -10,6 +10,8 @@
 ### 🚀 Features
 
 * **wordpress:** add `wordpress-agent-skills` peer pack with 20 upstream-derived WordPress skills, 20 validated blueprints, 3 portable agents, 52 eval scenarios, and GPL-2.0-or-later attribution
+* **revops:** add `doddle-revops-skills` peer pack (21st) — 3 read-only revenue-data skills (data infrastructure, PQL scoring, multi-touch attribution + cohorts), 2 agents, and the deterministic `drev` toolkit
+* **gtm:** harden the GTM execution contract — invoke declared MCP tools, fix framework arguments, add export freshness checks, tier-only pricing fix, and `--segment` filtering (156 tests)
 
 ## [1.14.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.13.0...v1.14.0) (2026-10-26)
 

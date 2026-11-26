@@ -1,0 +1,42 @@
+{
+  "name": "doddle-revops-skills",
+  "version": "1.0.0",
+  "description": "Doddle RevOps OS — 3 read-only revenue-data skills (data infrastructure, PQL scoring, multi-touch attribution and cohorts) with a deterministic zero-dependency evidence toolkit (drev).",
+  "main": "README.md",
+  "scripts": {
+    "test": "python3 -m pytest tests -q",
+    "lint": "python3 scripts/lint_pack.py"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DoddleHQ/DoddleOS.git"
+  },
+  "keywords": [
+    "revops",
+    "revenue-operations",
+    "data-infrastructure",
+    "pql",
+    "attribution",
+    "cohorts",
+    "doddleos"
+  ],
+  "author": "Doddle Team <contact@doddlehq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DoddleHQ/DoddleOS/issues"
+  },
+  "homepage": "https://doddlehq.com",
+  "files": [
+    ".claude/",
+    ".claude-plugin/",
+    "scripts/doddle_revops/",
+    "scripts/drev",
+    "README.md",
+    "LICENSE",
+    "skills-matrix.md"
+  ],
+  "engines": {
+    "node": ">=18.0.0",
+    "python": ">=3.9"
+  }
+}

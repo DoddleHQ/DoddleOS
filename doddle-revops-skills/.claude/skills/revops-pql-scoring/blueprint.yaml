@@ -1,0 +1,20 @@
+id: doddle.revops.revops-pql-scoring
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Score product-qualified leads from exported product events — fit, intent, recency, aha thresholds, and account tiers."
+inputs:
+  - {name: events, type: file, required: true, description: "Product event export (JSONL/CSV) with account_id, event_name, event_at"}
+  - {name: accounts, type: file, required: false, description: "Account export (CSV/JSON) with account_id and fit_score"}
+  - {name: model, type: file, required: true, description: "PQL model (JSON): aha_events, event_weights, weights, thresholds, window_days"}
+outputs:
+  - {name: report, type: markdown, description: "PQL tier summary, top accounts, and calibration actions"}
+  - {name: envelope, type: json, description: "Deterministic PQL scoring envelope"}
+tools:
+  - {id: doddle.tool.cli.drev, required: false, fallback: manual_review}
+integrations: []
+nodes:
+  - {id: survey, type: agent, ref: revops-data-engineer, needs: [inputs], produces: [assessment]}
+  - {id: score, type: tool, ref: doddle.tool.cli.drev, args: ["pql"], needs: [survey], produces: [envelope]}
+  - {id: report, type: agent, ref: revops-analyst, needs: [score], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

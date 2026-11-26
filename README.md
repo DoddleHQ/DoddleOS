@@ -9,9 +9,9 @@
   <img src="https://img.shields.io/badge/license-MIT%20core%20%7C%20GPL%20WordPress-blue.svg" alt="License">
   <img src="https://img.shields.io/badge/Claude_Code%20|%20Cursor%20|%20Copilot-Compatible-blueviolet" alt="AI Assistants">
   <br>
-  <img src="https://img.shields.io/badge/Agents-116-green" alt="Agents">
-  <img src="https://img.shields.io/badge/Commands-238-orange" alt="Commands">
-  <img src="https://img.shields.io/badge/Skills-233-blue" alt="Skills">
+  <img src="https://img.shields.io/badge/Agents-118-green" alt="Agents">
+  <img src="https://img.shields.io/badge/Commands-241-orange" alt="Commands">
+  <img src="https://img.shields.io/badge/Skills-236-blue" alt="Skills">
 </p>
 
 <p align="center">
@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  Validated graph blueprints (SKILL.md + blueprint.yaml) executed as agent/tool DAGs: 233 skills across 20 independent peer packs — marketing, agency, GTM, travel, devops, WordPress, affiliate, ecom, local, SaaS, health, legal, finance, and more. Each pack installs and runs standalone; cross-pack binding via blueprint call nodes. The harness spec in <code>doddle-core/spec/</code> is draft — no runner ships in this repo; execution lives in the host assistant or a future runtime.
+  Validated graph blueprints (SKILL.md + blueprint.yaml) executed as agent/tool DAGs: 236 skills across 21 independent peer packs — marketing, agency, GTM, travel, devops, WordPress, RevOps, affiliate, ecom, local, SaaS, health, legal, finance, and more. Each pack installs and runs standalone; cross-pack binding via blueprint call nodes. The harness spec in <code>doddle-core/spec/</code> is draft — no runner ships in this repo; execution lives in the host assistant or a future runtime.
 </p>
 
 <p align="center">
@@ -237,6 +237,7 @@ cp -r doddleOS-marketing/.claude/workflows/* ~/.claude/workflows/
 | Doddle Affiliate OS (`doddle-affiliate-skills/`) | niche, keywords, content, links, revenue (5) | `doddle.affiliate.*` v1.0.0 | `/affiliate:niche`, `/affiliate:keywords`, `/affiliate:content`, `/affiliate:links`, `/affiliate:revenue` |
 | Doddle DevOps OS (`doddle-devops-skills/`) | processes, storage, LVM/RAID, boot/systemd, cron/logging, monitoring, packages, networking/ssh, kernel, backup (10) | `doddle.devops.*` v1.0.0 | skills-first pack (derived from *Linux System Administration*, Paul Cobbaut, GFDL 1.3) |
 | WordPress Agent Skills (`wordpress-agent-skills/`) | router, triage, blocks, themes, patterns, plugins, REST, interactivity, abilities, WP-CLI, performance, PHPStan, env, Playground, Blueprint, WPDS (20) | `doddle.wordpress.*` v1.0.0 | skills-first pack (upstream WordPress/agent-skills, GPL-2.0-or-later) |
+| Doddle RevOps OS (`doddle-revops-skills/`) | data infrastructure, PQL scoring, multi-touch attribution + cohorts (3) | `doddle.revops.*` v1.0.0 | read-only revenue data layer with the deterministic `drev` toolkit; `/revops:data`, `/revops:pql`, `/revops:attribution` |
 | Doddle Ecommerce OS (`doddle-ecommerce-skills/`) | PLP, PDP, checkout, search, revenue | `doddle.ecommerce.*` v1.5.1 | `/ecom:plp`, `/ecom:pdp`, `/ecom:checkout`, `/ecom:search`, `/ecom:revenue` |
 | Doddle Local OS (`doddle-local-skills/`) | GBP, reviews, location pages, booking, local ads | `doddle.local.*` v1.0.0 | `/local:gbp`, `/local:reviews`, `/local:pages`, `/local:booking`, `/local:ads` |
 | Doddle SaaS OS (`doddle-saas-skills/`) | homepage, pricing, trial, retention, expansion + onboarding, paywall, emails, analytics, dunning, comparison, reviews, security, docs (14) | `doddle.saas.*` v1.2.0 | `/saas:homepage`, `/saas:trial`, `/saas:onboarding`, `/saas:paywall`, `/saas:emails`, `/saas:dunning` |

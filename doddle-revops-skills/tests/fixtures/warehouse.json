@@ -1,0 +1,31 @@
+{
+  "snapshot_at": "2026-11-25T00:00:00Z",
+  "tables": [
+    {
+      "name": "fct_opportunities",
+      "row_count": 128400,
+      "columns": ["opportunity_id", "account_id", "stage", "amount", "created_at", "closed_at"],
+      "owner": "revops",
+      "primary_key": "opportunity_id",
+      "authoritative": true,
+      "updated_at": "2026-11-25T06:00:00Z",
+      "destinations": ["crm.opportunities"]
+    },
+    {
+      "name": "stg_app_events",
+      "row_count": 9820000,
+      "columns": ["account_id", "event_name", "event_at"],
+      "owner": "data-eng",
+      "primary_key": "event_id",
+      "authoritative": true,
+      "updated_at": "2026-11-25T05:00:00Z",
+      "destinations": []
+    },
+    {
+      "name": "legacy_crm_deals",
+      "row_count": 41000,
+      "columns": ["deal_id", "amount"],
+      "updated_at": "2025-06-01T00:00:00Z"
+    }
+  ]
+}

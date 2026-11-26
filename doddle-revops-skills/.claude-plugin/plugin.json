@@ -1,0 +1,60 @@
+{
+  "name": "doddle-revops-skills",
+  "version": "1.0.0",
+  "description": "Doddle RevOps OS — read-only revenue data layer: source-of-truth audit, PQL scoring, multi-touch attribution and cohorts, with the deterministic drev toolkit.",
+  "author": {
+    "name": "Doddle Team",
+    "url": "https://doddlehq.com"
+  },
+  "homepage": "https://doddlehq.com",
+  "repository": "https://github.com/DoddleHQ/DoddleOS",
+  "documentation": "https://docs.doddlehq.com",
+  "license": "MIT",
+  "keywords": [
+    "revops",
+    "revenue-operations",
+    "pql",
+    "attribution",
+    "cohorts",
+    "data-infrastructure"
+  ],
+  "category": "revops",
+  "tags": [
+    "revops",
+    "data",
+    "attribution",
+    "pql",
+    "revenue"
+  ],
+  "skills": "./.claude/skills",
+  "agents": "./.claude/agents",
+  "main": "README.md",
+  "components": {
+    "skills": {
+      "path": "./.claude/skills",
+      "count": 3,
+      "list": [
+        "revops-data-infrastructure",
+        "revops-pql-scoring",
+        "revops-attribution"
+      ]
+    },
+    "agents": {
+      "path": "./.claude/agents",
+      "count": 2,
+      "list": [
+        "revops-data-engineer",
+        "revops-analyst"
+      ]
+    },
+    "toolkit": {
+      "path": "./scripts/doddle_revops",
+      "cli": "drev",
+      "python": ">=3.9",
+      "dependencies": "stdlib-only"
+    }
+  },
+  "requirements": {
+    "doddleOS": ">=2.0"
+  }
+}

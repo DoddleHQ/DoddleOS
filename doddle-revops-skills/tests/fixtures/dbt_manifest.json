@@ -1,0 +1,19 @@
+{
+  "nodes": {
+    "model.dbt.model_opportunities": {
+      "resource_type": "model",
+      "name": "opportunities",
+      "description": "One row per opportunity"
+    },
+    "model.dbt.model_touchpoints": {
+      "resource_type": "model",
+      "name": "touchpoints"
+    }
+  },
+  "sources": {
+    "source.dbt.raw.crm": {"resource_type": "source", "name": "crm"}
+  },
+  "tests": {
+    "test.dbt.unique_opportunities": {"resource_type": "test", "name": "unique_opportunities"}
+  }
+}
