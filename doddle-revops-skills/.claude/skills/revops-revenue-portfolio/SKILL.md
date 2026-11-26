@@ -1,7 +1,7 @@
 ---
 name: revops-revenue-portfolio
 id: doddle.revops.revops-revenue-portfolio
-version: 1.0.0
+version: 1.1.0
 blueprint: ./blueprint.yaml
 description: "When the user wants a public teardown or pricing comparison portfolio — normalized pricing models, dated evidence, confidence grading, and a publishable outline. Use for 'teardown', 'pricing comparison', 'benchmark analysis', 'public writing', 'revenue portfolio', 'competitive pricing'."
 ---
@@ -29,6 +29,21 @@ Read the JSON envelope:
 
 If the pricing models differ, the comparison is withheld and the envelope says why. Comparing a
 per-seat price against a usage price is not a benchmark.
+
+### Write path (gated)
+
+The comparison is read-only. Staging the teardown as a reviewable draft is a **write**, so the
+blueprint gates it:
+
+```yaml
+- {id: approve_publish, type: gate, needs: [build], produces: [decision],
+   approvers: [owner], timeout_s: 3600, on_approve: proceed, on_reject: revise}
+- {id: stage_draft, type: tool, ref: doddle.tool.v1.notion.createPage,
+   needs: [approve_publish], produces: [draft_receipt]}
+```
+
+Staging is not publishing: the draft lands as an internal page for review, and nothing reaches a
+public channel without a human publishing it.
 
 ## Workflow
 
@@ -79,6 +94,7 @@ relay `error.message` + `error.hint`. Full block: `common/evidence-envelope.md`.
 | Treating low-confidence data as a benchmark | Report the confidence level next to the number |
 | Filling the outline from memory | Only supplied observations enter it |
 | Presenting the outline as publish-ready | It needs human review before it ships |
+| Staging a draft without approval | `approve_publish` is a hard stop — keep the outline inline |
 
 ## Related Skills
 

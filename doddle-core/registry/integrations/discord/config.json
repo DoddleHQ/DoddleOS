@@ -1,0 +1,52 @@
+{
+  "name": "discord",
+  "description": "Discord community reads \u2014 official server is docs-only; message reads need a bot-token community server",
+  "type": "npm",
+  "command": "npx",
+  "args": [
+    "-y",
+    "mcp-discord"
+  ],
+  "runtime": "npx",
+  "status": "community",
+  "env": {
+    "DISCORD_TOKEN": "${DISCORD_TOKEN}"
+  },
+  "writes": true,
+  "writeTools": [
+    "doddle.tool.v1.discord.sendMessage"
+  ],
+  "setup": {
+    "requirements": [
+      "Discord application with a bot token",
+      "Message Content privileged intent enabled (otherwise the Gateway closes with code 4014)",
+      "Bot invited to the servers it may read"
+    ],
+    "notes": [
+      "Discord has NO official MCP server that reads or sends messages. Its official MCP (https://docs.discord.com/mcp) only searches developer documentation.",
+      "Message reads need a community server driven by a bot token \u2014 the maintained option is barryyip0625/mcp-discord (MIT). The npm `mcp-discord` build is older than the GitHub release.",
+      "Reading history needs VIEW_CHANNEL + READ_MESSAGE_HISTORY; reading message text needs the Message Content intent.",
+      "Discord native Search Guild Messages endpoint (2026-03-19) needs the same permissions; error 110000 means the guild is not yet indexed.",
+      "Self-bot servers (account-token logins) violate Discord terms \u2014 not an option."
+    ]
+  },
+  "capabilities": {
+    "tools": 4,
+    "categories": [
+      "messages",
+      "channels",
+      "search",
+      "community"
+    ],
+    "upstreamTools": [
+      "discord_read_messages",
+      "discord_search_messages",
+      "discord_send_message"
+    ]
+  },
+  "source": {
+    "docsMcp": "https://docs.discord.com/mcp",
+    "community": "https://github.com/barryyip0625/mcp-discord",
+    "api": "https://docs.discord.com/developers"
+  }
+}

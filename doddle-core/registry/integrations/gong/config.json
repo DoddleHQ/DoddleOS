@@ -1,0 +1,49 @@
+{
+  "name": "gong",
+  "description": "Gong call intelligence \u2014 find calls, read transcripts, AI-generated briefs (read-only server)",
+  "type": "remote",
+  "transport": "http",
+  "url": "https://mcp.gong.io/mcp",
+  "auth": "oauth",
+  "writes": false,
+  "writeTools": [],
+  "setup": {
+    "requirements": [
+      "Gong account with a paid seat",
+      "Gong integration registered (automatic via marketplace/OAuth, or manual with client id + secret)",
+      "Scopes mcp:read (and mcp:write if you enable it)"
+    ],
+    "notes": [
+      "The Gong MCP server is read-only: it never creates, updates, or deletes data in Gong or the CRM.",
+      "ask_account, ask_deal, generate_brief and research_conversations consume Gong credits; search_conversations, get_transcript, get_session_context and the entity searches do not.",
+      "Some tools only work with personal-access authorization; shared access exposes fewer tools.",
+      "Native API alternative: POST /v2/calls/transcript with scope api:calls:read:transcript."
+    ]
+  },
+  "capabilities": {
+    "tools": 9,
+    "categories": [
+      "calls",
+      "transcripts",
+      "accounts",
+      "deals",
+      "briefs",
+      "crm-entities"
+    ],
+    "upstreamTools": [
+      "ask_account",
+      "ask_deal",
+      "generate_brief",
+      "search_conversations",
+      "get_transcript",
+      "research_conversations",
+      "get_session_context",
+      "search_crm_entities",
+      "search_person_entities"
+    ]
+  },
+  "source": {
+    "official": "https://help.gong.io/docs/about-gong-mcp-server",
+    "tools": "https://help.gong.io/docs/gong-mcp-server-tools"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "name": "apollo",
+  "description": "Apollo prospecting and enrichment \u2014 official MCP server",
+  "type": "remote",
+  "transport": "http",
+  "url": "https://mcp.apollo.io/mcp",
+  "auth": "oauth-or-api-key",
+  "env": {
+    "APOLLO_API_KEY": "${APOLLO_API_KEY}"
+  },
+  "writes": true,
+  "writeTools": [
+    "doddle.tool.v1.apollo.enrichPeople",
+    "doddle.tool.v1.apollo.createSequence"
+  ],
+  "setup": {
+    "requirements": [
+      "Apollo account with access to the records you want",
+      "Credits available for enrichment",
+      "AI model training turned off in your client"
+    ],
+    "notes": [
+      "OAuth 2.0 for interactive clients; headless clients send a MASTER key in the X-Api-Key header (scoped keys are rejected with 403 API_INACCESSIBLE).",
+      "People search reads and consumes no credits; company search, enrichment, validation and research consume credits.",
+      "Apollo prohibits AI model training on its data.",
+      "Destructive bulk delete is not supported."
+    ]
+  },
+  "capabilities": {
+    "tools": 8,
+    "categories": [
+      "people-search",
+      "enrichment",
+      "sequences",
+      "outreach",
+      "analytics"
+    ],
+    "upstreamTools": [
+      "apollo_mixed_people_api_search",
+      "enrichment",
+      "sequence creation",
+      "one-off email",
+      "task creation"
+    ]
+  },
+  "source": {
+    "official": "https://docs.apollo.io/docs/apollo-mcp",
+    "registry": "io.github.apolloio/apollo-mcp",
+    "github": "https://github.com/apolloio/apollo-mcp-plugin"
+  }
+}

@@ -1,20 +1,32 @@
 id: doddle.revops.revops-signal-routing
-version: 1.0.0
+version: 1.1.0
 kind: skill
 engine: doddle-os>=1.0
-description: "Route buyer-intent signals to owners with recency windows, priority ladders, and dry-run alerts — no sending."
+description: "Route buyer-intent signals to owners with recency windows, priority ladders, and approved alerts."
 inputs:
   - {name: events, type: file, required: true, description: "Signal events (JSONL/CSV) with account_id, signal, occurred_at"}
   - {name: rules, type: file, required: true, description: "Routing rules (JSON) with routes[] and recency_window_days"}
   - {name: segment, type: string, required: false, description: "Segment filter; defaults to SMB"}
+  - {name: account, type: string, required: false, description: "Account to check against live buying-stage data"}
 outputs:
   - {name: report, type: markdown, description: "Routed signals, unrouted types, and the alert plan"}
   - {name: envelope, type: json, description: "Deterministic routing envelope"}
+  - {name: intent_evidence, type: json, description: "Live buying-stage and keyword-intent evidence when 6sense is configured"}
+  - {name: alert_receipt, type: json, description: "Slack delivery receipt (only when the gated send node ran)"}
 tools:
   - {id: doddle.tool.cli.drev, required: false, fallback: manual_review}
-integrations: []
+  - {id: doddle.tool.v1.6sense.getAccountInsights, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.6sense.getKeywordIntent, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.slack.messages, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.slack.sendMessage, required: false, fallback: manual_review}
+integrations:
+  - 6sense
+  - slack
 nodes:
   - {id: survey, type: agent, ref: revops-data-engineer, needs: [inputs], produces: [assessment]}
   - {id: route, type: tool, ref: doddle.tool.cli.drev, args: ["route-signals"], needs: [survey], produces: [envelope]}
-  - {id: report, type: agent, ref: revops-signal-analyst, needs: [route], produces: [report]}
+  - {id: intent_evidence, type: tool, ref: doddle.tool.v1.6sense.getAccountInsights, args: ["{inputs.account}"], needs: [route], produces: [intent_evidence]}
+  - {id: approve_alert, type: gate, needs: [intent_evidence], produces: [decision], approvers: [owner], timeout_s: 3600, on_approve: proceed, on_reject: revise}
+  - {id: send_alert, type: tool, ref: doddle.tool.v1.slack.sendMessage, needs: [approve_alert], produces: [alert_receipt]}
+  - {id: report, type: agent, ref: revops-signal-analyst, needs: [send_alert], produces: [report]}
 on_fail: {retry: 1, fallback: manual_review}

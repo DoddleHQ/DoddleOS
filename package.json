@@ -6,6 +6,8 @@
   "scripts": {
     "test": "python3 doddle-core/scripts/validate.py",
     "lint": "python3 doddle-core/scripts/validate.py --strict",
+    "test:packs": "npm --prefix doddle-gtm-skills run test && npm --prefix doddle-revops-skills run test",
+    "lint:packs": "npm --prefix doddle-gtm-skills run lint && npm --prefix doddle-revops-skills run lint",
     "semantic-release": "semantic-release",
     "prepare": "husky install || true"
   },

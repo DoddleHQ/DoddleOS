@@ -1,0 +1,46 @@
+{
+  "name": "clay",
+  "description": "Clay enrichment and custom functions \u2014 official MCP server plus Public API routines",
+  "type": "remote",
+  "transport": "http",
+  "url": "https://api.clay.com/v3/mcp",
+  "auth": "oauth-dcr",
+  "env": {
+    "CLAY_API_KEY": "${CLAY_API_KEY}"
+  },
+  "writes": true,
+  "writeTools": [
+    "doddle.tool.v1.clay.runSubroutine"
+  ],
+  "setup": {
+    "requirements": [
+      "Clay workspace",
+      "OAuth client registered via dynamic client registration (PKCE mandatory) or a public API key"
+    ],
+    "notes": [
+      "MCP endpoint: https://api.clay.com/v3/mcp; metadata at https://api.clay.com/.well-known/oauth-authorization-server.",
+      "Public API alternative: POST https://api.clay.com/public/v0/routines/{routine_id}/run with header clay-api-key, then GET .../routines/run/{routine_run_id}/results (202 while processing, 200 complete).",
+      "Running a function needs MCP access enabled on that function; API access alone is not enough. Use list_subroutines to find callable functions.",
+      "Admins control which clients are allowed and set per-user/role credit budgets. Tools consume workspace credits at the in-app rate."
+    ]
+  },
+  "capabilities": {
+    "tools": 6,
+    "categories": [
+      "people",
+      "companies",
+      "enrichment",
+      "routines",
+      "functions"
+    ],
+    "upstreamTools": [
+      "list_subroutines",
+      "run subroutine by id",
+      "search/find-and-enrich tools"
+    ]
+  },
+  "source": {
+    "official": "https://university.clay.com/docs/connect-to-clay-mcp",
+    "developers": "https://developers.clay.com/routines/api"
+  }
+}

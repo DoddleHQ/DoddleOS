@@ -1,5 +1,5 @@
 id: doddle.revops.revops-attribution
-version: 1.0.0
+version: 1.1.0
 kind: skill
 engine: doddle-os>=1.0
 description: "Allocate won revenue across touchpoints with deterministic multi-touch attribution, then build logo and revenue retention cohorts."
@@ -9,16 +9,21 @@ inputs:
   - {name: model, type: string, required: false, description: "Attribution model: linear | time-decay | position-based; default linear"}
   - {name: window_days, type: number, required: false, description: "Attribution window in days; default 90"}
   - {name: cohorts, type: file, required: false, description: "Cohort input (CSV/JSON) with account_id, cohort_start, period_start, active"}
+  - {name: project, type: string, required: false, description: "BigQuery project for read-only cohort SQL"}
 outputs:
   - {name: report, type: markdown, description: "Attribution summary by channel, coverage, ROI, and cohort retention matrix"}
   - {name: attribution_envelope, type: json, description: "Deterministic attribution envelope"}
   - {name: cohort_envelope, type: json, description: "Deterministic cohort envelope"}
+  - {name: warehouse_evidence, type: json, description: "Read-only warehouse cohort evidence when BigQuery is configured"}
 tools:
   - {id: doddle.tool.cli.drev, required: false, fallback: manual_review}
-integrations: []
+  - {id: doddle.tool.v1.bigquery.executeSqlReadonly, required: false, fallback: manual_review}
+integrations:
+  - bigquery
 nodes:
   - {id: survey, type: agent, ref: revops-data-engineer, needs: [inputs], produces: [assessment]}
   - {id: attribute, type: tool, ref: doddle.tool.cli.drev, args: ["attribution"], needs: [survey], produces: [attribution_envelope]}
   - {id: cohort, type: tool, ref: doddle.tool.cli.drev, args: ["cohorts"], needs: [attribute], produces: [cohort_envelope]}
-  - {id: report, type: agent, ref: revops-analyst, needs: [cohort], produces: [report]}
+  - {id: warehouse_evidence, type: tool, ref: doddle.tool.v1.bigquery.executeSqlReadonly, args: ["{inputs.project}"], needs: [cohort], produces: [warehouse_evidence]}
+  - {id: report, type: agent, ref: revops-analyst, needs: [warehouse_evidence], produces: [report]}
 on_fail: {retry: 1, fallback: manual_review}

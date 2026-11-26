@@ -1,19 +1,28 @@
 id: doddle.revops.revops-integration-growth
-version: 1.0.0
+version: 1.1.0
 kind: skill
 engine: doddle-os>=1.0
-description: "Audit integration-led growth readiness — OAuth scopes, webhook coverage, marketplace listing, and co-selling fields."
+description: "Audit integration-led growth readiness — OAuth scopes, webhook coverage, marketplace listing, and co-selling motions."
 inputs:
   - {name: catalog, type: file, required: true, description: "Integration catalog (JSON) with integrations[]"}
   - {name: segment, type: string, required: false, description: "Segment focus; defaults to SMB"}
+  - {name: workspace, type: string, required: false, description: "Workspace or project for live catalog lookups"}
 outputs:
   - {name: report, type: markdown, description: "Readiness scores, failed checks, and the build order"}
   - {name: envelope, type: json, description: "Deterministic integration-readiness envelope"}
+  - {name: platform_evidence, type: json, description: "Live action/scenario/sync evidence when a platform is configured"}
 tools:
   - {id: doddle.tool.cli.drev, required: false, fallback: manual_review}
-integrations: []
+  - {id: doddle.tool.v1.zapier.listActions, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.make.listScenarios, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hightouch.listSyncs, required: false, fallback: manual_review}
+integrations:
+  - zapier
+  - make
+  - hightouch
 nodes:
   - {id: survey, type: agent, ref: revops-data-engineer, needs: [inputs], produces: [assessment]}
   - {id: audit, type: tool, ref: doddle.tool.cli.drev, args: ["integration-audit"], needs: [survey], produces: [envelope]}
-  - {id: report, type: agent, ref: revops-growth-operator, needs: [audit], produces: [report]}
+  - {id: platform_evidence, type: tool, ref: doddle.tool.v1.zapier.listActions, args: ["{inputs.workspace}"], needs: [audit], produces: [platform_evidence]}
+  - {id: report, type: agent, ref: revops-growth-operator, needs: [platform_evidence], produces: [report]}
 on_fail: {retry: 1, fallback: manual_review}

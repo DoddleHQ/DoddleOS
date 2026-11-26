@@ -1,0 +1,70 @@
+{
+  "name": "bigquery",
+  "description": "Google BigQuery via MCP \u2014 managed remote server or the open-source MCP Toolbox for Databases",
+  "type": "npm",
+  "command": "npx",
+  "args": [
+    "-y",
+    "@toolbox-sdk/server",
+    "--prebuilt",
+    "bigquery",
+    "--stdio"
+  ],
+  "runtime": "npx",
+  "alternativeConfig": {
+    "_note": "Fully managed remote BigQuery MCP server (preview, Jan 2026)",
+    "type": "remote",
+    "transport": "http",
+    "url": "https://bigquery.googleapis.com/mcp"
+  },
+  "env": {
+    "BIGQUERY_PROJECT": "${BIGQUERY_PROJECT}",
+    "BIGQUERY_LOCATION": "${BIGQUERY_LOCATION}",
+    "BIGQUERY_READONLY": "${BIGQUERY_READONLY}",
+    "BIGQUERY_WRITE_MODE": "${BIGQUERY_WRITE_MODE}",
+    "GOOGLE_APPLICATION_CREDENTIALS": "${GOOGLE_APPLICATION_CREDENTIALS}"
+  },
+  "writes": false,
+  "setup": {
+    "requirements": [
+      "Google Cloud project with the BigQuery API enabled",
+      "Application Default Credentials",
+      "roles/bigquery.user (or roles/bigquery.dataViewer for read-only)"
+    ],
+    "notes": [
+      "MCP Toolbox for Databases is the open-source server (repo renamed genai-toolbox -> mcp-toolbox); it also supports Snowflake, Postgres, MySQL and more.",
+      "Set BIGQUERY_READONLY=true to enforce read-only mode across all tools.",
+      "The managed remote server's execute_sql can run INSERT/UPDATE/DELETE and is intentionally unbound here."
+    ]
+  },
+  "capabilities": {
+    "tools": 8,
+    "categories": [
+      "datasets",
+      "tables",
+      "sql",
+      "insights",
+      "forecast",
+      "catalog"
+    ],
+    "upstreamTools": [
+      "list_dataset_ids",
+      "get_dataset_info",
+      "list_table_ids",
+      "get_table_info",
+      "execute_sql",
+      "forecast",
+      "analyze_contribution",
+      "search_catalog",
+      "ask_data_insights"
+    ]
+  },
+  "source": {
+    "official": "https://docs.cloud.google.com/bigquery/docs/pre-built-tools-with-mcp-toolbox",
+    "github": "https://github.com/googleapis/mcp-toolbox",
+    "mcpReference": "https://docs.cloud.google.com/bigquery/docs/reference/mcp"
+  },
+  "writeTools": [
+    "doddle.tool.v1.bigquery.executeSql"
+  ]
+}

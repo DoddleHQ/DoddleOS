@@ -1,8 +1,8 @@
 id: doddle.revops.revops-usage-monetization
-version: 1.0.0
+version: 1.1.0
 kind: skill
 engine: doddle-os>=1.0
-description: "Rate usage against a plan, consume credits, and preview an invoice — usage-based pricing and monetisation math without touching billing."
+description: "Rate usage against a plan, consume credits, preview an invoice, and record metered billing after approval."
 inputs:
   - {name: usage, type: file, required: true, description: "Usage rows (JSONL/CSV) with account_id, period, quantity"}
   - {name: plan, type: file, required: true, description: "Plan definition (JSON) with tiers[]: price, included_units, unit_price, credits"}
@@ -10,11 +10,17 @@ inputs:
 outputs:
   - {name: report, type: markdown, description: "Rated usage, credit burn, overage, and invoice preview"}
   - {name: envelope, type: json, description: "Deterministic metering envelope"}
+  - {name: meter_receipt, type: json, description: "Meter-event receipt (only when the gated record node ran)"}
 tools:
   - {id: doddle.tool.cli.drev, required: false, fallback: manual_review}
-integrations: []
+  - {id: doddle.tool.v1.stripe.getSubscriptions, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.stripe.recordMeterEvent, required: false, fallback: manual_review}
+integrations:
+  - stripe
 nodes:
   - {id: survey, type: agent, ref: revops-data-engineer, needs: [inputs], produces: [assessment]}
   - {id: meter, type: tool, ref: doddle.tool.cli.drev, args: ["meter"], needs: [survey], produces: [envelope]}
-  - {id: report, type: agent, ref: revops-commercial-analyst, needs: [meter], produces: [report]}
+  - {id: approve_billing, type: gate, needs: [meter], produces: [decision], approvers: [owner], timeout_s: 3600, on_approve: proceed, on_reject: revise}
+  - {id: record_meter_event, type: tool, ref: doddle.tool.v1.stripe.recordMeterEvent, needs: [approve_billing], produces: [meter_receipt]}
+  - {id: report, type: agent, ref: revops-commercial-analyst, needs: [record_meter_event], produces: [report]}
 on_fail: {retry: 1, fallback: manual_review}

@@ -1,0 +1,57 @@
+{
+  "name": "segment",
+  "description": "Segment (Twilio) customer data \u2014 no first-party MCP server; community server or native Tracking API",
+  "type": "npm",
+  "command": "npx",
+  "args": [
+    "-y",
+    "mcp-segment"
+  ],
+  "runtime": "npx",
+  "status": "community",
+  "env": {
+    "SEGMENT_ACCESS_TOKEN": "${SEGMENT_ACCESS_TOKEN}",
+    "SEGMENT_WORKSPACE_SLUG": "${SEGMENT_WORKSPACE_SLUG}"
+  },
+  "writes": true,
+  "setup": {
+    "requirements": [
+      "Segment workspace with an access token (workspace settings -> access management)",
+      "Trust in the community package publisher before connecting"
+    ],
+    "notes": [
+      "Segment has NOT shipped a first-party MCP server as of 2026-10. This entry points at a community-built server (mcp-segment, npm, April 2026) \u2014 verify its publisher before granting a workspace token.",
+      "Hosted alternatives exist (Composio, StackOne, Pipedream, Activepieces) if you prefer a vendor with an audit trail.",
+      "The community server cannot trigger warehouse syncs or create audiences \u2014 those stay in the Segment UI/CLI.",
+      "Teams that want full control can wrap Segment's public Tracking API (POST /v1/track, /v1/identify) directly."
+    ]
+  },
+  "capabilities": {
+    "tools": 6,
+    "categories": [
+      "sources",
+      "destinations",
+      "schemas",
+      "volumes",
+      "audiences",
+      "tracking-plans"
+    ],
+    "upstreamTools": [
+      "list sources",
+      "list destinations",
+      "get schemas",
+      "get volumes",
+      "list audiences",
+      "tracking plans"
+    ]
+  },
+  "source": {
+    "nativeApi": "https://segment.com/docs/connections/",
+    "registry": "https://registry.modelcontextprotocol.io/",
+    "note": "No official Segment MCP server \u2014 see setup notes"
+  },
+  "writeTools": [
+    "doddle.tool.v1.segment.trackEvent",
+    "doddle.tool.v1.segment.identifyUser"
+  ]
+}

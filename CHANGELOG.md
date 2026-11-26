@@ -31,6 +31,10 @@
 * **wordpress:** add `wordpress-agent-skills` peer pack with 20 upstream-derived WordPress skills, 20 validated blueprints, 3 portable agents, 52 eval scenarios, and GPL-2.0-or-later attribution
 * **revops:** add `doddle-revops-skills` peer pack (21st) — 12 read-only revenue-data skills covering the full 12-stage revenue stack (data infrastructure, PQL, attribution + cohorts, signal routing, AI-SDR evidence gate, usage metering, call intelligence, retention/NRR, integration readiness, QBR, community attribution, revenue portfolio), 6 agents, and the deterministic `drev` toolkit
 * **gtm:** harden the GTM execution contract — invoke declared MCP tools, fix framework arguments, add export freshness checks, tier-only pricing fix, and `--segment` filtering (156 tests)
+* **core:** register verified MCP integrations (Stripe, Snowflake, dbt, BigQuery, RudderStack, Segment, Gong, Clay, Apollo, 6sense, Hightouch, Fivetran Activations, Zapier, Make, Discord, ZoomInfo) and add a CLI tool registry for `drev`/`dgtm`
+* **core:** add the CLI tool resolver harness spec (`harness-cli-resolver.md`) with the `write_without_gate` preflight rule
+* **revops:** gate every external write behind an approval gate (Slack alert/share, Stripe meter event, Apollo enrichment, Notion draft) and add optional live reads per skill
+* **ci:** run pack linters and test suites (GTM 156, RevOps 30) plus a `drev` version/doctor smoke check on every push
 
 ## [1.14.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.13.0...v1.14.0) (2026-10-26)
 

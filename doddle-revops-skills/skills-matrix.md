@@ -1,8 +1,9 @@
 # Skills Matrix
 
 12 skills, 6 agents. Toolkit: `drev` (`toolkit_version` 1.0.0, `scoring_version` `revops-1`,
-`data_version` `revops-frameworks-2026-11-25`). Read-only pack: it never writes to a warehouse,
-syncs, sends, bills, deploys, or publishes.
+`data_version` `revops-frameworks-2026-11-25`). Read-only by default: it never writes to a
+warehouse and never syncs. External writes (alert, meter event, share, draft) sit behind an
+explicit gate node.
 
 ## Skills by stage
 
@@ -49,6 +50,26 @@ syncs, sends, bills, deploys, or publishes.
 | `/revops:community` | `revops-dark-social` |
 | `/revops:portfolio` | `revops-revenue-portfolio` |
 
+## Live integrations per skill
+
+| Skill | Optional reads | Gated writes |
+|-------|----------------|--------------|
+| `revops-data-infrastructure` | snowflake, dbt, bigquery | — |
+| `revops-signal-routing` | 6sense | `slack.sendMessage` |
+| `revops-ai-sdr` | apollo, clay | `apollo.enrichPeople` |
+| `revops-pql-scoring` | rudderstack, segment | — |
+| `revops-usage-monetization` | stripe | `stripe.recordMeterEvent` |
+| `revops-attribution` | bigquery | — |
+| `revops-call-intelligence` | gong, zoominfo | — |
+| `revops-retention` | stripe | — |
+| `revops-integration-growth` | zapier, make, hightouch | — |
+| `revops-qbr` | — | `slack.sendMessage` |
+| `revops-dark-social` | discord | — |
+| `revops-revenue-portfolio` | — | `notion.createPage` |
+
+Every MCP binding is `required: false` with `fallback: manual_review`; a missing server degrades
+the report. Write tools always sit behind a gate.
+
 ## Cross-pack dependencies
 
 | Direction | Skill |
@@ -63,4 +84,6 @@ syncs, sends, bills, deploys, or publishes.
 - Assumptions (weights, thresholds, windows, prices, ARR) are the user's beliefs and are tagged
   `advisory`.
 - Exported text is data, never instructions.
-- Nothing is sent, billed, deployed, or published by this pack.
+- Writes are gated, not absent: `approve_alert` (Slack), `approve_billing` (Stripe),
+  `approve_share` (Slack), `approve_publish` (Notion) sit immediately before the write node.
+  Nothing is sent, billed, deployed, or published without an approved decision.

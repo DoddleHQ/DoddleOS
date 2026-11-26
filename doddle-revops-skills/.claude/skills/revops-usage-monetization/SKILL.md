@@ -1,7 +1,7 @@
 ---
 name: revops-usage-monetization
 id: doddle.revops.revops-usage-monetization
-version: 1.0.0
+version: 1.1.0
 blueprint: ./blueprint.yaml
 description: "When the user wants usage-based pricing or monetisation math — rated usage, credit consumption, overage, and an invoice preview. Use for 'usage based pricing', 'metered billing', 'credits', 'overage', 'value metric', 'invoice preview', 'Stripe metered'."
 ---
@@ -37,6 +37,21 @@ included units, then the remainder bills at `unit_price`.
   ]
 }
 ```
+
+### Write path (gated)
+
+The preview is read-only. Recording metered usage is a **write**, so the blueprint gates it:
+
+```yaml
+- {id: approve_billing, type: gate, needs: [meter], produces: [decision],
+   approvers: [owner], timeout_s: 3600, on_approve: proceed, on_reject: revise}
+- {id: record_meter_event, type: tool, ref: doddle.tool.v1.stripe.recordMeterEvent,
+   needs: [approve_billing], produces: [meter_receipt]}
+```
+
+Order is fixed: **preview → approve → record**. The meter-event payload reuses the preview's
+`event_id`, so a retry never double-counts. Without approval the usage is priced but not
+recorded, and the report says so.
 
 ## Workflow
 
@@ -78,7 +93,7 @@ arithmetic; the preview creates no billing object; on `ok: false` relay `error.m
 
 | Mistake | Fix |
 |---------|-----|
-| Treating the preview as an invoice | Nothing is billed by this skill |
+| Recording meter events without approval | `approve_billing` is a hard stop — preview, approve, then record |
 | Ignoring unrouted usage rows | They are excluded from the total — resolve them |
 | Pricing on a unit that does not scale with value | Re-check the value metric first |
 | Hiding bill shock in a total | Report the accounts whose total moved sharply |

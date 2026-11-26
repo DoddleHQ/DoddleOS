@@ -1,0 +1,58 @@
+{
+  "name": "dbt",
+  "description": "dbt Labs MCP server \u2014 project metadata, Semantic Layer, Discovery API, lineage and freshness",
+  "type": "npm",
+  "command": "uvx",
+  "args": [
+    "dbt-mcp"
+  ],
+  "runtime": "uvx",
+  "env": {
+    "DBT_PROJECT_DIR": "${DBT_PROJECT_DIR}",
+    "DBT_PATH": "${DBT_PATH}",
+    "DBT_HOST": "${DBT_HOST}",
+    "DBT_TOKEN": "${DBT_TOKEN}",
+    "DBT_PROD_ENV_ID": "${DBT_PROD_ENV_ID}",
+    "DBT_DEV_ENV_ID": "${DBT_DEV_ENV_ID}",
+    "DBT_USER_ID": "${DBT_USER_ID}",
+    "DBT_ACCOUNT_ID": "${DBT_ACCOUNT_ID}"
+  },
+  "writes": false,
+  "setup": {
+    "requirements": [
+      "uv installed (runs dbt-mcp in an isolated environment)",
+      "A local dbt project for the CLI toolset",
+      "dbt platform account + service token for platform APIs"
+    ],
+    "notes": [
+      "Toolsets auto-disable when their required env vars are missing instead of erroring.",
+      "Remote (dbt-hosted) MCP is consumption-only: no CLI commands and no codegen.",
+      "This registration binds the read-only metadata toolsets; the dbt CLI toolset (dbt run/build/test) is intentionally unbound because it mutates the warehouse."
+    ]
+  },
+  "capabilities": {
+    "tools": 6,
+    "categories": [
+      "metadata",
+      "lineage",
+      "freshness",
+      "semantic-layer",
+      "sql",
+      "docs"
+    ],
+    "upstreamTools": [
+      "Discovery API",
+      "Semantic Layer",
+      "Administrative API",
+      "Product Docs",
+      "MCP Server Metadata",
+      "dbt v2"
+    ]
+  },
+  "source": {
+    "official": "https://docs.getdbt.com/docs/dbt-ai/about-mcp",
+    "github": "https://github.com/dbt-labs/dbt-mcp",
+    "pypi": "https://pypi.org/project/dbt-mcp/"
+  },
+  "writeTools": []
+}

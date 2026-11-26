@@ -1,0 +1,28 @@
+{
+  "name": "drev",
+  "runtime": "python3",
+  "path": "doddle-revops-skills/scripts/drev",
+  "version": "1.0.0",
+  "envelope": "doddle-revops-envelope-v1",
+  "network": false,
+  "writes": false,
+  "description": "Doddle RevOps deterministic toolkit — data profiling, PQL scoring, attribution and cohorts, signal routing, usage metering, retention, QBR, community attribution, and revenue portfolios.",
+  "commands": [
+    "data-profile",
+    "pql",
+    "attribution",
+    "cohorts",
+    "route-signals",
+    "sdr-validate",
+    "meter",
+    "call-search",
+    "retention",
+    "integration-audit",
+    "qbr",
+    "community-attribution",
+    "portfolio",
+    "doctor",
+    "version"
+  ],
+  "used_by": ["doddle.revops.*"]
+}

@@ -1,22 +1,44 @@
 id: doddle.revops.revops-data-infrastructure
-version: 1.0.0
+version: 1.1.0
 kind: skill
 engine: doddle-os>=1.0
-description: "Audit revenue data infrastructure — warehouse tables, dbt models, identity resolution, reverse-ETL syncs, and single-source-of-truth coverage."
+description: "Audit revenue data infrastructure — warehouse tables, dbt models, identity resolution, reverse-ETL readiness, source-of-truth matrix, freshness."
 inputs:
   - {name: warehouse_export, type: file, required: true, description: "JSON table-profile export from the warehouse"}
   - {name: dbt_manifest, type: file, required: false, description: "dbt manifest.json for model/source/test coverage"}
   - {name: identity_map, type: file, required: false, description: "Identity resolution map (CSV/JSON) with canonical ids"}
   - {name: reverse_etl_config, type: file, required: false, description: "Reverse-ETL sync configuration (JSON)"}
+  - {name: repo_path, type: string, required: false, description: "Warehouse project/repo root for live catalog lookups"}
   - {name: max_age_days, type: number, required: false, description: "Freshness threshold in days; default 30"}
 outputs:
   - {name: report, type: markdown, description: "Source-of-truth matrix, readiness score, and prioritized fixes"}
   - {name: envelope, type: json, description: "Deterministic profiling envelope"}
+  - {name: warehouse_tables, type: json, description: "Live warehouse catalog evidence when Snowflake or BigQuery is configured"}
+  - {name: dbt_metadata, type: json, description: "Live dbt model/lineage evidence when the dbt server is configured"}
+  - {name: sync_evidence, type: json, description: "Live reverse-ETL sync inventory when a sync platform is configured"}
+  - {name: sync_receipt, type: json, description: "Sync receipt (only when the gated sync node ran)"}
 tools:
   - {id: doddle.tool.cli.drev, required: false, fallback: manual_review}
-integrations: []
+  - {id: doddle.tool.v1.snowflake.listTables, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.snowflake.getTableInfo, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.dbt.getManifest, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.dbt.discover, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.bigquery.listTables, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.bigquery.getTableInfo, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hightouch.listSyncs, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.hightouch.createSync, required: false, fallback: manual_review}
+integrations:
+  - snowflake
+  - dbt
+  - bigquery
+  - hightouch
 nodes:
   - {id: survey, type: agent, ref: revops-data-engineer, needs: [inputs], produces: [assessment]}
   - {id: profile, type: tool, ref: doddle.tool.cli.drev, args: ["data-profile"], needs: [survey], produces: [envelope]}
-  - {id: report, type: agent, ref: revops-analyst, needs: [profile], produces: [report]}
+  - {id: warehouse_evidence, type: tool, ref: doddle.tool.v1.snowflake.getTableInfo, args: ["{inputs.repo_path}"], needs: [profile], produces: [warehouse_tables]}
+  - {id: model_evidence, type: tool, ref: doddle.tool.v1.dbt.discover, args: ["{inputs.repo_path}"], needs: [profile], produces: [dbt_metadata]}
+  - {id: sync_evidence, type: tool, ref: doddle.tool.v1.hightouch.listSyncs, args: ["{inputs.repo_path}"], needs: [profile], produces: [sync_evidence]}
+  - {id: approve_sync, type: gate, needs: [sync_evidence], produces: [decision], approvers: [owner], timeout_s: 3600, on_approve: proceed, on_reject: revise}
+  - {id: create_sync, type: tool, ref: doddle.tool.v1.hightouch.createSync, needs: [approve_sync], produces: [sync_receipt]}
+  - {id: report, type: agent, ref: revops-analyst, needs: [warehouse_evidence, model_evidence, sync_evidence], produces: [report]}
 on_fail: {retry: 1, fallback: manual_review}

@@ -1,5 +1,5 @@
 id: doddle.revops.revops-call-intelligence
-version: 1.0.0
+version: 1.1.0
 kind: skill
 engine: doddle-os>=1.0
 description: "Search recorded calls for themes, quote the evidence, and turn it into coaching and battlecard updates."
@@ -7,14 +7,22 @@ inputs:
   - {name: transcripts, type: file, required: true, description: "Call transcripts (JSONL/CSV) with call_id, speaker, text"}
   - {name: query, type: string, required: true, description: "Search terms; every term must appear in the excerpt"}
   - {name: themes, type: file, required: false, description: "Theme map (JSON): {\"theme\": [\"keyword\", ...]}"}
+  - {name: workspace, type: string, required: false, description: "Gong workspace for live call and transcript lookups"}
 outputs:
   - {name: report, type: markdown, description: "Quoted evidence, theme clusters, and coaching/battlecard deltas"}
   - {name: envelope, type: json, description: "Deterministic call-search envelope"}
+  - {name: live_calls, type: json, description: "Live call/transcript evidence when Gong or ZoomInfo is configured"}
 tools:
   - {id: doddle.tool.cli.drev, required: false, fallback: manual_review}
-integrations: []
+  - {id: doddle.tool.v1.gong.searchConversations, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.gong.getTranscript, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.zoominfo.getConversationInsights, required: false, fallback: manual_review}
+integrations:
+  - gong
+  - zoominfo
 nodes:
   - {id: survey, type: agent, ref: revops-data-engineer, needs: [inputs], produces: [assessment]}
   - {id: search, type: tool, ref: doddle.tool.cli.drev, args: ["call-search"], needs: [survey], produces: [envelope]}
-  - {id: report, type: agent, ref: revops-customer-insights, needs: [search], produces: [report]}
+  - {id: live_calls, type: tool, ref: doddle.tool.v1.gong.getTranscript, args: ["{inputs.query}", "{inputs.workspace}"], needs: [search], produces: [live_calls]}
+  - {id: report, type: agent, ref: revops-customer-insights, needs: [live_calls], produces: [report]}
 on_fail: {retry: 1, fallback: manual_review}

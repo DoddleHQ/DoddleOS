@@ -1,0 +1,44 @@
+{
+  "name": "zapier",
+  "description": "Zapier MCP \u2014 9,000+ apps and 40,000+ actions through agentic or managed servers",
+  "type": "remote",
+  "transport": "http",
+  "url": "https://mcp.zapier.com",
+  "auth": "oauth",
+  "writes": true,
+  "writeTools": [
+    "doddle.tool.v1.zapier.runAction"
+  ],
+  "setup": {
+    "requirements": [
+      "Zapier Team or Enterprise plan",
+      "App connections in the Zapier account"
+    ],
+    "notes": [
+      "One server per named MCP client; sharing a server needs Team or Enterprise.",
+      "Streamable HTTP only \u2014 SSE is not supported.",
+      "Agentic mode exposes meta-tools (discover_zapier_actions, enable_zapier_action, manage_zapier_connections, auto_provision_mcp); managed mode exposes one tool per action.",
+      "Actions run against existing app connections and CAN mutate those apps. Tool calls consume plan tasks; failed calls are free."
+    ]
+  },
+  "capabilities": {
+    "tools": 6,
+    "categories": [
+      "apps",
+      "actions",
+      "workflows",
+      "skills"
+    ],
+    "upstreamTools": [
+      "discover_zapier_actions",
+      "enable_zapier_action",
+      "manage_zapier_connections",
+      "auto_provision_mcp",
+      "managed-mode action tools"
+    ]
+  },
+  "source": {
+    "official": "https://docs.zapier.com/mcp/overview/how-tools-work",
+    "product": "https://zapier.com/mcp"
+  }
+}

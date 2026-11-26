@@ -1,0 +1,47 @@
+{
+  "name": "hightouch",
+  "description": "Hightouch reverse ETL and audiences \u2014 official MCP server (workspace-gated)",
+  "type": "remote",
+  "transport": "http",
+  "url": "https://mcp.hightouch.com/mcp",
+  "auth": "oauth",
+  "writes": true,
+  "writeTools": [
+    "doddle.tool.v1.hightouch.createSync"
+  ],
+  "setup": {
+    "requirements": [
+      "Hightouch workspace",
+      "MCP enabled for the workspace by Hightouch (not self-serve)"
+    ],
+    "notes": [
+      "The workspace MCP server is gated: Hightouch must enable it for your account.",
+      "Operations are scoped to the authenticated workspace and respect its role-based access controls.",
+      "A public read-only docs MCP exists at https://docs.hightouch.com/mcp; a read-only Agent API MCP at https://hightouch.com/agent-api/mcp serves public product docs.",
+      "MCP access carries no extra charge; underlying product and agent usage still applies."
+    ]
+  },
+  "capabilities": {
+    "tools": 8,
+    "categories": [
+      "audiences",
+      "journeys",
+      "syncs",
+      "creatives",
+      "performance",
+      "schema"
+    ],
+    "upstreamTools": [
+      "schema inspection",
+      "audience create/save",
+      "journey design",
+      "sync management",
+      "creative generation",
+      "performance analysis"
+    ]
+  },
+  "source": {
+    "official": "https://docs.hightouch.com/ai-integrations/mcp",
+    "docsMcp": "https://docs.hightouch.com/ai-integrations/docs-mcp"
+  }
+}

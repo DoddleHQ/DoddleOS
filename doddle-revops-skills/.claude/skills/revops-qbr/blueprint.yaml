@@ -1,8 +1,8 @@
 id: doddle.revops.revops-qbr
-version: 1.0.0
+version: 1.1.0
 kind: skill
 engine: doddle-os>=1.0
-description: "Build the quarterly business review — scoreboard, ROI, risks, the ask, and a CSM deck outline from recorded data."
+description: "Build the quarterly business review — scoreboard, ROI, risks, the ask, and a CSM deck outline, then share it after approval."
 inputs:
   - {name: account, type: file, required: true, description: "Account JSON with account{}, kpis[], outcomes[], risks[], asks[], investment, revenue"}
   - {name: period, type: string, required: false, description: "Review period, e.g. 2026-Q4"}
@@ -11,11 +11,17 @@ outputs:
   - {name: report, type: markdown, description: "QBR pack: scoreboard, ROI, outcomes, risks, the ask"}
   - {name: deck, type: json, description: "CSM deck outline with per-slide bullets and evidence"}
   - {name: envelope, type: json, description: "Deterministic QBR envelope"}
+  - {name: share_receipt, type: json, description: "Delivery receipt (only when the gated share node ran)"}
 tools:
   - {id: doddle.tool.cli.drev, required: false, fallback: manual_review}
-integrations: []
+  - {id: doddle.tool.v1.slack.messages, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.slack.sendMessage, required: false, fallback: manual_review}
+integrations:
+  - slack
 nodes:
   - {id: survey, type: agent, ref: revops-data-engineer, needs: [inputs], produces: [assessment]}
   - {id: build, type: tool, ref: doddle.tool.cli.drev, args: ["qbr"], needs: [survey], produces: [envelope]}
-  - {id: report, type: agent, ref: revops-customer-insights, needs: [build], produces: [report, deck]}
+  - {id: approve_share, type: gate, needs: [build], produces: [decision], approvers: [owner], timeout_s: 3600, on_approve: proceed, on_reject: revise}
+  - {id: share_qbr, type: tool, ref: doddle.tool.v1.slack.sendMessage, needs: [approve_share], produces: [share_receipt]}
+  - {id: report, type: agent, ref: revops-customer-insights, needs: [share_qbr], produces: [report, deck]}
 on_fail: {retry: 1, fallback: manual_review}

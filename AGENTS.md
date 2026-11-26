@@ -45,5 +45,7 @@ Before doing a task in any covered domain:
 
 ## What does NOT exist yet
 
-- No blueprint runner/harness (spec is draft at `doddle-core/spec/harness*.md`). Graphs execute only by you following them.
-- **Stub MCP integrations** (`google-business-profile`, `stripe`, `sensortower`, `zalo`): config reserved, server/API keys pending (`doddle-core/registry/integrations/_registry.md`). Skills bind their tool ids with `required: false` / `fallback: manual_review` and show `⚠️ NOT AVAILABLE` until promoted — outputs are templates requiring setup, not live data.
+- No blueprint runner/harness (specs are draft at `doddle-core/spec/harness*.md` and `doddle-core/spec/harness-cli-resolver.md`). Graphs execute only by you following them. The CLI resolver spec describes how `doddle.tool.cli.drev` and `doddle.tool.cli.dgtm` nodes would run deterministically when a harness lands.
+- **Stub MCP integrations** (`google-business-profile`, `sensortower`, `zalo`): config reserved, server/API keys pending (`doddle-core/registry/integrations/_registry.md`). Skills bind their tool ids with `required: false` / `fallback: manual_review` and show `⚠️ NOT AVAILABLE` until promoted — outputs are templates requiring setup, not live data.
+- **Registered MCP integrations still need credentials.** Stripe, Snowflake, dbt, BigQuery, RudderStack, Segment, Gong, Clay, Apollo, 6sense, Hightouch, Fivetran Activations, Zapier, Make, Discord, and ZoomInfo are registered with verified vendor endpoints, but nothing is live until an API key or OAuth session exists. `clearbit` is registered as **deprecated** (HubSpot data enrichment successor).
+- **Write tools are gated.** Any tool listed in an integration's `writeTools` must sit behind a `gate` node in its blueprint (`doddle-core/spec/harness-cli-resolver.md` §6).

@@ -1,0 +1,32 @@
+{
+  "name": "clearbit",
+  "description": "DEPRECATED \u2014 Clearbit is now HubSpot data enrichment; use hubspot (enrichment/intent) or 6sense",
+  "type": "deprecated",
+  "note": "DEPRECATED \u2014 Clearbit is now HubSpot data enrichment; use hubspot (enrichment/intent) or 6sense",
+  "writes": false,
+  "writeTools": [],
+  "setup": {
+    "requirements": [],
+    "notes": [
+      "Clearbit was acquired by HubSpot (Dec 2023), became Breeze Intelligence (Sept 2024), and the Breeze Intelligence name was retired in 2026 \u2014 the capability is now data enrichment inside HubSpot Smart CRM.",
+      "Standalone Clearbit subscriptions stopped (April 2025); free Clearbit tools sunset 2025-04-30; the free Logo API sunset 2025-12-01.",
+      "Clearbit has no MCP server of its own. Map doddle.tool.v1.clearbit.company onto HubSpot data enrichment + buyer intent (HubSpot Credits metered: 10 credits per company per month for intent signals).",
+      "For predictive buying stage and keyword intent use 6sense instead."
+    ]
+  },
+  "capabilities": {
+    "tools": 1,
+    "categories": [
+      "firmographics",
+      "intent"
+    ],
+    "upstreamTools": [
+      "HubSpot data enrichment",
+      "HubSpot buyer intent"
+    ]
+  },
+  "source": {
+    "clearbit": "https://help.clearbit.com/hc/en-us/articles/20717192156695-How-Can-I-Buy-Clearbit",
+    "hubspot": "https://developers.hubspot.com/mcp"
+  }
+}

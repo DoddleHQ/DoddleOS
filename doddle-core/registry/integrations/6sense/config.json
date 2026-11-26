@@ -1,0 +1,47 @@
+{
+  "name": "6sense",
+  "description": "6sense intent, buying stage, and account intelligence \u2014 official MCP server (read-only)",
+  "type": "remote",
+  "transport": "http",
+  "url": "https://api.6sense.com/mcp",
+  "auth": "oauth",
+  "writes": false,
+  "writeTools": [],
+  "setup": {
+    "requirements": [
+      "6sense account with Revenue Marketing access",
+      "Per-user OAuth authorization (each user authorizes individually)"
+    ],
+    "notes": [
+      "All MCP operations are read-only: it cannot modify data, settings, or configurations.",
+      "Keyword Intent Data API (v1, OAuth 2.0) costs 3 credits per newly discovered account; non-matches are free.",
+      "People Search API and Lead Scoring API consume no credits. Company Identification API v3 uses an API token.",
+      "Admins can set MCP access controls and daily/weekly/monthly credit limits per user or role."
+    ]
+  },
+  "capabilities": {
+    "tools": 7,
+    "categories": [
+      "account-insights",
+      "keyword-intent",
+      "buying-stage",
+      "segments",
+      "website-activity",
+      "people"
+    ],
+    "upstreamTools": [
+      "account insights",
+      "6QA trends",
+      "keyword performance",
+      "ad campaign performance",
+      "website activity",
+      "segment discovery",
+      "sales account/people insights"
+    ]
+  },
+  "source": {
+    "official": "https://support.6sense.com/docs/6sense-model-context-protocol-mcp-1",
+    "product": "https://6sense.com/platform/mcp-server",
+    "apis": "https://api.6sense.com/docs/"
+  }
+}

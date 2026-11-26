@@ -55,6 +55,16 @@ Find open marketing tasks
 - `/content:blog` → Create draft in Notion
 - `/ops:weekly` → Update task database
 
+## DoddleOS Tool IDs
+
+| Tool ID | Action | Type |
+|---------|--------|------|
+| `doddle.tool.v1.notion.pages` | Read a page | read |
+| `doddle.tool.v1.notion.createPage` | Create a page (e.g. publish a QBR pack or a teardown) | **write** |
+
+**Write-gated.** `notion.createPage` publishes content to a workspace. Gate it, and never
+publish a report whose numbers are missing — the page inherits the report's evidence quality.
+
 ## Related
 - [Asana](../asana/) - Alternative task management
 - [Slack](../slack/) - Notifications from Notion

@@ -4,90 +4,103 @@
 
 ## Quick Reference
 
-| Service | Category | Type | Status |
-|---------|----------|------|--------|
-| [SensorTower](./sensortower/) | App Intelligence | Custom | ⚠️ Stub |
-| [Google Search Console](./google-search-console/) | SEO | npm | ✅ Active |
-| [Google Analytics](./google-analytics/) | Analytics | npm | ✅ Active |
-| [Semrush](./semrush/) | SEO | Remote | ✅ Active |
-| [DataForSEO](./dataforseo/) | SEO | npm | ✅ Active |
-| [Meta Ads](./meta-ads/) | Advertising | npm | ✅ Active |
-| [HubSpot](./hubspot/) | CRM | Remote | ✅ Active |
-| [Slack](./slack/) | Communication | npm | ✅ Active |
-| [Notion](./notion/) | Project Mgmt | npm | ✅ Active |
-| [Asana](./asana/) | Project Mgmt | npm | ✅ Active |
-| [Twitter/X](./twitter/) | Social | npm | ✅ Active |
-| [TikTok](./tiktok/) | Social | npm | ✅ Active |
-| [Crosspost](./crosspost/) | Social | npm | ✅ Active |
-| [LINE](./line/) | Messaging (JP) | npm | ✅ Active |
-| [Zalo](./zalo/) | Messaging (VN) | Custom | ⚠️ Planned |
-| [Google Business Profile](./google-business-profile/) | Local (GBP) | Custom | ⚠️ Stub |
-| [Stripe](./stripe/) | Billing (SaaS) | npm | ⚠️ Stub |
+| Service | Category | Type | Tools | Status |
+|---------|----------|------|-------|--------|
+| [6sense](./6sense/) | Intent | Remote | 7 | ✅ Active |
+| [apollo](./apollo/) | Enrichment | Remote | 8 | ✅ Active (write-gated) |
+| [asana](./asana/) | Data | npm | 12 | ✅ Active |
+| [bigquery](./bigquery/) | Warehouse | npm | 8 | ✅ Active |
+| [clay](./clay/) | Enrichment | Remote | 6 | ✅ Active (write-gated) |
+| [clearbit](./clearbit/) | Enrichment (deprecated) | — | 1 | ⚠️ Deprecated |
+| [crosspost](./crosspost/) | Data | npm | 3 | ✅ Active |
+| [dataforseo](./dataforseo/) | Data | npm | 50 | ✅ Active |
+| [dbt](./dbt/) | Data modeling | npm | 6 | ✅ Active |
+| [discord](./discord/) | Community | npm | 4 | ✅ Active (write-gated) |
+| [fivetran-activations](./fivetran-activations/) | Reverse ETL | Remote | 4 | ✅ Active |
+| [gong](./gong/) | Conversation intel | Remote | 9 | ✅ Active |
+| [google-analytics](./google-analytics/) | Data | npm | 6 | ✅ Active |
+| [google-business-profile](./google-business-profile/) | Data | custom | 4 | ✅ Active |
+| [google-search-console](./google-search-console/) | Data | npm | 6 | ✅ Active |
+| [hightouch](./hightouch/) | Reverse ETL | Remote | 8 | ✅ Active (write-gated) |
+| [hubspot](./hubspot/) | Data | Remote | 15 | ✅ Active |
+| [line](./line/) | Data | npm | 5 | ✅ Active |
+| [make](./make/) | Automation | Remote | 6 | ✅ Active (write-gated) |
+| [meta-ads](./meta-ads/) | Data | npm | 25 | ✅ Active |
+| [notion](./notion/) | Data | npm | 15 | ✅ Active (write-gated) |
+| [rudderstack](./rudderstack/) | CDP | Remote | 10 | ✅ Active (write-gated) |
+| [segment](./segment/) | CDP | npm | 6 | ✅ Active (write-gated) |
+| [semrush](./semrush/) | Data | Remote | 20 | ✅ Active |
+| [sensortower](./sensortower/) | Data | custom | 29 | ✅ Active |
+| [slack](./slack/) | Data | npm | 10 | ✅ Active (write-gated) |
+| [snowflake](./snowflake/) | Warehouse | Remote | 6 | ✅ Active (write-gated) |
+| [stripe](./stripe/) | Data | Remote | 4 | ✅ Active (write-gated) |
+| [tiktok](./tiktok/) | Data | npm | 5 | ✅ Active |
+| [twitter](./twitter/) | Data | npm | 8 | ✅ Active |
+| [zalo](./zalo/) | Data | custom | 0 | ✅ Active |
+| [zapier](./zapier/) | Automation | Remote | 6 | ✅ Active (write-gated) |
+| [zoominfo](./zoominfo/) | Enrichment | Remote | 5 | ✅ Active |
 
 ---
 
 ## By Category
 
-### App Intelligence
-- **[SensorTower](./sensortower/)** ⚠️ - iOS/Android app analytics, ASO
-  - Tools: 29 (planned) | Type: Custom | Auth: `SENSOR_TOWER_API_TOKEN` | Used by: `aso`
+### Warehouse
 
-### SEO & Search
-- **[Google Search Console](./google-search-console/)** - Search performance, indexing
-  - Tools: 6 | Package: `mcp-server-gsc` | Auth: Service Account
+- **[bigquery](./bigquery/)** — 8 tools · npm · auth: bot/token
 
-- **[Semrush](./semrush/)** - Keywords, backlinks, domain analytics
-  - Tools: 20 | Type: Remote SSE | Auth: `SEMRUSH_API_KEY`
+- **[snowflake](./snowflake/)** (write-gated) — 6 tools · remote · auth: oauth-or-pat
 
-- **[DataForSEO](./dataforseo/)** - SERP, keywords, backlinks (pay-per-use)
-  - Tools: 50+ | Package: `@dataforseo/mcp-server` | Auth: Login/Password
 
-### Analytics
-- **[Google Analytics](./google-analytics/)** - GA4 web analytics
-  - Tools: 6 | Package: `mcp-server-google-analytics` | Auth: Service Account
+### Data Modeling
 
-### Advertising
-- **[Meta Ads](./meta-ads/)** - Facebook/Instagram ads
-  - Tools: 25 | Package: `meta-ads-mcp` | Auth: `META_ACCESS_TOKEN`
+- **[dbt](./dbt/)** — 6 tools · npm · auth: bot/token
 
-### CRM
-- **[HubSpot](./hubspot/)** - CRM, contacts, deals, marketing
-  - Tools: 15 | Type: Remote | Auth: `HUBSPOT_ACCESS_TOKEN`
 
-### Communication
-- **[Slack](./slack/)** - Team messaging, notifications
-  - Tools: 10 | Package: `slack-mcp-server` | Auth: Bot Token
+### Customer Data
 
-### Project Management
-- **[Notion](./notion/)** - Pages, databases, content
-  - Tools: 15 | Package: `@notionhq/notion-mcp-server` | Auth: Integration Token
+- **[rudderstack](./rudderstack/)** (write-gated) — 10 tools · remote · auth: oauth
 
-- **[Asana](./asana/)** - Tasks, projects
-  - Tools: 12 | Package: `@roychri/mcp-server-asana` | Auth: Access Token
+- **[segment](./segment/)** (write-gated) — 6 tools · npm · auth: bot/token
 
-### Social Media
-- **[Twitter/X](./twitter/)** - Tweets, search, threads
-  - Tools: 8 | Package: `x-mcp-server` | Auth: OAuth 1.0a
 
-- **[TikTok](./tiktok/)** - Video discovery, trends
-  - Tools: 5 | Package: `tiktok-mcp` | Auth: TikNeuron API
+### Intent & Signals
 
-- **[Crosspost](./crosspost/)** - Multi-platform posting
-  - Tools: 3 | Package: `@humanwhocodes/crosspost` | Auth: Per-platform
+- **[6sense](./6sense/)** — 7 tools · remote · auth: oauth
 
-### Regional Messaging
-- **[LINE](./line/)** - Japan/Asia messaging (97M users)
-  - Tools: 5 | Package: `line-bot-mcp-server` | Auth: Channel Token
 
-- **[Zalo](./zalo/)** ⚠️ - Vietnam messaging (74M users)
-  - Status: **Needs Custom MCP** | API: [developers.zalo.me](https://developers.zalo.me)
+### Enrichment & Outreach
 
-### Local & Billing (New Stubs)
-- **[Google Business Profile](./google-business-profile/)** ⚠️ - Listings, reviews, insights
-  - Tools: 4 (planned) | Type: Custom | Auth: `GBP_ACCESS_TOKEN` | Used by: `local-gbp`, `local-reviews`
+- **[apollo](./apollo/)** (write-gated) — 8 tools · remote · auth: oauth-or-api-key
 
-- **[Stripe](./stripe/)** ⚠️ - Subscriptions, dunning, MRR
-  - Tools: 4 (planned) | Type: npm | Auth: `STRIPE_SECRET_KEY` | Used by: `saas-retention`, `saas-expansion` (planned)
+- **[clay](./clay/)** (write-gated) — 6 tools · remote · auth: oauth-dcr
+
+- **[clearbit](./clearbit/)** — 1 tools · deprecated · auth: deprecated
+
+
+### Conversation Intelligence
+
+- **[gong](./gong/)** — 9 tools · remote · auth: oauth
+
+- **[zoominfo](./zoominfo/)** — 5 tools · remote · auth: oauth
+
+
+### Reverse ETL
+
+- **[fivetran-activations](./fivetran-activations/)** — 4 tools · remote · auth: oauth
+
+- **[hightouch](./hightouch/)** (write-gated) — 8 tools · remote · auth: oauth
+
+
+### Automation
+
+- **[make](./make/)** (write-gated) — 6 tools · remote · auth: oauth-or-api-key
+
+- **[zapier](./zapier/)** (write-gated) — 6 tools · remote · auth: oauth
+
+
+### Community
+
+- **[discord](./discord/)** (write-gated) — 4 tools · npm · auth: bot/token
 
 ---
 
@@ -167,11 +180,41 @@ export STRIPE_SECRET_KEY="sk_xxx"
 
 ---
 
+## Write-capable servers
+
+Servers whose `config.json` sets `"writes": true` can mutate an external system. Any blueprint
+that calls them **must** place a `gate` node immediately before the write node — the runner
+refuses to schedule a write without an approved decision (`write_without_gate`, see
+`doddle-core/spec/harness-cli-resolver.md` §6).
+
+| Server | Write tool IDs | Gate used by |
+|--------|----------------|--------------|
+| `slack` | `doddle.tool.v1.slack.sendMessage` | `approve_alert`, `approve_share` |
+| `stripe` | `doddle.tool.v1.stripe.recordMeterEvent`, `doddle.tool.v1.stripe.updateSubscription` | `approve_billing` |
+| `notion` | `doddle.tool.v1.notion.createPage` | `approve_publish` |
+
+Read-only servers (analytics, CRM reads, ad platforms, registries) need no gate.
+
+---
+
+## CLI registry
+
+Deterministic offline toolkits are registered separately, in `doddle-core/registry/cli/`, and
+resolved through `doddle.tool.cli.<cli>` nodes (see
+`doddle-core/spec/harness-cli-resolver.md`).
+
+| CLI | Path | Runtime | Pack | Backs |
+|-----|------|---------|------|-------|
+| `drev` | `doddle-revops-skills/scripts/drev` | python3 | `doddle.revops.*` | 12 revenue-data skills |
+| `dgtm` | `doddle-gtm-skills/scripts/dgtm` | python3 | `doddle.gtm.*` | 32 GTM skills |
+
+---
+
 ## Adding New Integration
 
 1. Create folder: `integrations/[service-name]/`
 2. Add `index.md` - docs, use cases, examples
-3. Add `config.json` - MCP server config
+3. Add `config.json` - MCP server config (set `"writes": true` if it can mutate)
 4. Update this `_registry.md`
 5. Add to `.mcp.json`
 
@@ -188,7 +231,7 @@ Promote stub → ✅ Active when ALL hold:
 4. `index.md` updated (remove stub notice, document auth + quotas)
 5. `scripts/validate-skills.py` passes + registry row flipped to ✅ Active
 
-Current stubs: `google-business-profile`, `stripe`.
+Current stubs: `google-business-profile`, `sensortower`. `stripe` now points at the hosted Stripe MCP server (`https://mcp.stripe.com`) and only needs an agent API key or OAuth.
 
 ### config.json Template
 

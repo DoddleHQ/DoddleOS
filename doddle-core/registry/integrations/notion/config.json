@@ -1,9 +1,13 @@
 {
   "name": "notion",
   "description": "Notion workspace - pages, databases, content management",
+  "writes": true,
   "type": "npm",
   "command": "npx",
-  "args": ["-y", "@notionhq/notion-mcp-server"],
+  "args": [
+    "-y",
+    "@notionhq/notion-mcp-server"
+  ],
   "env": {
     "OPENAPI_MCP_HEADERS": "{\"Authorization\": \"Bearer ${NOTION_API_KEY}\", \"Notion-Version\": \"2022-06-28\"}"
   },
@@ -15,11 +19,20 @@
   },
   "capabilities": {
     "tools": 15,
-    "categories": ["pages", "databases", "blocks", "search", "users"]
+    "categories": [
+      "pages",
+      "databases",
+      "blocks",
+      "search",
+      "users"
+    ]
   },
   "source": {
     "npm": "https://www.npmjs.com/package/@notionhq/notion-mcp-server",
     "github": "https://github.com/makenotion/notion-mcp-server",
     "docs": "https://developers.notion.com/docs/get-started-with-mcp"
-  }
+  },
+  "writeTools": [
+    "doddle.tool.v1.notion.createPage"
+  ]
 }

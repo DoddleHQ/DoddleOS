@@ -1,24 +1,52 @@
 {
   "name": "stripe",
-  "description": "Stripe billing data access: subscriptions, invoices, churn, MRR",
-  "type": "npm",
-  "command": "npx",
-  "args": ["-y", "stripe-mcp-server"],
+  "description": "Stripe billing data and write access \u2014 subscriptions, invoices, usage meters, customers, analytics",
+  "type": "remote",
+  "transport": "http",
+  "url": "https://mcp.stripe.com",
+  "auth": "oauth-or-agent-key",
   "env": {
+    "STRIPE_AGENT_API_KEY": "${STRIPE_AGENT_API_KEY}",
     "STRIPE_SECRET_KEY": "${STRIPE_SECRET_KEY}"
   },
+  "writes": true,
   "setup": {
     "requirements": [
-      "Node.js 18+",
-      "Stripe restricted key with read access"
+      "Stripe account (use a sandbox for tests)",
+      "Agent API key from the Dashboard (Agent badge) or OAuth sign-in",
+      "Restricted permissions matching the tools the skills bind"
     ],
-    "status": "stub - MCP server pending, skills fall back to manual_review"
+    "notes": [
+      "Stripe hosts the MCP server remotely at https://mcp.stripe.com (streamable HTTP).",
+      "The local npm packages @stripe/mcp and @stripe/agent-toolkit were deprecated on 2026-11-04 and receive no further security fixes.",
+      "From 2027-01-11 Stripe MCP stops accepting full-access secret keys and non-agent restricted keys; use an agent API key or OAuth."
+    ]
   },
   "capabilities": {
     "tools": 4,
-    "categories": ["subscriptions", "invoices", "customers", "metrics"]
+    "categories": [
+      "subscriptions",
+      "invoices",
+      "customers",
+      "usage-meters"
+    ],
+    "upstreamTools": [
+      "stripe_api_read",
+      "stripe_api_write",
+      "stripe_api_search",
+      "stripe_api_details",
+      "stripe_analytics",
+      "get_stripe_account_info",
+      "search_stripe_documentation"
+    ]
   },
   "source": {
-    "official": "https://stripe.com/docs/api"
-  }
+    "official": "https://docs.stripe.com/mcp",
+    "github": "https://github.com/stripe/ai",
+    "registry": "https://registry.modelcontextprotocol.io/v0/servers/com.stripe%2Fmcp/versions/latest"
+  },
+  "writeTools": [
+    "doddle.tool.v1.stripe.recordMeterEvent",
+    "doddle.tool.v1.stripe.updateSubscription"
+  ]
 }

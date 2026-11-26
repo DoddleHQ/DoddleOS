@@ -1,0 +1,50 @@
+{
+  "name": "rudderstack",
+  "description": "RudderStack official hosted MCP server \u2014 pipelines, events, tracking plans, audiences, transformations, reverse ETL",
+  "type": "remote",
+  "transport": "http",
+  "url": "https://mcp.rudderstack.com/mcp",
+  "auth": "oauth",
+  "env": {},
+  "writes": true,
+  "setup": {
+    "requirements": [
+      "RudderStack account with an active workspace",
+      "An MCP client that supports remote HTTP servers with OAuth 2.0 (PKCE + dynamic client registration)"
+    ],
+    "notes": [
+      "Connect with `claude mcp add --transport http rudderstack https://mcp.rudderstack.com/mcp`.",
+      "For stdio-only clients use `npx -y mcp-remote https://mcp.rudderstack.com/mcp`.",
+      "Workspace tools require workspace_id on every call; the endpoint is stateless.",
+      "Write tools can trigger audience-activation syncs and create reverse-ETL sync resources \u2014 review them before approving."
+    ]
+  },
+  "capabilities": {
+    "tools": 10,
+    "categories": [
+      "sources",
+      "destinations",
+      "events",
+      "tracking-plans",
+      "audiences",
+      "transformations",
+      "reverse-etl",
+      "audit-logs",
+      "docs"
+    ],
+    "upstreamTools": [
+      "read tools",
+      "sensitive execution tools",
+      "write tools"
+    ]
+  },
+  "source": {
+    "official": "https://www.rudderstack.com/docs/ai-features/rudderstack-mcp/",
+    "github": "https://github.com/rudderlabs/rudderstack-mcp",
+    "registry": "https://mcp.rudderstack.com/mcp"
+  },
+  "writeTools": [
+    "doddle.tool.v1.rudderstack.createAudience",
+    "doddle.tool.v1.rudderstack.triggerAudienceSync"
+  ]
+}

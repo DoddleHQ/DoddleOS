@@ -26,6 +26,7 @@ Every skill = `SKILL.md` (human) + `blueprint.yaml` (machine). Full template: `s
 |--------|-----------------|----------------------|---------|
 | `agent` | Agent name, resolved pack-local first (`<pack>/.claude/agents/`) | — | `conversion-optimizer`, `copywriter` |
 | `tool` | `doddle.tool.v1.*` ID | — | `doddle.tool.v1.ga4.getReport` |
+| `tool` | `doddle.tool.cli.*` ID | `args:`, optional `inputs:` map | `doddle.tool.cli.drev` |
 | `call` | Skill id (sub-graph) | `inputs:` map; no self-call; depth ≤3 | `doddle.local.reviews` |
 | `gate` | — (human) | `approvers:`, `timeout_s` | approval before publish |
 

@@ -1,0 +1,23 @@
+{
+  "name": "dgtm",
+  "runtime": "python3",
+  "path": "doddle-gtm-skills/scripts/dgtm",
+  "version": "0.2.0",
+  "envelope": "doddle-gtm-envelope-v1",
+  "network": false,
+  "writes": false,
+  "description": "Doddle GTM deterministic toolkit — funnel math, unit economics, pricing, market sizing, weighted scoring, pipeline audit and reporting.",
+  "commands": [
+    "frameworks",
+    "funnel",
+    "unit-economics",
+    "pricing",
+    "size-market",
+    "score",
+    "audit",
+    "report",
+    "doctor",
+    "version"
+  ],
+  "used_by": ["doddle.gtm.*"]
+}

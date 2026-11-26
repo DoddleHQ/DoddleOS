@@ -21,17 +21,17 @@ Python toolkit (`drev`) computes; the skills narrate and prioritize. Measured fi
 | Skill | ID | Stage | Covers |
 |-------|-----|-------|--------|
 | `revops-data-infrastructure` | `doddle.revops.revops-data-infrastructure` | 1 | Warehouse table profile, dbt coverage, identity resolution, reverse-ETL readiness, source-of-truth matrix, freshness |
-| `revops-signal-routing` | `doddle.revops.revops-signal-routing` | 2 | Buyer-intent signals, recency windows, priority ladder, owner routing, dry-run alert payloads |
+| `revops-signal-routing` | `doddle.revops.revops-signal-routing` | 2 | Buyer-intent signals, recency windows, priority ladder, owner routing, gated Slack alerts |
 | `revops-ai-sdr` | `doddle.revops.revops-ai-sdr` | 3 | Evidence gate for 1:1 personalization claims, unsupported-claim rejection, outreach proposal |
 | `revops-pql-scoring` | `doddle.revops.revops-pql-scoring` | 4 | Fit + intent + recency, aha thresholds, PQL/hot/nurture tiers, unknown-account detection |
-| `revops-usage-monetization` | `doddle.revops.revops-usage-monetization` | 5 | Rated usage, credit consumption, overage, invoice preview, value-metric framing |
+| `revops-usage-monetization` | `doddle.revops.revops-usage-monetization` | 5 | Rated usage, credit consumption, overage, invoice preview, gated Stripe meter events |
 | `revops-attribution` | `doddle.revops.revops-attribution` | 6 | Multi-touch allocation, channel ROI, coverage, logo and revenue retention cohorts |
 | `revops-call-intelligence` | `doddle.revops.revops-call-intelligence` | 7 | Transcript search, theme clustering, talk share, coaching and battlecard deltas |
 | `revops-retention` | `doddle.revops.revops-retention` | 8 | NRR/GRR, usage-based health, renewal risk, expansion signals |
 | `revops-integration-growth` | `doddle.revops.revops-integration-growth` | 9 | OAuth scopes, webhook coverage, marketplace listing, co-selling fields, readiness score |
-| `revops-qbr` | `doddle.revops.revops-qbr` | 10 | KPI scoreboard, ROI proof, risks, the ask, CSM deck outline |
+| `revops-qbr` | `doddle.revops.revops-qbr` | 10 | KPI scoreboard, ROI proof, risks, the ask, CSM deck outline, gated share |
 | `revops-dark-social` | `doddle.revops.revops-dark-social` | 11 | Self-reported vs modelled community attribution, influenced revenue, confidence, consent |
-| `revops-revenue-portfolio` | `doddle.revops.revops-revenue-portfolio` | 12 | Normalized pricing models, dated evidence, confidence grading, teardown outline |
+| `revops-revenue-portfolio` | `doddle.revops.revops-revenue-portfolio` | 12 | Normalized pricing models, dated evidence, confidence grading, gated draft staging |
 
 ## Agents (6)
 
@@ -80,6 +80,30 @@ Every command emits a versioned JSON **evidence envelope** (`toolkit_version`, `
 `data_version`, `evidence.stamp`, `completeness.missing`). Python 3.9+, stdlib only, no
 dependencies.
 
+## Live integrations
+
+Every MCP binding is `required: false` with `fallback: manual_review`, so a missing server
+degrades the report instead of failing it. Registrations live in
+`doddle-core/registry/integrations/`, with verified vendor endpoints.
+
+| Skill | Reads (optional) | Writes (gated) |
+|-------|------------------|----------------|
+| `revops-data-infrastructure` | `snowflake.getTableInfo`, `dbt.discover`, `bigquery.listTables` | — |
+| `revops-signal-routing` | `6sense` account insights and keyword intent | `slack.sendMessage` (`approve_alert`) |
+| `revops-ai-sdr` | `apollo` / `clay` people search | `apollo.enrichPeople` (`approve_enrichment`) |
+| `revops-pql-scoring` | `rudderstack.listEvents`, `segment.listSchemas` | — |
+| `revops-usage-monetization` | `stripe.getSubscriptions` | `stripe.recordMeterEvent` (`approve_billing`) |
+| `revops-attribution` | `bigquery.executeSqlReadonly` | — |
+| `revops-call-intelligence` | `gong.getTranscript`, `gong.searchConversations` | — |
+| `revops-retention` | `stripe.getSubscriptions` | — |
+| `revops-integration-growth` | `zapier` actions, `make` scenarios | — |
+| `revops-qbr` | — | `slack.sendMessage` (`approve_share`) |
+| `revops-dark-social` | `discord` message reads (bot token) | — |
+| `revops-revenue-portfolio` | — | `notion.createPage` (`approve_publish`) |
+
+Gate nodes are hard stops: without an approved decision nothing is sent, enriched, billed, or
+published — the skill still returns the plan.
+
 ## Commands
 
 `/revops:data`, `/revops:signal`, `/revops:sdr`, `/revops:pql`, `/revops:metering`,
@@ -98,9 +122,12 @@ directory.
 
 ## Safety model
 
-- **Read-only.** No skill writes to a warehouse, runs a dbt job, triggers a sync, sends an
-  alert, sends outreach, creates a billing object, deploys an integration, or publishes anything.
-  Actions end as dry-run plans and proposals with owner and verification steps.
+- **Read-only by default; writes are gated.** No skill writes to a warehouse, runs a dbt job, or
+  triggers a sync. The four write-capable paths — Slack alert/Slack QBR share, Stripe meter
+  event, Notion draft — sit behind an explicit `gate` node (`approve_alert`, `approve_billing`,
+  `approve_share`, `approve_publish`) and the write tool is `required: false` with
+  `fallback: manual_review`. Without an approved decision nothing is sent, billed, or published;
+  the skill still reports the plan. See `doddle-core/spec/harness-cli-resolver.md` §6.
 - **No fabrication.** Every figure comes from an envelope. Missing inputs are `NOT AVAILABLE`.
 - **Freshness is explicit.** `evidence.stamp` is `STALE` when an export is older than the
   threshold; the headline must say so.

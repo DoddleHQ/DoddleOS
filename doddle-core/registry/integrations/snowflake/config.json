@@ -1,0 +1,53 @@
+{
+  "name": "snowflake",
+  "description": "Snowflake-managed MCP server \u2014 governed data access, SQL execution, Cortex Analyst/Search/Agents",
+  "type": "remote",
+  "transport": "http",
+  "urlTemplate": "https://<account_url>/api/v2/databases/{database}/schemas/{schema}/mcp-servers/{name}",
+  "auth": "oauth-or-pat",
+  "env": {
+    "SNOWFLAKE_ACCOUNT_URL": "${SNOWFLAKE_ACCOUNT_URL}",
+    "SNOWFLAKE_DATABASE": "${SNOWFLAKE_DATABASE}",
+    "SNOWFLAKE_SCHEMA": "${SNOWFLAKE_SCHEMA}",
+    "SNOWFLAKE_MCP_SERVER": "${SNOWFLAKE_MCP_SERVER}",
+    "SNOWFLAKE_PAT": "${SNOWFLAKE_PAT}"
+  },
+  "writes": true,
+  "setup": {
+    "requirements": [
+      "Snowflake account with a created MCP server object (CREATE MCP SERVER)",
+      "OAuth client (recommended) or a Programmatic Access Token bound to a least-privilege role",
+      "Enable the MCP API for the account"
+    ],
+    "notes": [
+      "The account hostname must use hyphens instead of underscores (MCP clients fail to connect otherwise).",
+      "Since 2026-08-20 tools/call responses arrive as an SSE stream \u2014 send Accept: application/json, text/event-stream.",
+      "Server implements MCP revision 2025-11-25."
+    ]
+  },
+  "capabilities": {
+    "tools": 6,
+    "categories": [
+      "sql",
+      "cortex-analyst",
+      "cortex-search",
+      "cortex-agents",
+      "catalog"
+    ],
+    "upstreamTools": [
+      "SYSTEM_EXECUTE_SQL",
+      "CORTEX_ANALYST_MESSAGE",
+      "CORTEX_SEARCH_SERVICE_QUERY",
+      "CORTEX_AGENT_RUN",
+      "CODING_AGENT",
+      "GENERIC"
+    ]
+  },
+  "source": {
+    "official": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-mcp",
+    "quickstart": "https://www.snowflake.com/en/developers/guides/getting-started-with-snowflake-mcp-server/"
+  },
+  "writeTools": [
+    "doddle.tool.v1.snowflake.executeSql"
+  ]
+}

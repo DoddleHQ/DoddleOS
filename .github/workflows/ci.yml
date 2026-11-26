@@ -61,6 +61,42 @@ jobs:
           config-file: '.github/mlc_config.json'
         continue-on-error: true
 
+  packs:
+    name: Pack checks (${{ matrix.pack }})
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        pack: [doddle-gtm-skills, doddle-revops-skills]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install pytest
+        run: python3 -m pip install --quiet pytest
+
+      - name: Lint pack
+        working-directory: ${{ matrix.pack }}
+        run: python3 scripts/lint_pack.py
+
+      - name: Test pack
+        working-directory: ${{ matrix.pack }}
+        run: python3 -m pytest tests -q
+
+      - name: drev smoke (version + doctor)
+        if: matrix.pack == 'doddle-revops-skills'
+        working-directory: doddle-revops-skills
+        run: |
+          python3 scripts/drev version
+          python3 scripts/drev doctor
+
   commitlint:
     name: Lint Commits
     runs-on: ubuntu-latest

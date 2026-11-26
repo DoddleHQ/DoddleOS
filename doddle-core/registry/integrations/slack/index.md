@@ -56,6 +56,18 @@ Alert sales about hot lead
 - `/campaign:analyze` → Alert on performance changes
 - `/leads:qualify` → Notify sales team
 
+## DoddleOS Tool IDs
+
+| Tool ID | Action | Type |
+|---------|--------|------|
+| `doddle.tool.v1.slack.messages` | Read channel history / list channels | read |
+| `doddle.tool.v1.slack.sendMessage` | Post a message or blocks to a channel | **write** |
+
+**Write-gated.** `slack.sendMessage` mutates a workspace. Any blueprint that calls it must place
+a `gate` node (`approvers` + `timeout_s`) immediately before the write node — see
+`doddle-core/spec/harness-phase2.md` §2.1 and `harness-cli-resolver.md` §6. Without an approved
+gate record the runner refuses to schedule the node (`write_without_gate`).
+
 ## Related
 - [Discord](../discord/) - Alternative notification channel
 - [HubSpot](../hubspot/) - CRM lead source

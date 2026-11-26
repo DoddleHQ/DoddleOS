@@ -1,20 +1,26 @@
 id: doddle.revops.revops-revenue-portfolio
-version: 1.0.0
+version: 1.1.0
 kind: skill
 engine: doddle-os>=1.0
-description: "Compare a portfolio of public pricing pages and teardowns with dated evidence, normalized pricing models, and confidence — before publishing."
+description: "Compare a portfolio of public pricing pages and teardowns with dated evidence, normalized pricing models, and confidence — then stage a draft for review."
 inputs:
   - {name: companies, type: file, required: true, description: "Companies JSON with name, pricing_model, value_metric, price"}
   - {name: observations, type: file, required: true, description: "Observations (CSV/JSON) with company, observation, observed_at, source_url"}
-  - {name: segment, type: string, required: false, description: "Segment focus; defaults to SMB"}
+  - {name: segment, string, required: false, description: "Segment focus; defaults to SMB"}
 outputs:
   - {name: report, type: markdown, description: "Normalized comparison, evidence confidence, and teardown outline"}
   - {name: envelope, type: json, description: "Deterministic portfolio envelope"}
+  - {name: draft_receipt, type: json, description: "Staged-draft receipt (only when the gated publish node ran)"}
 tools:
   - {id: doddle.tool.cli.drev, required: false, fallback: manual_review}
-integrations: []
+  - {id: doddle.tool.v1.notion.pages, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.notion.createPage, required: false, fallback: manual_review}
+integrations:
+  - notion
 nodes:
   - {id: survey, type: agent, ref: revops-data-engineer, needs: [inputs], produces: [assessment]}
   - {id: build, type: tool, ref: doddle.tool.cli.drev, args: ["portfolio"], needs: [survey], produces: [envelope]}
-  - {id: report, type: agent, ref: revops-commercial-analyst, needs: [build], produces: [report]}
+  - {id: approve_publish, type: gate, needs: [build], produces: [decision], approvers: [owner], timeout_s: 3600, on_approve: proceed, on_reject: revise}
+  - {id: stage_draft, type: tool, ref: doddle.tool.v1.notion.createPage, needs: [approve_publish], produces: [draft_receipt]}
+  - {id: report, type: agent, ref: revops-commercial-analyst, needs: [stage_draft], produces: [report]}
 on_fail: {retry: 1, fallback: manual_review}

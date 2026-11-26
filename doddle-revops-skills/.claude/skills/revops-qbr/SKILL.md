@@ -1,7 +1,7 @@
 ---
 name: revops-qbr
 id: doddle.revops.revops-qbr
-version: 1.0.0
+version: 1.1.0
 blueprint: ./blueprint.yaml
 description: "When the user wants the quarterly business review prepared — KPI scoreboard, ROI proof, risks, the ask, and a CSM deck outline. Use for 'QBR', 'quarterly review', 'business review', 'customer review', 'ROI proof', 'renewal deck', 'CSM slides'."
 ---
@@ -28,6 +28,20 @@ Read the JSON envelope:
 Status rules: `on_track` when actual ≥ target, `at_risk` when the ratio is ≥ 0.80, `off_track`
 below that, and `not_measured` when a target or actual is missing. Deck slides: value delivered,
 scorecard, risks, the ask.
+
+### Write path (gated)
+
+Building the pack is read-only. Sharing it is a **write**, so the blueprint gates it:
+
+```yaml
+- {id: approve_share, type: gate, needs: [build], produces: [decision],
+   approvers: [owner], timeout_s: 3600, on_approve: proceed, on_reject: revise}
+- {id: share_qbr, type: tool, ref: doddle.tool.v1.slack.sendMessage,
+   needs: [approve_share], produces: [share_receipt]}
+```
+
+Without an approved decision the review stays a file on disk. The pack is never shared with a
+missing KPI, an invented outcome, or an unsourced ROI line.
 
 ## Workflow
 
@@ -73,6 +87,7 @@ arithmetic; missing sections are stated as missing; on `ok: false` relay `error.
 | Quietly dropping an off-track KPI | Show it with the mitigation |
 | ROI without investment and revenue | It reads NOT AVAILABLE |
 | Inventing a risk to fill the slide | Say no risks were supplied |
+| Sharing the review before approval | `approve_share` is a hard stop — the file is still delivered |
 
 ## Related Skills
 

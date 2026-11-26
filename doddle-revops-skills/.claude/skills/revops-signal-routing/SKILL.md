@@ -1,7 +1,7 @@
 ---
 name: revops-signal-routing
 id: doddle.revops.revops-signal-routing
-version: 1.0.0
+version: 1.1.0
 blueprint: ./blueprint.yaml
 description: "When the user wants to route buyer-intent signals to owners — recency windows, priority ladders, and ready-to-send alerts without sending them. Use for 'signal routing', 'buyer intent', 'intent alerts', 'when is someone in-market', 'webhook to Slack', 'route events to reps'."
 ---
@@ -37,6 +37,21 @@ Signals outside the window are dropped by the tool, not by judgement. Rules are 
   ]
 }
 ```
+
+### Write path (gated)
+
+Routing is read-only. Posting an alert is a **write**, so the blueprint gates it:
+
+```yaml
+- {id: approve_alert, type: gate, needs: [route], produces: [decision],
+   approvers: [owner], timeout_s: 3600, on_approve: proceed, on_reject: revise}
+- {id: send_alert, type: tool, ref: doddle.tool.v1.slack.sendMessage,
+   needs: [approve_alert], produces: [alert_receipt]}
+```
+
+`approve_alert` is a hard stop: without an approved decision nothing is sent, and the report
+still shows the plan. If Slack is not configured the node degrades to `manual_review` and the
+report states that the alert was not delivered.
 
 ## Workflow
 
@@ -77,7 +92,7 @@ never do arithmetic; on `ok: false` relay `error.message` + `error.hint`. Full b
 
 | Mistake | Fix |
 |---------|-----|
-| Sending the alert from this skill | Read-only — deliver the payload, the owner sends it |
+| Sending an alert without approval | `approve_alert` is a hard stop — unapproved alerts are never sent |
 | Ignoring unrouted signal types | They are a rules gap; report them |
 | Routing stale signals | The window is applied by the tool; widen it deliberately or not at all |
 | Guessing an account from an email | Anonymous is anonymous — do not deanonymize by inference |

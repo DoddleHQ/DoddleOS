@@ -1,5 +1,5 @@
 id: doddle.revops.revops-pql-scoring
-version: 1.0.0
+version: 1.1.0
 kind: skill
 engine: doddle-os>=1.0
 description: "Score product-qualified leads from exported product events — fit, intent, recency, aha thresholds, and account tiers."
@@ -7,14 +7,21 @@ inputs:
   - {name: events, type: file, required: true, description: "Product event export (JSONL/CSV) with account_id, event_name, event_at"}
   - {name: accounts, type: file, required: false, description: "Account export (CSV/JSON) with account_id and fit_score"}
   - {name: model, type: file, required: true, description: "PQL model (JSON): aha_events, event_weights, weights, thresholds, window_days"}
+  - {name: workspace, type: string, required: false, description: "RudderStack workspace id for live event lookups"}
 outputs:
   - {name: report, type: markdown, description: "PQL tier summary, top accounts, and calibration actions"}
   - {name: envelope, type: json, description: "Deterministic PQL scoring envelope"}
+  - {name: live_events, type: json, description: "Live event evidence when a CDP server is configured"}
 tools:
   - {id: doddle.tool.cli.drev, required: false, fallback: manual_review}
-integrations: []
+  - {id: doddle.tool.v1.rudderstack.listEvents, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.segment.listSchemas, required: false, fallback: manual_review}
+integrations:
+  - rudderstack
+  - segment
 nodes:
   - {id: survey, type: agent, ref: revops-data-engineer, needs: [inputs], produces: [assessment]}
   - {id: score, type: tool, ref: doddle.tool.cli.drev, args: ["pql"], needs: [survey], produces: [envelope]}
-  - {id: report, type: agent, ref: revops-analyst, needs: [score], produces: [report]}
+  - {id: event_evidence, type: tool, ref: doddle.tool.v1.rudderstack.listEvents, args: ["{inputs.workspace}"], needs: [score], produces: [live_events]}
+  - {id: report, type: agent, ref: revops-analyst, needs: [event_evidence], produces: [report]}
 on_fail: {retry: 1, fallback: manual_review}

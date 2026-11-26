@@ -6,8 +6,8 @@ Domain-neutral execution substrate for DoddleOS graph blueprints. No marketing c
 
 ```
 doddle-core/            Layer 0 — kernel (this pack)
-├── spec/               Blueprint schema, skill template, tool namespace
-├── registry/           Integrations + pack index (21 peer packs)
+├── spec/               Blueprint schema, skill template, tool namespace, harness specs
+├── registry/           Integrations + CLI registry + pack index (21 peer packs)
 └── scripts/            Discovery-based validator (no hardcoded packs)
 
 <pack>/                 21 independent OS packs, incl. doddle-marketing-skills/

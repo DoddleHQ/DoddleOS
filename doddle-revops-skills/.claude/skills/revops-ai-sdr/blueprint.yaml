@@ -1,5 +1,5 @@
 id: doddle.revops.revops-ai-sdr
-version: 1.0.0
+version: 1.1.0
 kind: skill
 engine: doddle-os>=1.0
 description: "Check every personalization claim in AI-SDR copy against supplied evidence before it is sent."
@@ -11,11 +11,19 @@ inputs:
 outputs:
   - {name: report, type: markdown, description: "Supported and unsupported claims plus the outreach plan"}
   - {name: envelope, type: json, description: "Deterministic evidence-check envelope"}
+  - {name: enrichment_receipt, type: json, description: "Enrichment receipt (only when the gated enrich node ran)"}
 tools:
   - {id: doddle.tool.cli.drev, required: false, fallback: manual_review}
-integrations: []
+  - {id: doddle.tool.v1.apollo.searchPeople, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.clay.searchPeople, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.apollo.enrichPeople, required: false, fallback: manual_review}
+integrations:
+  - apollo
+  - clay
 nodes:
   - {id: survey, type: agent, ref: revops-data-engineer, needs: [inputs], produces: [assessment]}
   - {id: validate, type: tool, ref: doddle.tool.cli.drev, args: ["sdr-validate"], needs: [survey], produces: [envelope]}
-  - {id: report, type: agent, ref: revops-growth-operator, needs: [validate], produces: [report]}
+  - {id: approve_enrichment, type: gate, needs: [validate], produces: [decision], approvers: [owner], timeout_s: 3600, on_approve: proceed, on_reject: revise}
+  - {id: enrich, type: tool, ref: doddle.tool.v1.apollo.enrichPeople, needs: [approve_enrichment], produces: [enrichment_receipt]}
+  - {id: report, type: agent, ref: revops-growth-operator, needs: [enrich], produces: [report]}
 on_fail: {retry: 1, fallback: manual_review}

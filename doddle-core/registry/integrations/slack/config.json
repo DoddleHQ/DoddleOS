@@ -1,9 +1,13 @@
 {
   "name": "slack",
   "description": "Slack messaging and notifications",
+  "writes": true,
   "type": "npm",
   "command": "npx",
-  "args": ["-y", "@anthropic-ai/slack-mcp"],
+  "args": [
+    "-y",
+    "@anthropic-ai/slack-mcp"
+  ],
   "env": {
     "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}",
     "SLACK_TEAM_ID": "${SLACK_TEAM_ID}"
@@ -17,10 +21,18 @@
   },
   "capabilities": {
     "tools": 10,
-    "categories": ["messaging", "channels", "users", "notifications"]
+    "categories": [
+      "messaging",
+      "channels",
+      "users",
+      "notifications"
+    ]
   },
   "source": {
     "github": "https://github.com/korotovsky/slack-mcp-server",
     "alternative": "https://github.com/ubie-oss/slack-mcp-server"
-  }
+  },
+  "writeTools": [
+    "doddle.tool.v1.slack.sendMessage"
+  ]
 }

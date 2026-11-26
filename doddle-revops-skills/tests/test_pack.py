@@ -1,4 +1,5 @@
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -30,11 +31,32 @@ def test_every_skill_has_a_blueprint_and_shared_references():
         assert (PACK / ".claude" / "skills" / "common" / reference).exists()
 
 
-def test_pack_is_read_only():
-    """No skill blueprint may invoke a write-capable MCP tool."""
-    for blueprint in (PACK / ".claude" / "skills").glob("*/blueprint.yaml"):
+def test_write_capable_tools_are_gated():
+    """A blueprint may only bind a write-capable tool behind an approval gate."""
+    registry = PACK.parent / "doddle-core" / "registry" / "integrations"
+    write_tools = set()
+    for config in registry.glob("*/config.json"):
+        data = json.loads(config.read_text(encoding="utf-8"))
+        write_tools.update(data.get("writeTools", []))
+    for blueprint in (PACK / ".claude/skills").glob("*/blueprint.yaml"):
         text = blueprint.read_text(encoding="utf-8")
-        assert "doddle.tool.v1." not in text, f"{blueprint} declares a live MCP tool"
+        bound = set(re.findall(r"doddle\.tool\.v1\.[\w-]+\.[\w-]+", text))
+        risky = bound & write_tools
+        if risky:
+            assert "type: gate" in text, (
+                f"{blueprint} binds write-capable tool(s) {sorted(risky)} without an approval gate"
+            )
+
+
+def test_cli_tool_nodes_only_use_registered_clis():
+    """CLI tool nodes must reference a CLI that exists in the central CLI registry."""
+    cli_registry = PACK.parent / "doddle-core" / "registry" / "cli"
+    known = {p.stem for p in cli_registry.glob("*.json")}
+    assert known, "no CLI registry entries found"
+    for blueprint in (PACK / ".claude/skills").glob("*/blueprint.yaml"):
+        text = blueprint.read_text(encoding="utf-8")
+        for cli in set(re.findall(r"doddle\.tool\.cli\.([\w-]+)", text)):
+            assert cli in known, f"{blueprint} references unregistered CLI '{cli}'"
 
 
 def test_manifests_parse():
