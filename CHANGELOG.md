@@ -1,3 +1,10 @@
+## [1.17.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.16.0...v1.17.0) (2026-11-26)
+
+
+### 🚀 Features
+
+* **revops:** complete the 12-stage revenue stack — 9 more skills, 6 agents, 15 drev commands ([ba46755](https://github.com/DoddleHQ/DoddleOS/commit/ba4675557f6c8cdc7c8272b0cd82291a3eb0eb1e))
+
 ## [1.16.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.15.0...v1.16.0) (2026-11-26)
 
 
