@@ -1,3 +1,10 @@
+## [1.18.2](https://github.com/DoddleHQ/DoddleOS/compare/v1.18.1...v1.18.2) (2026-11-26)
+
+
+### 🐞 Bug Fixes
+
+* **core:** reconcile integration facts against live vendor probes and document vendor dry-run primitives ([d32b711](https://github.com/DoddleHQ/DoddleOS/commit/d32b711016458faa77b5770d7cf21e07214e74f7))
+
 ## [1.18.1](https://github.com/DoddleHQ/DoddleOS/compare/v1.18.0...v1.18.1) (2026-11-26)
 
 

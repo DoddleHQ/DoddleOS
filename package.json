@@ -1,6 +1,6 @@
 {
   "name": "DoddleOS",
-  "version": "1.18.1",
+  "version": "1.18.2",
   "description": "DoddleOS skills distribution — validated graph blueprints (SKILL.md + blueprint.yaml) + specs for Claude Code, Cursor, and GitHub Copilot. 122 agents, 250 commands, 245 skills across 21 peer packs. Harness spec is draft in doddle-core/spec/; no runner ships in this repo.",
   "main": "CLAUDE.md",
   "scripts": {
