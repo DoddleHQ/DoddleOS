@@ -1,3 +1,10 @@
+## [1.18.1](https://github.com/DoddleHQ/DoddleOS/compare/v1.18.0...v1.18.1) (2026-11-26)
+
+
+### 🐞 Bug Fixes
+
+* **core:** reconcile integration registrations with verified vendor facts and re-sync the registry ([71e1b3a](https://github.com/DoddleHQ/DoddleOS/commit/71e1b3a1a6a80c9e9b6419e56b63a1f1adaf4ca0))
+
 ## [1.18.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.17.0...v1.18.0) (2026-11-26)
 
 
