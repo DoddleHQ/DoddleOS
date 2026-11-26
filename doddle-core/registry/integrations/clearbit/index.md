@@ -1,36 +1,48 @@
-# clearbit
+# Clearbit (deprecated)
 
-> DEPRECATED — Clearbit is now HubSpot data enrichment; use hubspot (enrichment/intent) or 6sense
+> **DEPRECATED.** Clearbit was acquired by HubSpot (Dec 2023), rebranded **Breeze Intelligence**
+> (Sept 2024), and that name was **retired in 2026** — the capability is now *data enrichment*
+> built into HubSpot Smart CRM. **Clearbit has no MCP server of its own.**
 
 ## Connection
 
 | Field | Value |
 |-------|-------|
-| Status | **Deprecated** — no server endpoint exists |
+| Standalone endpoint | **none** — the `url` field in `config.json` is `null` on purpose |
+| Served by | `hubspot` — https://mcp.hubspot.com (enrichment / buyer intent) |
+| Intent alternative | `6sense` — https://api.6sense.com/mcp (read-only intent and account insight) |
+| Status | deprecated — kept so existing `doddle.tool.v1.clearbit.company` bindings keep working |
 
-## Upstream tools
+## Tools
 
-`HubSpot data enrichment`, `HubSpot buyer intent`
+| Upstream tool | Source |
+|---------------|--------|
+| HubSpot data enrichment (firmographics) | HubSpot Smart CRM |
+| HubSpot buyer intent (HubSpot Credits metered) | HubSpot Smart CRM |
 
 ## DoddleOS tool IDs
 
 | Tool ID | Maps to | Type |
 |---------|---------|------|
-| `doddle.tool.v1.clearbit.company` | `HubSpot enrichment/intent lookup` | read (HubSpot) — DEPRECATED id, kept for compatibility |
+| `doddle.tool.v1.clearbit.company` | HubSpot enrichment / intent lookup | read — deprecated id, kept for compatibility |
 
-**Read-only.** No tool in this entry mutates external data, so it needs no approval gate.
+**Read-only.** The mapped capability is a read; nothing here mutates data, so no approval gate
+is required. Enabling intent signals is a HubSpot-side action, not this tool — it is metered in
+HubSpot Credits (10 credits per company per month to enable / monitor intent signals, 50 credits
+per month per custom signal). Data enrichment itself consumes no HubSpot Credits.
 
 ## Setup
 
-_No setup — this entry is a pointer to another integration._
+There is no Clearbit setup — the product no longer exists standalone.
 
-### Notes
-
-- Clearbit was acquired by HubSpot (Dec 2023), became Breeze Intelligence (Sept 2024), and the Breeze Intelligence name was retired in 2026 — the capability is now data enrichment inside HubSpot Smart CRM.
-- Standalone Clearbit subscriptions stopped (April 2025); free Clearbit tools sunset 2025-04-30; the free Logo API sunset 2025-12-01.
-- Clearbit has no MCP server of its own. Map doddle.tool.v1.clearbit.company onto HubSpot data enrichment + buyer intent (HubSpot Credits metered: 10 credits per company per month for intent signals).
-- For predictive buying stage and keyword intent use 6sense instead.
+1. For enrichment: a paid HubSpot plan. Data enrichment is included and consumes no HubSpot
+   Credits.
+2. For buyer intent: prefer `6sense` (read-only intent, keyword and account insight), or use
+   HubSpot buyer intent and accept the Credit metering.
 
 ## Used By
 
-- `doddle.revops.*` (doddle-revops-skills) where the skill binds it
+- `gtm-icp`, `gtm-abm`, `gtm-segmentation` (doddle-gtm-skills) — already bind
+  `doddle.tool.v1.clearbit.company`; migrate them to `hubspot` / `6sense` / `apollo` /
+  `zoominfo` enrichment ids
+- `revops-ai-sdr` (doddle-revops-skills) — enrichment evidence lane

@@ -1,24 +1,25 @@
 {
   "name": "fivetran-activations",
-  "description": "Fivetran Activations (formerly Census) reverse ETL \u2014 REST/Terraform today; Fivetran platform MCP covers context and read-only SQL",
-  "type": "remote",
-  "transport": "http",
-  "url": "https://mcp.fivetran.com/mcp",
-  "auth": "oauth",
-  "env": {
-    "FIVETRAN_API_KEY": "${FIVETRAN_API_KEY}"
-  },
-  "writes": false,
-  "writeTools": [],
+  "description": "Fivetran Activations (formerly Census) reverse ETL and governed audiences — no Activations-native MCP server, so the sync path runs on the Activations REST API / Terraform provider",
+  "type": "rest",
+  "transport": "https",
+  "url": null,
+  "env": {},
+  "writes": true,
+  "writeTools": [
+    "doddle.tool.v1.fivetran-activations.triggerSync"
+  ],
   "setup": {
     "requirements": [
-      "Fivetran account (Activations lives inside the Fivetran platform)"
+      "Fivetran account (Census was acquired by Fivetran and is now Fivetran Activations — Census is no longer a standalone product)",
+      "Activations REST API or Terraform provider credentials for the reverse-ETL sync path",
+      "Warehouse model and destination connection for the syncs (200+ destinations), plus Audience Hub for governed segments"
     ],
     "notes": [
-      "Census was acquired by Fivetran and is now Fivetran Activations \u2014 Census is no longer a standalone product.",
-      "Fivetran hosts an Agent Context MCP exposing semantic definitions and read-only warehouse SQL, plus a self-hosted MCP repo for platform operations; neither is Activations-specific.",
       "There is NO Activations-native MCP server: create and manage reverse-ETL syncs through the Activations REST API or the Terraform provider.",
-      "Activations syncs warehouse models to 200+ destinations; Audience Hub provides governed segments."
+      "Fivetran hosts an 'Agent Context MCP server' exposing semantic definitions and READ-ONLY warehouse SQL, and publishes a self-hosted MCP repository in its own GitHub org for platform operations — neither is Activations-specific.",
+      "Activations offers a REST API, a Terraform provider, a Management API and Connect Links.",
+      "The 'url' field is null on purpose: no Activations MCP endpoint exists to point at."
     ]
   },
   "capabilities": {
@@ -26,17 +27,18 @@
     "categories": [
       "warehouse-sql",
       "semantic-definitions",
-      "activations-api",
-      "terraform"
+      "audiences",
+      "reverse-etl"
     ],
     "upstreamTools": [
-      "Agent Context MCP (read-only SQL + semantics)",
-      "Activations REST API",
+      "Fivetran Agent Context MCP — semantic definitions",
+      "Fivetran Agent Context MCP — read-only warehouse SQL",
+      "Activations REST API — audiences and syncs",
       "Activations Terraform provider"
     ]
   },
   "source": {
-    "official": "https://fivetran.com/docs/activations/overview",
-    "note": "Census rebrand: see Fivetran Activations docs"
+    "vendor": "Fivetran",
+    "note": "Census is now Fivetran Activations. No Activations-native MCP server — the reverse-ETL sync path uses the Activations REST API / Terraform provider today."
   }
 }

@@ -1,40 +1,59 @@
-# zapier
+# Zapier
 
-> Zapier MCP — 9,000+ apps and 40,000+ actions through agentic or managed servers
+> Official Zapier MCP (GA) — **agentic** mode with fixed meta-tools, or **managed** mode with one
+> tool per action. Actions run against your existing app connections.
 
 ## Connection
 
 | Field | Value |
 |-------|-------|
 | Endpoint | `https://mcp.zapier.com` |
-| Transport | http |
-| Auth | oauth |
+| Transport | Streamable HTTP only — **SSE is not supported** |
+| Plan | Team or Enterprise |
+| Topology | one server per named MCP client (sharing needs Team/Enterprise) |
+| Compliance | SOC 2 Type II |
+| Quota | tool calls consume Zapier tasks from the plan quota; failed calls are free |
 
-## Upstream tools
+## Tools
 
-`discover_zapier_actions`, `enable_zapier_action`, `manage_zapier_connections`, `auto_provision_mcp`, `managed-mode action tools`
+### Agentic mode (default)
+
+| Upstream tool | Effect |
+|---------------|--------|
+| `discover_zapier_actions` | lists available actions |
+| `enable_zapier_action` | enables an action for use |
+| `manage_zapier_connections` | manages app connections |
+| `auto_provision_mcp` | provisions the MCP setup |
+
+### Managed mode
+
+One tool per action, configured in Zapier.
 
 ## DoddleOS tool IDs
 
 | Tool ID | Maps to | Type |
 |---------|---------|------|
 | `doddle.tool.v1.zapier.listActions` | `discover_zapier_actions` | read |
-| `doddle.tool.v1.zapier.runAction` | `an enabled action` | write (mutates the connected app) |
+| `doddle.tool.v1.zapier.enableAction` | `enable_zapier_action` | **write** |
+| `doddle.tool.v1.zapier.manageConnections` | `manage_zapier_connections` | **write** |
+| `doddle.tool.v1.zapier.autoProvisionMcp` | `auto_provision_mcp` | **write** |
+| `doddle.tool.v1.zapier.runAction` | managed-mode action tool (one per action) | **write** (mutates the connected app) |
 
-**Write-gated.** Any tool marked *write* must sit behind a `gate` node in the blueprint (`approve_*`), and the write tool stays `required: false` with `fallback: manual_review`.
+**Write-gated.** `runAction` executes against the user's live app connections and **can mutate
+those apps** — a CRM record, a sheet row, a sent message. `enableAction`,
+`manageConnections` and `autoProvisionMcp` change the Zapier-side setup. A blueprint must place
+a `gate` node immediately before any of them (for example `approve_publish`), keep the tool
+`required: false` with `fallback: manual_review`, and name the app and action before asking for
+approval. Watch the workspace task quota — every call costs a task.
 
 ## Setup
 
-- Zapier Team or Enterprise plan
-- App connections in the Zapier account
-
-### Notes
-
-- One server per named MCP client; sharing a server needs Team or Enterprise.
-- Streamable HTTP only — SSE is not supported.
-- Agentic mode exposes meta-tools (discover_zapier_actions, enable_zapier_action, manage_zapier_connections, auto_provision_mcp); managed mode exposes one tool per action.
-- Actions run against existing app connections and CAN mutate those apps. Tool calls consume plan tasks; failed calls are free.
+1. Zapier Team or Enterprise plan.
+2. Create the MCP server for the named client — one server per client.
+3. Connect the apps you want the actions to run against.
+4. Choose a mode: agentic (default) or managed (one tool per action, configured in Zapier).
 
 ## Used By
 
-- `doddle.revops.*` (doddle-revops-skills) where the skill binds it
+- `revops-integration-growth` (doddle-revops-skills) — binds `doddle.tool.v1.zapier.listActions`
+- `marketing-loops` (doddle-marketing-skills) — automation lane for content, SEO and review loops

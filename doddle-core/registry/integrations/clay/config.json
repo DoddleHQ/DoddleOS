@@ -1,6 +1,6 @@
 {
   "name": "clay",
-  "description": "Clay enrichment and custom functions \u2014 official MCP server plus Public API routines",
+  "description": "Clay enrichment and custom functions — official MCP server (OAuth with dynamic client registration) plus Public API routines",
   "type": "remote",
   "transport": "http",
   "url": "https://api.clay.com/v3/mcp",
@@ -15,32 +15,44 @@
   "setup": {
     "requirements": [
       "Clay workspace",
-      "OAuth client registered via dynamic client registration (PKCE mandatory) or a public API key"
+      "OAuth 2.0 client that supports Dynamic Client Registration (RFC 7591) — PKCE is mandatory",
+      "Clay API key (header clay-api-key) if you use the Public API alternative"
     ],
     "notes": [
-      "MCP endpoint: https://api.clay.com/v3/mcp; metadata at https://api.clay.com/.well-known/oauth-authorization-server.",
-      "Public API alternative: POST https://api.clay.com/public/v0/routines/{routine_id}/run with header clay-api-key, then GET .../routines/run/{routine_run_id}/results (202 while processing, 200 complete).",
-      "Running a function needs MCP access enabled on that function; API access alone is not enough. Use list_subroutines to find callable functions.",
-      "Admins control which clients are allowed and set per-user/role credit budgets. Tools consume workspace credits at the in-app rate."
+      "MCP endpoint https://api.clay.com/v3/mcp; dynamic client registration at https://api.clay.com/oauth/register.",
+      "Scope mcp; access tokens live 1h and refresh tokens rotate.",
+      "Authorization https://app.clay.com/oauth/authorize, token https://api.clay.com/oauth/token, revoke https://api.clay.com/oauth/revoke.",
+      "Metadata endpoints: https://api.clay.com/.well-known/oauth-authorization-server and https://api.clay.com/.well-known/oauth-protected-resource/v3/mcp.",
+      "Public API alternative: POST https://api.clay.com/public/v0/routines/{routine_id}/run with header clay-api-key, then GET .../routines/run/{routine_run_id}/results (202 while processing, 200 when complete, per-item status).",
+      "Running a function by id requires that function's MCP access to be enabled in Clay settings.",
+      "Admins control the 'Allowed MCP clients' list and per-user / per-role credit budgets; credits are consumed at the same rate as in-app work."
     ]
   },
   "capabilities": {
-    "tools": 6,
+    "tools": 4,
     "categories": [
-      "people",
-      "companies",
-      "enrichment",
       "routines",
-      "functions"
+      "functions",
+      "enrichment",
+      "people-search"
     ],
     "upstreamTools": [
       "list_subroutines",
-      "run subroutine by id",
-      "search/find-and-enrich tools"
+      "run a function by id",
+      "find-and-enrich people search (via routine / function run or the Public API)",
+      "Public API routine run + routine run results"
     ]
   },
   "source": {
-    "official": "https://university.clay.com/docs/connect-to-clay-mcp",
-    "developers": "https://developers.clay.com/routines/api"
+    "mcp": "https://api.clay.com/v3/mcp",
+    "publicApi": "https://api.clay.com/public/v0/routines/{routine_id}/run",
+    "oauth": {
+      "register": "https://api.clay.com/oauth/register",
+      "authorize": "https://app.clay.com/oauth/authorize",
+      "token": "https://api.clay.com/oauth/token",
+      "revoke": "https://api.clay.com/oauth/revoke",
+      "metadata": "https://api.clay.com/.well-known/oauth-authorization-server",
+      "resourceMetadata": "https://api.clay.com/.well-known/oauth-protected-resource/v3/mcp"
+    }
   }
 }

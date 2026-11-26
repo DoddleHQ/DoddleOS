@@ -1,38 +1,44 @@
 {
   "name": "zoominfo",
-  "description": "ZoomInfo GTM.AI MCP \u2014 verified B2B intelligence; Conversation Intelligence (formerly Chorus)",
+  "description": "ZoomInfo official MCP server for the GTM.AI layer — verified B2B intelligence, buying signals, GTM Context Graph, Conversation Intelligence",
   "type": "remote",
   "transport": "http",
-  "url": "https://mcp.zoominfo.com/mcp",
-  "auth": "oauth",
+  "url": null,
+  "env": {},
   "writes": false,
   "writeTools": [],
   "setup": {
     "requirements": [
-      "ZoomInfo account with GTM.AI / Conversation Intelligence access"
+      "ZoomInfo account with GTM.AI access (and Conversation Intelligence access for call/meeting/email insight)",
+      "The MCP endpoint URL and credentials are issued per ZoomInfo account — they are not published in this registry"
     ],
     "notes": [
-      "ZoomInfo operates an official MCP server exposing verified B2B intelligence (500M+ contacts, 100M+ companies), buying signals, and the GTM Context Graph.",
-      "Chorus is now ZoomInfo Conversation Intelligence (calls, meetings, emails, winning behaviors, deal momentum, churn risk) \u2014 a ZoomInfo product, not a separate vendor.",
-      "ZoomInfo is the data provider behind HubSpot Breeze Prospecting Agent (public beta); Breeze Intelligence itself has no MCP server."
+      "ZoomInfo operates an official MCP server for its GTM.AI layer: verified B2B intelligence (500M+ contacts, 100M+ companies), buying signals, and the GTM Context Graph.",
+      "Chorus is now ZoomInfo Conversation Intelligence (call, meeting and email capture; winning behaviors; deal momentum; churn risk) — a ZoomInfo product, not a separate vendor.",
+      "ZoomInfo powers HubSpot's Breeze Prospecting Agent (public beta) as a third-party data provider.",
+      "Breeze Intelligence (HubSpot's Clearbit successor) has NO MCP server, so ZoomInfo's MCP is the integration lane for external intelligence.",
+      "The 'url' field is null on purpose: the endpoint is not published, so nothing may point at a guessed address."
     ]
   },
   "capabilities": {
     "tools": 5,
     "categories": [
-      "contact-data",
+      "contact-intelligence",
+      "company-intelligence",
       "buying-signals",
-      "conversation-intelligence",
-      "account-research"
+      "context-graph",
+      "conversation-intelligence"
     ],
     "upstreamTools": [
-      "account/contact search",
-      "buying signal lookup",
-      "conversation insights"
+      "verified contact search (500M+ contacts)",
+      "verified company search (100M+ companies)",
+      "buying signals",
+      "GTM Context Graph",
+      "Conversation Intelligence (formerly Chorus)"
     ]
   },
   "source": {
-    "official": "https://pipeline.zoominfo.com/sales/zoominfo-selected-as-data-provider-hubspot-breeze",
-    "mcp": "https://www.zoominfo.com/mcp"
+    "vendor": "ZoomInfo",
+    "note": "Official ZoomInfo MCP server for the GTM.AI layer; endpoint issued per account."
   }
 }

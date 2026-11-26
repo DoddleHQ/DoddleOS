@@ -1,9 +1,10 @@
 {
   "name": "make",
-  "description": "Make MCP \u2014 run scenarios and manage the automation workspace",
+  "description": "Make-hosted MCP server — run scenarios and manage the automation workspace (scenarios, connections, webhooks, data stores, teams, organizations)",
   "type": "remote",
   "transport": "http",
   "url": "https://mcp.make.com/v2",
+  "urlTemplate": "https://<MAKE_ZONE>/mcp/u/<API_KEY>/v2",
   "auth": "oauth-or-api-key",
   "env": {
     "MAKE_API_KEY": "${MAKE_API_KEY}",
@@ -12,40 +13,50 @@
   "writes": true,
   "writeTools": [
     "doddle.tool.v1.make.runScenario",
-    "doddle.tool.v1.make.updateScenario"
+    "doddle.tool.v1.make.updateScenario",
+    "doddle.tool.v1.make.manageConnections",
+    "doddle.tool.v1.make.manageWebhooks",
+    "doddle.tool.v1.make.manageDataStores",
+    "doddle.tool.v1.make.manageTeams"
   ],
   "setup": {
     "requirements": [
       "Make account",
-      "OAuth, or an API key plus your zone (e.g. eu2.make.com)"
+      "OAuth, or an API key plus your Make zone (for example eu2.make.com)",
+      "A paid plan for the management tools (scenario, connection, webhook, data store, team and organization management)"
     ],
     "notes": [
-      "Stateless Streamable HTTP. API-key URL form: https://<MAKE_ZONE>/mcp/u/<API_KEY>/v2.",
-      "Scenario run tools are on every plan; management tools need a paid plan. Scopes control what is exposed (e.g. scenarios:read to fetch outputs after a timeout).",
-      "Timeouts: scenario run 25s (OAuth) / 40s (API key); management 30s / 60s. After a timeout the scenario keeps running up to 40 minutes \u2014 fetch the result with the returned executionId.",
-      "Optional ?maxToolNameLength= parameter (32-160, default 56)."
+      "Stateless Streamable HTTP server.",
+      "OAuth URL: https://mcp.make.com/v2. API-key URL: https://<MAKE_ZONE>/mcp/u/<API_KEY>/v2.",
+      "Optional ?maxToolNameLength= query parameter (32-160, default 56).",
+      "Scopes control which tools are exposed (for example scenarios:read to fetch outputs after a timeout).",
+      "Timeouts: scenario run 25s (OAuth) / 40s (API key); management 30s (OAuth) / 60s (API key).",
+      "After a timeout the scenario keeps running for up to 40 minutes — retrieve the result with the returned executionId."
     ]
   },
   "capabilities": {
-    "tools": 6,
+    "tools": 8,
     "categories": [
       "scenarios",
       "connections",
       "webhooks",
       "data-stores",
-      "teams"
+      "teams",
+      "organizations"
     ],
     "upstreamTools": [
       "run active/on-demand scenario",
-      "view/modify scenario",
+      "view scenario",
+      "modify scenario",
       "view/modify connection",
       "view/modify webhook",
       "view/modify data store",
-      "view/modify team/org"
+      "view/modify team",
+      "view/modify organization"
     ]
   },
   "source": {
-    "official": "https://developers.make.com/mcp-server",
-    "product": "https://www.make.com/mcp"
+    "oauthUrl": "https://mcp.make.com/v2",
+    "apiKeyUrlTemplate": "https://<MAKE_ZONE>/mcp/u/<API_KEY>/v2"
   }
 }

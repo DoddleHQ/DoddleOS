@@ -54,7 +54,7 @@ explicit gate node.
 
 | Skill | Optional reads | Gated writes |
 |-------|----------------|--------------|
-| `revops-data-infrastructure` | snowflake, dbt, bigquery | — |
+| `revops-data-infrastructure` | snowflake, dbt, bigquery, hightouch | `hightouch.createSync` |
 | `revops-signal-routing` | 6sense | `slack.sendMessage` |
 | `revops-ai-sdr` | apollo, clay | `apollo.enrichPeople` |
 | `revops-pql-scoring` | rudderstack, segment | — |

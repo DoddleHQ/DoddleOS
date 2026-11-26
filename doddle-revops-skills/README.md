@@ -88,17 +88,17 @@ degrades the report instead of failing it. Registrations live in
 
 | Skill | Reads (optional) | Writes (gated) |
 |-------|------------------|----------------|
-| `revops-data-infrastructure` | `snowflake.getTableInfo`, `dbt.discover`, `bigquery.listTables` | — |
+| `revops-data-infrastructure` | `snowflake.getTableInfo`, `dbt.discover`, `bigquery.listTables`, `hightouch.listSyncs` | `hightouch.createSync` (`approve_sync`) |
 | `revops-signal-routing` | `6sense` account insights and keyword intent | `slack.sendMessage` (`approve_alert`) |
 | `revops-ai-sdr` | `apollo` / `clay` people search | `apollo.enrichPeople` (`approve_enrichment`) |
-| `revops-pql-scoring` | `rudderstack.listEvents`, `segment.listSchemas` | — |
+| `revops-pql-scoring` | `rudderstack.listEvents`, `segment.getSchemas` | — |
 | `revops-usage-monetization` | `stripe.getSubscriptions` | `stripe.recordMeterEvent` (`approve_billing`) |
 | `revops-attribution` | `bigquery.executeSqlReadonly` | — |
-| `revops-call-intelligence` | `gong.getTranscript`, `gong.searchConversations` | — |
+| `revops-call-intelligence` | `gong.getTranscript`, `gong.searchConversations`, `zoominfo.getConversationInsights` | — |
 | `revops-retention` | `stripe.getSubscriptions` | — |
-| `revops-integration-growth` | `zapier` actions, `make` scenarios | — |
+| `revops-integration-growth` | `zapier.listActions`, `make.listScenarios`, `hightouch.listSyncs` | — |
 | `revops-qbr` | — | `slack.sendMessage` (`approve_share`) |
-| `revops-dark-social` | `discord` message reads (bot token) | — |
+| `revops-dark-social` | `discord.readMessages`, `discord.searchMessages` (bot token) | — |
 | `revops-revenue-portfolio` | — | `notion.createPage` (`approve_publish`) |
 
 Gate nodes are hard stops: without an approved decision nothing is sent, enriched, billed, or

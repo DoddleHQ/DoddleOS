@@ -1,42 +1,60 @@
-# apollo
+# Apollo
 
-> Apollo prospecting and enrichment — official MCP server
+> Official Apollo MCP server — people and company search, enrichment, validation, research.
 
 ## Connection
 
 | Field | Value |
 |-------|-------|
 | Endpoint | `https://mcp.apollo.io/mcp` |
-| Transport | http |
-| Auth | oauth-or-api-key |
+| Transport | Streamable HTTP |
+| Auth | OAuth 2.0 (interactive) **or** `X-Api-Key` header with a MASTER key |
+| Registry | `io.github.apolloio/apollo-mcp` v0.1.1 |
 
-## Upstream tools
+Headless clients must send a **MASTER** key in the `X-Api-Key` header — scoped keys are
+rejected with `403 API_INACCESSIBLE`.
 
-`apollo_mixed_people_api_search`, `enrichment`, `sequence creation`, `one-off email`, `task creation`
+## Tools
+
+| Upstream tool | Credits |
+|---------------|---------|
+| `apollo_mixed_people_api_search` | none (pure read) |
+| company search | consumed |
+| enrichment | consumed |
+| validation | consumed |
+| research | consumed |
+
+Destructive bulk delete is **not** supported. Apollo prohibits AI model training on its data.
 
 ## DoddleOS tool IDs
 
 | Tool ID | Maps to | Type |
 |---------|---------|------|
 | `doddle.tool.v1.apollo.searchPeople` | `apollo_mixed_people_api_search` | read (no credits) |
-| `doddle.tool.v1.apollo.enrichPeople` | `people enrichment` | write (consumes credits) |
-| `doddle.tool.v1.apollo.createSequence` | `create/enroll sequence` | write |
+| `doddle.tool.v1.apollo.searchCompanies` | company search | read (credits) |
+| `doddle.tool.v1.apollo.enrichPeople` | enrichment | **write** (credits) |
+| `doddle.tool.v1.apollo.validateRecords` | validation | read (credits) |
+| `doddle.tool.v1.apollo.research` | research | read (credits) |
 
-**Write-gated.** Any tool marked *write* must sit behind a `gate` node in the blueprint (`approve_*`), and the write tool stays `required: false` with `fallback: manual_review`.
+**Write-gated.** `enrichPeople` writes enriched fields onto the enriched records in Apollo and
+burns credits, so a blueprint must place a `gate` node before it (for example
+`approve_enrichment`), keep the tool `required: false` with `fallback: manual_review`, and
+preview the target list first. Everything else in this entry is a read.
 
 ## Setup
 
-- Apollo account with access to the records you want
-- Credits available for enrichment
-- AI model training turned off in your client
+1. Apollo account.
+2. Interactive: authorize the MCP client with OAuth 2.0.
+   Headless: set `APOLLO_API_KEY` to a **MASTER** key (scoped keys fail with 403).
+3. Keep a credit balance for company search, enrichment, validation and research.
 
-### Notes
-
-- OAuth 2.0 for interactive clients; headless clients send a MASTER key in the X-Api-Key header (scoped keys are rejected with 403 API_INACCESSIBLE).
-- People search reads and consumes no credits; company search, enrichment, validation and research consume credits.
-- Apollo prohibits AI model training on its data.
-- Destructive bulk delete is not supported.
+```bash
+export APOLLO_API_KEY="<MASTER key>"
+```
 
 ## Used By
 
-- `doddle.revops.*` (doddle-revops-skills) where the skill binds it
+- `revops-ai-sdr` (doddle-revops-skills) — binds `doddle.tool.v1.apollo.searchPeople` and the gated
+  `doddle.tool.v1.apollo.enrichPeople` (`approve_enrichment`)
+- Candidate lane for `gtm-icp`, `gtm-abm`, `gtm-segmentation` (doddle-gtm-skills), which today
+  bind the deprecated `doddle.tool.v1.clearbit.company` id

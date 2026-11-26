@@ -1,44 +1,52 @@
 {
   "name": "zapier",
-  "description": "Zapier MCP \u2014 9,000+ apps and 40,000+ actions through agentic or managed servers",
+  "description": "Zapier MCP — GA, agentic or managed servers that run actions against your existing app connections",
   "type": "remote",
   "transport": "http",
   "url": "https://mcp.zapier.com",
   "auth": "oauth",
+  "env": {},
   "writes": true,
   "writeTools": [
+    "doddle.tool.v1.zapier.enableAction",
+    "doddle.tool.v1.zapier.manageConnections",
+    "doddle.tool.v1.zapier.autoProvisionMcp",
     "doddle.tool.v1.zapier.runAction"
   ],
   "setup": {
     "requirements": [
       "Zapier Team or Enterprise plan",
-      "App connections in the Zapier account"
+      "A named MCP client — one server is created per client",
+      "App connections already set up in the Zapier account"
     ],
     "notes": [
+      "General availability; available on Team and Enterprise plans.",
       "One server per named MCP client; sharing a server needs Team or Enterprise.",
-      "Streamable HTTP only \u2014 SSE is not supported.",
-      "Agentic mode exposes meta-tools (discover_zapier_actions, enable_zapier_action, manage_zapier_connections, auto_provision_mcp); managed mode exposes one tool per action.",
-      "Actions run against existing app connections and CAN mutate those apps. Tool calls consume plan tasks; failed calls are free."
+      "Streamable HTTP only — SSE is NOT supported.",
+      "Agentic mode (default) exposes the fixed meta-tools discover_zapier_actions, enable_zapier_action, manage_zapier_connections, auto_provision_mcp.",
+      "Managed mode exposes one tool per action, configured in Zapier.",
+      "Actions run against the user's existing app connections and CAN mutate those apps.",
+      "Tool calls consume Zapier tasks from the plan quota; failed calls are free.",
+      "SOC 2 Type II. Enablement is account-level, controls are workspace-level, and task quotas are per workspace."
     ]
   },
   "capabilities": {
-    "tools": 6,
+    "tools": 5,
     "categories": [
-      "apps",
-      "actions",
-      "workflows",
-      "skills"
+      "action-discovery",
+      "action-execution",
+      "connections",
+      "provisioning"
     ],
     "upstreamTools": [
       "discover_zapier_actions",
       "enable_zapier_action",
       "manage_zapier_connections",
       "auto_provision_mcp",
-      "managed-mode action tools"
+      "managed-mode action tools (one per action)"
     ]
   },
   "source": {
-    "official": "https://docs.zapier.com/mcp/overview/how-tools-work",
-    "product": "https://zapier.com/mcp"
+    "mcp": "https://mcp.zapier.com"
   }
 }

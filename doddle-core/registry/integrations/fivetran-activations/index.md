@@ -1,39 +1,53 @@
-# fivetran-activations
+# Fivetran Activations
 
-> Fivetran Activations (formerly Census) reverse ETL — REST/Terraform today; Fivetran platform MCP covers context and read-only SQL
+> Census was acquired by Fivetran and is now **Fivetran Activations** — Census is no longer a
+> standalone product. **No Activations-native MCP server exists**: the reverse-ETL sync path
+> runs on the Activations REST API or the Terraform provider today.
 
 ## Connection
 
 | Field | Value |
 |-------|-------|
-| Endpoint | `https://mcp.fivetran.com/mcp` |
-| Transport | http |
-| Auth | oauth |
+| MCP endpoint | none — Activations has no MCP server (the `url` field in `config.json` is `null` on purpose) |
+| Activations surfaces | REST API, Terraform provider, Management API, Connect Links |
+| Fivetran platform MCP | "Agent Context MCP server" — semantic definitions + READ-ONLY warehouse SQL (not Activations-specific) |
+| Self-hosted platform MCP | published by Fivetran in its own GitHub org for platform operations (not Activations-specific) |
 
-## Upstream tools
+## Tools
 
-`Agent Context MCP (read-only SQL + semantics)`, `Activations REST API`, `Activations Terraform provider`
+| Upstream tool | Surface |
+|---------------|---------|
+| semantic definitions | Agent Context MCP |
+| read-only warehouse SQL | Agent Context MCP |
+| audiences (Audience Hub) | Activations REST API |
+| reverse-ETL sync (200+ destinations) | Activations REST API / Terraform provider |
 
 ## DoddleOS tool IDs
 
 | Tool ID | Maps to | Type |
 |---------|---------|------|
-| `doddle.tool.v1.fivetran-activations.queryWarehouse` | `Agent Context MCP read-only SQL` | read |
-| `doddle.tool.v1.fivetran-activations.listActivations` | `Activations REST API (out of MCP)` | read (REST) |
+| `doddle.tool.v1.fivetran-activations.getSemanticDefinitions` | Agent Context MCP — semantic definitions | read |
+| `doddle.tool.v1.fivetran-activations.queryWarehouse` | Agent Context MCP — read-only warehouse SQL | read |
+| `doddle.tool.v1.fivetran-activations.listAudiences` | Activations REST API — Audience Hub segments | read |
+| `doddle.tool.v1.fivetran-activations.triggerSync` | Activations REST API / Terraform provider — reverse-ETL sync | **write** |
 
-**Read-only.** No tool in this entry mutates external data, so it needs no approval gate.
+These ids are **not** MCP tool calls today — the first two map to Fivetran's platform MCP and
+the last two to the Activations REST API / Terraform provider. That split is deliberate: it
+keeps the skill bindings stable while the sync path stays on the supported API.
+
+**Write-gated.** `triggerSync` starts data movement from the warehouse to a destination. A
+blueprint must place a `gate` node immediately before it (for example `approve_sync`), keep the
+tool `required: false` with `fallback: manual_review`, and show the source model, destination
+and audience before asking for approval.
 
 ## Setup
 
-- Fivetran account (Activations lives inside the Fivetran platform)
-
-### Notes
-
-- Census was acquired by Fivetran and is now Fivetran Activations — Census is no longer a standalone product.
-- Fivetran hosts an Agent Context MCP exposing semantic definitions and read-only warehouse SQL, plus a self-hosted MCP repo for platform operations; neither is Activations-specific.
-- There is NO Activations-native MCP server: create and manage reverse-ETL syncs through the Activations REST API or the Terraform provider.
-- Activations syncs warehouse models to 200+ destinations; Audience Hub provides governed segments.
+1. Fivetran account with Activations enabled.
+2. Activations REST API or Terraform provider credentials for the sync path.
+3. Warehouse model and destination connection (200+ destinations supported).
+4. Audience Hub for governed segments.
 
 ## Used By
 
-- `doddle.revops.*` (doddle-revops-skills) where the skill binds it
+- `revops-data-infrastructure` (doddle-revops-skills) — reverse-ETL readiness audit
+- Candidate lane for `gtm-segmentation` (doddle-gtm-skills) via Audience Hub — not yet bound

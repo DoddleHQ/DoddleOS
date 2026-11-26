@@ -6,39 +6,39 @@
 
 | Service | Category | Type | Tools | Status |
 |---------|----------|------|-------|--------|
-| [6sense](./6sense/) | Intent | Remote | 7 | ✅ Active |
-| [apollo](./apollo/) | Enrichment | Remote | 8 | ✅ Active (write-gated) |
-| [asana](./asana/) | Data | npm | 12 | ✅ Active |
+| [6sense](./6sense/) | Intent & Signals | Remote | 7 | ✅ Active |
+| [apollo](./apollo/) | Enrichment & Outreach | Remote | 5 | ✅ Active (write-gated) |
+| [asana](./asana/) | Existing (see table) | npm | 12 | ✅ Active |
 | [bigquery](./bigquery/) | Warehouse | npm | 8 | ✅ Active |
-| [clay](./clay/) | Enrichment | Remote | 6 | ✅ Active (write-gated) |
-| [clearbit](./clearbit/) | Enrichment (deprecated) | — | 1 | ⚠️ Deprecated |
-| [crosspost](./crosspost/) | Data | npm | 3 | ✅ Active |
-| [dataforseo](./dataforseo/) | Data | npm | 50 | ✅ Active |
-| [dbt](./dbt/) | Data modeling | npm | 6 | ✅ Active |
-| [discord](./discord/) | Community | npm | 4 | ✅ Active (write-gated) |
-| [fivetran-activations](./fivetran-activations/) | Reverse ETL | Remote | 4 | ✅ Active |
-| [gong](./gong/) | Conversation intel | Remote | 9 | ✅ Active |
-| [google-analytics](./google-analytics/) | Data | npm | 6 | ✅ Active |
-| [google-business-profile](./google-business-profile/) | Data | custom | 4 | ✅ Active |
-| [google-search-console](./google-search-console/) | Data | npm | 6 | ✅ Active |
-| [hightouch](./hightouch/) | Reverse ETL | Remote | 8 | ✅ Active (write-gated) |
-| [hubspot](./hubspot/) | Data | Remote | 15 | ✅ Active |
-| [line](./line/) | Data | npm | 5 | ✅ Active |
-| [make](./make/) | Automation | Remote | 6 | ✅ Active (write-gated) |
-| [meta-ads](./meta-ads/) | Data | npm | 25 | ✅ Active |
-| [notion](./notion/) | Data | npm | 15 | ✅ Active (write-gated) |
-| [rudderstack](./rudderstack/) | CDP | Remote | 10 | ✅ Active (write-gated) |
-| [segment](./segment/) | CDP | npm | 6 | ✅ Active (write-gated) |
-| [semrush](./semrush/) | Data | Remote | 20 | ✅ Active |
-| [sensortower](./sensortower/) | Data | custom | 29 | ✅ Active |
-| [slack](./slack/) | Data | npm | 10 | ✅ Active (write-gated) |
+| [clay](./clay/) | Enrichment & Outreach | Remote | 4 | ✅ Active (write-gated) |
+| [clearbit](./clearbit/) | Enrichment & Outreach | Remote | 1 | ⚠️ Deprecated |
+| [crosspost](./crosspost/) | Existing (see table) | npm | 3 | ✅ Active |
+| [dataforseo](./dataforseo/) | Existing (see table) | npm | 50 | ✅ Active |
+| [dbt](./dbt/) | Data Modeling | npm | 6 | ✅ Active |
+| [discord](./discord/) | Community | npm | 3 | ⚪ Community |
+| [fivetran-activations](./fivetran-activations/) | Reverse ETL | REST | 4 | ✅ Active (write-gated) |
+| [gong](./gong/) | Conversation Intelligence | Remote | 9 | ✅ Active |
+| [google-analytics](./google-analytics/) | Existing (see table) | npm | 6 | ✅ Active |
+| [google-business-profile](./google-business-profile/) | Existing (see table) | custom | 4 | ✅ Active |
+| [google-search-console](./google-search-console/) | Existing (see table) | npm | 6 | ✅ Active |
+| [hightouch](./hightouch/) | Reverse ETL | Remote | 12 | ✅ Active (write-gated) |
+| [hubspot](./hubspot/) | Existing (see table) | Remote | 15 | ✅ Active |
+| [line](./line/) | Existing (see table) | npm | 5 | ✅ Active |
+| [make](./make/) | Automation | Remote | 8 | ✅ Active (write-gated) |
+| [meta-ads](./meta-ads/) | Existing (see table) | npm | 25 | ✅ Active |
+| [notion](./notion/) | Existing (see table) | npm | 15 | ✅ Active (write-gated) |
+| [rudderstack](./rudderstack/) | Customer Data | Remote | 10 | ✅ Active (write-gated) |
+| [segment](./segment/) | Customer Data | npm | 6 | ✅ Active (write-gated) |
+| [semrush](./semrush/) | Existing (see table) | Remote | 20 | ✅ Active |
+| [sensortower](./sensortower/) | Existing (see table) | custom | 29 | ✅ Active |
+| [slack](./slack/) | Existing (see table) | npm | 10 | ✅ Active (write-gated) |
 | [snowflake](./snowflake/) | Warehouse | Remote | 6 | ✅ Active (write-gated) |
-| [stripe](./stripe/) | Data | Remote | 4 | ✅ Active (write-gated) |
-| [tiktok](./tiktok/) | Data | npm | 5 | ✅ Active |
-| [twitter](./twitter/) | Data | npm | 8 | ✅ Active |
-| [zalo](./zalo/) | Data | custom | 0 | ✅ Active |
-| [zapier](./zapier/) | Automation | Remote | 6 | ✅ Active (write-gated) |
-| [zoominfo](./zoominfo/) | Enrichment | Remote | 5 | ✅ Active |
+| [stripe](./stripe/) | Existing (see table) | Remote | 4 | ✅ Active (write-gated) |
+| [tiktok](./tiktok/) | Existing (see table) | npm | 5 | ✅ Active |
+| [twitter](./twitter/) | Existing (see table) | npm | 8 | ✅ Active |
+| [zalo](./zalo/) | Existing (see table) | custom | 0 | ✅ Active |
+| [zapier](./zapier/) | Automation | Remote | 5 | ✅ Active (write-gated) |
+| [zoominfo](./zoominfo/) | Conversation Intelligence | Remote | 5 | ✅ Active |
 
 ---
 
@@ -48,7 +48,7 @@
 
 - **[bigquery](./bigquery/)** — 8 tools · npm · auth: bot/token
 
-- **[snowflake](./snowflake/)** (write-gated) — 6 tools · remote · auth: oauth-or-pat
+- **[snowflake](./snowflake/)** (write-gated) — 6 tools · Remote · auth: oauth-or-pat
 
 
 ### Data Modeling
@@ -58,49 +58,49 @@
 
 ### Customer Data
 
-- **[rudderstack](./rudderstack/)** (write-gated) — 10 tools · remote · auth: oauth
+- **[rudderstack](./rudderstack/)** (write-gated) — 10 tools · Remote · auth: oauth
 
 - **[segment](./segment/)** (write-gated) — 6 tools · npm · auth: bot/token
 
 
 ### Intent & Signals
 
-- **[6sense](./6sense/)** — 7 tools · remote · auth: oauth
+- **[6sense](./6sense/)** — 7 tools · Remote · auth: oauth
 
 
 ### Enrichment & Outreach
 
-- **[apollo](./apollo/)** (write-gated) — 8 tools · remote · auth: oauth-or-api-key
+- **[apollo](./apollo/)** (write-gated) — 5 tools · Remote · auth: oauth-or-api-key
 
-- **[clay](./clay/)** (write-gated) — 6 tools · remote · auth: oauth-dcr
+- **[clay](./clay/)** (write-gated) — 4 tools · Remote · auth: oauth-dcr
 
-- **[clearbit](./clearbit/)** — 1 tools · deprecated · auth: deprecated
+- **[clearbit](./clearbit/)** — 1 tools · Remote · auth: remote
 
 
 ### Conversation Intelligence
 
-- **[gong](./gong/)** — 9 tools · remote · auth: oauth
+- **[gong](./gong/)** — 9 tools · Remote · auth: oauth
 
-- **[zoominfo](./zoominfo/)** — 5 tools · remote · auth: oauth
+- **[zoominfo](./zoominfo/)** — 5 tools · Remote · auth: remote
 
 
 ### Reverse ETL
 
-- **[fivetran-activations](./fivetran-activations/)** — 4 tools · remote · auth: oauth
+- **[fivetran-activations](./fivetran-activations/)** (write-gated) — 4 tools · REST · auth: rest
 
-- **[hightouch](./hightouch/)** (write-gated) — 8 tools · remote · auth: oauth
+- **[hightouch](./hightouch/)** (write-gated) — 12 tools · Remote · auth: oauth (workspace, gated)
 
 
 ### Automation
 
-- **[make](./make/)** (write-gated) — 6 tools · remote · auth: oauth-or-api-key
+- **[make](./make/)** (write-gated) — 8 tools · Remote · auth: oauth-or-api-key
 
-- **[zapier](./zapier/)** (write-gated) — 6 tools · remote · auth: oauth
+- **[zapier](./zapier/)** (write-gated) — 5 tools · Remote · auth: oauth
 
 
 ### Community
 
-- **[discord](./discord/)** (write-gated) — 4 tools · npm · auth: bot/token
+- **[discord](./discord/)** — 3 tools · npm · auth: bot/token
 
 ---
 

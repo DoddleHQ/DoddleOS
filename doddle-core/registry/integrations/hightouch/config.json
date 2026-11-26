@@ -1,47 +1,66 @@
 {
   "name": "hightouch",
-  "description": "Hightouch reverse ETL and audiences \u2014 official MCP server (workspace-gated)",
+  "description": "Hightouch marketing stack \u2014 gated workspace MCP (schema, data, audiences, journeys, creatives, syncs) plus public read-only docs and Agent API MCPs",
   "type": "remote",
   "transport": "http",
-  "url": "https://mcp.hightouch.com/mcp",
-  "auth": "oauth",
+  "url": null,
+  "auth": "oauth (workspace, gated)",
+  "env": {},
   "writes": true,
   "writeTools": [
+    "doddle.tool.v1.hightouch.createAudience",
+    "doddle.tool.v1.hightouch.designJourney",
+    "doddle.tool.v1.hightouch.generateEmailCreative",
+    "doddle.tool.v1.hightouch.generateAdCreative",
+    "doddle.tool.v1.hightouch.manageSyncs",
     "doddle.tool.v1.hightouch.createSync"
   ],
   "setup": {
     "requirements": [
       "Hightouch workspace",
-      "MCP enabled for the workspace by Hightouch (not self-serve)"
+      "Hightouch must enable the MCP server for the workspace \u2014 it is gated, not self-serve",
+      "Workspace role that allows the requested actions (operations respect the workspace RBAC)"
     ],
     "notes": [
-      "The workspace MCP server is gated: Hightouch must enable it for your account.",
-      "Operations are scoped to the authenticated workspace and respect its role-based access controls.",
-      "A public read-only docs MCP exists at https://docs.hightouch.com/mcp; a read-only Agent API MCP at https://hightouch.com/agent-api/mcp serves public product docs.",
-      "MCP access carries no extra charge; underlying product and agent usage still applies."
+      "config.url is null on purpose: the workspace MCP endpoint is provisioned by Hightouch and is not published. The public docs MCP (https://docs.hightouch.com/mcp) and the read-only Agent API MCP (https://hightouch.com/agent-api/mcp) are listed under source.",
+      "The workspace marketing-stack MCP is GATED: Hightouch enables it per workspace and its endpoint URL is not published here.",
+      "Public docs-only MCP (no auth): https://docs.hightouch.com/mcp (Search / Read pages / Submit feedback).",
+      "Signed-in docs MCP: https://docs.hightouch.com/authed/mcp.",
+      "Read-only public Agent API MCP: https://hightouch.com/agent-api/mcp (search + fetch), with https://hightouch.com/agent-api/v1/info and https://hightouch.com/agent-api/openapi.json.",
+      "MCP access carries no extra charge; the underlying product usage still applies.",
+      "All workspace operations are scoped to the authenticated workspace and respect its RBAC."
     ]
   },
   "capabilities": {
-    "tools": 8,
+    "tools": 12,
     "categories": [
+      "schema",
+      "data",
+      "performance",
       "audiences",
       "journeys",
-      "syncs",
       "creatives",
-      "performance",
-      "schema"
+      "syncs"
     ],
     "upstreamTools": [
       "schema inspection",
+      "data access",
+      "performance analysis",
       "audience create/save",
       "journey design",
+      "email/SMS creative generation (saved as drafts)",
+      "ad creative generation",
       "sync management",
-      "creative generation",
-      "performance analysis"
+      "sync creation from templates",
+      "Agent API search",
+      "Agent API fetch"
     ]
   },
   "source": {
-    "official": "https://docs.hightouch.com/ai-integrations/mcp",
-    "docsMcp": "https://docs.hightouch.com/ai-integrations/docs-mcp"
+    "publicDocsMcp": "https://docs.hightouch.com/mcp",
+    "signedInDocsMcp": "https://docs.hightouch.com/authed/mcp",
+    "agentApiMcp": "https://hightouch.com/agent-api/mcp",
+    "agentApiInfo": "https://hightouch.com/agent-api/v1/info",
+    "agentApiOpenapi": "https://hightouch.com/agent-api/openapi.json"
   }
 }

@@ -1,42 +1,57 @@
-# discord
+# Discord
 
-> Discord community reads — official server is docs-only; message reads need a bot-token community server
+> Discord has **no official MCP server** that reads or sends messages in your servers or DMs.
+> The official MCP (`https://docs.discord.com/mcp`) only searches developer documentation —
+> message history needs a bot-token community server.
 
 ## Connection
 
 | Field | Value |
 |-------|-------|
-| Command | `npx -y mcp-discord` |
-| Auth | bot token / access token |
+| Official MCP | `https://docs.discord.com/mcp` — 3 read-only doc tools, no message access |
+| Message reads | community server `barryyip0625/mcp-discord` (MIT), driven by a DISCORD bot token |
+| Registered command | `npx -y github:barryyip0625/mcp-discord` — stdio by default, optional HTTP |
+| Stale build | npm `mcp-discord` is v1.3.4 (22 tools); the GitHub build is v1.5.1 (46 tools) — use the GitHub build |
 
-## Upstream tools
+## Tools
 
-`discord_read_messages`, `discord_search_messages`, `discord_send_message`
+| Upstream tool | Needs |
+|---------------|-------|
+| message history read (community server) | `VIEW_CHANNEL` + `READ_MESSAGE_HISTORY`, Message Content intent |
+| Search Guild Messages (native Discord endpoint, 2026-03-19) | `READ_MESSAGE_HISTORY` + `MESSAGE_CONTENT` |
+| official docs MCP — 3 read-only documentation search tools | none |
 
 ## DoddleOS tool IDs
 
 | Tool ID | Maps to | Type |
 |---------|---------|------|
-| `doddle.tool.v1.discord.readMessages` | `discord_read_messages` | read |
-| `doddle.tool.v1.discord.searchMessages` | `discord_search_messages` | read |
-| `doddle.tool.v1.discord.sendMessage` | `discord_send_message` | write |
+| `doddle.tool.v1.discord.readMessages` | message history read (community server) | read |
+| `doddle.tool.v1.discord.searchMessages` | Search Guild Messages (native Discord endpoint) | read |
+| `doddle.tool.v1.discord.searchDocs` | official docs MCP — documentation search | read |
 
-**Write-gated.** Any tool marked *write* must sit behind a `gate` node in the blueprint (`approve_*`), and the write tool stays `required: false` with `fallback: manual_review`.
+**Read-only.** This entry binds reads only — Discord's official MCP cannot send messages, and
+no send tool is registered here, so no approval gate is required. To post to a server, use the
+bot / Discord API directly, outside the MCP registry.
 
 ## Setup
 
-- Discord application with a bot token
-- Message Content privileged intent enabled (otherwise the Gateway closes with code 4014)
-- Bot invited to the servers it may read
+1. Create a Discord application and a bot token.
+2. Invite the bot to the servers it may read and grant `VIEW_CHANNEL` +
+   `READ_MESSAGE_HISTORY`.
+3. Enable the **Message Content** privileged intent — without it the Gateway closes with code
+   **4014** and message text is unreadable.
+4. Export the token into the environment (never onto a command line):
 
-### Notes
+```bash
+export DISCORD_BOT_TOKEN="<bot token>"
+```
 
-- Discord has NO official MCP server that reads or sends messages. Its official MCP (https://docs.discord.com/mcp) only searches developer documentation.
-- Message reads need a community server driven by a bot token — the maintained option is barryyip0625/mcp-discord (MIT). The npm `mcp-discord` build is older than the GitHub release.
-- Reading history needs VIEW_CHANNEL + READ_MESSAGE_HISTORY; reading message text needs the Message Content intent.
-- Discord native Search Guild Messages endpoint (2026-03-19) needs the same permissions; error 110000 means the guild is not yet indexed.
-- Self-bot servers (account-token logins) violate Discord terms — not an option.
+5. Native search: `Search Guild Messages` (2026-03-19) needs `READ_MESSAGE_HISTORY` +
+   `MESSAGE_CONTENT`; error **110000** means the guild is not yet indexed.
 
 ## Used By
 
-- `doddle.revops.*` (doddle-revops-skills) where the skill binds it
+- `revops-dark-social` (doddle-revops-skills) — binds `doddle.tool.v1.discord.readMessages` and
+  `doddle.tool.v1.discord.searchMessages`
+- `community-building` (doddle-marketing-skills) — Discord community analysis lane
+- Not supported: self-bot servers (account-token logins) violate Discord's terms of service

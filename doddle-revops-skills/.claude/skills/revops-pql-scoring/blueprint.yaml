@@ -15,7 +15,7 @@ outputs:
 tools:
   - {id: doddle.tool.cli.drev, required: false, fallback: manual_review}
   - {id: doddle.tool.v1.rudderstack.listEvents, required: false, fallback: manual_review}
-  - {id: doddle.tool.v1.segment.listSchemas, required: false, fallback: manual_review}
+  - {id: doddle.tool.v1.segment.getSchemas, required: false, fallback: manual_review}
 integrations:
   - rudderstack
   - segment

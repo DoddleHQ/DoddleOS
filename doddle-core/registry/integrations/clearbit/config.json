@@ -1,32 +1,46 @@
 {
   "name": "clearbit",
-  "description": "DEPRECATED \u2014 Clearbit is now HubSpot data enrichment; use hubspot (enrichment/intent) or 6sense",
-  "type": "deprecated",
-  "note": "DEPRECATED \u2014 Clearbit is now HubSpot data enrichment; use hubspot (enrichment/intent) or 6sense",
+  "description": "DEPRECATED — Clearbit is now HubSpot data enrichment (Breeze Intelligence name retired in 2026); no standalone Clearbit MCP server exists",
+  "type": "remote",
+  "transport": "http",
+  "url": null,
+  "status": "deprecated",
+  "supersededBy": [
+    "hubspot",
+    "6sense"
+  ],
+  "env": {},
   "writes": false,
   "writeTools": [],
   "setup": {
-    "requirements": [],
+    "requirements": [
+      "No Clearbit setup — the product no longer exists standalone",
+      "For enrichment: a paid HubSpot plan (data enrichment is included and consumes no HubSpot Credits)",
+      "For intent: 6sense access, or HubSpot buyer intent (metered in HubSpot Credits)"
+    ],
     "notes": [
-      "Clearbit was acquired by HubSpot (Dec 2023), became Breeze Intelligence (Sept 2024), and the Breeze Intelligence name was retired in 2026 \u2014 the capability is now data enrichment inside HubSpot Smart CRM.",
+      "Clearbit was acquired by HubSpot (Dec 2023), rebranded Breeze Intelligence (Sept 2024), and the Breeze Intelligence name was retired in 2026 — the capability is now data enrichment built into HubSpot Smart CRM.",
       "Standalone Clearbit subscriptions stopped (April 2025); free Clearbit tools sunset 2025-04-30; the free Logo API sunset 2025-12-01.",
-      "Clearbit has no MCP server of its own. Map doddle.tool.v1.clearbit.company onto HubSpot data enrichment + buyer intent (HubSpot Credits metered: 10 credits per company per month for intent signals).",
-      "For predictive buying stage and keyword intent use 6sense instead."
+      "Clearbit has NO MCP server of its own. The 'url' field is null on purpose so nothing points at a non-existent endpoint.",
+      "Map doddle.tool.v1.clearbit.company onto HubSpot's enrichment / intent capabilities and use the hubspot entry (https://mcp.hubspot.com) to serve it.",
+      "For buyer intent, prefer 6sense (read-only intent, keyword and account insight).",
+      "HubSpot buyer intent is metered in HubSpot Credits: 10 credits per company per month to enable / monitor intent signals, 50 credits per month per custom signal. Enrichment itself consumes no HubSpot Credits."
     ]
   },
   "capabilities": {
     "tools": 1,
     "categories": [
       "firmographics",
+      "enrichment",
       "intent"
     ],
     "upstreamTools": [
-      "HubSpot data enrichment",
-      "HubSpot buyer intent"
+      "HubSpot data enrichment (firmographics)",
+      "HubSpot buyer intent (HubSpot Credits metered)"
     ]
   },
   "source": {
-    "clearbit": "https://help.clearbit.com/hc/en-us/articles/20717192156695-How-Can-I-Buy-Clearbit",
-    "hubspot": "https://developers.hubspot.com/mcp"
+    "servedBy": "https://mcp.hubspot.com",
+    "note": "Clearbit has no MCP server of its own — this entry is a deprecated alias onto HubSpot enrichment/intent and 6sense intent."
   }
 }
