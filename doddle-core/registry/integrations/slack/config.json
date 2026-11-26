@@ -2,37 +2,61 @@
   "name": "slack",
   "description": "Slack messaging and notifications",
   "writes": true,
-  "type": "npm",
+  "type": "remote",
   "command": "npx",
   "args": [
     "-y",
     "@anthropic-ai/slack-mcp"
   ],
   "env": {
-    "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}",
-    "SLACK_TEAM_ID": "${SLACK_TEAM_ID}"
+    "SLACK_CLIENT_ID": "${SLACK_CLIENT_ID}",
+    "SLACK_CLIENT_SECRET": "${SLACK_CLIENT_SECRET}",
+    "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}"
   },
   "setup": {
     "requirements": [
       "Slack workspace",
-      "Slack App with Bot Token",
-      "Required scopes: chat:write, channels:read, users:read"
+      "Slack app (Client ID + secret)",
+      "Workspace admin approval for the MCP client integration",
+      "Bot token for message actions"
+    ],
+    "notes": [
+      "Official hosted MCP server at https://mcp.slack.com/mcp. Streamable HTTP only \u2014 no SSE and no DCR.",
+      "There is NO official npm package: @slack/mcp-server does not exist on npm (404).",
+      "SECURITY: @modelcontextprotocol/server-slack is archived, npm-deprecated, and carries CVE-2025-34072 (CVSS 9.3) \u2014 its post/reply paths leave link unfurling on, so a prompt injection can exfiltrate a .env or private message. Do not use it; revoke any xoxb- tokens it touched.",
+      "Slack documents capabilities rather than a fixed tool list, so pin behaviour to tools/list instead of hardcoded names."
     ]
   },
   "capabilities": {
     "tools": 10,
     "categories": [
-      "messaging",
+      "messages",
+      "files",
       "channels",
       "users",
-      "notifications"
+      "canvases",
+      "lists"
+    ],
+    "upstreamTools": [
+      "search messages/files/users/channels",
+      "retrieve and send messages",
+      "schedule messages",
+      "manage canvases",
+      "manage users",
+      "upload files",
+      "lists"
     ]
   },
   "source": {
-    "github": "https://github.com/korotovsky/slack-mcp-server",
-    "alternative": "https://github.com/ubie-oss/slack-mcp-server"
+    "official": "https://docs.slack.dev/ai/slack-mcp-server/",
+    "note": "No official npm package exists; use the hosted endpoint."
   },
   "writeTools": [
-    "doddle.tool.v1.slack.sendMessage"
-  ]
+    "doddle.tool.v1.slack.sendMessage",
+    "doddle.tool.v1.slack.scheduleMessage",
+    "doddle.tool.v1.slack.uploadFile"
+  ],
+  "transport": "http",
+  "url": "https://mcp.slack.com/mcp",
+  "auth": "oauth"
 }

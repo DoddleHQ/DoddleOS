@@ -34,7 +34,7 @@
 
 | Tool ID | Maps to | Type |
 |---------|---------|------|
-| `doddle.tool.v1.clay.searchPeople` | find-and-enrich people search (via routine / function run or the Public API) | read |
+| `doddle.tool.v1.clay.searchPeople` | `find-and-enrich-contacts-at-company` / `find-and-enrich-company` | read |
 | `doddle.tool.v1.clay.listSubroutines` | `list_subroutines` | read |
 | `doddle.tool.v1.clay.runSubroutine` | run a function by id | **write** (consumes credits) |
 | `doddle.tool.v1.clay.getRoutineResults` | Public API `GET .../routines/run/{routine_run_id}/results` | read |
@@ -44,6 +44,11 @@ workspace state, so a blueprint must place a `gate` node immediately before it (
 `approve_enrichment`), keep the tool `required: false` with `fallback: manual_review`, and
 show the routine id + intended source list before asking for approval.
 
+## Verified notes (2026-11)
+
+- The MCP endpoint returns an **`Mcp-Session-Id`** header on `initialize` — echo it on every subsequent call. Skipping it is the most common Clay integration failure.
+- Dynamic client registration is open and self-service but rate-limited (burst 4, refill ~10/hour per IP). Admin policy is re-checked at token issuance, so revoking an allowed client can 401 an otherwise working connection on the next refresh.
+- **Dry-run:** run a workflow in test mode; generated email/SMS is saved as a draft before send. MCP cannot send Sequencer campaign emails, but one-off sends are callable.
 ## Setup
 
 1. Clay workspace with the functions you intend to call.

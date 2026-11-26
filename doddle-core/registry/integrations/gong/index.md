@@ -45,6 +45,11 @@ tool so existing blueprints stay valid.
 The only cost is Gong credits, so keep `ask_*`, `generate_brief` and `research_conversations`
 deliberate and few.
 
+## Verified notes (2026-11)
+
+- The setup flow offers an `mcp:write` scope, but **no write tool is documented** — treat it as future-proofing, not current capability.
+- Token endpoint: `https://app.gong.io/oauth2/generate-mcp-token`.
+- `get_transcript` returns raw transcripts one page at a time — the one place raw data flows out versus synthesized answers; shared-access integrations expose only `ask_account`, `ask_deal`, `generate_brief`, `get_session_context`.
 ## Setup
 
 1. Paid Gong seat.

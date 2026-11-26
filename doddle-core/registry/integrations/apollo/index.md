@@ -30,7 +30,7 @@ Destructive bulk delete is **not** supported. Apollo prohibits AI model training
 
 | Tool ID | Maps to | Type |
 |---------|---------|------|
-| `doddle.tool.v1.apollo.searchPeople` | `apollo_mixed_people_api_search` | read (no credits) |
+| `doddle.tool.v1.apollo.searchPeople` | People search action (`apollo_mixed_people_api_search`) | read (no credits) |
 | `doddle.tool.v1.apollo.searchCompanies` | company search | read (credits) |
 | `doddle.tool.v1.apollo.enrichPeople` | enrichment | **write** (credits) |
 | `doddle.tool.v1.apollo.validateRecords` | validation | read (credits) |
@@ -41,6 +41,10 @@ burns credits, so a blueprint must place a `gate` node before it (for example
 `approve_enrichment`), keep the tool `required: false` with `fallback: manual_review`, and
 preview the target list first. Everything else in this entry is a read.
 
+## Verified notes (2026-11)
+
+- Apollo publishes **Actions, not fixed tool ids**. Pin behaviour to `tools/list` and re-connect after a rollout — an API-key connection gets no "new tools available" signal.
+- **Dry-run:** create sequences inactive for review, draft email content before pushing, and set client approval to "Approval required" for credit-consuming actions.
 ## Setup
 
 1. Apollo account.

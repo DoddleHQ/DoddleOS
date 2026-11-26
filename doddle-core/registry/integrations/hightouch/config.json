@@ -5,7 +5,9 @@
   "transport": "http",
   "url": null,
   "auth": "oauth (workspace, gated)",
-  "env": {},
+  "env": {
+    "HIGTOUCH_API_KEY": "${HIGTOUCH_API_KEY}"
+  },
   "writes": true,
   "writeTools": [
     "doddle.tool.v1.hightouch.createAudience",
@@ -28,7 +30,8 @@
       "Signed-in docs MCP: https://docs.hightouch.com/authed/mcp.",
       "Read-only public Agent API MCP: https://hightouch.com/agent-api/mcp (search + fetch), with https://hightouch.com/agent-api/v1/info and https://hightouch.com/agent-api/openapi.json.",
       "MCP access carries no extra charge; the underlying product usage still applies.",
-      "All workspace operations are scoped to the authenticated workspace and respect its RBAC."
+      "All workspace operations are scoped to the authenticated workspace and respect its RBAC.",
+      "REST fallback for everything the gated MCP cannot do: https://api.hightouch.com with a bearer key (HIGTOUCH_API_KEY). The workspace OAuth metadata is live at https://mcp-auth.hightouch.com/oauth2/{authorize,token,register,device_authorization}, so a client can be built before the endpoint URL is disclosed."
     ]
   },
   "capabilities": {
@@ -61,6 +64,8 @@
     "signedInDocsMcp": "https://docs.hightouch.com/authed/mcp",
     "agentApiMcp": "https://hightouch.com/agent-api/mcp",
     "agentApiInfo": "https://hightouch.com/agent-api/v1/info",
-    "agentApiOpenapi": "https://hightouch.com/agent-api/openapi.json"
+    "agentApiOpenapi": "https://hightouch.com/agent-api/openapi.json",
+    "restApi": "https://api.hightouch.com",
+    "oauthMetadata": "https://mcp-auth.hightouch.com/oauth2"
   }
 }

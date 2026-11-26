@@ -29,12 +29,13 @@
     "requirements": [
       "Google Cloud project with the BigQuery API enabled",
       "Application Default Credentials",
-      "roles/bigquery.user (or roles/bigquery.dataViewer for read-only)"
+      "roles/mcp.toolUser plus roles/bigquery.jobUser and roles/bigquery.dataViewer for the managed server"
     ],
     "notes": [
       "MCP Toolbox for Databases is the open-source server (repo renamed genai-toolbox -> mcp-toolbox); it also supports Snowflake, Postgres, MySQL and more.",
       "Set BIGQUERY_READONLY=true to enforce read-only mode across all tools.",
-      "The managed remote server's execute_sql can run INSERT/UPDATE/DELETE and is intentionally unbound here."
+      "The managed remote server's execute_sql can run INSERT/UPDATE/DELETE and is intentionally unbound here.",
+      "The managed server (https://bigquery.googleapis.com/mcp) exposes 9 tools and was verified live; real calls still need OAuth plus IAM."
     ]
   },
   "capabilities": {
@@ -62,7 +63,9 @@
   "source": {
     "official": "https://docs.cloud.google.com/bigquery/docs/pre-built-tools-with-mcp-toolbox",
     "github": "https://github.com/googleapis/mcp-toolbox",
-    "mcpReference": "https://docs.cloud.google.com/bigquery/docs/reference/mcp"
+    "mcpReference": "https://docs.cloud.google.com/bigquery/docs/reference/mcp",
+    "managed": "https://bigquery.googleapis.com/mcp",
+    "managedReference": "https://docs.cloud.google.com/bigquery/docs/reference/mcp"
   },
   "writeTools": [
     "doddle.tool.v1.bigquery.executeSql"

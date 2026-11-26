@@ -1,6 +1,6 @@
 {
   "name": "make",
-  "description": "Make-hosted MCP server — run scenarios and manage the automation workspace (scenarios, connections, webhooks, data stores, teams, organizations)",
+  "description": "Make-hosted MCP server \u2014 run scenarios and manage the automation workspace (scenarios, connections, webhooks, data stores, teams, organizations)",
   "type": "remote",
   "transport": "http",
   "url": "https://mcp.make.com/v2",
@@ -31,7 +31,8 @@
       "Optional ?maxToolNameLength= query parameter (32-160, default 56).",
       "Scopes control which tools are exposed (for example scenarios:read to fetch outputs after a timeout).",
       "Timeouts: scenario run 25s (OAuth) / 40s (API key); management 30s (OAuth) / 60s (API key).",
-      "After a timeout the scenario keeps running for up to 40 minutes — retrieve the result with the returned executionId."
+      "After a timeout the scenario keeps running for up to 40 minutes \u2014 retrieve the result with the returned executionId.",
+      "Tool names are generated from your scenarios, so the tool surface is customer-defined. Use MCP toolboxes to limit which scenarios an API key exposes."
     ]
   },
   "capabilities": {
@@ -57,6 +58,7 @@
   },
   "source": {
     "oauthUrl": "https://mcp.make.com/v2",
-    "apiKeyUrlTemplate": "https://<MAKE_ZONE>/mcp/u/<API_KEY>/v2"
+    "apiKeyUrlTemplate": "https://<MAKE_ZONE>/mcp/u/<API_KEY>/v2",
+    "registry": "com.make/mcp-server"
   }
 }

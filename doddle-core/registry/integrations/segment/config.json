@@ -5,25 +5,27 @@
   "command": "npx",
   "args": [
     "-y",
-    "mcp-segment"
+    "segment-mcp-server"
   ],
   "runtime": "npx",
   "status": "community",
   "env": {
-    "SEGMENT_ACCESS_TOKEN": "${SEGMENT_ACCESS_TOKEN}",
-    "SEGMENT_WORKSPACE_SLUG": "${SEGMENT_WORKSPACE_SLUG}"
+    "SEGMENT_PUBLIC_API_TOKEN": "${SEGMENT_PUBLIC_API_TOKEN}",
+    "SEGMENT_WRITE_KEY": "${SEGMENT_WRITE_KEY}",
+    "SEGMENT_PROFILE_TOKEN": "${SEGMENT_PROFILE_TOKEN}"
   },
   "writes": true,
   "setup": {
     "requirements": [
-      "Segment workspace with an access token (workspace settings -> access management)",
-      "Trust in the community package publisher before connecting"
+      "Segment workspace",
+      "Workspace access token (or a source write key for the Tracking API)",
+      "Trust in the community package publisher before granting a token"
     ],
     "notes": [
-      "Segment has NOT shipped a first-party MCP server as of 2026-10. This entry points at a community-built server (mcp-segment, npm, April 2026) \u2014 verify its publisher before granting a workspace token.",
-      "Hosted alternatives exist (Composio, StackOne, Pipedream, Activepieces) if you prefer a vendor with an audit trail.",
-      "The community server cannot trigger warehouse syncs or create audiences \u2014 those stay in the Segment UI/CLI.",
-      "Teams that want full control can wrap Segment's public Tracking API (POST /v1/track, /v1/identify) directly."
+      "Segment has NO official workspace MCP server. The only first-party MCP is Twilio\u2019s docs search server (https://mcp.twilio.com/docs, 2 tools) \u2014 it never calls an API.",
+      "The closest wrapper is segment-mcp-server@1.0.0 (single maintainer, no repo, unpublished source) \u2014 treat it as a dependency you own. Alternatives: segment-mcp (katekruger), @pipeworx/mcp-segment, io.usefulapi/segment.",
+      "Segment needs three different credential types: Public API bearer token, Tracking API source write key, and a per-space Profiles token.",
+      "Dry-run: use a Segment test-mode source write key; GET-then-diff before config writes."
     ]
   },
   "capabilities": {
@@ -46,9 +48,9 @@
     ]
   },
   "source": {
-    "nativeApi": "https://segment.com/docs/connections/",
-    "registry": "https://registry.modelcontextprotocol.io/",
-    "note": "No official Segment MCP server \u2014 see setup notes"
+    "docsMcp": "https://mcp.twilio.com/docs",
+    "api": "https://segment.com/docs/connections/",
+    "community": "https://www.npmjs.com/package/segment-mcp-server"
   },
   "writeTools": [
     "doddle.tool.v1.segment.trackEvent",

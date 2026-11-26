@@ -1,73 +1,56 @@
-# Slack Integration
+# Slack
 
-> Team messaging, notifications, and workflow automation
+> Official Slack MCP server — hosted at `https://mcp.slack.com/mcp`. Read and write messages,
+> files, channels, users, canvases and lists.
 
-## Overview
+## Connection
 
-Send messages, notifications, and interact with Slack channels. Essential for marketing team communication and alerts.
+| Field | Value |
+|-------|-------|
+| Endpoint | `https://mcp.slack.com/mcp` |
+| Transport | Streamable HTTP (JSON-RPC 2.0) — **no SSE, no DCR** |
+| Auth | OAuth 2.0 (Slack app Client ID + secret); workspace admin approves each MCP client |
+| Env | `SLACK_CLIENT_ID`, `SLACK_CLIENT_SECRET`, `SLACK_BOT_TOKEN` |
 
-## Capabilities
+> **There is no official npm package.** `@slack/mcp-server` does not exist on npm (404). Use the
+> hosted endpoint above.
 
-| Tool | Description |
-|------|-------------|
-| `send_message` | Send message to channel/user |
-| `list_channels` | Get workspace channels |
-| `get_channel_history` | Read channel messages |
-| `post_blocks` | Send rich formatted messages |
-| `upload_file` | Share files to channels |
+> **Security — CVE-2025-34072 (CVSS 9.3).** The reference server
+> `@modelcontextprotocol/server-slack` is archived and npm-deprecated: its post/reply paths leave
+> link unfurling enabled, so a prompt injection can exfiltrate a `.env` file or private message
+> through a URL the agent posts. Do not use it. Revoke any `xoxb-` tokens it touched.
 
-## Authentication
+Slack documents **capabilities** rather than a fixed tool list, and tool names vary per client —
+pin behaviour to `tools/list` instead of hardcoded names.
 
-```bash
-export SLACK_BOT_TOKEN="xoxb-xxx-xxx-xxx"
-export SLACK_TEAM_ID="T0123456789"
-```
+## Upstream capabilities
 
-### Setup Slack App
-1. Go to [api.slack.com/apps](https://api.slack.com/apps)
-2. Create New App → From Scratch
-3. Add Bot Token Scopes: `chat:write`, `channels:read`, `files:write`
-4. Install to Workspace
-5. Copy Bot User OAuth Token
+Search messages/files/users/channels · retrieve and send messages · schedule messages · manage
+canvases · manage users · upload files · lists.
 
-## Use Cases
+## DoddleOS tool IDs
 
-### 1. Campaign Alerts
-```
-Notify team about campaign launch
-→ send_message(channel="#marketing", text="🚀 Q1 campaign is now live!")
-```
+| Tool ID | Maps to | Type |
+|---------|---------|------|
+| `doddle.tool.v1.slack.messages` | search messages / read channel history | read |
+| `doddle.tool.v1.slack.sendMessage` | send a message or blocks | **write** |
+| `doddle.tool.v1.slack.scheduleMessage` | schedule a message | **write** |
+| `doddle.tool.v1.slack.uploadFile` | upload a file to a channel | **write** |
 
-### 2. Report Delivery
-```
-Send weekly report to channel
-→ post_blocks(channel="#marketing-reports", blocks=[...report_blocks])
-```
+**Write-gated.** Sending, scheduling and uploading change the workspace. A blueprint must place a
+`gate` node immediately before the write (`approve_alert` for signal alerts, `approve_share` for
+the QBR share) and keep the tool `required: false` with `fallback: manual_review`.
 
-### 3. Lead Notifications
-```
-Alert sales about hot lead
-→ send_message(channel="#sales-leads", text="🔥 New MQL: Company X - $50K opportunity")
-```
+## Setup
 
-## Integration with Marketing
+1. Slack workspace.
+2. Create a Slack app (Client ID + secret); add the MCP integration in your AI client.
+3. Workspace admin approves the MCP client integration.
+4. A bot token is needed for message actions — scopes `chat:write`, `channels:read`,
+   `users:read`, `files:write`.
 
-- `/report:weekly` → Auto-send to Slack
-- `/campaign:analyze` → Alert on performance changes
-- `/leads:qualify` → Notify sales team
+## Used By
 
-## DoddleOS Tool IDs
-
-| Tool ID | Action | Type |
-|---------|--------|------|
-| `doddle.tool.v1.slack.messages` | Read channel history / list channels | read |
-| `doddle.tool.v1.slack.sendMessage` | Post a message or blocks to a channel | **write** |
-
-**Write-gated.** `slack.sendMessage` mutates a workspace. Any blueprint that calls it must place
-a `gate` node (`approvers` + `timeout_s`) immediately before the write node — see
-`doddle-core/spec/harness-phase2.md` §2.1 and `harness-cli-resolver.md` §6. Without an approved
-gate record the runner refuses to schedule the node (`write_without_gate`).
-
-## Related
-- [Discord](../discord/) - Alternative notification channel
-- [HubSpot](../hubspot/) - CRM lead source
+- `revops-signal-routing` (doddle-revops-skills) — `slack.sendMessage` behind `approve_alert`
+- `revops-qbr` (doddle-revops-skills) — `slack.sendMessage` behind `approve_share`
+- `gtm-outbound`, `gtm-abm`, `gtm-icp` (doddle-gtm-skills) — optional reads

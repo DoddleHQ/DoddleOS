@@ -1,17 +1,20 @@
 {
   "name": "gong",
-  "description": "Gong revenue intelligence — calls, transcripts, AI briefs, CRM entity search (official MCP server, read-only)",
+  "description": "Gong revenue intelligence \u2014 calls, transcripts, AI briefs, CRM entity search (official MCP server, read-only)",
   "type": "remote",
   "transport": "http",
   "url": "https://mcp.gong.io/mcp",
   "auth": "oauth",
-  "env": {},
+  "env": {
+    "GONG_CLIENT_ID": "${GONG_CLIENT_ID}",
+    "GONG_CLIENT_SECRET": "${GONG_CLIENT_SECRET}"
+  },
   "writes": false,
   "writeTools": [],
   "setup": {
     "requirements": [
       "Gong account with a paid seat",
-      "OAuth client — registration is automatic (marketplace/OAuth) or manual (Gong issues a client id + secret)",
+      "OAuth client \u2014 registration is automatic (marketplace/OAuth) or manual (Gong issues a client id + secret)",
       "OAuth scope mcp:read, mcp:write, or both"
     ],
     "notes": [
@@ -19,7 +22,8 @@
       "ask_account, ask_deal, generate_brief and research_conversations consume Gong credits.",
       "search_conversations, get_transcript, get_session_context, search_crm_entities and search_person_entities consume no credits.",
       "Some tools only work with personal-access authorization.",
-      "Native API alternative: POST /v2/calls/transcript (scope api:calls:read:transcript)."
+      "Native API alternative: POST /v2/calls/transcript (scope api:calls:read:transcript).",
+      "The setup flow offers an `mcp:write` scope, but no write tool is documented today \u2014 treat it as future-proofing, not current capability. Token endpoint: https://app.gong.io/oauth2/generate-mcp-token."
     ]
   },
   "capabilities": {
@@ -47,6 +51,7 @@
   },
   "source": {
     "mcp": "https://mcp.gong.io/mcp",
-    "apiAlternative": "POST /v2/calls/transcript (scope api:calls:read:transcript)"
+    "apiAlternative": "POST /v2/calls/transcript (scope api:calls:read:transcript)",
+    "tokenEndpoint": "https://app.gong.io/oauth2/generate-mcp-token"
   }
 }

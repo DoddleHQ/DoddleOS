@@ -31,6 +31,11 @@ is required. Enabling intent signals is a HubSpot-side action, not this tool —
 HubSpot Credits (10 credits per company per month to enable / monitor intent signals, 50 credits
 per month per custom signal). Data enrichment itself consumes no HubSpot Credits.
 
+## Verified notes (2026-11)
+
+- Legacy Clearbit REST endpoints still answer for existing customers (no new signups): `person.clearbit.com/v1/combined/find`, `company.clearbit.com/v2/companies/find`, `reveal.clearbit.com/v1/companies/find`. The free Logo API (`logo.clearbit.com`) no longer resolves.
+- HubSpot's own MCP (`mcp.hubspot.com`, OAuth 2.0) covers **CRM only** — it does not expose enrichment.
+- Write path for enrichment today is HubSpot CRM property updates (`PATCH /crm/v3/objects/contacts/{id}`) with a private-app token. **Dry-run:** GET-then-diff before PATCH, or write to a scratch property.
 ## Setup
 
 There is no Clearbit setup — the product no longer exists standalone.

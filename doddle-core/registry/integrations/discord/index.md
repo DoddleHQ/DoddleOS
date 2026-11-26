@@ -28,11 +28,20 @@
 | `doddle.tool.v1.discord.readMessages` | message history read (community server) | read |
 | `doddle.tool.v1.discord.searchMessages` | Search Guild Messages (native Discord endpoint) | read |
 | `doddle.tool.v1.discord.searchDocs` | official docs MCP — documentation search | read |
+| `doddle.tool.v1.discord.sendMessage` | community server — send a message | **write** |
+| `doddle.tool.v1.discord.createChannel` | community server — create a channel | **write** |
+| `doddle.tool.v1.discord.manageRole` | community server — role management | **write** |
+| `doddle.tool.v1.discord.moderate` | community server — moderation actions | **write** |
 
 **Read-only.** This entry binds reads only — Discord's official MCP cannot send messages, and
 no send tool is registered here, so no approval gate is required. To post to a server, use the
 bot / Discord API directly, outside the MCP registry.
 
+## Verified notes (2026-11)
+
+- **No official Discord action server exists.** The only Discord-operated MCP is the docs server (`https://docs.discord.com/mcp`, live, 3 tools). Several public MCP catalogs list `npx @discord/mcp-server` — that package does not exist on npm (404); treat those catalogs as unreliable.
+- Community servers can write (messages, channels, roles, moderation). **Dry-run:** `@discord-mcp/core` exposes `MCP_WRITE_MODE=preview` (blocks all mutations) and `MCP_DRY_RUN`, plus per-guild allow-lists.
+- The npm `mcp-discord` build lags the GitHub release — npm is 1.3.4 (22 tools), the repo ships 1.5.1 (46 tools). Prefer a pinned GitHub spec.
 ## Setup
 
 1. Create a Discord application and a bot token.

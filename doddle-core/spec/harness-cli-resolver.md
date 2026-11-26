@@ -158,10 +158,16 @@ Concretely for the RevOps pack:
 
 | Action | Tool | Gate |
 |---------|------|------|
-| Send a Slack alert | `doddle.tool.v1.slack.messages` | `approve_alert` |
-| Record a usage/meter event | `doddle.tool.v1.stripe.*` (write) | `approve_billing` |
-| Trigger a reverse-ETL sync | `doddle.tool.v1.hightouch.*` (write) | `approve_sync` |
-| Publish a teardown | `doddle.tool.v1.notion.pages` (write) | `approve_publish` |
+| Send a Slack alert | `doddle.tool.v1.slack.sendMessage` | `approve_alert` |
+| Share a QBR | `doddle.tool.v1.slack.sendMessage` | `approve_share` |
+| Record a usage/meter event | `doddle.tool.v1.stripe.recordMeterEvent` | `approve_billing` |
+| Enrich a contact | `doddle.tool.v1.apollo.enrichPeople` | `approve_enrichment` |
+| Create a reverse-ETL sync | `doddle.tool.v1.hightouch.createSync` | `approve_sync` |
+| Stage a teardown draft | `doddle.tool.v1.notion.createPage` | `approve_publish` |
+
+Unbound write surfaces (declared, never bound): `dbt.triggerJobRun`, `segment.trackEvent`,
+`rudderstack.triggerAudienceSync`, `zapier.runAction`, `make.runScenario`,
+`zoominfo.upsertAudience`, `discord.sendMessage`, `snowflake.executeSql`, `bigquery.executeSql`.
 
 The `drev` CLI never performs any of these. It produces the payload, the preview, or the plan;
 the write is a separate, gated node.

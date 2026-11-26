@@ -39,6 +39,11 @@ warehouse and is intentionally **not** bound. Promote it deliberately: add
 `doddle.tool.v1.dbt.runCommand`, set `"writes": true` in `config.json`, and gate it in the
 blueprint.
 
+## Verified notes (2026-11)
+
+- Remote (dbt-hosted) MCP endpoint: `https://cloud.getdbt.com/api/ai/v1/mcp/` (OAuth beta, or `Authorization: Bearer <PAT>` plus `x-dbt-prod-environment-id` / `x-dbt-dev-environment-id` / `x-dbt-user-id`).
+- Write surface declared but **not bound** by any blueprint: `trigger_job_run`, `retry_job_run`, `cancel_job_run`, and the self-hosted dbt CLI (`run` / `build` / `test`).
+- **Dry-run levers:** `execute_sql` is hard-enforced to a single read-only `SELECT`; `x-dbt-disable-tools` can disable job-run tools; `DISABLE_ADMIN_API` / `DBT_MCP_ENABLE_<TOOLSET>` give an allowlist; `compile` / `parse` never write to the warehouse.
 ## Setup
 
 ```bash

@@ -40,6 +40,11 @@ blueprint must place a `gate` node immediately before it (for example `approve_s
 tool `required: false` with `fallback: manual_review`, and show the source model, destination
 and audience before asking for approval.
 
+## Verified notes (2026-11)
+
+- REST base: `https://app.getcensus.com` (US) / `https://app-eu.getcensus.com` (EU), bearer with the **Activations** PAT (a Fivetran PAT is not interchangeable).
+- API v2 (live 2026-10-15) renamed `destinations` → `activations`, `connectors` → `activation_types`, `destination_connect_links` → `activation_connect_links`, and scopes by Fivetran `group_id` instead of workspace. **v1 retires 2027-01-15.**
+- Endpoints: `/api/v2/activations`, `/api/v2/syncs`, `/api/v2/activation_types`, `/api/v2/activation_connect_links`, `/api/v2/datasets`, `/api/v2/webhooks`.
 ## Setup
 
 1. Fivetran account with Activations enabled.

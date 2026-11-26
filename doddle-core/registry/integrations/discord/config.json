@@ -1,6 +1,6 @@
 {
   "name": "discord",
-  "description": "Discord community reads — the official MCP only searches developer docs, so message history needs a bot-token community server",
+  "description": "Discord community reads \u2014 the official MCP only searches developer docs, so message history needs a bot-token community server",
   "type": "npm",
   "command": "npx",
   "args": [
@@ -12,22 +12,30 @@
   "env": {
     "DISCORD_BOT_TOKEN": "${DISCORD_BOT_TOKEN}"
   },
-  "writes": false,
-  "writeTools": [],
+  "writes": true,
+  "writeTools": [
+    "doddle.tool.v1.discord.sendMessage",
+    "doddle.tool.v1.discord.createChannel",
+    "doddle.tool.v1.discord.manageRole",
+    "doddle.tool.v1.discord.moderate"
+  ],
   "setup": {
     "requirements": [
       "Discord application with a bot token",
       "Bot invited to the servers it may read",
-      "Message Content privileged intent enabled — otherwise the Gateway closes with code 4014",
+      "Message Content privileged intent enabled \u2014 otherwise the Gateway closes with code 4014",
       "VIEW_CHANNEL + READ_MESSAGE_HISTORY permissions on the target channels"
     ],
     "notes": [
       "Discord has NO official MCP server that reads or sends messages in your servers or DMs. The official MCP (https://docs.discord.com/mcp) only searches developer documentation (3 read-only doc tools).",
-      "Message reads need a community server driven by a DISCORD bot token — the leading maintained one is barryyip0625/mcp-discord (MIT).",
+      "Message reads need a community server driven by a DISCORD bot token \u2014 the leading maintained one is barryyip0625/mcp-discord (MIT).",
       "The npm `mcp-discord` build is stale (v1.3.4, 22 tools); the GitHub build is v1.5.1 (46 tools), stdio by default with optional HTTP. Register the GitHub build, not the npm one.",
       "Reading history needs VIEW_CHANNEL + READ_MESSAGE_HISTORY; the Message Content intent is required to read message text.",
       "Discord's native Search Guild Messages endpoint (2026-03-19) needs READ_MESSAGE_HISTORY + MESSAGE_CONTENT; error 110000 means the guild is not yet indexed.",
-      "Self-bot servers (account-token logins) violate Discord's terms of service and are not an option."
+      "Self-bot servers (account-token logins) violate Discord's terms of service and are not an option.",
+      "Community servers can write (messages, channels, roles, moderation). Dry-run: @discord-mcp/core exposes MCP_WRITE_MODE=preview (blocks all mutations) and MCP_DRY_RUN, plus per-guild allow-lists.",
+      "The npm mcp-discord build lags the GitHub release \u2014 npm is 1.3.4 (22 tools), the repo ships 1.5.1 (46 tools). Prefer a pinned GitHub spec.",
+      "Several public MCP catalogs list `npx @discord/mcp-server` \u2014 that package does not exist on npm (404). Treat those catalogs as unreliable."
     ]
   },
   "capabilities": {
@@ -40,11 +48,13 @@
     "upstreamTools": [
       "message history read (community server)",
       "Search Guild Messages (native Discord endpoint, 2026-03-19)",
-      "official docs MCP — 3 read-only documentation search tools"
+      "official docs MCP \u2014 3 read-only documentation search tools",
+      "community: send message, channel/role management, moderation, webhooks"
     ]
   },
   "source": {
     "officialDocsMcp": "https://docs.discord.com/mcp",
-    "communityServer": "https://github.com/barryyip0625/mcp-discord"
+    "communityServer": "https://github.com/barryyip0625/mcp-discord",
+    "npm": "https://www.npmjs.com/package/mcp-discord"
   }
 }

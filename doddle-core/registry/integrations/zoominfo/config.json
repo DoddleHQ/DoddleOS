@@ -1,23 +1,32 @@
 {
   "name": "zoominfo",
-  "description": "ZoomInfo official MCP server for the GTM.AI layer — verified B2B intelligence, buying signals, GTM Context Graph, Conversation Intelligence",
+  "description": "ZoomInfo official MCP server for the GTM.AI layer \u2014 verified B2B intelligence, buying signals, GTM Context Graph, Conversation Intelligence",
   "type": "remote",
   "transport": "http",
-  "url": null,
-  "env": {},
-  "writes": false,
-  "writeTools": [],
+  "url": "https://mcp.zoominfo.com/mcp",
+  "env": {
+    "ZOOMINFO_CLIENT_ID": "${ZOOMINFO_CLIENT_ID}",
+    "ZOOMINFO_CLIENT_SECRET": "${ZOOMINFO_CLIENT_SECRET}"
+  },
+  "writes": true,
+  "writeTools": [
+    "doddle.tool.v1.zoominfo.upsertAudience",
+    "doddle.tool.v1.zoominfo.updateGtmContext"
+  ],
   "setup": {
     "requirements": [
       "ZoomInfo account with GTM.AI access (and Conversation Intelligence access for call/meeting/email insight)",
-      "The MCP endpoint URL and credentials are issued per ZoomInfo account — they are not published in this registry"
+      "The MCP endpoint URL and credentials are issued per ZoomInfo account \u2014 they are not published in this registry"
     ],
     "notes": [
       "ZoomInfo operates an official MCP server for its GTM.AI layer: verified B2B intelligence (500M+ contacts, 100M+ companies), buying signals, and the GTM Context Graph.",
-      "Chorus is now ZoomInfo Conversation Intelligence (call, meeting and email capture; winning behaviors; deal momentum; churn risk) — a ZoomInfo product, not a separate vendor.",
+      "Chorus is now ZoomInfo Conversation Intelligence (call, meeting and email capture; winning behaviors; deal momentum; churn risk) \u2014 a ZoomInfo product, not a separate vendor.",
       "ZoomInfo powers HubSpot's Breeze Prospecting Agent (public beta) as a third-party data provider.",
       "Breeze Intelligence (HubSpot's Clearbit successor) has NO MCP server, so ZoomInfo's MCP is the integration lane for external intelligence.",
-      "The 'url' field is null on purpose: the endpoint is not published, so nothing may point at a guessed address."
+      "The 'url' field is null on purpose: the endpoint is not published, so nothing may point at a guessed address.",
+      "Chorus is still a live ZoomInfo product (Solutions \u2192 Conversation intelligence). It was NOT renamed to Zoom Revenue Accelerator \u2014 that is Zoom\u2019s competing meeting product.",
+      "Write surface is limited to audiences and GTM context. CRM write-back and bulk export are explicitly excluded from MCP \u2014 use the ZoomInfo API.",
+      "MCP skills shipped Aug 2026: Call Recap, Call Coaching, Commitment Ledger, AE-to-CS Handoff, Account Relationship Recap, Account Health."
     ]
   },
   "capabilities": {
@@ -30,15 +39,32 @@
       "conversation-intelligence"
     ],
     "upstreamTools": [
-      "verified contact search (500M+ contacts)",
-      "verified company search (100M+ companies)",
-      "buying signals",
-      "GTM Context Graph",
-      "Conversation Intelligence (formerly Chorus)"
+      "search_contacts",
+      "enrich_contact",
+      "search_companies",
+      "enrich_company",
+      "enrich_company_signals",
+      "lookup",
+      "account_research",
+      "contact_research",
+      "conversation_intelligence",
+      "browse_audiences",
+      "get_audience",
+      "browse_engagements",
+      "search_scoops",
+      "search_news",
+      "search_intent_signals",
+      "get_gtm_context",
+      "update_gtm_context",
+      "get_recommended_contacts",
+      "upsert_audience",
+      "manage_audience_columns",
+      "manage_audience_rows"
     ]
   },
   "source": {
     "vendor": "ZoomInfo",
-    "note": "Official ZoomInfo MCP server for the GTM.AI layer; endpoint issued per account."
+    "note": "Official ZoomInfo MCP server for the GTM.AI layer; endpoint issued per account.",
+    "registry": "io.github.Zoominfo/zoominfo-mcp"
   }
 }

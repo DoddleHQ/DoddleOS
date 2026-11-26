@@ -51,3 +51,9 @@ make outbound requests even when the tool does not save configuration.
 ## Used By
 
 - `revops-pql-scoring`, `revops-data-infrastructure` (doddle-revops-skills)
+
+## Verified notes (2026-11)
+
+- 62 tools classified Read (50) / **Sensitive execution (5)** / Write (7). Docs warn against auto-approving sensitive-execution tools.
+- **Best dry-run support in this registry:** `transformation_test_new` runs unsaved JS/Python against sample events without saving, `preview_audience` estimates row counts, and `plan_audience_activation` plans before creating.
+- Headless variant: `Authorization: Bearer <token>` plus `X-Workspace-ID` at `https://mcp.rudderstack.com/bearer-auth-mcp`.

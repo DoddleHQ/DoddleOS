@@ -60,6 +60,10 @@ journey and creative tools — keep the tool `required: false` with `fallback: m
 and preview the audience / sync / creative before asking for approval. All operations are
 scoped to the authenticated workspace and respect its RBAC.
 
+## Verified notes (2026-11)
+
+- REST fallback for everything the gated MCP cannot do: `https://api.hightouch.com` with a bearer key (`HIGTOUCH_API_KEY`).
+- The workspace OAuth metadata is live at `https://mcp-auth.hightouch.com/oauth2/{authorize,token,register,device_authorization}`, so a client can be built before the endpoint URL is disclosed.
 ## Setup
 
 1. Hightouch workspace.

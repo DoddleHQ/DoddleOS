@@ -1,25 +1,29 @@
 {
   "name": "fivetran-activations",
-  "description": "Fivetran Activations (formerly Census) reverse ETL and governed audiences — no Activations-native MCP server, so the sync path runs on the Activations REST API / Terraform provider",
+  "description": "Fivetran Activations (formerly Census) reverse ETL and governed audiences \u2014 no Activations-native MCP server, so the sync path runs on the Activations REST API / Terraform provider",
   "type": "rest",
   "transport": "https",
   "url": null,
-  "env": {},
+  "env": {
+    "ACTIVATIONS_PAT": "${ACTIVATIONS_PAT}"
+  },
   "writes": true,
   "writeTools": [
     "doddle.tool.v1.fivetran-activations.triggerSync"
   ],
   "setup": {
     "requirements": [
-      "Fivetran account (Census was acquired by Fivetran and is now Fivetran Activations — Census is no longer a standalone product)",
-      "Activations REST API or Terraform provider credentials for the reverse-ETL sync path",
-      "Warehouse model and destination connection for the syncs (200+ destinations), plus Audience Hub for governed segments"
+      "Fivetran account with Activations enabled",
+      "Activations personal access token (a Fivetran PAT is not interchangeable)"
     ],
     "notes": [
       "There is NO Activations-native MCP server: create and manage reverse-ETL syncs through the Activations REST API or the Terraform provider.",
-      "Fivetran hosts an 'Agent Context MCP server' exposing semantic definitions and READ-ONLY warehouse SQL, and publishes a self-hosted MCP repository in its own GitHub org for platform operations — neither is Activations-specific.",
+      "Fivetran hosts an 'Agent Context MCP server' exposing semantic definitions and READ-ONLY warehouse SQL, and publishes a self-hosted MCP repository in its own GitHub org for platform operations \u2014 neither is Activations-specific.",
       "Activations offers a REST API, a Terraform provider, a Management API and Connect Links.",
-      "The 'url' field is null on purpose: no Activations MCP endpoint exists to point at."
+      "The 'url' field is null on purpose: no Activations MCP endpoint exists to point at.",
+      "REST base: https://app.getcensus.com (US) / https://app-eu.getcensus.com (EU), bearer with the Activations PAT.",
+      "API v2 (live 2026-10-15) renamed destinations -> activations, connectors -> activation_types, destination_connect_links -> activation_connect_links, and scopes by Fivetran group_id instead of workspace. v1 retires 2027-01-15.",
+      "Endpoints: /api/v2/activations, /api/v2/syncs, /api/v2/activation_types, /api/v2/activation_connect_links, /api/v2/datasets, /api/v2/webhooks."
     ]
   },
   "capabilities": {
@@ -31,14 +35,15 @@
       "reverse-etl"
     ],
     "upstreamTools": [
-      "Fivetran Agent Context MCP — semantic definitions",
-      "Fivetran Agent Context MCP — read-only warehouse SQL",
-      "Activations REST API — audiences and syncs",
+      "Fivetran Agent Context MCP \u2014 semantic definitions",
+      "Fivetran Agent Context MCP \u2014 read-only warehouse SQL",
+      "Activations REST API \u2014 audiences and syncs",
       "Activations Terraform provider"
     ]
   },
   "source": {
     "vendor": "Fivetran",
-    "note": "Census is now Fivetran Activations. No Activations-native MCP server — the reverse-ETL sync path uses the Activations REST API / Terraform provider today."
+    "note": "Census is now Fivetran Activations. No Activations-native MCP server \u2014 the reverse-ETL sync path uses the Activations REST API / Terraform provider today.",
+    "restApi": "https://app.getcensus.com/api/v2"
   }
 }

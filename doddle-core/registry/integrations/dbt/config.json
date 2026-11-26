@@ -17,7 +17,7 @@
     "DBT_USER_ID": "${DBT_USER_ID}",
     "DBT_ACCOUNT_ID": "${DBT_ACCOUNT_ID}"
   },
-  "writes": false,
+  "writes": true,
   "setup": {
     "requirements": [
       "uv installed (runs dbt-mcp in an isolated environment)",
@@ -27,7 +27,8 @@
     "notes": [
       "Toolsets auto-disable when their required env vars are missing instead of erroring.",
       "Remote (dbt-hosted) MCP is consumption-only: no CLI commands and no codegen.",
-      "This registration binds the read-only metadata toolsets; the dbt CLI toolset (dbt run/build/test) is intentionally unbound because it mutates the warehouse."
+      "This registration binds the READ-ONLY metadata toolsets. The write surface \u2014 trigger_job_run, retry_job_run, cancel_job_run and the self-hosted dbt CLI (run/build/test) \u2014 is declared in writeTools but is NOT bound by any blueprint yet.",
+      "Dry-run levers: execute_sql is hard-enforced to a single read-only SELECT; x-dbt-disable-tools can disable job-run tools; DISABLE_ADMIN_API / DBT_MCP_ENABLE_<TOOLSET> give an allowlist; compile/parse never write to the warehouse."
     ]
   },
   "capabilities": {
@@ -41,18 +42,41 @@
       "docs"
     ],
     "upstreamTools": [
-      "Discovery API",
-      "Semantic Layer",
-      "Administrative API",
-      "Product Docs",
-      "MCP Server Metadata",
-      "dbt v2"
+      "execute_sql (read-only SELECT)",
+      "text_to_sql",
+      "query_metrics",
+      "list_metrics",
+      "get_dimensions",
+      "get_entities",
+      "get_lineage",
+      "get_node_details",
+      "get_model_health",
+      "list_jobs",
+      "list_jobs_runs",
+      "list_projects",
+      "trigger_job_run",
+      "retry_job_run",
+      "cancel_job_run",
+      "build",
+      "run",
+      "test",
+      "compile",
+      "parse",
+      "list",
+      "generate_model_yaml",
+      "fusion.compile_sql",
+      "search_product_docs"
     ]
   },
   "source": {
     "official": "https://docs.getdbt.com/docs/dbt-ai/about-mcp",
+    "remote": "https://cloud.getdbt.com/api/ai/v1/mcp/",
     "github": "https://github.com/dbt-labs/dbt-mcp",
     "pypi": "https://pypi.org/project/dbt-mcp/"
   },
-  "writeTools": []
+  "writeTools": [
+    "doddle.tool.v1.dbt.triggerJobRun",
+    "doddle.tool.v1.dbt.retryJobRun",
+    "doddle.tool.v1.dbt.cancelJobRun"
+  ]
 }

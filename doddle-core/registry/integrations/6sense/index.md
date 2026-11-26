@@ -42,6 +42,10 @@ approval gate is required. Watch the per-user / per-role credit limits instead â
 Intent Data API charges 3 credits per newly discovered account (non-matches are free), while
 People Search and Lead Scoring consume no credits.
 
+## Verified notes (2026-11)
+
+- OAuth 2.1 with code + PKCE, DCR, per-user consent, single scope `mcp:use`. Protected-resource metadata: `https://api.6sense.com/.well-known/oauth-protected-resource/mcp`.
+- Upstream tool names are **not published** â€” `tools/list` is OAuth-gated (401). Our tool ids are capability-shaped on purpose; pin to the live tool list.
 ## Setup
 
 1. 6sense account and credentials whose license + role allow MCP access.

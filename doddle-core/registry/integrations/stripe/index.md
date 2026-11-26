@@ -55,6 +55,11 @@ write, and it must preview first — see `doddle.revops.revops-usage-monetizatio
 with `drev meter` and only then records. Meter-event payloads reuse the preview's `event_id` so a
 retry never double-counts.
 
+## Verified notes (2026-11)
+
+- **Metered billing must target `POST /v1/billing/meter_events`** — the legacy `subscription_items/{id}/usage_records` endpoint was removed in API version `2025-03-31.basil`.
+- **Dry-run:** Stripe MCP has a first-class human-confirmation flow (approval in the Dashboard returns a 24h approval token). Combine it with a sandbox account and a restricted agent key.
+- From **2027-01-11** Stripe MCP stops accepting full-access secret keys and non-agent restricted keys — agent API key or OAuth only.
 ## Setup
 
 ```bash

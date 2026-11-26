@@ -41,6 +41,10 @@ Enable it with `gcloud beta services mcp enable bigquery.googleapis.com --projec
 intentionally unbound. Use `execute_sql_readonly` for analysis, and prefer in-warehouse
 computation (`AI.FORECAST`, `AI.KEY_DRIVERS`, `ML.PREDICT`) over exporting rows locally.
 
+## Verified notes (2026-11)
+
+- The managed server (`https://bigquery.googleapis.com/mcp`) exposes 9 tools and was verified live; real calls still need OAuth plus IAM (`roles/mcp.toolUser`, `roles/bigquery.jobUser`, `roles/bigquery.dataViewer`).
+- **Dry-run:** `execute_sql_readonly` plus `BIGQUERY_READONLY=true`; the vendor's own `BIGQUERY_WRITE_MODE=allowed|blocked|protected` is the write guard.
 ## Setup
 
 ```bash

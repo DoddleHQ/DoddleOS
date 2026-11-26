@@ -16,7 +16,10 @@
       "Connect with `claude mcp add --transport http rudderstack https://mcp.rudderstack.com/mcp`.",
       "For stdio-only clients use `npx -y mcp-remote https://mcp.rudderstack.com/mcp`.",
       "Workspace tools require workspace_id on every call; the endpoint is stateless.",
-      "Write tools can trigger audience-activation syncs and create reverse-ETL sync resources \u2014 review them before approving."
+      "Write tools can trigger audience-activation syncs and create reverse-ETL sync resources \u2014 review them before approving.",
+      "Headless variant: send the access token as Authorization: Bearer plus X-Workspace-ID; the OAuth path is stateless too.",
+      "RudderStack is the most dry-run-aware server in this registry: transformation_test_new executes unsaved code against sample events without saving, preview_audience estimates row counts, and plan_audience_activation plans before creating.",
+      "62 tools are classified Read (50) / Sensitive execution (5) / Write (7). Docs warn against auto-approving sensitive-execution tools."
     ]
   },
   "capabilities": {
@@ -41,7 +44,8 @@
   "source": {
     "official": "https://www.rudderstack.com/docs/ai-features/rudderstack-mcp/",
     "github": "https://github.com/rudderlabs/rudderstack-mcp",
-    "registry": "https://mcp.rudderstack.com/mcp"
+    "registry": "https://mcp.rudderstack.com/mcp",
+    "bearerVariant": "https://mcp.rudderstack.com/bearer-auth-mcp"
   },
   "writeTools": [
     "doddle.tool.v1.rudderstack.createAudience",

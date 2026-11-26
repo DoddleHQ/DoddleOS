@@ -1,6 +1,6 @@
 {
   "name": "6sense",
-  "description": "6sense account intelligence, 6QA trends, keyword and ad performance, website activity, segments — official MCP server (read-only)",
+  "description": "6sense account intelligence, 6QA trends, keyword and ad performance, website activity, segments \u2014 official MCP server (read-only)",
   "type": "remote",
   "transport": "http",
   "url": "https://api.6sense.com/mcp",
@@ -11,14 +11,16 @@
   "setup": {
     "requirements": [
       "6sense account and credentials that can authorize the MCP server",
-      "Per-user authorization — each user authorizes with their own 6sense credentials",
+      "Per-user authorization \u2014 each user authorizes with their own 6sense credentials",
       "A license and role that allow MCP access (RBAC and AI settings control what is exposed)"
     ],
     "notes": [
       "ALL MCP operations are READ-ONLY: the server cannot modify data.",
       "Access honours the user's license and role; daily, weekly and monthly credit limits apply per user and per role.",
       "Native APIs: Keyword Intent Data API v1 (OAuth 2.0; 3 credits per newly discovered account, non-matches are free), Company Identification API v3 (API token), Company Firmographics API v3, Lead Scoring API v2, People Search API v2, People Enrichment API v2, Server-Side Company Identification API v1.",
-      "People Search API and Lead Scoring API consume no credits."
+      "People Search API and Lead Scoring API consume no credits.",
+      "OAuth 2.1 with code + PKCE, DCR, per-user consent, single scope `mcp:use`. Protected-resource metadata: https://api.6sense.com/.well-known/oauth-protected-resource/mcp.",
+      "Upstream tool names are not published \u2014 tools/list is OAuth-gated (401). Our tool ids are capability-shaped on purpose; pin to the live tool list."
     ]
   },
   "capabilities": {
@@ -52,6 +54,7 @@
       "People Search API v2",
       "People Enrichment API v2",
       "Server-Side Company Identification API v1"
-    ]
+    ],
+    "protectedResource": "https://api.6sense.com/.well-known/oauth-protected-resource/mcp"
   }
 }

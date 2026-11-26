@@ -30,11 +30,18 @@
 | `doddle.tool.v1.zoominfo.searchCompanies` | verified company search | read |
 | `doddle.tool.v1.zoominfo.getBuyingSignals` | buying signals | read |
 | `doddle.tool.v1.zoominfo.getContextGraph` | GTM Context Graph | read |
-| `doddle.tool.v1.zoominfo.getConversationInsights` | Conversation Intelligence (formerly Chorus) | read |
+| `doddle.tool.v1.zoominfo.getConversationInsights` | `conversation_intelligence` — Chorus conversation intelligence | read |
+| `doddle.tool.v1.zoominfo.upsertAudience` | `upsert_audience` / `manage_audience_rows` | **write** |
+| `doddle.tool.v1.zoominfo.updateGtmContext` | `update_gtm_context` | **write** |
 
 **Read-only.** The registered surface is intelligence retrieval — no mutating tool is bound, so
 no approval gate is required.
 
+## Verified notes (2026-11)
+
+- **Chorus is still a live ZoomInfo product** (Solutions → Conversation intelligence). It was *not* renamed to Zoom Revenue Accelerator — that is Zoom's competing meeting product.
+- Write surface is limited to audiences and GTM context. CRM write-back and bulk export are explicitly excluded from MCP — use the ZoomInfo API.
+- MCP skills shipped Aug 2026: Call Recap, Call Coaching, Commitment Ledger, AE-to-CS Handoff, Account Relationship Recap, Account Health.
 ## Setup
 
 1. ZoomInfo account with GTM.AI access.

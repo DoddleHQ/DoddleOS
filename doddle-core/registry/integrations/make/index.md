@@ -51,6 +51,10 @@ before asking for approval.
 — keep the returned `executionId` and fetch the result later with the outputs tool instead of
 re-running the scenario.
 
+## Verified notes (2026-11)
+
+- Tool names are **generated from your scenarios**, so the tool surface is customer-defined. Use MCP toolboxes to limit which scenarios an API key exposes.
+- Scenario run timeouts are short (25s OAuth / 40s API key) while the scenario itself may run 40 minutes — capture the `executionId` and poll with the `scenarios:read` scope.
 ## Setup
 
 1. Make account.

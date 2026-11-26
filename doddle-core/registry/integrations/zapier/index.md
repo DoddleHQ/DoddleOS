@@ -46,6 +46,11 @@ a `gate` node immediately before any of them (for example `approve_publish`), ke
 `required: false` with `fallback: manual_review`, and name the app and action before asking for
 approval. Watch the workspace task quota — every call costs a task.
 
+## Verified notes (2026-11)
+
+- Programmatic clients connect with a **connection token** against a server you create; OAuth-from-the-client attaches the user to their default server.
+- Agentic mode ships 14 meta-tools for discovering and enabling actions mid-conversation; managed mode exposes one tool per enabled action, with names derived from Zapier action names.
+- **Dry-run:** managed mode with a single app and one enabled action.
 ## Setup
 
 1. Zapier Team or Enterprise plan.

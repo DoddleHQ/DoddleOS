@@ -31,6 +31,12 @@ package exists for it. Repos claiming to be an "official Segment MCP" do not exi
 **Write-gated.** `trackEvent` and `identifyUser` write into your customer data. Gate them, and
 never use them to inject events you did not earn.
 
+## Verified notes (2026-11)
+
+- Segment has **no official workspace MCP server**. The only first-party MCP is Twilio's docs search server (`https://mcp.twilio.com/docs`, 2 tools) — it never calls an API.
+- The closest wrapper is `segment-mcp-server@1.0.0` (single maintainer, no repo, unpublished source) — treat it as a dependency you own. Alternatives: `segment-mcp` (katekruger), `@pipeworx/mcp-segment`, `io.usefulapi/segment`.
+- Three credential types: Public API bearer token (`SEGMENT_PUBLIC_API_TOKEN`), Tracking API source write key (`SEGMENT_WRITE_KEY`), per-space Profiles token (`SEGMENT_PROFILE_TOKEN`).
+- **Dry-run:** use a test-mode source write key; GET-then-diff before config writes.
 ## Setup
 
 ```bash

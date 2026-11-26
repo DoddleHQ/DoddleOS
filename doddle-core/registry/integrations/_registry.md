@@ -14,8 +14,8 @@
 | [clearbit](./clearbit/) | Enrichment & Outreach | Remote | 1 | ⚠️ Deprecated |
 | [crosspost](./crosspost/) | Existing (see table) | npm | 3 | ✅ Active |
 | [dataforseo](./dataforseo/) | Existing (see table) | npm | 50 | ✅ Active |
-| [dbt](./dbt/) | Data Modeling | npm | 6 | ✅ Active |
-| [discord](./discord/) | Community | npm | 3 | ⚪ Community |
+| [dbt](./dbt/) | Data Modeling | npm | 6 | ✅ Active (write-gated) |
+| [discord](./discord/) | Community | npm | 3 | ✅ Active (write-gated) |
 | [fivetran-activations](./fivetran-activations/) | Reverse ETL | REST | 4 | ✅ Active (write-gated) |
 | [gong](./gong/) | Conversation Intelligence | Remote | 9 | ✅ Active |
 | [google-analytics](./google-analytics/) | Existing (see table) | npm | 6 | ✅ Active |
@@ -31,14 +31,14 @@
 | [segment](./segment/) | Customer Data | npm | 6 | ✅ Active (write-gated) |
 | [semrush](./semrush/) | Existing (see table) | Remote | 20 | ✅ Active |
 | [sensortower](./sensortower/) | Existing (see table) | custom | 29 | ✅ Active |
-| [slack](./slack/) | Existing (see table) | npm | 10 | ✅ Active (write-gated) |
+| [slack](./slack/) | Existing (see table) | Remote | 10 | ✅ Active (write-gated) |
 | [snowflake](./snowflake/) | Warehouse | Remote | 6 | ✅ Active (write-gated) |
 | [stripe](./stripe/) | Existing (see table) | Remote | 4 | ✅ Active (write-gated) |
 | [tiktok](./tiktok/) | Existing (see table) | npm | 5 | ✅ Active |
 | [twitter](./twitter/) | Existing (see table) | npm | 8 | ✅ Active |
 | [zalo](./zalo/) | Existing (see table) | custom | 0 | ✅ Active |
 | [zapier](./zapier/) | Automation | Remote | 5 | ✅ Active (write-gated) |
-| [zoominfo](./zoominfo/) | Conversation Intelligence | Remote | 5 | ✅ Active |
+| [zoominfo](./zoominfo/) | Conversation Intelligence | Remote | 5 | ✅ Active (write-gated) |
 
 ---
 
@@ -53,7 +53,7 @@
 
 ### Data Modeling
 
-- **[dbt](./dbt/)** — 6 tools · npm · auth: bot/token
+- **[dbt](./dbt/)** (write-gated) — 6 tools · npm · auth: bot/token
 
 
 ### Customer Data
@@ -81,7 +81,7 @@
 
 - **[gong](./gong/)** — 9 tools · Remote · auth: oauth
 
-- **[zoominfo](./zoominfo/)** — 5 tools · Remote · auth: remote
+- **[zoominfo](./zoominfo/)** (write-gated) — 5 tools · Remote · auth: remote
 
 
 ### Reverse ETL
@@ -100,7 +100,7 @@
 
 ### Community
 
-- **[discord](./discord/)** — 3 tools · npm · auth: bot/token
+- **[discord](./discord/)** (write-gated) — 3 tools · npm · auth: bot/token
 
 ---
 

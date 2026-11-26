@@ -1,11 +1,13 @@
 {
   "name": "zapier",
-  "description": "Zapier MCP — GA, agentic or managed servers that run actions against your existing app connections",
+  "description": "Zapier MCP \u2014 GA, agentic or managed servers that run actions against your existing app connections",
   "type": "remote",
   "transport": "http",
-  "url": "https://mcp.zapier.com",
+  "url": "https://mcp.zapier.com/api/v1/connect",
   "auth": "oauth",
-  "env": {},
+  "env": {
+    "ZAPIER_MCP_CONNECTION_TOKEN": "${ZAPIER_MCP_CONNECTION_TOKEN}"
+  },
   "writes": true,
   "writeTools": [
     "doddle.tool.v1.zapier.enableAction",
@@ -16,18 +18,21 @@
   "setup": {
     "requirements": [
       "Zapier Team or Enterprise plan",
-      "A named MCP client — one server is created per client",
+      "A named MCP client \u2014 one server is created per client",
       "App connections already set up in the Zapier account"
     ],
     "notes": [
       "General availability; available on Team and Enterprise plans.",
       "One server per named MCP client; sharing a server needs Team or Enterprise.",
-      "Streamable HTTP only — SSE is NOT supported.",
+      "Streamable HTTP only \u2014 SSE is NOT supported.",
       "Agentic mode (default) exposes the fixed meta-tools discover_zapier_actions, enable_zapier_action, manage_zapier_connections, auto_provision_mcp.",
       "Managed mode exposes one tool per action, configured in Zapier.",
       "Actions run against the user's existing app connections and CAN mutate those apps.",
       "Tool calls consume Zapier tasks from the plan quota; failed calls are free.",
-      "SOC 2 Type II. Enablement is account-level, controls are workspace-level, and task quotas are per workspace."
+      "SOC 2 Type II. Enablement is account-level, controls are workspace-level, and task quotas are per workspace.",
+      "Programmatic clients connect with a connection token against a server you create; OAuth-from-the-client attaches the user to their default server.",
+      "Agentic mode ships 14 meta-tools for discovering and enabling actions mid-conversation; managed mode exposes one tool per enabled action, with names derived from Zapier action names.",
+      "Dry-run: managed mode with a single app and one enabled action."
     ]
   },
   "capabilities": {
@@ -47,6 +52,7 @@
     ]
   },
   "source": {
-    "mcp": "https://mcp.zapier.com"
+    "mcp": "https://mcp.zapier.com",
+    "registry": "com.zapier/mcp"
   }
 }

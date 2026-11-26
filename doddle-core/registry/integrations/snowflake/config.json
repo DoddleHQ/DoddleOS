@@ -20,9 +20,12 @@
       "Enable the MCP API for the account"
     ],
     "notes": [
+      "An open-source alternative lives under Snowflake-Labs (repo Snowflake-Labs/mcp, npm snowflake-labs-mcp) \u2014 the snowflakedb org publishes a cursor plugin and Terraform provider, not an MCP server.",
       "The account hostname must use hyphens instead of underscores (MCP clients fail to connect otherwise).",
       "Since 2026-08-20 tools/call responses arrive as an SSE stream \u2014 send Accept: application/json, text/event-stream.",
-      "Server implements MCP revision 2025-11-25."
+      "Server implements MCP revision 2025-11-25.",
+      "Dry-run primitive: expose CORTEX_ANALYST_MESSAGE \u2014 it generates SQL and returns the statement without executing it.",
+      "Managed tool names are user-defined in the server spec YAML, so pin behaviour to tools/list rather than hardcoded names."
     ]
   },
   "capabilities": {
@@ -45,7 +48,9 @@
   },
   "source": {
     "official": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-mcp",
-    "quickstart": "https://www.snowflake.com/en/developers/guides/getting-started-with-snowflake-mcp-server/"
+    "quickstart": "https://www.snowflake.com/en/developers/guides/getting-started-with-snowflake-mcp-server/",
+    "oss": "https://github.com/Snowflake-Labs/mcp",
+    "ossNpm": "snowflake-labs-mcp"
   },
   "writeTools": [
     "doddle.tool.v1.snowflake.executeSql"

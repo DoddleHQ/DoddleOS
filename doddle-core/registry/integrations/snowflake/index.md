@@ -43,6 +43,11 @@
 (`approve_query`) and scope the role to a least-privilege role. Read-only profiling should use
 the catalog tools, not SQL.
 
+## Verified notes (2026-11)
+
+- An open-source alternative lives under **Snowflake-Labs** (repo `Snowflake-Labs/mcp`, npm `snowflake-labs-mcp`). The `snowflakedb` org publishes a cursor plugin and Terraform provider, but no MCP server.
+- **Dry-run primitive:** expose `CORTEX_ANALYST_MESSAGE` — it generates SQL and returns the statement *without executing it*.
+- Managed tool names are user-defined in the server spec YAML, so pin behaviour to `tools/list`.
 ## Setup
 
 ```bash

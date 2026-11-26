@@ -1,6 +1,6 @@
 {
   "name": "apollo",
-  "description": "Apollo prospecting and enrichment — official MCP server (people/company search, enrichment, validation, research)",
+  "description": "Apollo prospecting and enrichment \u2014 official MCP server (people/company search, enrichment, validation, research)",
   "type": "remote",
   "transport": "http",
   "url": "https://mcp.apollo.io/mcp",
@@ -24,7 +24,9 @@
       "People search (apollo_mixed_people_api_search) reads and consumes no credits.",
       "Company search, enrichment, validation and research consume credits.",
       "Destructive bulk delete is not supported.",
-      "Apollo prohibits AI model training on its data."
+      "Apollo prohibits AI model training on its data.",
+      "Apollo publishes Actions, not fixed tool ids. Pin behaviour to tools/list and re-connect after a rollout \u2014 an API-key connection gets no \"new tools\" signal.",
+      "Dry-run: create sequences inactive for review, draft email content before pushing, and set client approval to \"Approval required\" for credit-consuming actions."
     ]
   },
   "capabilities": {
@@ -37,11 +39,23 @@
       "research"
     ],
     "upstreamTools": [
-      "apollo_mixed_people_api_search",
-      "company search",
-      "enrichment",
-      "validation",
-      "research"
+      "Search for people",
+      "Search for companies",
+      "People enrichment",
+      "Bulk people enrichment",
+      "Company enrichment",
+      "Create/update a contact",
+      "Create a list",
+      "Add records to lists",
+      "Send one-off emails",
+      "Create or update a sequence",
+      "Add contacts to a sequence",
+      "Create tasks",
+      "Search conversations",
+      "Query analytics data",
+      "apollo_email_validation_validate",
+      "apollo_phone_validation_validate",
+      "apollo_webhook_result_show"
     ]
   },
   "source": {
