@@ -1,3 +1,10 @@
+## [1.18.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.17.0...v1.18.0) (2026-11-26)
+
+
+### 🚀 Features
+
+* **core+revops:** register 16 verified MCP integrations, gate external writes, add CLI resolver spec and CI pack checks ([73e243a](https://github.com/DoddleHQ/DoddleOS/commit/73e243a6ebfc4741cd606eb523cb5a36033bf39f))
+
 ## [1.17.0](https://github.com/DoddleHQ/DoddleOS/compare/v1.16.0...v1.17.0) (2026-11-26)
 
 
