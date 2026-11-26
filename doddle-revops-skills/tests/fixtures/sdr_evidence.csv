@@ -1,0 +1,5 @@
+id,source,fact,observed_at,domains
+ev_1,https://northwind.io/news/series-b,Announced a Series B in October,2026-10-02,northwind.io
+ev_2,https://northwind.io/jobs,Job postings mention Postgres and Kubernetes,2026-11-01,northwind.io
+ev_3,https://northwind.io/pricing,Pricing page lists $99 per seat,2026-11-10,northwind.io
+ev_4,https://competitor.com/blog,Competitor raised a Series B,2026-10-02,competitor.com

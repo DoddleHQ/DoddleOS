@@ -167,7 +167,7 @@
       "source": "./doddle-revops-skills/.claude/skills",
       "ids": "doddle.revops.*",
       "version": "1.0.0",
-      "skills": 3,
+      "skills": 12,
       "os": "Doddle RevOps OS"
     }
   ]

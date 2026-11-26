@@ -1,0 +1,5 @@
+[
+  {"name": "Alpha Tool", "pricing_model": "per seat", "value_metric": "editors", "price": 49, "free_tier": true, "segment": "smb", "url": "https://alpha.example"},
+  {"name": "Beta Suite", "pricing_model": "usage based", "value_metric": "api calls", "price": 199, "free_tier": false, "segment": "mid-market", "url": "https://beta.example"},
+  {"name": "Gamma App", "pricing_model": "hybrid", "value_metric": "seats + storage", "price": 299, "free_tier": false, "segment": "enterprise", "url": "https://gamma.example"}
+]

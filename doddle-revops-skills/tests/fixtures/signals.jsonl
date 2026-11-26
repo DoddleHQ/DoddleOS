@@ -1,0 +1,5 @@
+{"account_id": "acct_9f3", "signal": "pricing_page_view", "occurred_at": "2026-11-24T10:00:00Z", "contact_id": "c1"}
+{"account_id": "acct_9f3", "signal": "pricing_page_view", "occurred_at": "2026-11-22T10:00:00Z", "contact_id": "c1"}
+{"account_id": "acct_2b1", "signal": "job_posting", "occurred_at": "2026-11-23T10:00:00Z", "contact_id": "c2"}
+{"account_id": "acct_3c4", "signal": "pricing_page_view", "occurred_at": "2025-01-01T10:00:00Z", "contact_id": "c3"}
+{"account_id": "acct_4d5", "signal": "unknown_signal", "occurred_at": "2026-11-25T10:00:00Z", "contact_id": "c4"}

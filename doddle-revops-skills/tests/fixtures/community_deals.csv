@@ -1,0 +1,4 @@
+deal_id,person_id,amount,closed_at,outcome
+dd1,h1,4000,2026-11-01,won
+dd2,h2,2500,2026-11-05,won
+dd3,h9,9000,2026-11-06,won

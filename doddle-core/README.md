@@ -15,7 +15,7 @@ doddle-core/            Layer 0 — kernel (this pack)
                         (32 skills, doddle.gtm.*) + doddle-devops-skills
                         (10 skills, doddle.devops.*) + wordpress-agent-skills/
                         (20 skills, doddle.wordpress.*) + doddle-revops-skills/
-                        (3 skills, doddle.revops.*) + 16 vertical packs.
+                        (12 skills, doddle.revops.*) + 16 vertical packs.
                         Each pack ships own skills + bundled agents. No
                         cross-pack install deps; binding via blueprint `call`.
 ```

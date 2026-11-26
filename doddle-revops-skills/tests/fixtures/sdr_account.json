@@ -1,0 +1,10 @@
+{
+  "account": {"name": "Northwind Robotics", "domain": "northwind.io", "segment": "smb"},
+  "claims": [
+    {"text": "They just raised a Series B", "evidence_id": "ev_1"},
+    {"text": "They use Postgres for everything", "evidence_id": "ev_2"},
+    {"text": "They have 400 engineers", "evidence_id": "ev_missing"},
+    {"text": "Their pricing page says $99 per seat", "evidence_id": "ev_3"},
+    {"text": "They raised a Series B", "evidence_id": "ev_4"}
+  ]
+}

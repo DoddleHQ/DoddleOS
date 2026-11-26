@@ -1,0 +1,25 @@
+{
+  "integrations": [
+    {
+      "name": "hubspot",
+      "type": "native",
+      "oauth_scopes": ["crm.objects.deals.read"],
+      "webhooks": ["deal.stage_changed"],
+      "events": [],
+      "listing": {"status": "published", "url": "https://example.com/integrations/hubspot"},
+      "co_sell": {"fields": ["owner", "attribution"]},
+      "owner": "revops",
+      "docs_url": "https://example.com/docs/hubspot"
+    },
+    {
+      "name": "zapier",
+      "type": "automation",
+      "oauth_scopes": [],
+      "webhooks": [],
+      "events": ["deal.created"],
+      "listing": {"status": "draft"},
+      "co_sell": {},
+      "docs_url": ""
+    }
+  ]
+}

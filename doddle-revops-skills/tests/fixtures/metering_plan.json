@@ -1,0 +1,7 @@
+{
+  "currency": "USD",
+  "tiers": [
+    {"name": "Pro", "price": 99, "included_units": 1000, "unit_price": 0.05, "credits": 100},
+    {"name": "Starter", "price": 29, "included_units": 100, "unit_price": 0.02, "credits": 0}
+  ]
+}

@@ -1,0 +1,20 @@
+id: doddle.revops.revops-dark-social
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Model dark-social and community attribution — self-reported and survey-modelled sources, influenced revenue, confidence, and consent flags."
+inputs:
+  - {name: community, type: file, required: true, description: "Community activity (CSV/JSON) with person_id, community, activity_date"}
+  - {name: surveys, type: file, required: false, description: "Survey responses (CSV/JSON) with person_id, heard_from, other_source, consent"}
+  - {name: deals, type: file, required: false, description: "Deals export (CSV/JSON) linking person_id to won revenue"}
+outputs:
+  - {name: report, type: markdown, description: "Attribution bases, influenced revenue, confidence, and consent gaps"}
+  - {name: envelope, type: json, description: "Deterministic community-attribution envelope"}
+tools:
+  - {id: doddle.tool.cli.drev, required: false, fallback: manual_review}
+integrations: []
+nodes:
+  - {id: survey, type: agent, ref: revops-data-engineer, needs: [inputs], produces: [assessment]}
+  - {id: attribute, type: tool, ref: doddle.tool.cli.drev, args: ["community-attribution"], needs: [survey], produces: [envelope]}
+  - {id: report, type: agent, ref: revops-signal-analyst, needs: [attribute], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

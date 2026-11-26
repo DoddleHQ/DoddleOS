@@ -12,8 +12,16 @@ from typing import List, Tuple
 PACK = Path(__file__).resolve().parent.parent
 SKILLS = PACK / ".claude" / "skills"
 AGENTS = PACK / ".claude" / "agents"
-EXPECTED_SKILLS = {"revops-data-infrastructure", "revops-pql-scoring", "revops-attribution"}
-EXPECTED_AGENTS = {"revops-data-engineer", "revops-analyst"}
+EXPECTED_SKILLS = {
+    "revops-data-infrastructure", "revops-pql-scoring", "revops-attribution",
+    "revops-signal-routing", "revops-ai-sdr", "revops-usage-monetization",
+    "revops-call-intelligence", "revops-retention", "revops-integration-growth",
+    "revops-qbr", "revops-dark-social", "revops-revenue-portfolio",
+}
+EXPECTED_AGENTS = {
+    "revops-data-engineer", "revops-analyst", "revops-signal-analyst",
+    "revops-growth-operator", "revops-commercial-analyst", "revops-customer-insights",
+}
 REQUIRED_SECTIONS = [
     "## Deterministic Toolkit",
     "## Workflow",

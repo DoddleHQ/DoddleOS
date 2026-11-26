@@ -11,7 +11,7 @@
     {
       "name": "doddleOS-marketing",
       "source": "./",
-      "description": "DoddleOS skills distribution — 118 agents, 241 commands, 236 skills across 21 peer packs (DoddleOS v2 blueprints + draft harness spec; no runner ships here)",
+      "description": "DoddleOS skills distribution — 122 agents, 250 commands, 245 skills across 21 peer packs (DoddleOS v2 blueprints + draft harness spec; no runner ships here)",
       "author": {
         "name": "Doddle Team"
       },

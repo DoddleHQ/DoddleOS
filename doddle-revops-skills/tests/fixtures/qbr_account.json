@@ -1,0 +1,14 @@
+{
+  "period": "2026-Q4",
+  "account": {"name": "Northwind Robotics", "segment": "enterprise", "csm": "dana"},
+  "investment": 12000,
+  "revenue": 54000,
+  "kpis": [
+    {"metric": "expansion_arr", "target": 18000, "actual": 18000},
+    {"metric": "pql_rate", "target": 0.30, "actual": 0.24},
+    {"metric": "support_sla", "target": 99, "actual": 97}
+  ],
+  "outcomes": ["Rolled out the activation playbook; time-to-value fell for two teams"],
+  "risks": ["Champion changed roles in October"],
+  "asks": ["Introduce the new VP Engineering for a technical review"]
+}

@@ -7,7 +7,7 @@
   },
   "metadata": {
     "description": "DoddleOS agentic task execution operating system for Claude Code - validated graph blueprints across 21 peer packs",
-    "longDescription": "DoddleOS execution engine with 118 agents, 241 slash commands, 236 validated skills across 21 peer packs (marketing + GTM flagship plus WordPress, RevOps, ecom, local, SaaS, health, legal, finance, and more), and interactive training.",
+    "longDescription": "DoddleOS execution engine with 122 agents, 250 slash commands, 245 validated skills across 21 peer packs (marketing + GTM flagship plus WordPress, RevOps, ecom, local, SaaS, health, legal, finance, and more), and interactive training.",
     "version": "2.0.0",
     "updatedAt": "2026-11-25"
   },

@@ -1,0 +1,5 @@
+company,observation,observed_at,source_url
+Alpha Tool,Public pricing page lists $49 per editor,2026-09-01,https://alpha.example/pricing
+Alpha Tool,Free tier capped at 3 editors,2026-10-01,https://alpha.example/pricing
+Beta Suite,Usage based pricing announced,2026-08-15,https://beta.example/blog
+Gamma App,Hybrid pricing page captured,2026-11-01,https://gamma.example/pricing

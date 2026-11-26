@@ -1,0 +1,21 @@
+id: doddle.revops.revops-qbr
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Build the quarterly business review — scoreboard, ROI, risks, the ask, and a CSM deck outline from recorded data."
+inputs:
+  - {name: account, type: file, required: true, description: "Account JSON with account{}, kpis[], outcomes[], risks[], asks[], investment, revenue"}
+  - {name: period, type: string, required: false, description: "Review period, e.g. 2026-Q4"}
+  - {name: segment, type: string, required: false, description: "Segment filter; defaults to SMB"}
+outputs:
+  - {name: report, type: markdown, description: "QBR pack: scoreboard, ROI, outcomes, risks, the ask"}
+  - {name: deck, type: json, description: "CSM deck outline with per-slide bullets and evidence"}
+  - {name: envelope, type: json, description: "Deterministic QBR envelope"}
+tools:
+  - {id: doddle.tool.cli.drev, required: false, fallback: manual_review}
+integrations: []
+nodes:
+  - {id: survey, type: agent, ref: revops-data-engineer, needs: [inputs], produces: [assessment]}
+  - {id: build, type: tool, ref: doddle.tool.cli.drev, args: ["qbr"], needs: [survey], produces: [envelope]}
+  - {id: report, type: agent, ref: revops-customer-insights, needs: [build], produces: [report, deck]}
+on_fail: {retry: 1, fallback: manual_review}

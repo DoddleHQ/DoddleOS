@@ -1,0 +1,20 @@
+id: doddle.revops.revops-retention
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Compute NRR and GRR, score customer health from usage, and flag renewal risk and expansion signals."
+inputs:
+  - {name: customers, type: file, required: true, description: "Customer export (CSV/JSON) with ARR components and renewal_date"}
+  - {name: usage, type: file, required: true, description: "Usage export (CSV/JSON) with customer_id, period, usage_value"}
+  - {name: segment, type: string, required: false, description: "Segment filter; defaults to SMB"}
+outputs:
+  - {name: report, type: markdown, description: "NRR/GRR, health scores, renewal risk, and expansion candidates"}
+  - {name: envelope, type: json, description: "Deterministic retention envelope"}
+tools:
+  - {id: doddle.tool.cli.drev, required: false, fallback: manual_review}
+integrations: []
+nodes:
+  - {id: survey, type: agent, ref: revops-data-engineer, needs: [inputs], produces: [assessment]}
+  - {id: analyze, type: tool, ref: doddle.tool.cli.drev, args: ["retention"], needs: [survey], produces: [envelope]}
+  - {id: report, type: agent, ref: revops-customer-insights, needs: [analyze], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

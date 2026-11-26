@@ -1,7 +1,7 @@
 {
   "name": "doddle-revops-skills",
   "version": "1.0.0",
-  "description": "Doddle RevOps OS — read-only revenue data layer: source-of-truth audit, PQL scoring, multi-touch attribution and cohorts, with the deterministic drev toolkit.",
+  "description": "Doddle RevOps OS — 12 read-only revenue-data skills across the full 12-stage revenue stack (data infrastructure, signal routing, AI-SDR evidence gate, PQL, usage metering, attribution and cohorts, call intelligence, retention/NRR, integration readiness, QBR, community attribution, revenue portfolio) with the deterministic drev toolkit.",
   "author": {
     "name": "Doddle Team",
     "url": "https://doddlehq.com"
@@ -16,7 +16,9 @@
     "pql",
     "attribution",
     "cohorts",
-    "data-infrastructure"
+    "retention",
+    "qbr",
+    "doddleos"
   ],
   "category": "revops",
   "tags": [
@@ -24,6 +26,7 @@
     "data",
     "attribution",
     "pql",
+    "retention",
     "revenue"
   ],
   "skills": "./.claude/skills",
@@ -32,19 +35,32 @@
   "components": {
     "skills": {
       "path": "./.claude/skills",
-      "count": 3,
+      "count": 12,
       "list": [
         "revops-data-infrastructure",
+        "revops-signal-routing",
+        "revops-ai-sdr",
         "revops-pql-scoring",
-        "revops-attribution"
+        "revops-usage-monetization",
+        "revops-attribution",
+        "revops-call-intelligence",
+        "revops-retention",
+        "revops-integration-growth",
+        "revops-qbr",
+        "revops-dark-social",
+        "revops-revenue-portfolio"
       ]
     },
     "agents": {
       "path": "./.claude/agents",
-      "count": 2,
+      "count": 6,
       "list": [
         "revops-data-engineer",
-        "revops-analyst"
+        "revops-analyst",
+        "revops-signal-analyst",
+        "revops-growth-operator",
+        "revops-commercial-analyst",
+        "revops-customer-insights"
       ]
     },
     "toolkit": {

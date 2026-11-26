@@ -1,0 +1,20 @@
+id: doddle.revops.revops-signal-routing
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Route buyer-intent signals to owners with recency windows, priority ladders, and dry-run alerts — no sending."
+inputs:
+  - {name: events, type: file, required: true, description: "Signal events (JSONL/CSV) with account_id, signal, occurred_at"}
+  - {name: rules, type: file, required: true, description: "Routing rules (JSON) with routes[] and recency_window_days"}
+  - {name: segment, type: string, required: false, description: "Segment filter; defaults to SMB"}
+outputs:
+  - {name: report, type: markdown, description: "Routed signals, unrouted types, and the alert plan"}
+  - {name: envelope, type: json, description: "Deterministic routing envelope"}
+tools:
+  - {id: doddle.tool.cli.drev, required: false, fallback: manual_review}
+integrations: []
+nodes:
+  - {id: survey, type: agent, ref: revops-data-engineer, needs: [inputs], produces: [assessment]}
+  - {id: route, type: tool, ref: doddle.tool.cli.drev, args: ["route-signals"], needs: [survey], produces: [envelope]}
+  - {id: report, type: agent, ref: revops-signal-analyst, needs: [route], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

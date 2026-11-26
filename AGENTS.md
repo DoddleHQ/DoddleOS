@@ -4,7 +4,7 @@ This file is the entry point for AI agents regardless of vendor (Claude Code, Ge
 
 ## What this repo is
 
-DoddleOS is a library of **236 skills across 21 peer packs** — marketing, agency, sales, b2b, GTM, travel, ecommerce, local, SaaS, health, legal, finance, devops, WordPress, RevOps, and more. Each skill is a pair of files: `SKILL.md` (the instructions) + `blueprint.yaml` (an ordered execution graph). No runtime ships here — **you are the runtime**: read the skill, walk the graph, do the work.
+DoddleOS is a library of **245 skills across 21 peer packs** — marketing, agency, sales, b2b, GTM, travel, ecommerce, local, SaaS, health, legal, finance, devops, WordPress, RevOps, and more. Each skill is a pair of files: `SKILL.md` (the instructions) + `blueprint.yaml` (an ordered execution graph). No runtime ships here — **you are the runtime**: read the skill, walk the graph, do the work.
 
 ## Core consumption rule
 

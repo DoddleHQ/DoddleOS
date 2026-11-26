@@ -1,7 +1,7 @@
 {
   "name": "doddleOS-marketing",
   "version": "2.0.0",
-  "description": "DoddleOS skills distribution: validated graph blueprints + specs (harness draft; no runner ships here). 118 agents, 241 commands, 236 skills across 21 independent peer packs (marketing, GTM, travel, devops, WordPress, RevOps, affiliate + 15 verticals)",
+  "description": "DoddleOS skills distribution: validated graph blueprints + specs (harness draft; no runner ships here). 122 agents, 250 commands, 245 skills across 21 independent peer packs (marketing, GTM, travel, devops, WordPress, RevOps, affiliate + 15 verticals)",
   "author": {
     "name": "Doddle Team",
     "url": "https://doddlehq.com"

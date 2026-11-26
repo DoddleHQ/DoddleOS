@@ -1,0 +1,7 @@
+{
+  "recency_window_days": 14,
+  "routes": [
+    {"signal": "pricing_page_view", "channel": "email", "owner": "sdr", "priority": 1, "action": "send_1to1_offer"},
+    {"signal": "job_posting", "channel": "linkedin", "owner": "ae", "priority": 3, "action": "review_account"}
+  ]
+}

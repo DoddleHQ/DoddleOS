@@ -1,0 +1,21 @@
+id: doddle.revops.revops-ai-sdr
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Check every personalization claim in AI-SDR copy against supplied evidence before it is sent."
+inputs:
+  - {name: account, type: file, required: true, description: "Account JSON with account{} and claims[]"}
+  - {name: evidence, type: file, required: true, description: "Evidence export (JSON/CSV) with id, source, fact, observed_at, domains"}
+  - {name: icp, type: string, required: false, description: "Target profile for the outreach angle"}
+  - {name: offer, type: string, required: false, description: "Offer the outreach leads with"}
+outputs:
+  - {name: report, type: markdown, description: "Supported and unsupported claims plus the outreach plan"}
+  - {name: envelope, type: json, description: "Deterministic evidence-check envelope"}
+tools:
+  - {id: doddle.tool.cli.drev, required: false, fallback: manual_review}
+integrations: []
+nodes:
+  - {id: survey, type: agent, ref: revops-data-engineer, needs: [inputs], produces: [assessment]}
+  - {id: validate, type: tool, ref: doddle.tool.cli.drev, args: ["sdr-validate"], needs: [survey], produces: [envelope]}
+  - {id: report, type: agent, ref: revops-growth-operator, needs: [validate], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

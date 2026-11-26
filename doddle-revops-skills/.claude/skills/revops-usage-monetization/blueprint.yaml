@@ -1,0 +1,20 @@
+id: doddle.revops.revops-usage-monetization
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Rate usage against a plan, consume credits, and preview an invoice — usage-based pricing and monetisation math without touching billing."
+inputs:
+  - {name: usage, type: file, required: true, description: "Usage rows (JSONL/CSV) with account_id, period, quantity"}
+  - {name: plan, type: file, required: true, description: "Plan definition (JSON) with tiers[]: price, included_units, unit_price, credits"}
+  - {name: segment, type: string, required: false, description: "Segment filter; defaults to SMB"}
+outputs:
+  - {name: report, type: markdown, description: "Rated usage, credit burn, overage, and invoice preview"}
+  - {name: envelope, type: json, description: "Deterministic metering envelope"}
+tools:
+  - {id: doddle.tool.cli.drev, required: false, fallback: manual_review}
+integrations: []
+nodes:
+  - {id: survey, type: agent, ref: revops-data-engineer, needs: [inputs], produces: [assessment]}
+  - {id: meter, type: tool, ref: doddle.tool.cli.drev, args: ["meter"], needs: [survey], produces: [envelope]}
+  - {id: report, type: agent, ref: revops-commercial-analyst, needs: [meter], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}

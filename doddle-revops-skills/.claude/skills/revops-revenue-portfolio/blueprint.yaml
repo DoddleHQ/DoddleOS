@@ -1,0 +1,20 @@
+id: doddle.revops.revops-revenue-portfolio
+version: 1.0.0
+kind: skill
+engine: doddle-os>=1.0
+description: "Compare a portfolio of public pricing pages and teardowns with dated evidence, normalized pricing models, and confidence — before publishing."
+inputs:
+  - {name: companies, type: file, required: true, description: "Companies JSON with name, pricing_model, value_metric, price"}
+  - {name: observations, type: file, required: true, description: "Observations (CSV/JSON) with company, observation, observed_at, source_url"}
+  - {name: segment, type: string, required: false, description: "Segment focus; defaults to SMB"}
+outputs:
+  - {name: report, type: markdown, description: "Normalized comparison, evidence confidence, and teardown outline"}
+  - {name: envelope, type: json, description: "Deterministic portfolio envelope"}
+tools:
+  - {id: doddle.tool.cli.drev, required: false, fallback: manual_review}
+integrations: []
+nodes:
+  - {id: survey, type: agent, ref: revops-data-engineer, needs: [inputs], produces: [assessment]}
+  - {id: build, type: tool, ref: doddle.tool.cli.drev, args: ["portfolio"], needs: [survey], produces: [envelope]}
+  - {id: report, type: agent, ref: revops-commercial-analyst, needs: [build], produces: [report]}
+on_fail: {retry: 1, fallback: manual_review}
